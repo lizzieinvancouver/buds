@@ -13,7 +13,11 @@ library(plyr)
 library(nlme)
 
 # DF: setwd("/Users/danflynn/Documents/git")
+<<<<<<< Updated upstream
 # Lab computer: setwd("~/GitHub")
+=======
+#JS: setwd("/Users/jsamaha/Documents/Bud Set Project")
+>>>>>>> Stashed changes
 setwd("/Users/Lizzie/Documents/git/projects/treegarden/analyses/")
 
 dater <- read.csv("buds/input/BUDSET_Dissection_Data_April30.csv", header=TRUE)
