@@ -13,17 +13,24 @@ library(plyr)
 library(nlme)
 
 # DF: setwd("/Users/danflynn/Documents/git")
-
+# Lab computer: setwd("~/GitHub")
 setwd("/Users/Lizzie/Documents/git/projects/treegarden/analyses/")
 
 dater <- read.csv("buds/input/BUDSET_Dissection_Data_April30.csv", header=TRUE)
 
 ## some data clean up
-dater$Genus[dater$Genus=="Alnus "] <- "Alnus"
-dater$Genus[dater$Genus=="Betula "] <- "Betula"
-dater$latbi <- paste(dater$Genus, dater$species, sep="_")
+#dater$Genus[dater$Genus=="Alnus "] <- "Alnus"
+#dater$Genus[dater$Genus=="Betula "] <- "Betula"
+dater$Genus <- sub("^ | $", "", dater$Genus) # Alternative for cleaning up whitespace
 
-dater$date_measure1 <- as.Date(dater$date_measure, format="%d-%b-%Y")
+# Fix Popgra spelling; was grandifolia in SH
+dater$species[dater$Genus=="Populus" & dater$species=="grandifolia"] <- "grandidentata"
+
+dater$latbi <- paste(dater$Genus, dater$species, sep="_")
+# unique(dater$latbi)
+
+dater$date_measure1 <- as.Date(dater$date_measure, format="%Y-%m-%d")
+#dater$date_measure1 <- as.Date(dater$date_measure, format="%d-%b-%Y")
     # see http://www.statmethods.net/input/dates.html
 dater$doy <- as.numeric(format(dater$date_measure1, "%j")) # day of year
 dater$Site[dater$Site=="St. Hippolyte"] <- "Saint Hippolyte"
@@ -55,11 +62,11 @@ budwidth_summary <- ddply(dater, c("Site", "latbi"), summarise,
 hfdater <- subset(dater, Site=="Harvard Forest")
 shdater <- subset(dater, Site=="Saint Hippolyte")
 
-(sppnotatSH <- unique(hfdater$latbi)[which(!unique(hfdater$latbi)
-    %in% unique(shdater$latbi))])
-(sppnotatHF <- unique(shdater$latbi)[which(!unique(shdater$latbi)
-    %in% unique(hfdater$latbi))]) # why no Popgra at HF?
+(sppnotatSH <- unique(hfdater$latbi)[which(!  unique(hfdater$latbi) %in% unique(shdater$latbi)   )]    )
 
+(sppnotatHF <- unique(shdater$latbi)[which(!unique(shdater$latbi)
+    %in% unique(hfdater$latbi))]) 
+    
 daterbothsites <- dater[which(!dater$latbi %in% sppnotatSH),]
 daterbothsites <- daterbothsites[which(!daterbothsites$latbi %in% sppnotatHF),]
 
@@ -72,7 +79,7 @@ pch <- c(1, 2)
 ## data through time
 
 pdf(file="buds/graphs/budwidths.pdf", 10, 6, paper="a4r", onefile=TRUE)
-for (sp in seq_along(unique(dater$latbi))){
+for (sp in seq_along(unique(dater$latbi))){ # sp=1
   subber <- subset(dater, latbi==unique(dater$latbi)[sp])
   plot(bud_width~date_measure1, data=subber, type="n",
        main=unique(dater$latbi)[sp])
@@ -84,6 +91,9 @@ for (sp in seq_along(unique(dater$latbi))){
       & bud_location=="Lateral"), pch=pch[1], col=colorz[2])
   points(bud_width~date_measure1, data=subset(subber, Site=="Saint Hippolyte" 
       & bud_location=="Terminal"), pch=pch[2], col=colorz[2])
+
+	if(sp == 1) legend("bottom", pch = rep(pch, 2), col = rep(colorz, each=2), legend = c("HF Lat", "HF Term", "SH Lat", "SH Term"))
+
 }
 dev.off()
 system('open buds/graphs/budwidths.pdf -a /Applications/Preview.app') # preview can update pdfs without closing
@@ -141,12 +151,15 @@ dev.off(); system('open buds/graphs/budwidthsloc_histograms.pdf -a /Applications
 ##
 ## try some models
 
-# model 1: check for day effect, excluding data measured in March
+# model 1: check for day effect, excluding data measured in March. 
+# Logic: exclude the bulk of the SH measurements, now focusing on initial and repeated HF measures, and SH measures made at the repeated measure time (Late April)
+
 daternoMarch <- subset(dater, doy<60 | doy>90)
 daternoMarchHF <- subset(daternoMarch, Site=="Harvard Forest")
 
-modelnoMarch <- lm(bud_width~latbi*doy, data=daternoMarch, na.action=na.exclude)
-
+modelnoMarch <- lm(bud_width ~ latbi * doy, data=daternoMarch, na.action=na.exclude)
+anova(modelnoMarch)
+coef(modelnoMarch)
 specieslist <- unique(daternoMarchHF$latbi)
 listhere <- list()
 for (sp in seq_along(specieslist)){
@@ -160,6 +173,9 @@ listhere # look at results
 # check my work
 weaksig <- c(1, 3, 14, 22, 25)
 strongsig <- c(2, 5, 7, 17, 18, 19)
+	# acerub: strong positive
+	# popgra: strong negative and at both sites! Only one twig at SH. 
+	# prupen: strong positive and at both sites.
    # some are negative, e.g., aromel, betlen, popgra, quealb
    # bias is okay if in OPPOSITE direction of site effect
    # but all of these are HF only spp I think
