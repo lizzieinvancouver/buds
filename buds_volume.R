@@ -83,6 +83,9 @@ shdater <- subset(dater, Site=="Saint Hippolyte")
 daterbothsites <- dater[which(!dater$latbi %in% sppnotatSH),]
 daterbothsites <- daterbothsites[which(!daterbothsites$latbi %in% sppnotatHF),]
 
+#names(daterbothsites)
+#list(unique(daterbothsites$latbi))
+
 
 ## first let's just look at the data
 colorz <- c("firebrick3", "dodgerblue3")
@@ -266,7 +269,56 @@ summary(modelsite.sp)
 # spialb: no strong effects
 # viblat: no strong effects
 
+############## looking at bud volume by site and species (old code that Dan helped with)
 
+hist(daterbothsites$bud_volume)
+
+summary(daterbothsites$bud_volume)
+daterbothsites[daterbothsites$bud_volume > 100,] # some really huge buds from Vib lan
+b2 <- daterbothsites[daterbothsites$bud_volume < 50,] # focusing on leaf buds for now
+
+hist(b2$bud_volume)
+
+m1 <- lm(log(bud_volume) ~ Site * latbi, data = b2)
+summary(m1)
+anova(m1)
+
+#plot(m1)
+plot(log(bud_volume) ~ Site, data = b2)
+
+plot(log(bud_volume) ~ latbi, data = b2)
+
+shsp <- unique(b2[b2$Site=="St. Hippolyte","latbi"])
+
+b3 <- b2[!is.na(match(b2$latbi, shsp)),]
+dim(b3)
+sort(unique(b3[b3$Site=="Harvard Forest","latbi"]))
+sort(unique(b3[b3$Site=="St. Hippolyte","latbi"]))
+
+
+# now re-do the analysis with just this dataframe b3, which has only the matching species between HF and SH
+
+m1 <- lm(log(bud_volume) ~ Site * latbi, data = b3)
+summary(m1)
+anova(m1)
+plot(m1)
+
+# did we take different size cuttings at the different sites?
+
+m2 <- lm(log(stem_diameter) ~ Site * latbi, data = b3)
+summary(m2)
+anova(m2)
+
+# yes, some are bigger, some smaller
+
+# now take that into account
+
+m3 <- lm(log(bud_volume) ~ stem_diameter + Site * latbi, data = b3)
+summary(m3)
+anova(m3) # even after accounting for stem diameter, site, species, and their interaction still highly significant
+plot(m3)
+
+#looks like buds from St. Hippolyte are bigger than those from HF. Most pronounced size difference (greater than 1) for: ACERUB, ACESAC, BETALL, LONCAN, PRUPEN, VIBCAS. 
 
 
 
@@ -294,4 +346,5 @@ for (sp in seq_along(unique(data[["latbi"]]))){
     }
 dev.off()
 }
+
 # makehistograms(daterbothsites, "bud_volume", "budvolumehistograms")

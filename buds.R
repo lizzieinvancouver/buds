@@ -174,7 +174,7 @@ for (sp in seq_along(specieslist)){
 
 listhere # look at results
 
-# check my work
+# check my work (JS: checked! all good).
 weaksig <- c(1, 3, 14, 22, 25)
 strongsig <- c(2, 5, 7, 17, 18, 19)
 	# acerub: strong positive
