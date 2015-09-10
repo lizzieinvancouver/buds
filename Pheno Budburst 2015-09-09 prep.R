@@ -10,7 +10,13 @@ library(arm)
 
 setwd("~/Documents/git/buds")
 
-d <- read.csv("Budburst.csv")
+#d <- read.csv("Budburst.csv")
+
+d1 <- read.xls("input/Budburst Datasheet 2015-05-15.xlsx") # read.xls function from gdata. Slow, but no intermediate step of saving as csv. 
+
+d2 <- read.xls("input/Budburst Datasheet 2015-05-15.xlsx", sheet = 2) # long format for consolidated treatments and chilling
+
+
 
 # add relevant columns to d2 twigs
 

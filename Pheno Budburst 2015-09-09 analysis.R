@@ -1,17 +1,16 @@
 
-# 
+# Analysis of budburst experiment. Starting with simple linear models
 
-library(gdata)
 library(nlme)
 library(scales)
 library(arm)
 
 setwd("~/Documents/git/buds")
 
-load("input/Budburst Data 2015-09-09")
+load("input/Budburst Data 2015-09-10")
 
 
-# Analysis
+# Anovas based on day to leafout (stage 6)
 
 summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
 
@@ -19,14 +18,13 @@ summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chi
 summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
 
 
-summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effex interax with warm for budbust but not leafout
+summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effex interax with warm for budbust (stage 3) but not leafout (stage 6)
 
-summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no 
-
+summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering
 
 # with lme4 mixed effect model to better take into account species differences 
 
-# test without the 75's
+# test without the 75's -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. 75 days was assigned to them as max value
 dx1 <- dx
 dx1[dx1==75] = NA
 
@@ -44,35 +42,33 @@ summary(m3f)
 
 
 
-# Plot m3
+# Plot m31
 
-#warming effect
-# # int.warm <- ranef(m3)[[1]][,1]
-# slope.warm <- ranef(m3)[[1]][,2]
-# warmeff <- int.warm+slope.warm
+# # #warming effect
+# # # int.warm <- ranef(m3)[[1]][,1]
+# # slope.warm <- ranef(m3)[[1]][,2]
+# # warmeff <- int.warm+slope.warm
 
-# plot(-20:20, -20:20, type ="n")
-# for(i in 1:length(int.warm)){
-	# abline(a = int.warm[i], b = slope.warm[i])
-	# }
+# # plot(-20:20, -20:20, type ="n")
+# # for(i in 1:length(int.warm)){
+	# # abline(a = int.warm[i], b = slope.warm[i])
+	# # }
 
-
-
-# Species which are temperature sensitive vs photo sensitive
-plot(ranef(m3)$sp[,2],ranef(m3)$sp[,4],
-	pch = "+", col = "grey10",
-	#pch = rownames(ranef(m3)$sp),
-	xlab = "Warming response",
-	ylab = "Photo response",
-	#xlim = c(-8.5, 6),
-	#ylim = c(-5, 3)
-	)
-text(ranef(m3)$sp[,2],ranef(m3)$sp[,4], 
-	labels = rownames(ranef(m3)$sp), cex = 0.6, pos = 1,
-	col = alpha('grey20', 0.8))
-abline(h=0, lty = 3, col = alpha('darkblue', 0.5))
-abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
-#dev.print(file = "Ran Eff Warming vs Photo on Days To Leafout.ps")
+# # Species which are temperature sensitive vs photo sensitive
+# plot(ranef(m3)$sp[,2],ranef(m3)$sp[,4],
+	# pch = "+", col = "grey10",
+	# #pch = rownames(ranef(m3)$sp),
+	# xlab = "Warming response",
+	# ylab = "Photo response",
+	# #xlim = c(-8.5, 6),
+	# #ylim = c(-5, 3)
+	# )
+# text(ranef(m3)$sp[,2],ranef(m3)$sp[,4], 
+	# labels = rownames(ranef(m3)$sp), cex = 0.6, pos = 1,
+	# col = alpha('grey20', 0.8))
+# abline(h=0, lty = 3, col = alpha('darkblue', 0.5))
+# abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
+# #dev.print(file = "Ran Eff Warming vs Photo on Days To Leafout.ps")
 
 plot(ranef(m31)$sp[,1],ranef(m31)$sp[,3],
 	pch = "+", col = "grey10",
@@ -152,10 +148,11 @@ for(i in c('HF','SH')){
 	}
 dev.print(file = "./Figures/Overall_photo_temp.pdf", device = pdf)
 
-# getting mean and sd from model fit
-summary(m3)
-coef(m3)
+# in long days, greater warming effect observed, but this does not translate to a site effect.
 
+# getting mean and sd from model fit
+summary(m31)
+coef(m31)
 
 # effect of chilling treatment. Show advance in 
 
