@@ -1,0 +1,15 @@
+Started 10 September 2015
+Notes on budburst experiment (Jan-April or so? 2015)
+
+
+++++++++++++++++++++++++++++++++++++++++
+Stan work: to get to full model
+	- doymod1: DOY model with complete pooling (no site or species or individual)
+	- fake data to check doymod1, predictive checks?
+	- doymod2: DOY model with site (no species or individual)
+	- doymod3: DOY model with site and species (no individual)
+	- doymod4: DOY model with site, species, individual
+	- fake data to check doymod4, predictive checks?
+Next!
+	- repeat above with ordinal data and do fake data at each stage	
+++++++++++++++++++++++++++++++++++++++++	
