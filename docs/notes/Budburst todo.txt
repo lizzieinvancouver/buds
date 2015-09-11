@@ -1,0 +1,47 @@
+
+Figure to do
+ - Chilling treatments color-coded onto temp and photo period sensitivity figure
+
+mean leaf out date - from the experiment
+
+put on github
+
+Data to do
+- Nectar database for leafout categories, early/mid/late
+
+- non-leafouts (“75s”): 0 or 1 for non leafout twigs across treatments, by species.
+
+
+Writing to do
+-  outline on git 
+
+- beef up results, 
+
+- methods
+
+- linear analyses, posted to git.
+
+- ‘discussion’
+
+ -first go through analyses 
+
+species level and individuals levels 
+
+ - build fake data for stan? Think about how to move this forward
+doy leaf burst
+
+build up to ordered logit
+
+# For 2015-09-17:
+# Make fake data 
+
+m1: simple
+
+m2: add site
+
+m3: add species
+
+m4: add individual
+
+
+
