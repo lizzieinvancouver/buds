@@ -7,7 +7,7 @@ library(arm)
 
 setwd("~/Documents/git/buds")
 
-load("input/Budburst Data 2015-09-10")
+load("analyses/input/Budburst Data 2015-09-10")
 
 
 # Anovas based on day to leafout (stage 6)
@@ -32,6 +32,7 @@ m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$ch
 summary(m3)
 
 m31 <- lmer(lday ~ warm * photo * site + (warm|sp) + (photo|sp), data = dx1[dx1$chill == 'chill0',])
+
 summary(m31)
 
 
@@ -90,7 +91,9 @@ abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
 dev.print(file = "ranefs.pdf", device = pdf)
 # Plot sensitivity by actual leafout time
 
-xx <- data.frame(aggregate(dx1$lday, by=list(dx1$sp), FUN = mean, na.rm=T), ranef(m31)$sp[,1], ranef(m31)$sp[,3])
+xx <- data.frame(aggregate(dx1$lday, by=list(dx1$sp), FUN = mean, na.rm=T), ranef(m31)$sp[,2], ranef(m31)$sp[,4])
+
+# xx: col 1 is the mean leafout day across all treatments for that species. col 2 is interecept of that species for warming effect, col 3 intercept for photo. Should use slope instead?
 
 colz.tp = c("tomato", "darkgoldenrod")
 
@@ -104,7 +107,8 @@ abline(lm(xx[,3]~xx[,2]), col=alpha(colz.tp[1], 0.5) )
 points(xx[,2], xx[,4], 	pch = 16, col = alpha(colz.tp[2], 0.8))
 abline(lm(xx[,4]~xx[,2]), col=alpha(colz.tp[2], 0.8), lty =2)
 legend("topleft", pch =16, col = colz.tp, lty = c(1,2), legend = c("Temperature effect","Photoperiod Effect"), bty = "n")
-dev.print(file = "./Figures/tempphotsens.pdf", device = pdf)
+
+dev.print(file = "analyses/graphs/tempphotsens.pdf", device = pdf)
 
 
 
