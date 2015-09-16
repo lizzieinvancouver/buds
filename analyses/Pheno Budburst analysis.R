@@ -70,11 +70,13 @@ doym2 <- stan('doy_model2.stan', data = datalist2, iter = 1000, chains = 4)
 head(summary(doym2)$summary) # leafout day slightly later for HF
 
 # doym3  -- need to make a sp_site vector
-sp_site = paste(dx$site, formatC(dx$sp, width = 2, flag = '0'), sep="")
+sp_site = as.numeric(paste(dx$site, formatC(dx$sp, width = 2, flag = '0'), sep=""))
 
 datalist3 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$sp, photo = dx$photo, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), sp_site = sp_site, n_sp_site = length(unique(sp_site)))
 
-doym3 <- stan('doy_model3.stan', data = datalist3, iter = 1000, chains = 4)
+doym3 <- stan('doy_model3.stan', data = datalist3, iter = 1000, chains = 4) # Error:  sp_site[k0__] is 101, but must be less than or equal to 47
+failed to create the sampler; sampling not done
+
 
 # Chilling
 # effect of chilling treatment. 
