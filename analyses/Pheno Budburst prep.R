@@ -8,7 +8,7 @@ library(nlme)
 library(scales)
 library(arm)
 
-setwd("~/Documents/git/buds")
+setwd("~/Documents/git/buds/analyses")
 
 #d <- read.csv("Budburst.csv")
 

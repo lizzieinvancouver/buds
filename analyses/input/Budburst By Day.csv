@@ -2006,7 +2006,6 @@
 "VIBLAN12_HF_10","VIBLAN","12","HF","VIBLAN12_HF","CS1","15","12","chill1","VIB",NA,NA,"0","-","no lat?","TS",36,3,3,23,75,23
 "VIBLAN12_HF_12","VIBLAN","12","HF","VIBLAN12_HF","CS0","15","12","chill0","VIB",NA,NA,"0","0","","",1,-32,1,47,75,47
 "ACEPEN01_HF_09","ACEPEN","09","HF","ACEPEN01_HF","WS1","20","12","chill1","ACE",NA,NA,"1","1","","TS",41,8,8,31,75,16
-"Acepen01_HF03","Acepen",NA,"HF03","Acepen01_HF","CL0","15","08","chill0","Ace",25,24,"27, 5","5","Acepen01_HF03","TLS",82,49,82,82,82,82
 "ACEPEN02_HF_08","ACEPEN","08","HF","ACEPEN02_HF","WS1","20","12","chill1","ACE",NA,NA,"0","0","","TS",41,8,8,56,75,16
 "ACEPEN03_HF_07","ACEPEN","07","HF","ACEPEN03_HF","WS1","20","12","chill1","ACE",NA,NA,"1","3","","TS",41,8,8,24,75,8
 "ACEPEN04_HF_04","ACEPEN","04","HF","ACEPEN04_HF","WS1","20","12","chill1","ACE",NA,NA,"0","0","","TS",41,8,8,31,75,16
@@ -2113,7 +2112,6 @@
 "QUERUB20_HF_12","QUERUB","12","HF","QUERUB20_HF","WS1","20","12","chill1","QUE",NA,NA,"0","0","","TS",41,8,8,31,75,24
 "QUERUB21_HF_04","QUERUB","04","HF","QUERUB21_HF","WS1","20","12","chill1","QUE",NA,NA,"-","-","missing, perhaps the one missing above","TS",41,8,8,75,75,75
 "QUERUB23_HF_11","QUERUB","11","HF","QUERUB23_HF","WS1","20","12","chill1","QUE",NA,NA,"1","1","","TS",41,8,8,38,75,24
-"Quevel01_HF03","Quevel",NA,"HF03","Quevel01_HF","CL0","15","08","chill0","Que",NA,NA,"6","6","Quevel01_HF03","TLS",82,49,82,82,75,82
 "VIBCAS01_SH_02","VIBCAS","02","SH","VIBCAS01_SH","WS1","20","12","chill1","VIB",NA,NA,"0","0","","TS",41,8,8,16,75,16
 "VIBCAS02_HF_08","VIBCAS","08","HF","VIBCAS02_HF","WS1","20","12","chill1","VIB",NA,NA,"0","0","","TS",41,8,8,16,75,16
 "VIBCAS03_HF_07","VIBCAS","07","HF","VIBCAS03_HF","WS1","20","12","chill1","VIB",NA,NA,"0","0","","TS",41,8,8,75,75,75

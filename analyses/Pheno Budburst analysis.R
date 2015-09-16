@@ -1,22 +1,30 @@
 
 # Analysis of budburst experiment. Starting with simple linear models
+# 2015-0916 adding single species models
 
 library(nlme)
 library(scales)
 library(arm)
+library(rstan)
 
-setwd("~/Documents/git/buds")
+setwd("~/Documents/git/buds/analyses")
 
-load("analyses/input/Budburst Data 2015-09-10")
+load("input/Budburst Data 2015-09-16")
 
+dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 
 # Anovas based on day to leafout (stage 6)
 
 summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
 
+# Comparing Type I SS issues
+summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))
+summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+
+
 
 summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
-
 
 summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effex interax with warm for budbust (stage 3) but not leafout (stage 6)
 
@@ -41,36 +49,72 @@ ranef(m3)
 m3f <- lmer(fday ~ warm * photo + (1|sp/ind), data = dx)
 summary(m3f)
 
+# New analyses, in stan, using simple models
+# model 1: lday ~ warm * photo, no species, site, or ind.
+# make data all numeric.
+levels(dx$warm) = c(0,1); levels(dx$photo) = c(0, 1); levels(dx$site) = 1:2; levels(dx$sp) = 1:length(levels(dx$sp))
+dx$warm <- as.numeric(dx$warm)
+dx$photo <- as.numeric(dx$photo)
+dx$site <- as.numeric(dx$site)
+dx$sp <- as.numeric(dx$sp)
+
+datalist1 <- list(lday = dx$lday, warm = dx$warm, photo = dx$photo, N = nrow(dx))
+
+doym1 <- stan('doy_model1.stan', data = datalist1, iter = 1000, chains = 4)
+
+# Model 2: site added
+datalist2 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, photo = dx$photo, N = nrow(dx), n_site = length(unique(dx$site)))
+
+doym2 <- stan('doy_model2.stan', data = datalist2, iter = 1000, chains = 4)
+
+head(summary(doym2)$summary) # leafout day slightly later for HF
+
+# doym3  -- need to make a sp_site vector
+sp_site = paste(dx$site, formatC(dx$sp, width = 2, flag = '0'), sep="")
+
+datalist3 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$sp, photo = dx$photo, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), sp_site = sp_site, n_sp_site = length(unique(sp_site)))
+
+doym3 <- stan('doy_model3.stan', data = datalist3, iter = 1000, chains = 4)
+
+# Chilling
+# effect of chilling treatment. 
+
+# simple - fails bc chill different by inds
+# make a chillsp column
+chillsp = aggregate(chill ~ sp, FUN = function(x) length(x)>100, data = dx)
+chillsp = chillsp[chillsp$chill==TRUE,"sp"]
+dx.chill <-  dx[!is.na(match(dx$sp, chillsp)),]
+
+#summary(m01 <- aov(lday ~ sp * site * warm * photo * chill + Error(ind), data =dx.chill))
+
+summary(m01 <- aov(lday ~ chill, data = dx.chill))
+# wrong...
+summary(m01 <- aov(lday ~ sp * site * warm * photo * chill, data = dx.chill))
+coef(m01) # chill1 advanced leafout by 4.5 days, while chill2 delayed leafout by .67 days
+
+m5 <- lmer(lday ~ warm * photo * site * chill + (warm|sp) + (photo|sp) + (chill|sp), data = dx.chill)
+summary(m5)
+
+m6 <- lmer(lday ~ site + (warm|sp) + (photo|sp) + (chill|sp), data = dx)
+summary(m6)
+
+m7 <- lmer(lday ~ warm * photo + chill*warm + chill*photo + chill*site + (chill|sp), data = dx.chill)
+summary(m7)
+
+m17 <- lmer(lday ~ site * chill + (1|sp), data = dx)
+summary(m17)
+
+
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+# Plotting
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
 
 
 # Plot m31
-
-# # #warming effect
-# # # int.warm <- ranef(m3)[[1]][,1]
-# # slope.warm <- ranef(m3)[[1]][,2]
-# # warmeff <- int.warm+slope.warm
-
-# # plot(-20:20, -20:20, type ="n")
-# # for(i in 1:length(int.warm)){
-	# # abline(a = int.warm[i], b = slope.warm[i])
-	# # }
-
-# # Species which are temperature sensitive vs photo sensitive
-# plot(ranef(m3)$sp[,2],ranef(m3)$sp[,4],
-	# pch = "+", col = "grey10",
-	# #pch = rownames(ranef(m3)$sp),
-	# xlab = "Warming response",
-	# ylab = "Photo response",
-	# #xlim = c(-8.5, 6),
-	# #ylim = c(-5, 3)
-	# )
-# text(ranef(m3)$sp[,2],ranef(m3)$sp[,4], 
-	# labels = rownames(ranef(m3)$sp), cex = 0.6, pos = 1,
-	# col = alpha('grey20', 0.8))
-# abline(h=0, lty = 3, col = alpha('darkblue', 0.5))
-# abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
-# #dev.print(file = "Ran Eff Warming vs Photo on Days To Leafout.ps")
-
 plot(ranef(m31)$sp[,1],ranef(m31)$sp[,3],
 	pch = "+", col = "grey10",
 	type = "n",
@@ -111,13 +155,11 @@ legend("topleft", pch =16, col = colz.tp, lty = c(1,2), legend = c("Temperature 
 dev.print(file = "analyses/graphs/tempphotsens.pdf", device = pdf)
 
 
-
 means <- aggregate(lday ~ warm * photo * site, FUN = mean, data=dx)
 ses <- aggregate(lday ~ warm * photo * site, FUN = function(x) sd(x)/sqrt(length(x)) , data=dx)
 
 means.bud <- aggregate(bday ~ warm * photo * site, FUN = mean, data=dx)
 ses.bud <- aggregate(bday ~ warm * photo * site, FUN = function(x) sd(x)/sqrt(length(x)) , data=dx)
-
 
 
 cols = alpha(c("midnightblue","darkred"), 0.8)
@@ -158,32 +200,6 @@ dev.print(file = "./Figures/Overall_photo_temp.pdf", device = pdf)
 summary(m31)
 coef(m31)
 
-# effect of chilling treatment. Show advance in 
-
-# simple - fails bc chill different by inds
-# make a chillsp column
-chillsp = aggregate(chill ~ sp, FUN = function(x) length(x)>100, data = dx)
-chillsp = chillsp[chillsp$chill==TRUE,"sp"]
-dx.chill <-  dx[!is.na(match(dx$sp, chillsp)),]
-
-#summary(m01 <- aov(lday ~ sp * site * warm * photo * chill + Error(ind), data =dx.chill))
-
-summary(m01 <- aov(lday ~ chill, data = dx.chill))
-# wrong...
-summary(m01 <- aov(lday ~ sp * site * warm * photo * chill, data = dx.chill))
-coef(m01) # chill1 advanced leafout by 4.5 days, while chill2 delayed leafout by .67 days
-
-m5 <- lmer(lday ~ warm * photo * site * chill + (warm|sp) + (photo|sp) + (chill|sp), data = dx.chill)
-summary(m5)
-
-m6 <- lmer(lday ~ site + (warm|sp) + (photo|sp) + (chill|sp), data = dx)
-summary(m6)
-
-m7 <- lmer(lday ~ warm * photo + chill*warm + chill*photo + chill*site + (chill|sp), data = dx.chill)
-summary(m7)
-
-m17 <- lmer(lday ~ site * chill + (1|sp), data = dx)
-summary(m17)
 ############# chilling plot
 
 aggregate(lday~ chill * sp, FUN = mean, data = dx)
@@ -224,20 +240,7 @@ densplot("FAGGRA", 'bday', ylim = 0.03); title(xlab = "Days to budburst")
 
 dev.print(file = "./Figures/Chill_effect.pdf", device = pdf)
 
-
-densplot("VIBLAN"); title(xlab = "Days to leafout", main = "Ilex mucronata", font.main = 3)
-legend("topright", fill=cols, legend = c("0", "4°C", "1.5°C"), title = "Chilling treatment", bg="white")
-densplot("FAGGRA", ylim = 0.03); title(xlab = "Days to leafout",  main = "Populus grandifolia", font.main = 3)
-
-densplot("VIBLAN", 'bday'); title(xlab = "Days to budburst")
-
-densplot("FAGGRA", 'bday', ylim = 0.03); title(xlab = "Days to budburst")
-
-
-
-
-
-# desnplot by site
+# densplot by site
 densplot.site <- function(sp, response = 'lday', ylim = 0.1, site = "HF"){
 	
 	cols = hcl(h = seq(120, by=360 / 3, length = 3), l = 75, alpha = 0.7) 

@@ -17759,6 +17759,7 @@
 2015-04-24,"VIBLAN10_HF_03","VIBLAN","03","HF","VIBLAN10_HF","WL1","warm","long","chill1","VIB",NA,NA,"8","-","","EB",78,45,45,8,NA
 2015-04-24,"VIBLAN11_HF_11","VIBLAN","11","HF","VIBLAN11_HF","WL1","warm","long","chill1","VIB",NA,NA,"8","-","","EB",78,45,45,8,NA
 2015-04-24,"VIBLAN12_HF_03","VIBLAN","03","HF","VIBLAN12_HF","WL1","warm","long","chill1","VIB",25,NA,"6","6","","EB",78,45,45,6,6
+2015-04-28,"ACEPEN01_HF_03","ACEPEN","03","HF","ACEPEN01_HF","CL0","cool","long","chill0","ACE",25,24,"27, 5","5","Acepen01_HF03","TLS",82,49,82,27,5
 2015-04-28,"ACEPEN01_HF_10","ACEPEN","10","HF","ACEPEN01_HF","CS0","cool","short","chill0","ACE",NA,20,"7","6","","TLS",82,49,82,7,6
 2015-04-28,"ACEPEN02_HF_02","ACEPEN","02","HF","ACEPEN02_HF","CL0","cool","long","chill0","ACE",NA,NA,"8","1","","TLS",82,49,82,8,1
 2015-04-28,"ACEPEN02_HF_04","ACEPEN","04","HF","ACEPEN02_HF","CS0","cool","short","chill0","ACE",NA,NA,"7","0","","TLS",82,49,82,7,0
@@ -18061,6 +18062,7 @@
 2015-04-28,"QUERUB21_HF_03","QUERUB","03","HF","QUERUB21_HF","CS0","cool","short","chill0","QUE",NA,NA,"7","1","","TLS",82,49,82,7,1
 2015-04-28,"QUERUB23_HF_05","QUERUB","05","HF","QUERUB23_HF","CL0","cool","long","chill0","QUE",NA,NA,"6","7","","TLS",82,49,82,6,7
 2015-04-28,"QUERUB23_HF_08","QUERUB","08","HF","QUERUB23_HF","CS0","cool","short","chill0","QUE",NA,NA,"6","1","","TLS",82,49,82,6,1
+2015-04-28,"QUEVEL01_HF_03","QUEVEL","03","HF","QUEVEL01_HF","CL0","cool","long","chill0","QUE",NA,NA,"6","6","Quevel01_HF03","TLS",82,49,82,6,6
 2015-04-28,"QUEVEL01_HF_04","QUEVEL","04","HF","QUEVEL01_HF","CS0","cool","short","chill0","QUE",NA,NA,"6","1","","TLS",82,49,82,6,1
 2015-04-28,"QUEVEL02_HF_02","QUEVEL","02","HF","QUEVEL02_HF","CS0","cool","short","chill0","QUE",NA,NA,"7","1","","TLS",82,49,82,7,1
 2015-04-28,"QUEVEL02_HF_04","QUEVEL","04","HF","QUEVEL02_HF","CL0","cool","long","chill0","QUE",NA,NA,"7","1","","TLS",82,49,82,7,1
@@ -18147,8 +18149,6 @@
 2015-04-28,"VIBLAN11_HF_02","VIBLAN","02","HF","VIBLAN11_HF","CS0","cool","short","chill0","VIB",NA,25,"1","0","","TLS",82,49,82,1,0
 2015-04-28,"VIBLAN11_HF_08","VIBLAN","08","HF","VIBLAN11_HF","CL0","cool","long","chill0","VIB",NA,25,"1","0","","TLS",82,49,82,1,0
 2015-04-28,"VIBLAN12_HF_12","VIBLAN","12","HF","VIBLAN12_HF","CS0","cool","short","chill0","VIB",NA,NA,"9","6","","TLS",82,49,82,9,6
-2015-04-28,"Acepen01_HF03","Acepen",NA,"HF03","Acepen01_HF","CL0","cool","long","chill0","Ace",25,24,"27, 5","5","Acepen01_HF03","TLS",82,49,82,27,5
-2015-04-28,"Quevel01_HF03","Quevel",NA,"HF03","Quevel01_HF","CL0","cool","long","chill0","Que",NA,NA,"6","6","Quevel01_HF03","TLS",82,49,82,6,6
 2015-04-29,"ACEPEN01_HF_01","ACEPEN","01","HF","ACEPEN01_HF","CL2","cool","long","chill2","ACE",NA,24,"6","6","","TLS",83,50,50,6,6
 2015-04-29,"ACEPEN01_HF_04","ACEPEN","04","HF","ACEPEN01_HF","WS2","warm","short","chill2","ACE",24,NA,"7","0","","TLS",83,50,50,7,0
 2015-04-29,"ACEPEN02_HF_07","ACEPEN","07","HF","ACEPEN02_HF","CL2","cool","long","chill2","ACE",NA,NA,"7","1","","TLS",83,50,50,7,1
