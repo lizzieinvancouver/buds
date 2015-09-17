@@ -39,15 +39,12 @@ dx1[dx1==75] = NA
 m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0',])
 summary(m3)
 
+############################ Use this one for plotting. Above does not omit 75's
+
 m31 <- lmer(lday ~ warm * photo * site + (warm|sp) + (photo|sp), data = dx1[dx1$chill == 'chill0',])
-
 summary(m31)
-
-
-fixef(m3)
-ranef(m3)
-m3f <- lmer(fday ~ warm * photo + (1|sp/ind), data = dx)
-summary(m3f)
+fixef(m31)
+ranef(m31)
 
 # New analyses, in stan, using simple models
 # model 1: lday ~ warm * photo, no species, site, or ind.
@@ -135,6 +132,13 @@ text(ranef(m31)$sp[,1],ranef(m31)$sp[,3],
 abline(h=0, lty = 3, col = alpha('darkblue', 0.5))
 abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
 dev.print(file = "ranefs.pdf", device = pdf)
+
+
+# now repeat, with other chillings on here
+
+
+
+
 # Plot sensitivity by actual leafout time
 
 xx <- data.frame(aggregate(dx1$lday, by=list(dx1$sp), FUN = mean, na.rm=T), ranef(m31)$sp[,2], ranef(m31)$sp[,4])
