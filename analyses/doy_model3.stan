@@ -31,6 +31,8 @@ transformed parameters {
 	vector<lower=0>[N] sigma_y_hat;
 	vector[N] y_hat;
 	// Unfinished...
+	// How to make species crossed with site for the intercept? 
+	
 	for(i in 1:N){
 		y_hat[i] <- a[site[i]] + b_warm[sp[i]] * warm[i] + b_photo[sp[i]] * photo[i] + b_inter[sp[i]] * inter[i];
 		sigma_y_hat[i] <- sigma_y[sp[i]];

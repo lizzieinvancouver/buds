@@ -16,6 +16,7 @@ range(d$Date)
 # photo vs temp sens by chilling
 
 m31 <- lmer(lday ~ warm * photo * site + (warm|sp) + (photo|sp), data = dx1[dx1$chill == 'chill0',])
+
 summary(m31)
 
 

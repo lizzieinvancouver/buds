@@ -43,5 +43,11 @@ m3: add species
 
 m4: add individual
 
+Notes 2015-09-17
+
+- boxplots for leafout day by species/site/treatment
+- boxplots for leafout day including chilling treatment
+- do the non-leafout species distributons
+- If time: use O’Keefe data in PMP (windoze), maybe ask Tim’s help
 
 
