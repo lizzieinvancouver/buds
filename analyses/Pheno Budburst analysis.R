@@ -46,6 +46,11 @@ summary(m31)
 fixef(m31)
 ranef(m31)
 
+
+# What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1
+summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
+
+
 # New analyses, in stan, using simple models
 # model 1: lday ~ warm * photo, no species, site, or ind.
 # make data all numeric.

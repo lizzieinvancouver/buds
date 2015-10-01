@@ -38,6 +38,36 @@ text(1, 45, substitute(paste(chi^2,"=", xx), list(xx=round(chi.all$statistic,2))
 text(1, 42, substitute(paste(p,"=", xx), list(xx=round(chi.all$p.value,4))))
 dev.print(file = "graphs/nonleafout.pdf", device = pdf, width = 10, height = 6); system('open ./graphs/nonleafout.pdf -a /Applications/Preview.app')
 
+# looping this same figure now for each species separately.
+
+pdf(file="graphs/nonleafout_eachsp.pdf", width = 10, height = 6)
+for(i in unique(nl$sp)){
+
+	nlx <- with(nl[nl$sp==i,], as.data.frame(table(warm, photo, chill)))
+	# proportional to total numbers in each
+	dlx <- with(dx[dx$sp==i,], as.data.frame(table(warm, photo, chill)))
+	nlx$prop <- nlx$Freq/dlx$Freq
+	
+	bb <- barplot(nlx$prop*100, ylab = "% of cuttings non-leafout", 
+		ylim = c(0,100), 
+		col = rep(cols, each = 4),
+		main = paste(i, "\n Percent of cuttings in each treatment which failed to leaf out"),
+		xlab = "Treatment combination")
+	mtext(paste(nlx$warm, nlx$photo, nlx$chill, sep = "\n"), 1, line = 2, padj = 0, at = bb[,1])
+	
+	if(length(unique(as.character(nl[nl$sp==i,"chill"])))==1){
+		chi.all <- summary(xtabs(~ warm+photo, data = nl[nl$sp==i,]))	
+		}
+	else {	chi.all <- summary(xtabs(~ warm+photo+chill, data = nl[nl$sp==i,]))	 }
+	xx <- round(chi.all$statistic,2)
+	text(1, 95, substitute(paste(chi^2,"=", xx, ", df =", df), list(xx=round(chi.all$statistic,2), df = chi.all$parameter)))
+	text(1, 85, substitute(paste(p,"=", xx), list(xx=round(chi.all$p.value,4))))
+
+}
+
+dev.off(); system('open ./graphs/nonleafout_eachsp.pdf -a /Applications/Preview.app')
+
+
 # also by species and site
 
 nl1 <- as.data.frame(table(nl$sp, nl$site))
