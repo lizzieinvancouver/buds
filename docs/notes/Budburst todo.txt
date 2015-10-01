@@ -1,4 +1,15 @@
 
+
+**
+To do tasks from 24 Sept and 1 Oct meetings
+- Looking into literature on chilling (EMW) —> See new file litnotes_chilling
+- Ask Tim to see what minimum temps were across all chambers during experiment, especially the Conviron one(s?) that did the 1.5 C chilling —> consider whether there could have been freezing at all?
+- look into statistical options with individuals that do not leaf out (survival, ordinal regression etc.) — make a list
+- how many studies in our lit review database did multiple levels of chilling (and what did they find?
+- chambers for winter experiments?
+**
+
+
 Figure to do
  - Chilling treatments color-coded onto temp and photo period sensitivity figure
 

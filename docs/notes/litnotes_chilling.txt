@@ -1,0 +1,19 @@
+Started 1 Oct 2015
+Chilling literature notes
+
+- Luedeling et al. 2009 (NCC): 
+
+Looks at projections of two chilling models, we would need to dig into their sources for the ‘Dynamic model’ to see what temperature it defines chilling as occurring between.
+
+From pg. 2-3:
+We use historic temperature data, as well as a range of climate change projections, to quantify winter chill with two different mathematical models, the Chilling Hours Model, which is predominantly used in California, and the Dynamic Model, which is often considered superior in subtropical climates [12–16]. While the Chilling Hours Model simply counts the number of hours during the winter, when temperatures are between 0 and 7.2uC [17,18], the Dynamic Model assumes that winter chill is accumulated in a two-step process. According to the Dynamic Model, an intermediate chilling product is first formed by a process that requires cool temperatures. This intermediate product, whose formation is enhanced by moderate temperatures, can be destroyed by high temperatures. When a certain quantum of the intermediate product has accumulated, it is converted irreversibly into a Chill Portion [19,20]. 
+
+- Guy et al. 2014 (New Phyto Commentary)
+
+Longer chilling times are often found in species from areas with relatively mild winters. For example, coastal Douglas-fir and Sitka spruce are native to regions where winter temperatures hover close to 0°C and require 14–20 wk of chilling (McCreary et al., 1990; Hannerz et al., 2003), which is considerably more than species from areas with sub-zero temperatures too low to be effective. There is also variation between populations, with chilling requirement often decreasing with latitude (Myking & Heide, 1995; Hannerz et al., 2003; Cooke et al., 2012).
+…
+The requirement is normally met by mid-winter. Typically, however, conditions are not warm enough for active growth so the buds remain ‘quiescent’. Furthermore, extended chilling beyond the minimum requirement continues to reduce the level of dormancy and promotes a much more rapid flush when spring does arrive. At the other extreme, if the chilling requirement is not substantially met, bud burst will be delayed and shoot growth may be weak.
+…
+Clearly, there is considerable overlap between temperatures effective in chilling and those that contribute to heat sum (Cooke et al., 2012). Therefore, over a certain period at the interface, it is difficult to know whether the last remnants of the chilling requirement are being met or whether thermal forcing has started, or both (Luedeling et al., 2013). 
+
+- Paper we should get: Luedeling E, Guo L, Dai J, Leslie C, Blanke MM. 2013. Differential responses of trees to temperature variation during chilling and forcing phases. Agricultural and Forest Meteorology 181: 33–42.
