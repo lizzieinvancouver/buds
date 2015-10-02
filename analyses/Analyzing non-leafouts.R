@@ -40,7 +40,6 @@ dev.print(file = "graphs/nonleafout.pdf", device = pdf, width = 10, height = 6);
 
 # also by species and site
 
-
 nl1 <- as.data.frame(table(nl$sp, nl$site))
 # proportional to total numbers in each
 dl1 <- as.data.frame(table(dx$sp, dx$site))
@@ -77,10 +76,11 @@ summary(glm(nl ~ warm + photo + chill + site + sp +
 						warm:photo + warm:chill + photo:chill,
 						,
 						family=binomial(link='logit'), data = dx))
+
 summary(glm(nl ~ site + sp + sp:site, family=binomial(link='logit'), data = dx)) # no overall site effect, some acesac and franig interax by site, more non-leafouts in HF
 
 summary(glm(nl ~ warm + photo + chill + site + sp +
 						warm:photo + warm:chill + photo:chill + 
 						warm:sp + photo:sp + chill:sp,
-						,
 						family=binomial(link='logit'), data = dx))	# clear species effects, interax with warm x photo, very few sp-specific responses to warming or photo. Querub improved with chilling.					
+
