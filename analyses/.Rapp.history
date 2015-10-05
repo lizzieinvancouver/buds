@@ -1,3 +1,73 @@
+c(50, 52, 59) %+% seq(0, 50, by = 10)
+rep(seq(0, 50, by = 10), 3)
+c(50, 52, 59)+rep(seq(0, 50, by = 10), 3)
+c(50, 52, 59)+sort(rep(seq(0, 50, by = 10), 3))
+cut(gr$adj2, #
+	breaks =  c(50, 52, 59)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10)))
+)
+c(50, 52, 56, 59)+sort(rep(seq(0, 50, by = 10), 3)),
+c(50, 52, 56, 59)+sort(rep(seq(0, 50, by = 10), 3))
+cut(gr$adj2, #
+	breaks =  c(50, 52, 56, 59)+sort(rep(seq(0, 50, by = 10), 4)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10)))
+)
+c(50, 52, 56, 59)+sort(rep(seq(0, 50, by = 10), 4))
+cut(gr$adj2, #
+	breaks =  c(50, 52, 56)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10)))
+)
+cut(gr$adj2, #
+	breaks =  c(49, 52, 56)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10)))
+)
+cut(gr$adj2, #
+	breaks =  c(50, 53, 57)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10))),
+)
+gr$gr <- #
+	cut(gr$adj2, #
+	breaks =  c(50, 53, 57)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10)))
+)
+head(gr)
+gr[c("raw","adj2","gr")]
+cut(gr$adj2, #
+	breaks =  c(50, 53, 57)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10)))
+)
+LETTERS[4:1]
+rep(c("-","","+"),4)
+paste(LETTERS[4:1], rep(c("-","","+"),4))
+rep(LETTERS[4:1],3)
+sort(rep(LETTERS[4:1],3))
+paste(sort(rep(LETTERS[4:1],3),T), rep(c("-","","+")
+)
+c(rep("F",3),paste(sort(rep(LETTERS[4:1],3),T), rep(c("-","","+"),4),sep=""))
+gr$gr <- #
+	cut(gr$adj2, #
+	breaks =  c(50, 53, 57)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10))),#
+	labels = c(rep("F",3),paste(sort(rep(LETTERS[4:1],3),T), rep(c("-","","+"),4),sep=""))#
+	)
+cut(gr$adj2, #
+	breaks =  c(50, 53, 57)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10))),#
+	labels = c(rep("F",3),paste(sort(rep(LETTERS[4:1],3),T), rep(c("-","","+"),4),sep=""))#
+	)
+cut(gr$adj2, #
+	breaks =  c(50, 53, 57)+sort(rep(seq(0, 50, by = 10), 3)),#
+				#sort(c(seq(50, 99, by = 10), #
+				#seq(53, 103, by = 10), seq(57, 107, by = 10))),
 )
 c(rep("F",3), paste(sort(rep(LETTERS[4:1],3),T), rep(c("-","","+"),4),sep=""), "A+","A+")
 length(c(rep("F",3), paste(sort(rep(LETTERS[4:1],3),T), rep(c("-","","+"),4),sep=""), "A+","A+"))
@@ -438,17 +508,12 @@ write.tree(mega.sub, "~/Dropbox/Work/Arb Mapping/Arb.new")
 75 %/% 12
 library(Hmisc)
 veg <- mdb.get("~/Desktop/végétation.mdb")
-# Fake data.#
-#
 library(arm)#
 library(rstan)#
 #
 setwd("~/Documents/git/buds/analyses")#
-#
-load("input/Budburst Data 2015-09-16")#
-#
-# First for doy model 1, with same individuals having multiple cuttings in the different treatments. No species or site effects yet.#
-#
+source("savestan.R")#
+load("input/Budburst Data 2015-09-16")
 N = 1000#
 #
 warm = gl(2, k = 2, length = N, labels = 0:1)#
@@ -459,137 +524,6 @@ treat = paste(warm, photo)#
 #
 fak <- data.frame(warm, photo, treat)#
 #
-fak <- fak[order(fak$treat),] # put it in order of treatments#
-#
-# mean doy values#
-#
-tapply(dx$lday, list(dx$warm, dx$photo), mean) # hm... overall, get a delay with long days. Odd. Will make fake data with advance for long day#
-tapply(dx$lday, list(dx$warm, dx$photo), sd)#
-#
-mu_CS = 45#
-mu_CL = 40#
-mu_WS = 35#
-mu_WL = 30#
-#
-sigma = 10#
-#
-lday = c(#
-	rnorm(N/4, mean = mu_CS, sd = sigma),#
-	rnorm(N/4, mean = mu_CL, sd = sigma),#
-	rnorm(N/4, mean = mu_WS, sd = sigma),#
-	rnorm(N/4, mean = mu_WL, sd = sigma)#
-	)#
-#
-fak$lday <- lday#
-#
-tapply(fak$lday, list(fak$warm, fak$photo), mean)#
-#
-# now ready for stan#
-#
-datalist1 <- list(lday = fak$lday, warm = as.numeric(fak$warm), photo = as.numeric(fak$photo), N = nrow(fak))#
-#
-doym0 <- stan('doy_model0.stan', data = datalist1, iter = 1000, chains = 4) # without interactions
-doym0
-ls()
-class(ls()[1])
-class(get(ls()[1]))
-class(get(ls()[4]))
-which(class(get(ls()))=="rstan")
-get(ls())
-class(get(ls()))
-sapply(ls(), function(x) class(get(x))
-)
-which(#
-	sapply(ls(), function(x) class(get(x)))#
-	=="stanfit")
-tosave <- which(#
-	sapply(ls(), function(x) class(get(x)))#
-	=="stanfit")
-tosave
-ls()[tosave]
-savrstan <- function() {#
-	tosave <- which(#
-	sapply(ls(), function(x) class(get(x)))#
-	=="stanfit")#
-	save(file=paste("Stan Output ", Sys.Date(), ".RData", sep=""), list = c(ls()[tosave])#
-	}
-tosave <- which(#
-		sapply(ls(), function(x) class(get(x)))#
-				=="stanfit")
-save(file=paste("Stan Output ", Sys.Date(), ".RData", sep=""), list = c(ls()[tosave])
-)
-savrstan <- function() {#
-	tosave <- which(#
-		sapply(ls(), function(x) class(get(x)))#
-				=="stanfit")#
-	save(file=paste("Stan Output ", Sys.Date(), ".RData", sep=""), list = c(ls()[tosave]))#
-	}
-saverstan()
-savestan <- function() {#
-	tosave <- which(#
-		sapply(ls(), function(x) class(get(x)))#
-				=="stanfit")#
-	save(file=paste("Stan Output ", Sys.Date(), ".RData", sep=""), list = c(ls()[tosave]))#
-	} #
-savestan()
-setwd("~/Documents/git/buds/analyses")#
-source("savestan.R")
-load("input/Budburst Data 2015-09-16")#
-#
-# First for doy model 1, with same individuals having multiple cuttings in the different treatments. No species or site effects yet.#
-#
-N = 1000#
-#
-warm = gl(2, k = 2, length = N, labels = 0:1)#
-#
-photo = gl(2, k = 1, length = N, labels = 0:1)#
-#
-treat = paste(warm, photo)#
-#
-fak <- data.frame(warm, photo, treat)#
-#
-fak <- fak[order(fak$treat),] # put it in order of treatments#
-#
-# mean doy values#
-#
-tapply(dx$lday, list(dx$warm, dx$photo), mean) # hm... overall, get a delay with long days. Odd. Will make fake data with advance for long day#
-tapply(dx$lday, list(dx$warm, dx$photo), sd)#
-#
-mu_CS = 45#
-mu_CL = 40#
-mu_WS = 35#
-mu_WL = 30#
-#
-sigma = 10#
-#
-lday = c(#
-	rnorm(N/4, mean = mu_CS, sd = sigma),#
-	rnorm(N/4, mean = mu_CL, sd = sigma),#
-	rnorm(N/4, mean = mu_WS, sd = sigma),#
-	rnorm(N/4, mean = mu_WL, sd = sigma)#
-	)#
-#
-fak$lday <- lday#
-#
-tapply(fak$lday, list(fak$warm, fak$photo), mean)#
-#
-# now ready for stan#
-#
-datalist1 <- list(lday = fak$lday, warm = as.numeric(fak$warm), photo = as.numeric(fak$photo), N = nrow(fak))#
-#
-doym0 <- stan('doy_model0.stan', data = datalist1, iter = 1000, chains = 4) # without interactions#
-#
-doym0 # works. Effect size for beta[2], the warming effect, is about 10 days, while beta[3], photoperiod, about 5 days.
-savestan()
-doym1 <- stan('doy_model1.stan', data = datalist1, iter = 1000, chains = 4) # with interaction of temp x photo
-doym1
-warm = gl(2, k = 2, length = N, labels = 0:1)
-warm
-photo = gl(2, k = 1, length = N, labels = 0:1)
-photo
-treat = paste(warm, photo)
-treat
-fak <- data.frame(warm, photo, treat)
-fak
 fak <- fak[order(fak$treat),] # put it in order of treatments
-fak
+tapply(dx$lday, list(dx$warm, dx$photo), mean) # hm... overall, get a delay with long days. Odd. Will make fake data with advance for long day#
+tapply(dx$lday, list(dx$warm, dx$photo), sd)

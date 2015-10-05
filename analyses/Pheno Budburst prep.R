@@ -33,16 +33,17 @@ d2$photo <- factor(substr(d2$treatcode, 2, 2), labels = c("long", "short"))
 d2$chill <- factor(substr(d2$treatcode, 3, 3), labels = c("chill0", "chill1", "chill2"))
 
 
-
 coltokeep <- c("Date","id","sp","rep","site","ind","treatcode","warm","photo","chill","gen","Term.fl","Lat.fl","Term.lf","Lat.lf","Comments","Observer")
 
 d <- rbind(d1[coltokeep], d2[coltokeep])
 
 
-# Format date, making a continous day since beginning of experiment	
+# Format date, making a continuous day since beginning of experiment. * For chill, this is from the first day after taken out of chilling! *
 d$Date <- strptime(d$Date, "%Y-%m-%d")
 day0 <- as.numeric(format(d$Date, "%j"))
+# from min(d$Date)
 d$day <- day0 - as.numeric(format(strptime("2015-02-06", "%Y-%m-%d"), "%j")) + 1 
+# see min(d[d$chill=="chill1","Date"]), but actual initiation was March 11, see budburst protocol
 d$day.chill <- day0 - as.numeric(format(strptime("2015-03-11", "%Y-%m-%d"), "%j")) + 1 
 
 d$dayuse <- ifelse(d$chill == "chill0", d$day, d$day.chill)
@@ -67,10 +68,11 @@ names(d)
 d$tleaf <- unlist(lapply(strsplit(as.character(d$Term.lf), "/"), function(x) ifelse(length(x)>1, x[2], x[1])))
 d$lleaf <- unlist(lapply(strsplit(as.character(d$Lat.lf), "/"), function(x) ifelse(length(x)>1, x[2], x[1])))
 
-# and use first values if comma separated
+# and use first values if comma. This is a sequential manipulation, after slash data have been modified.
 d$tleaf <- unlist(lapply(strsplit(as.character(d$tleaf), ", "), function(x) ifelse(length(x)>1, x[1], x[1])))
 d$lleaf <- unlist(lapply(strsplit(as.character(d$lleaf), ", "), function(x) ifelse(length(x)>1, x[1], x[1])))
 
+# finally, make non-numeric data into NA
 for(i in c("tleaf","lleaf","Term.fl","Lat.fl")){
 	d[,i][d[,i] =="-"] = NA
 	d[,i][d[,i] ==""] = NA
@@ -83,18 +85,22 @@ d$lleaf <- sub("\\*", "", d$lleaf) # get rid of one asterix after 4*
 for(i in c("tleaf","lleaf","Term.fl","Lat.fl")){
 	d[,i] = as.numeric(as.character(d[,i])) }
 
-# calculating day since initiation of experiment, by twig id (includes treatment). Tricky part: what should NA be? They still haven't reached stage 6... for this calculation, I put them as NA. Will change with more data.
+# calculating day since initiation of experiment, by twig id (includes treatment). Tricky part: what should NA be? They still haven't reached stage 6... for this calculation, I put them as 75.
+
+# 
 
 # For chill treatments, count days since they started in chambers, not since chill0 started
 
 bday <- lday <- fday <- vector()
 
-for(i in levels(d$id)){ # i=levels(d$id)[500] 
+for(i in levels(d$id)){ # i=levels(d$id)[500] # for each individual clipping.
 	
 	dx <- d[d$id == i,]
 
 	day.use <- ifelse(dx$chill[1] == "chill0", "day", "day.chill")
 
+	# 1. for both terminal and lateral buds, what is the max stage within a row. Identify which rows are greater or equal to the specific BBCH stage
+	# 2. now for that individual, find the earliest day at which that stage was reached.
 	bdax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 3)
 	if(length(bdax) < 1) bdax = 75 else bdax = dx[min(bdax),day.use]
 
@@ -108,8 +114,6 @@ for(i in levels(d$id)){ # i=levels(d$id)[500]
 	lday <- c(lday, ldax)
 	fday <- c(fday, fdax)	
 	}
-
-
 
 # merging with unique id data
 
@@ -137,4 +141,6 @@ write.csv(d, "input/Budburst.csv", row.names=F)
 
 save(list = c('d', 'dx'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
 
+## Check issue: were long-day individuals later leafing out than short-day individuals? No.
 
+aggregate(dx["lday"], dx[c("site", "warm", "photo")], FUN=mean) #can replace lday with bday etc.

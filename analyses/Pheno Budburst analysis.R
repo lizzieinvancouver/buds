@@ -9,7 +9,7 @@ library(rstan)
 
 setwd("~/Documents/git/buds/analyses")
 
-load("input/Budburst Data 2015-09-16")
+load("input/Budburst Data 2015-10-05")
 
 dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 
