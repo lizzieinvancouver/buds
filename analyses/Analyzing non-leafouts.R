@@ -1,9 +1,11 @@
 # Where were the non-leafout cuttings, by species, site, and treatement?
 library(scales)
 
-setwd("~/Documents/git/buds/analyses")
+setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
 
 load("input/Budburst Data 2015-09-16")
+
+source("source/simpleplot.R")
 
 dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 
@@ -19,6 +21,61 @@ nl2 <- as.data.frame(table(nl$warm, nl$photo, nl$chill))
 # proportional to total numbers in each
 dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))
 nl2$prop <- nl2$Freq/dl2$Freq
+nl3 <- as.data.frame(table(nl$sp, nl$site,nl$warm, nl$photo, nl$chill))
+dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))
+nl3$prop <- nl3$Freq/dl3$Freq
+nl3$prop[is.nan(nl3$prop)==TRUE] <- 0
+    
+names(nl1) <- c("sp","site","freq")
+names(nl2) <- c("warm","photo","chill","freq", "prop")
+names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")
+
+nl3.nochill <- subset(nl3, chill=="chill0")
+nl3.1chill <- subset(nl3, chill=="chill1")
+nl3.2chill <- subset(nl3, chill=="chill2")
+
+# make some simple plots
+makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined
+makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")
+makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")
+makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")
+
+sitespp <- as.data.frame(table(nl3$sp, nl3$site))
+sitespp <- subset(sitespp, Freq>0)
+sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)
+sppatbothsites <- subset(sppatsites, Var2>1)
+
+spp <- sppatbothsites$Var1
+#for (i in c(1:length(spp))){
+#    spdf <- subset(nl3.nochill, sp==spp[i])
+#    makesimpleplot.sp(spdf, c(0, 1), "prop", "% non-leafout", spp[i])
+#}
+
+dx1 <- dx
+dx1[dx1==75] = NA
+dxnoNA <- subset(dx1, is.na(lday)==FALSE)
+dxnoNA <- as.data.frame(dxnoNA)
+
+dxnoNA.nochill <- subset(dxnoNA, chill=="chill0")
+dxnoNA.1chill <- subset(dxnoNA, chill=="chill1")
+dxnoNA.2chill <- subset(dxnoNA, chill=="chill2")
+
+makesimpleplot.lday(dxnoNA, c(20,100), "lday", "leafout day of year")
+makesimpleplot.lday(dxnoNA.0chill, c(20,100), "lday", "leafout day of year")
+makesimpleplot.lday(dxnoNA.1chill, c(20,100), "lday", "leafout day of year")
+makesimpleplot.lday(dxnoNA.2chill, c(20,100), "lday", "leafout day of year")
+
+sitespp <- as.data.frame(table(dxnoNA$sp, dxnoNA$site))
+sitespp <- subset(sitespp, Freq>0)
+sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)
+sppatbothsites <- subset(sppatsites, Var2>1)
+spp <- sppatbothsites$Var1
+spp <- spp[!spp=="KALANG"]
+
+for (i in c(1:length(spp))){
+    spdf <- subset(dxnoNA, sp==spp[i])
+    makesimpleplot.sp.lday(spdf, c(20,100), "lday", "leafout day of year", spp[i])
+}
 
 # colors for plotting
 cols = alpha(c("darkseagreen", "deepskyblue", "slateblue"), 0.5)
