@@ -6,3 +6,5 @@
 *.history
 
 analyses/.RData
+
+analyses/graphs/.DS_Store

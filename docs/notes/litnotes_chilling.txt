@@ -17,3 +17,13 @@ The requirement is normally met by mid-winter. Typically, however, conditions ar
 Clearly, there is considerable overlap between temperatures effective in chilling and those that contribute to heat sum (Cooke et al., 2012). Therefore, over a certain period at the interface, it is difficult to know whether the last remnants of the chilling requirement are being met or whether thermal forcing has started, or both (Luedeling et al., 2013). 
 
 - Paper we should get: Luedeling E, Guo L, Dai J, Leslie C, Blanke MM. 2013. Differential responses of trees to temperature variation during chilling and forcing phases. Agricultural and Forest Meteorology 181: 33–42.
+
+- Luedeling et al. 2013
+https://cran.r-project.org/web/packages/chillR/index.html
+
+
+- Darbyshire 2014 Int J Biomet
+
+Modeling pome fruit production in Australia; including chilling resulted in less obvious advance of spring phenology with warming.
+
+“Including winter chill creates less obvious outcomes from projection analyses as both winter and spring temperature conditions contribute to the determi- nation of flowering timing.”
