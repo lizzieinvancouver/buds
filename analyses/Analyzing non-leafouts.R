@@ -11,7 +11,7 @@ dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 
 # Analysis of where the non-leafout cuttings were
 
-nl <- dx[dx$lday >=75,]
+nl <- dx[dx$lday ==75,]
 
 summary(nl)
 
@@ -64,7 +64,7 @@ bb <- barplot(nl2$prop*100, ylab = "% of cuttings non-leafout",
 	col = rep(cols, each = 4),
 	main = "Percent of cuttings in each treatment which failed to leaf out",
 	xlab = "Treatment combination", sub = "(temp + photo + chill)")
-mtext(paste(nl2$Var1, nl2$Var2, nl2$Var3, sep = "\n"), 1, line = -2, padj = 0, at = bb[,1])
+mtext(paste(nl2$warm, nl2$photo, nl2$chill, sep = "\n"), 1, line = -2, padj = 0, at = bb[,1])
 
 chi.all <- summary(xtabs(~ warm+photo+chill, data = nl))
 for(i in levels(nl$chill)) print(chisq.test(table(nl[nl$chill==i,]$warm, nl[nl$chill==i,]$photo))) # NS within chill1 or chill2, surprisingly
@@ -149,4 +149,5 @@ summary(glm(nl ~ warm + photo + chill + site + sp +
 						warm:photo + warm:chill + photo:chill + 
 						warm:sp + photo:sp + chill:sp,
 						family=binomial(link='logit'), data = dx))	# clear species effects, interax with warm x photo, very few sp-specific responses to warming or photo. Querub improved with chilling.					
+
 
