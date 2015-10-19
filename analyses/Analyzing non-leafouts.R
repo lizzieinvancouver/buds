@@ -138,9 +138,9 @@ curve(predict(m1, data.frame(warm=x), type="resp"),
       add=TRUE, col="red")
 
 summary(glm(nl ~ warm + photo + chill + site + sp, family=binomial(link='logit'), data = dx))
+
 summary(glm(nl ~ warm + photo + chill + site + sp +
 						warm:photo + warm:chill + photo:chill,
-						,
 						family=binomial(link='logit'), data = dx))
 
 summary(glm(nl ~ site + sp + sp:site, family=binomial(link='logit'), data = dx)) # no overall site effect, some acesac and franig interax by site, more non-leafouts in HF

@@ -1,12 +1,23 @@
 
+## Oct 15
+Nonleafout column in the data processing
+Nonleafout models for each sp separately; put together summary. photo x chill x temp x site full model
+Also for leafout day (should be same story as nl!) 
+Wood anatomy data column for species: Ring-porous vs diffuse
+Risk: at site level, risk of spring freezing. At species level, investment in risk-management in wood anatomy
+
+Leafout day for Fagus for Isabelle
+
+- Physiological pathway for chilling (glucogen, microtubles)
 
 **
 To do tasks from 24 Sept and 1 Oct meetings
 - Looking into literature on chilling (EMW) —> See new file litnotes_chilling
-- Ask Tim to see what minimum temps were across all chambers during experiment, especially the Conviron one(s?) that did the 1.5 C chilling —> consider whether there could have been freezing at all?
+- Ask Tim to see what minimum temps were across all chambers during experiment, especially the Conviron one(s?) that did the 1.5 C chilling —> consider whether there could have been freezing at all? -> DF asked Tim to prep this
 - look into statistical options with individuals that do not leaf out (survival, ordinal regression etc.) — make a list
 - how many studies in our lit review database did multiple levels of chilling (and what did they find?
-- chambers for winter experiments?
+- chambers for winter experiments? —> DF asked Faye
+
 **
 
 
@@ -15,11 +26,8 @@ Figure to do
 
 mean leaf out date - from the experiment
 
-put on github
-
 Data to do
 - Nectar database for leafout categories, early/mid/late
-
 - non-leafouts (“75s”): 0 or 1 for non leafout twigs across treatments, by species.
 
 
@@ -27,14 +35,10 @@ Writing to do
 -  outline on git 
 
 - beef up results, 
-
 - methods
-
 - linear analyses, posted to git.
-
 - ‘discussion’
-
- -first go through analyses 
+-first go through analyses 
 
 species level and individuals levels 
 
