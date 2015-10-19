@@ -90,8 +90,9 @@ for(i in c("tleaf","lleaf","Term.fl","Lat.fl")){
 # 
 
 # For chill treatments, count days since they started in chambers, not since chill0 started
+# now adding vector nl for 0 if non-leafout, 1 if leafout.
 
-bday <- lday <- fday <- vector()
+bday <- lday <- fday <- nl <- vector()
 
 for(i in levels(d$id)){ # i=levels(d$id)[500] # for each individual clipping.
 	
@@ -102,13 +103,13 @@ for(i in levels(d$id)){ # i=levels(d$id)[500] # for each individual clipping.
 	# 1. for both terminal and lateral buds, what is the max stage within a row. Identify which rows are greater or equal to the specific BBCH stage
 	# 2. now for that individual, find the earliest day at which that stage was reached.
 	bdax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 3)
-	if(length(bdax) < 1) bdax = 75 else bdax = dx[min(bdax),day.use]
+	if(length(bdax) < 1) bdax = NA else bdax = dx[min(bdax),day.use]
 
 	ldax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 6)
-	if(length(ldax) < 1) ldax = 75 else ldax = dx[min(ldax),day.use]
+	if(length(ldax) < 1) {ldax = NA; nl <- c(nl, 0)} else {ldax = dx[min(ldax),day.use]; nl <- c(nl, 1)}
 		
 	fdax <- which(apply(dx[,c("Term.fl","Lat.fl")], 1, max) > 16)
-	if(length(fdax) < 1) fdax = 75 else fdax = dx[min(fdax),day.use]
+	if(length(fdax) < 1) fdax = NA else fdax = dx[min(fdax),day.use]
 
 	bday <- c(bday, bdax)
 	lday <- c(lday, ldax)
@@ -121,7 +122,7 @@ dx <- d[match(levels(d$id), d$id),] # with twig id in same order as the loop abo
 
 dx <- dx[,2:20]
 
-dx <- data.frame(dx, lday, fday, bday)
+dx <- data.frame(dx, lday, fday, bday, nl)
 
 # Clean up levels for the treatment factors. Default is alphabetical, here want to sort in a meaningful way.
 # levels(dx$treatcode) <- c(2,1,4,3)
@@ -143,4 +144,4 @@ save(list = c('d', 'dx'), file = paste("input/Budburst Data", Sys.Date())) # sav
 
 ## Check issue: were long-day individuals later leafing out than short-day individuals? No.
 
-aggregate(dx["lday"], dx[c("site", "warm", "photo")], FUN=mean) #can replace lday with bday etc.
+aggregate(dx["lday"], dx[c("site", "warm", "photo")], FUN=mean, na.rm=T) #can replace lday with bday etc.

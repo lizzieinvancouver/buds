@@ -9,7 +9,7 @@ library(rstan)
 
 setwd("~/Documents/git/buds/analyses")
 
-load("input/Budburst Data 2015-10-05")
+load("input/Budburst Data 2015-10-19")
 
 dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 
@@ -23,33 +23,27 @@ summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill ==
 summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
 
 
-
 summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
 
-summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effex interax with warm for budbust (stage 3) but not leafout (stage 6)
+summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effects interax with warm for budbust (stage 3) but not leafout (stage 6)
 
 summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering
 
 # with lme4 mixed effect model to better take into account species differences 
 
-# test without the 75's -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. 75 days was assigned to them as max value
-dx1 <- dx
-dx1[dx1==75] = NA
+# test without the nonleafouts -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. Previously had '75' days was assigned to them as max value
 
-m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0',])
+m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
 summary(m3)
-
-############################ Use this one for plotting. Above does not omit 75's
-
-m31 <- lmer(lday ~ warm * photo * site + (warm|sp) + (photo|sp), data = dx1[dx1$chill == 'chill0',])
-summary(m31)
-fixef(m31)
-ranef(m31)
+fixef(m3)
+ranef(m3)
 
 
 # What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1
 summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
 
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 # New analyses, in stan, using simple models
 # model 1: lday ~ warm * photo, no species, site, or ind.
@@ -118,8 +112,8 @@ summary(m17)
 
 
 
-# Plot m31
-plot(ranef(m31)$sp[,1],ranef(m31)$sp[,3],
+# Plot m3
+plot(ranef(m3)$sp[,1],ranef(m3)$sp[,3],
 	pch = "+", col = "grey10",
 	type = "n",
 	xlab = "Warming response",
@@ -128,11 +122,11 @@ plot(ranef(m31)$sp[,1],ranef(m31)$sp[,3],
 	ylim = c(-18, 18)
 	)
 rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col = "white")
-points(ranef(m31)$sp[,1],ranef(m31)$sp[,3],
+points(ranef(m3)$sp[,1],ranef(m3)$sp[,3],
 	pch = "+", col = "grey10")
 
-text(ranef(m31)$sp[,1],ranef(m31)$sp[,3], 
-	labels = rownames(ranef(m31)$sp), cex = 0.6, pos = 1,
+text(ranef(m3)$sp[,1],ranef(m3)$sp[,3], 
+	labels = rownames(ranef(m3)$sp), cex = 0.6, pos = 1,
 	col = alpha('grey20', 0.8))
 abline(h=0, lty = 3, col = alpha('darkblue', 0.5))
 abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
@@ -146,7 +140,7 @@ dev.print(file = "ranefs.pdf", device = pdf)
 
 # Plot sensitivity by actual leafout time
 
-xx <- data.frame(aggregate(dx1$lday, by=list(dx1$sp), FUN = mean, na.rm=T), ranef(m31)$sp[,2], ranef(m31)$sp[,4])
+xx <- data.frame(aggregate(dx1$lday, by=list(dx1$sp), FUN = mean, na.rm=T), ranef(m3)$sp[,2], ranef(m3)$sp[,4])
 
 # xx: col 1 is the mean leafout day across all treatments for that species. col 2 is interecept of that species for warming effect, col 3 intercept for photo. Should use slope instead?
 
@@ -208,8 +202,8 @@ dev.print(file = "./Figures/Overall_photo_temp.pdf", device = pdf)
 # in long days, greater warming effect observed, but this does not translate to a site effect.
 
 # getting mean and sd from model fit
-summary(m31)
-coef(m31)
+summary(m3)
+coef(m3)
 
 ############# chilling plot
 

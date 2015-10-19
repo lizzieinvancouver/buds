@@ -28,8 +28,8 @@ makesimpleplot <- function(datahere, yrange, yvar, ylabelhere){
    xtxt <- c(1,2)
    yrange.use <- yrange
    # Open a blank plot
-   quartz("Quartz", width=4.5, height=3, pointsize=12)
-   par(mfrow=c(1,2), cex=0.7, xpd=TRUE, xaxt="n")
+  # quartz("Quartz", width=4.5, height=3, pointsize=12)
+  # par(mfrow=c(1,2), cex=0.7, xpd=TRUE, xaxt="n")
    plot(yrange.use,type="n",
         main="Harvard Forest, USA",
         xlab="",
@@ -90,7 +90,7 @@ makesimpleplot.sp <- function(datahere, yrange, yvar, ylabelhere, species){
    yrange.use <- yrange
    # Open a blank plot
    # quartz("Quartz", width=4.5, height=3, pointsize=12)
-   par(mfrow=c(1,2), cex=0.7, xpd=TRUE, xaxt="n")
+  # par(mfrow=c(1,2), cex=0.7, xpd=TRUE, xaxt="n")
    plot(yrange.use,type="n",
         main=paste(species, "at Harvard Forest, USA"),
         xlab="",

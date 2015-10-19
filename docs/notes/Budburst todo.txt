@@ -1,9 +1,9 @@
 
 ## Oct 15
-Nonleafout column in the data processing
+Nonleafout column in the data processing -> done
 Nonleafout models for each sp separately; put together summary. photo x chill x temp x site full model
 Also for leafout day (should be same story as nl!) 
-Wood anatomy data column for species: Ring-porous vs diffuse
+Wood anatomy data column for species: Ring-porous vs diffuse -> insidewood.lib.ncsu.edu
 Risk: at site level, risk of spring freezing. At species level, investment in risk-management in wood anatomy
 
 Leafout day for Fagus for Isabelle

@@ -3,25 +3,24 @@ library(scales)
 
 setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
 
-load("input/Budburst Data 2015-10-05")
+load("input/Budburst Data 2015-10-19")
 
 source("source/simpleplot.R")
 
 dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 
 # Analysis of where the non-leafout cuttings were
+nlx <- dx[dx$nl == 0,]
 
-nl <- dx[dx$lday ==75,]
+summary(nlx)
 
-summary(nl)
+nl1 <- as.data.frame(table(nlx$sp, nlx$site))
 
-nl1 <- as.data.frame(table(nl$sp, nl$site))
-
-nl2 <- as.data.frame(table(nl$warm, nl$photo, nl$chill))
+nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))
 # proportional to total numbers in each
 dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))
 nl2$prop <- nl2$Freq/dl2$Freq
-nl3 <- as.data.frame(table(nl$sp, nl$site,nl$warm, nl$photo, nl$chill))
+nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nlx$chill))
 dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))
 nl3$prop <- nl3$Freq/dl3$Freq
 nl3$prop[is.nan(nl3$prop)==TRUE] <- 0
@@ -53,8 +52,38 @@ for (i in c(1:length(spp))){
 }
 dev.off()
 
-dx1 <- dx
-dx1[dx1==75] = NA
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+# Simple models by species
+pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)
+
+par(cex=0.7, xpd=TRUE, xaxt="n")
+layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
+for(i in sort(unique(dx$sp))){
+
+	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
+	
+
+	mx <- glm(nl ~ warm + photo + chill + site +
+							warm:photo + warm:chill + warm:site +
+							 photo:chill + photo:site
+							  + warm:photo:chill
+#							  + warm:photo:site
+#							  + warm:chill:site  
+#							  + photo:chill:site
+							  ,
+			family=binomial(link='logit'), 
+			data = dx[dx$sp == i,]
+			)
+			
+	textplot(round(coef(summary(mx)),3))
+		
+		}
+dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
+
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
 
 # colors for plotting
 cols = alpha(c("darkseagreen", "deepskyblue", "slateblue"), 0.5)
