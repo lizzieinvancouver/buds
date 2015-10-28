@@ -8,3 +8,7 @@
 analyses/.RData
 
 analyses/graphs/.DS_Store
+
+*.history
+
+analyses/.Rapp.history

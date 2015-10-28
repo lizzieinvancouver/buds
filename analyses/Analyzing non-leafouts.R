@@ -1,9 +1,13 @@
 # Where were the non-leafout cuttings, by species, site, and treatement?
 library(scales)
+library(gplots) # for textplot()
 
 setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
 
-load("input/Budburst Data 2015-10-19")
+# get latest data
+print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
+
+load(file.path("input", toload))
 
 source("source/simpleplot.R")
 
@@ -55,6 +59,9 @@ dev.off()
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Simple models by species
+
+# Tally sig site * chill effects
+
 pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)
 
 par(cex=0.7, xpd=TRUE, xaxt="n")
@@ -62,20 +69,36 @@ layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
 for(i in sort(unique(dx$sp))){
 
 	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
-	
 
-	mx <- glm(nl ~ warm + photo + chill + site +
-							warm:photo + warm:chill + warm:site +
-							 photo:chill + photo:site
-							  + warm:photo:chill
-#							  + warm:photo:site
-#							  + warm:chill:site  
-#							  + photo:chill:site
-							  ,
-			family=binomial(link='logit'), 
-			data = dx[dx$sp == i,]
-			)
-			
+	# is this species across site and chill?
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {
+			mx <- glm(nl ~ warm + photo + chill + site 
+							+ warm:photo + warm:chill + warm:site 
+							+ photo:chill + photo:site
+							+ warm:photo:chill
+							+ warm:photo:site 
+							+ warm:chill:site 
+							+ photo:chill:site
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]
+							)
+
+			} 
+	# Across site but no chill?		
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {
+			mx <- glm(nl ~ warm + photo + site 
+							+ warm:photo +  warm:site + photo:site
+							+ warm:photo:site 
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]
+							)
+			} 
+	# One site, no chill?		
+	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {
+		mx <- glm(nl ~ warm + photo +  
+							+ warm:photo 
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]
+							)
+			} 
+					
 	textplot(round(coef(summary(mx)),3))
 		
 		}

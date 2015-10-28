@@ -137,11 +137,55 @@ dx$warm <- as.factor(as.character(dx$warm))
 levels(dx$warm) <- c('15', '20')
 dx$warm <- as.factor(as.character(dx$warm))
 
-write.csv(dx, "input/Budburst By Day.csv", row.names=F)
-write.csv(d, "input/Budburst.csv", row.names=F)
-
-save(list = c('d', 'dx'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
 
 ## Check issue: were long-day individuals later leafing out than short-day individuals? No.
 
 aggregate(dx["lday"], dx[c("site", "warm", "photo")], FUN=mean, na.rm=T) #can replace lday with bday etc.
+
+
+######## Additional calcuations: 
+# Calculating typical leafout day by species, across sites
+
+setwd("~/Documents/git/buds/analyses")
+
+# show latest data
+sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]
+
+load("input/Budburst Data 2015-10-19")
+
+dxx <- dx[dx$treatcode == "WL0",]
+
+lday.agg <- aggregate(lday ~ sp, data = dxx, FUN = mean)
+
+hist(lday.agg$lday)
+
+lday.agg <- lday.agg[order(lday.agg$lday),]
+
+plot(lday.agg$lday,
+	type = "n",
+	main = "Typical Leafout Day in WL0",
+	ylab = "Day")
+text(1:nrow(lday.agg), lday.agg$lday, 
+	labels = lday.agg$sp,
+	cex = 0.5, col = "midnightblue")
+dev.print(device = pdf, file = "./graphs/Typical Leafout.pdf", width = 10, height = 8)
+
+
+########## Prep of species traits
+
+tr <- read.xls("./input/Species Traits.xlsx")
+library(Taxonstand)
+
+trTPL <- TPL(tr$Species)
+
+write.csv(trTPL, file = "./input/Species Traits Taxonstand.csv")
+
+##### Saving
+
+
+write.csv(dx, "input/Budburst By Day.csv", row.names=F)
+write.csv(d, "input/Budburst.csv", row.names=F)
+
+save(list = c('d', 'dx', 'lday.agg'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
+
+
