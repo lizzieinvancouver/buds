@@ -1,6 +1,10 @@
 # Where were the non-leafout cuttings, by species, site, and treatement?
 library(scales)
+<<<<<<< Updated upstream
 library(gplots) # for textplot()
+=======
+library(gplots)
+>>>>>>> Stashed changes
 
 setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
 
@@ -69,6 +73,7 @@ layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
 for(i in sort(unique(dx$sp))){
 
 	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
+<<<<<<< Updated upstream
 
 	# is this species across site and chill?
 	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {
@@ -99,6 +104,25 @@ for(i in sort(unique(dx$sp))){
 							)
 			} 
 					
+=======
+	
+  
+  
+	mx <- glm(nl ~ warm + photo + chill + site +
+							warm:photo + warm:chill + warm:site +
+							 photo:chill + photo:site
+							  + site:chill
+							  + warm:photo:chill
+							
+#							  + warm:photo:site
+#							  + warm:chill:site  
+#							  + photo:chill:site
+							  ,
+			family=binomial(link='logit'), 
+			data = dx[dx$sp == i,]
+			)
+			
+>>>>>>> Stashed changes
 	textplot(round(coef(summary(mx)),3))
 		
 		}

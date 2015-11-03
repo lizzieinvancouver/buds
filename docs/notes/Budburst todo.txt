@@ -1,4 +1,21 @@
 
+##
+Move this to teamwork
+Do the individual models for leafout day and nonleafouts
+Do warm x photo for all species, chill0
+
+Chilling experiments: photo * temp * chill + site 
+
+Questions: were all species from genetic analysis in the chilling
+Individual is nested w/in site. So should be adding individual as random effect, nested in individual. Should site still be a fixed effect? 
+lday ~ site + warm + photo + species 
+
+Tissue experiment: what species were included, in chilling
+
+Species traits: leafout day in warm/long as their ‘natural’ leafout day for purposes of arranging them by early-late.
+
+
+
 ## Oct 15
 Nonleafout column in the data processing -> done
 Nonleafout models for each sp separately; put together summary. photo x chill x temp x site full model

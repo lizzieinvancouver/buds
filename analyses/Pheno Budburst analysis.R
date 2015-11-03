@@ -2,6 +2,9 @@
 # Analysis of budburst experiment. Starting with simple linear models
 # 2015-0916 adding single species models
 
+# 1. each species as individually
+# 2. 
+
 library(nlme)
 library(scales)
 library(arm)
