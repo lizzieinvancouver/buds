@@ -1,10 +1,6 @@
 # Where were the non-leafout cuttings, by species, site, and treatement?
 library(scales)
-<<<<<<< Updated upstream
 library(gplots) # for textplot()
-=======
-library(gplots)
->>>>>>> Stashed changes
 
 setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
 
@@ -64,7 +60,8 @@ dev.off()
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Simple models by species
 
-# Tally sig site * chill effects
+dx$chill <- as.numeric(dx$chill)
+dx$site <- as.numeric(dx$site)
 
 pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)
 
@@ -73,7 +70,6 @@ layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
 for(i in sort(unique(dx$sp))){
 
 	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
-<<<<<<< Updated upstream
 
 	# is this species across site and chill?
 	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {
@@ -104,29 +100,96 @@ for(i in sort(unique(dx$sp))){
 							)
 			} 
 					
-=======
-	
-  
-  
-	mx <- glm(nl ~ warm + photo + chill + site +
-							warm:photo + warm:chill + warm:site +
-							 photo:chill + photo:site
-							  + site:chill
-							  + warm:photo:chill
-							
-#							  + warm:photo:site
-#							  + warm:chill:site  
-#							  + photo:chill:site
-							  ,
-			family=binomial(link='logit'), 
-			data = dx[dx$sp == i,]
-			)
-			
->>>>>>> Stashed changes
+  	
 	textplot(round(coef(summary(mx)),3))
 		
 		}
+		
+		
 dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
+
+# examination code
+with(dx[dx$sp == i,], table(warm, photo, site, chill))
+with(dx[dx$sp == i,], tapply(nl, list(warm, photo, site, chill), mean))
+
+# Repeat, with simple model for all. Aronia: 1 nl occured in each of the four combinations of photo and warm, no separation.
+dx$warm <- as.numeric(as.character(dx$warm))
+dx$photo <- as.numeric(as.character(dx$photo))
+
+pdf(file="graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf", height = 10, width = 10)
+
+par(cex=0.7, xpd=TRUE, xaxt="n")
+layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
+for(i in sort(unique(dx$sp))){
+
+	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
+
+
+		mx <- glm(nl ~ warm + photo  
+							+ warm:photo 
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]
+							)
+					
+  	textplot(round(coef(summary(mx)),3))
+	
+	if(coef(summary(mx))[4,4] <= 0.05){
+	with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) 
+	} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="",xlab="") }
+
+		
+	}
+			
+dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
+
+# Focus on site x chill
+
+# Tally sig site * chill effects
+
+pdf(file="graphs/simpleplots/nonleafouts_sitechill.pdf", height = 10, width = 10)
+
+par(cex=0.7)
+layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
+for(i in sort(unique(dx$sp))){
+
+
+	# is this species across site and chill?
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {
+		xx <- dx[dx$sp==i,]
+		
+		means <- with(xx, tapply(nl, list(chill, site), mean, na.rm=T))
+		sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))
+
+		plot(1:3, means[,1], ylim = c(0, 1.25), main = paste(i, "HF"), pch = 16, ylab = "prop leafout", xaxt="n")
+		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		
+		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
+
+		plot(1:3, means[,2], ylim = c(0, 1.25), main = "SH", pch = 16, ylab = "prop leafout", xaxt="n")
+		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		
+		arrows(1:3, means[,2]-sds[,2], 1:3, means[,2]+sds[,2], length = 0)
+
+				
+			mx <- glm(nl ~ chill * site 
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]
+							)
+
+		textplot(round(coef(summary(mx)),3))
+
+
+		if(coef(summary(mx))[4,4] <= 0.05){
+			with(dx[dx$sp == i,], interaction.plot(chill, site, nl)) 
+			} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="",xlab="") }
+
+		 		
+	
+		}
+		}
+		
+		
+dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
+
+
+
+
 
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>

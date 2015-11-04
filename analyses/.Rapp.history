@@ -1,381 +1,3 @@
-names(phylom) = c("Family","Genus","Species")
-keep <- na.omit(match(phylom$Species, mega$tip.label))
-summary(keep)
-head(keep)
-length(keep); length(phylom$Species) # 1488 out of 2633 direct matches.
-dim(ax)
-nomatch <-  phylom[is.na(match(phylom$Species, mega$tip.label)),] # 1145 species
-nomatch
-nomatch <-  phylom[is.na(match(phylom$Species, mega$tip.label)),] # 1145 species
-dim(nomatch)
-summary(match(phylom$Species, mega$tip.label))
-keep <- na.omit(match(phylom$Species, mega$tip.label))
-length(keep); length(phylom$Species) # 1924, all matching!
-head(keep)
-dim(keep)
-length(keep)
-keep <- na.omit(match(phylom$Species, mega$tip.label))
-length(keep); length(phylom$Species) # 1924, all matching!
-nomatchgen = sort(unique(nomatch$Genus)) # length(nomatchgen) # 422 genera in the non-matching species
-# Find the congeners in the megatree. !! grep will find partial genus matches, need to look for exact matches! Use the _ to mark#
-gens <- sapply(nomatchgen, function(x) #
-  grep(paste(x, "_",sep=""), mega$tip.label)#
-               )
-unimodally distrubuted on the megatree, e.g. ulmus. hist(gens[['Ulmus']])#
-gens.name <- unlist(lapply(gens, function(x) #
-  x[which.min(x-median(x))]#
-               ))
-length(gens.name)
-nogen <- unlist(lapply(gens, function(x) length(x)<1))#
-# 145 taxa with no matches for species or genus. Check IPNI for synonomy.
-nogen
-summary(nogen)
-nonos <- phylom[!is.na(match(phylom$Genus, names(nogen[nogen==T]))),]
-nonos
-nogen <- unlist(lapply(gens, function(x) length(x)<1))
-nonos <- phylom[!is.na(match(phylom$Genus, names(nogen[nogen==T]))),]
-nonos
-nogen[nogen==T]
-nogen <- unlist(lapply(gens, function(x) length(x)<1))
-nogen
-gens
-nogen[nogen==T]
-gens
-gens[nogen]
-nogen
-gens
-gens[[nogen]]
-gens.naem
-gens.name
-nomatchgen
-nomatchgen = as.character(sort(unique(nomatch$Genus))) # length(nomatchgen) # 422 genera in the non-matching species
-nomatchgen
-gens <- sapply(nomatchgen, function(x) #
-  grep(paste(x, "_",sep=""), mega$tip.label)#
-               )
-gens
-gens.name <- unlist(lapply(gens, function(x) #
-  x[which.min(x-median(x))]#
-               ))
-gens.name
-length(gens.name) # 155 of these match.
-nogen <- unlist(lapply(gens, function(x) length(x)<1))
-nogen
-names(nogen)[nogen]
-match(phylom$Genus, names(nogen)[nogen])
-nonos <- phylom[!is.na(match(phylom$Genus, names(nogen)[nogen])),]
-nonos
-write.csv(nonos, "Nonmatching genus or sp.csv", row.names = F)
-keeps <- sort(unique(c(gens.name, keep)))#
-keeps <- keeps[!duplicated(keeps)]
-keeps.names <- mega$tip.label[keeps]#
-drops <- mega$tip.label[is.na(match(mega$tip.label, keeps.names))]
-keeps.names
-drops
-mega.sub <- drop.tip(mega, drops)
-genus.mark <- mega$tip.label[gens.name]#[!gens.name %in% keep]] # !! Now finding all marking taxa, including ones already which are actually in Swiss BDM
-genus.mark
-phylom[phylom$Genus== "Ulmus",]
-mega.sub$tip.label[grep("Ulmus",mega.sub$tip.label)]
-genus.mg = unlist(lapply(strsplit(genus.mark, "_"), function(x) x[[1]]))
-nosp.yesgen <- phylom[is.na(match(phylom$Species, mega$tip.label)) & !is.na(match(phylom$Genus, names(nogen[nogen==F]))),]
-addS <- tapply(nosp.yesgen$Genus, nosp.yesgen$Genus, length)
-forsplit <- data.frame(genus.mg, genus.mark, addS)
-forsplit
-addS
-forsplit <- data.frame(genus.mg, genus.mark, addS)
-source('~/Dropbox/Work/Phylogeny/Jena PNC/Scripts/add.tip.R')
-addS
-forsplit <- data.frame(genus.mg, genus.mark, addS)
-genus.mg
-genus.mark
-genus.mg
-addS
-addS[!is.na(addS)]
-length(addS[!is.na(addS)])
-forsplit <- data.frame(genus.mg, genus.mark, addS[!is.na(addS)])
-source('~/Dropbox/Work/Phylogeny/Jena PNC/Scripts/add.tip.R')
-mega.new <- add.tip(mega.sub, forsplit$genus.mark, forsplit$addS)
-mega.sub
-forsplit$genus.mark
-forsplit$addS
-mega.new <- add.tip(mega.sub, forsplit$genus.mark, forsplit$addS)
-mega.new <- collapse.singles(mega.new) # neccessary for addS = 1
-mega.sub
-write.tree(mega.sub, "~/Dropbox/Work/Arb Mapping/Arb.new")
-52 %/% 12
-53 %/% 12
-53 %% 12
-75 %% 12
-75 %/% 12
-library(Hmisc)
-veg <- mdb.get("~/Desktop/végétation.mdb")
-library(arm)#
-library(rstan)#
-#
-setwd("~/Documents/git/buds/analyses")#
-source("savestan.R")#
-load("input/Budburst Data 2015-09-16")
-N = 1000#
-#
-warm = gl(2, k = 2, length = N, labels = 0:1)#
-#
-photo = gl(2, k = 1, length = N, labels = 0:1)#
-#
-treat = paste(warm, photo)#
-#
-fak <- data.frame(warm, photo, treat)#
-#
-fak <- fak[order(fak$treat),] # put it in order of treatments
-tapply(dx$lday, list(dx$warm, dx$photo), mean) # hm... overall, get a delay with long days. Odd. Will make fake data with advance for long day#
-tapply(dx$lday, list(dx$warm, dx$photo), sd)
-library(gdata)#
-library(nlme)#
-library(scales)#
-library(arm)
-setwd("~/Documents/git/buds/analyses")#
-#
-load("input/Budburst Data 2015-10-05")
-ls()
-head
-head
-head(d
-0\
-head(d)
-head(dx)
-head
-# Analyzing phenology first work March 2015. Script also for Tim to work with R#
-# Setup: load packages, set working directory, read in the data.#
-#
-library(gdata)#
-library(nlme)#
-library(scales)#
-library(arm)#
-#
-setwd("~/Documents/git/buds/analyses")#
-#
-#d <- read.csv("Budburst.csv")#
-#
-d1 <- read.xls("data/Budburst Datasheet 2015-05-15.xlsx") # read.xls function from gdata. Slow, but no intermediate step of saving as csv. #
-#
-d2 <- read.xls("data/Budburst Datasheet 2015-05-15.xlsx", sheet = 2) # long format for consolidated treatments and chilling#
-# add relevant columns to d2 twigs#
-#
-idx <- strsplit(as.character(d2$id), "_")#
-d2$site <- unlist(lapply(idx, function(x) x[2]))#
-d2$rep <- unlist(lapply(idx, function(x) x[3]))#
-d2$sp <- substr(unlist(lapply(idx, function(x) x[1])), 1, 6)#
-d2$gen <- substr(unlist(lapply(idx, function(x) x[1])), 1, 3)#
-d2$ind <- substr(d2$id, 1, 11)#
-d2$warm <- factor(substr(d2$treatcode, 1, 1), labels = c("cool", "warm"))#
-d2$photo <- factor(substr(d2$treatcode, 2, 2), labels = c("long", "short"))#
-d2$chill <- factor(substr(d2$treatcode, 3, 3), labels = c("chill0", "chill1", "chill2"))#
-coltokeep <- c("Date","id","sp","rep","site","ind","treatcode","warm","photo","chill","gen","Term.fl","Lat.fl","Term.lf","Lat.lf","Comments","Observer")#
-#
-d <- rbind(d1[coltokeep], d2[coltokeep])#
-# Format date, making a continuous day since beginning of experiment. * For chill, this is from the first day after taken out of chilling! *#
-d$Date <- strptime(d$Date, "%Y-%m-%d")#
-day0 <- as.numeric(format(d$Date, "%j"))#
-# from min(d$Date)#
-d$day <- day0 - as.numeric(format(strptime("2015-02-06", "%Y-%m-%d"), "%j")) + 1 #
-# see min(d[d$chill=="chill1","Date"]), but actual initiation was March 11, see budburst protocol#
-d$day.chill <- day0 - as.numeric(format(strptime("2015-03-11", "%Y-%m-%d"), "%j")) + 1 #
-#
-d$dayuse <- ifelse(d$chill == "chill0", d$day, d$day.chill)#
-#
-# order by date#
-#
-d <- d[order(d$Date, d$id, d$treatcode),]#
-#
-# typical difference in date by treatment#
-for(i in levels(d$treatcode)){#
-	datediff <- diff(d[d$treatcode == i,"Date"])#
-	cat(rep("<>", 20), "\n", i, "\n")#
-	print(summary(unclass(datediff[datediff!=0]/60/60/24)))#
-	}#
-# Cleanup: fix data types (slashes and other characters in the phenostage columns), date format#
-#
-names(d) #
-#
-# make continuous data, now using second value if something is split by slash#
-d$tleaf <- unlist(lapply(strsplit(as.character(d$Term.lf), "/"), function(x) ifelse(length(x)>1, x[2], x[1])))#
-d$lleaf <- unlist(lapply(strsplit(as.character(d$Lat.lf), "/"), function(x) ifelse(length(x)>1, x[2], x[1])))#
-#
-# and use first values if comma. This is a sequential manipulation, after slash data have been modified.#
-d$tleaf <- unlist(lapply(strsplit(as.character(d$tleaf), ", "), function(x) ifelse(length(x)>1, x[1], x[1])))#
-d$lleaf <- unlist(lapply(strsplit(as.character(d$lleaf), ", "), function(x) ifelse(length(x)>1, x[1], x[1])))#
-#
-# finally, make non-numeric data into NA#
-for(i in c("tleaf","lleaf","Term.fl","Lat.fl")){#
-	d[,i][d[,i] =="-"] = NA#
-	d[,i][d[,i] ==""] = NA#
-	d[,i][d[,i] =="*"] = NA#
-	}#
-d$lleaf <- sub("\\*", "", d$lleaf) # get rid of one asterix after 4*#
-#
-# Make into numeric data, needed because it was read in with weird characters and automaticially made into factors#
-for(i in c("tleaf","lleaf","Term.fl","Lat.fl")){#
-	d[,i] = as.numeric(as.character(d[,i])) }#
-#
-# calculating day since initiation of experiment, by twig id (includes treatment). Tricky part: what should NA be? They still haven't reached stage 6... for this calculation, I put them as 75.#
-#
-# #
-#
-# For chill treatments, count days since they started in chambers, not since chill0 started#
-#
-bday <- lday <- fday <- vector()
-i=levels(d$id)[500] # for each individual clipping.#
-	dx <- d[d$id == i,]#
-#
-	day.use <- ifelse(dx$chill[1] == "chill0", "day", "day.chill")
-i=levels(d$id)[500] # for each individual clipping.#
-	dx <- d[d$id == i,]
-dx
-bday <- lday <- fday <- nl <- vector()#
-#
-for(i in levels(d$id)){ # i=levels(d$id)[500] # for each individual clipping.#
-	dx <- d[d$id == i,]#
-#
-	day.use <- ifelse(dx$chill[1] == "chill0", "day", "day.chill")#
-#
-	# 1. for both terminal and lateral buds, what is the max stage within a row. Identify which rows are greater or equal to the specific BBCH stage#
-	# 2. now for that individual, find the earliest day at which that stage was reached.#
-	bdax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 3)#
-	if(length(bdax) < 1) bdax = NA else bdax = dx[min(bdax),day.use]#
-#
-	ldax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 6)#
-	if(length(ldax) < 1) ldax = NA; nl <- c(nl, 0) else ldax = dx[min(ldax),day.use]; nl <- c(nl, 1)#
-	fdax <- which(apply(dx[,c("Term.fl","Lat.fl")], 1, max) > 16)#
-	if(length(fdax) < 1) fdax = NA else fdax = dx[min(fdax),day.use]#
-#
-	bday <- c(bday, bdax)#
-	lday <- c(lday, ldax)#
-	fday <- c(fday, fdax)	#
-	}
-bday <- lday <- fday <- nl <- vector()#
-#
-for(i in levels(d$id)){ # i=levels(d$id)[500] # for each individual clipping.#
-	dx <- d[d$id == i,]#
-#
-	day.use <- ifelse(dx$chill[1] == "chill0", "day", "day.chill")#
-#
-	# 1. for both terminal and lateral buds, what is the max stage within a row. Identify which rows are greater or equal to the specific BBCH stage#
-	# 2. now for that individual, find the earliest day at which that stage was reached.#
-	bdax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 3)#
-	if(length(bdax) < 1) bdax = NA else bdax = dx[min(bdax),day.use]#
-#
-	ldax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 6)#
-	if(length(ldax) < 1) {ldax = NA; nl <- c(nl, 0)} else {ldax = dx[min(ldax),day.use]; nl <- c(nl, 1)}#
-	fdax <- which(apply(dx[,c("Term.fl","Lat.fl")], 1, max) > 16)#
-	if(length(fdax) < 1) fdax = NA else fdax = dx[min(fdax),day.use]#
-#
-	bday <- c(bday, bdax)#
-	lday <- c(lday, ldax)#
-	fday <- c(fday, fdax)	#
-	}#
-#
-# merging with unique id data
-warnings()
-dx <- d[match(levels(d$id), d$id),] # with twig id in same order as the loop above
-dx <- dx[,2:20]
-dx <- data.frame(dx, lday, fday, bday, nl)
-head(dx
-)
-# Clean up levels for the treatment factors. Default is alphabetical, here want to sort in a meaningful way.#
-# levels(dx$treatcode) <- c(2,1,4,3)#
-# dx$treatcode <- as.factor(dx$treatcode)#
-# levels(dx$treatcode) <- c("Cool-short","Cool-long","Warm-short","Warm-long")#
-#
-dx$photo <- as.factor(as.character(dx$photo))#
-levels(dx$photo) <- c('12', '08')#
-dx$photo <- as.factor(as.character(dx$photo))#
-#
-dx$warm <- as.factor(as.character(dx$warm))#
-levels(dx$warm) <- c('15', '20')#
-dx$warm <- as.factor(as.character(dx$warm))#
-#
-write.csv(dx, "input/Budburst By Day.csv", row.names=F)#
-write.csv(d, "input/Budburst.csv", row.names=F)
-save(list = c('d', 'dx'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
-## Check issue: were long-day individuals later leafing out than short-day individuals? No.#
-#
-aggregate(dx["lday"], dx[c("site", "warm", "photo")], FUN=mean) #can replace lday with bday etc.
-aggregate(dx["lday"], dx[c("site", "warm", "photo")], FUN=mean, na.rm=T) #can replace lday with bday etc.
-# Analysis of budburst experiment. Starting with simple linear models#
-# 2015-0916 adding single species models#
-#
-library(nlme)#
-library(scales)#
-library(arm)#
-library(rstan)#
-#
-setwd("~/Documents/git/buds/analyses")#
-#
-load("input/Budburst Data 2015-10-19")
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
-summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
-# Comparing Type I SS issues#
-summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
-summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))
-summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
-summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
-summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effex interax with warm for budbust (stage 3) but not leafout (stage 6)
-summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering
-m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0',])#
-summary(m3)
-m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,])
-summary(m3)
-m31 <- lmer(lday ~ warm * photo * site + (warm|sp) + (photo|sp), data = dx[dx1$chill == 'chill0',])
-m31 <- lmer(lday ~ warm * photo * site + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0',])
-summary(m31)
-fixef(m31)
-ranef(m31)
-# What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1#
-summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
-rep("
-rep("
-cat(rep("<>",20))
-load("input/Budburst Data 2015-10-19")
-source("source/simpleplot.R")
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
-nlx <- dx[dx$nl == 0,]
-summary(nlx)
-nl1 <- as.data.frame(table(nlx$sp, nlx$site))
-nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))
-dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))
-nl2$prop <- nl2$Freq/dl2$Freq
-nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nl$chill))
-dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))
-nl3$prop <- nl3$Freq/dl3$Freq
-nl3$prop[is.nan(nl3$prop)==TRUE] <- 0
-names(nl1) <- c("sp","site","freq")#
-names(nl2) <- c("warm","photo","chill","freq", "prop")#
-names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")
-nl3.nochill <- subset(nl3, chill=="chill0")#
-nl3.1chill <- subset(nl3, chill=="chill1")#
-nl3.2chill <- subset(nl3, chill=="chill2")
-nl3
-# Where were the non-leafout cuttings, by species, site, and treatement?#
-library(scales)#
-#
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
-#
-load("input/Budburst Data 2015-10-19")#
-#
-source("source/simpleplot.R")#
-#
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
-#
-# Analysis of where the non-leafout cuttings were#
-nlx <- dx[dx$nl == 0,]#
-#
-summary(nlx)#
-#
-nl1 <- as.data.frame(table(nlx$sp, nlx$site))#
-#
-nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))#
-# proportional to total numbers in each
-nl2
 dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))
 nl2$prop <- nl2$Freq/dl2$Freq
 nl2
@@ -430,7 +52,6 @@ makesimpleplot(nl3, c(0, 0.5))
 makesimpleplot(nl3, c(0, 0.5), "prop")
 makesimpleplot(nl3, c(0, 0.5), "prop", "% non-leafout")
 makesimpleplot(nl3[nl3$sp ==i,], c(0, 0.5), "prop", "% non-leafout")
-makesimpleplot(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout")
 makesimpleplot(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout")
 makesimpleplot.sp
 makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
@@ -736,13 +357,6 @@ for(in in sort(unique(dx$sp))){#
 		}#
 dev.off()
 dev.off()
-dev.off()
-dev.off()
-dev.off()
-dev.off()
-dev.off()
-dev.off()
-dev.off()
 par(mfrow=c(2,2), cex=0.7, xpd=TRUE, xaxt="n")#
 for(in in sort(unique(dx$sp))){#
 #
@@ -865,3 +479,758 @@ for(i in sort(unique(dx$sp))){#
 	textplot(round(coef(summary(mx)),3))#
 		}#
 dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
+setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
+#
+load("input/Budburst Data 2015-10-19")
+head(dx)
+dx[dx$sp=='FAGGRA',]
+head(dx[dx$sp=='FAGGRA',])
+library(nlme)#
+library(scales)#
+library(arm)#
+library(rstan)#
+#
+setwd("~/Documents/git/buds/analyses")#
+#
+load("input/Budburst Data 2015-10-19")
+grep("Budburst Data", dir())
+dir()
+grep("Budburst Data/input", dir())
+grep("Budburst Data", dir('/input'))
+setwd("~/Documents/git/buds/analyses")
+dir('/input')
+grep("Budburst Data", dir('./input'))
+dir()[grep("Budburst Data", dir('./input'))]
+dir("./input")[grep("Budburst Data", dir('./input'))]
+sort(dir("./input")[grep("Budburst Data", dir('./input'))])
+sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)
+sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]
+load("input/Budburst Data 2015-10-19")
+dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
+summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+setwd("~/Documents/git/buds/analyses")#
+#
+# show latest data#
+sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]#
+#
+load("input/Budburst Data 2015-10-19")
+head(d)
+# Calculating typical leafout day by species, across sites#
+#
+setwd("~/Documents/git/buds/analyses")#
+#
+# show latest data#
+sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]#
+#
+load("input/Budburst Data 2015-10-19")
+head(d_
+)
+head(d)
+dxx <- d[d$treatcode == "WL0",]
+dxx <- dx[dx$treatcode == "WL0",]
+aggregate(lday ~ sp, data = dxx, FUN = mean)
+lday.agg <- aggregate(lday ~ sp, data = dxx, FUN = mean)
+hist(lday.agg)
+hist(lday.agg$lday)
+plot(lday.agg$lday)
+plot(sort(lday.agg$lday))
+plot(sort(lday.agg$lday),#
+	pch = lday.agg$sp)
+lday.agg <- lday.agg[order(lday.agg$lday),]
+lday.agg
+plot(lday.agg$lday,#
+	type = "n")#
+text(lday.agg$lday, lday.agg$sp,#
+	cex = 0.5, col = "midnightblue")
+lday.agg <- lday.agg[order(lday.agg$lday),]
+plot(lday.agg$lday,#
+	type = "n")
+?text
+text(1:nrow(lday.agg), lday.agg$lday, #
+	labels = lday.agg$sp,#
+	cex = 0.5, col = "midnightblue")
+plot(lday.agg$lday,#
+	type = "n",#
+	ylab = "Typical Leafout Day")#
+text(1:nrow(lday.agg), lday.agg$lday, #
+	labels = lday.agg$sp,#
+	cex = 0.5, col = "midnightblue")
+plot(lday.agg$lday,#
+	type = "n",#
+	ylab = "Typical Leafout Day /n in WL0")#
+text(1:nrow(lday.agg), lday.agg$lday, #
+	labels = lday.agg$sp,#
+	cex = 0.5, col = "midnightblue")
+plot(lday.agg$lday,#
+	type = "n",#
+	main = "Typical Leafout Day in WL0",#
+	ylab = "Day")#
+text(1:nrow(lday.agg), lday.agg$lday, #
+	labels = lday.agg$sp,#
+	cex = 0.5, col = "midnightblue")
+write.csv(dx, "input/Budburst By Day.csv", row.names=F)#
+write.csv(d, "input/Budburst.csv", row.names=F)#
+#
+save(list = c('d', 'dx', 'lday.agg'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
+dev.print(device = "pdf", file = "./graphs/Typical Leafout.pdf", width = 8, height = 6)
+dev.print(device = pdf, file = "./graphs/Typical Leafout.pdf", width = 8, height = 6)
+dev.print(device = pdf, file = "./graphs/Typical Leafout.pdf", width = 10, height = 8)
+# Analyzing phenology first work March 2015. Script also for Tim to work with R#
+# Setup: load packages, set working directory, read in the data.#
+#
+library(gdata)#
+library(nlme)#
+library(scales)#
+library(arm)#
+#
+setwd("~/Documents/git/buds/analyses")#
+#
+#d <- read.csv("Budburst.csv")#
+#
+d1 <- read.xls("data/Budburst Datasheet 2015-05-15.xlsx") # read.xls function from gdata. Slow, but no intermediate step of saving as csv. #
+#
+d2 <- read.xls("data/Budburst Datasheet 2015-05-15.xlsx", sheet = 2) # long format for consolidated treatments and chilling#
+# add relevant columns to d2 twigs#
+#
+idx <- strsplit(as.character(d2$id), "_")#
+d2$site <- unlist(lapply(idx, function(x) x[2]))#
+d2$rep <- unlist(lapply(idx, function(x) x[3]))#
+d2$sp <- substr(unlist(lapply(idx, function(x) x[1])), 1, 6)#
+d2$gen <- substr(unlist(lapply(idx, function(x) x[1])), 1, 3)#
+d2$ind <- substr(d2$id, 1, 11)#
+d2$warm <- factor(substr(d2$treatcode, 1, 1), labels = c("cool", "warm"))#
+d2$photo <- factor(substr(d2$treatcode, 2, 2), labels = c("long", "short"))#
+d2$chill <- factor(substr(d2$treatcode, 3, 3), labels = c("chill0", "chill1", "chill2"))#
+coltokeep <- c("Date","id","sp","rep","site","ind","treatcode","warm","photo","chill","gen","Term.fl","Lat.fl","Term.lf","Lat.lf","Comments","Observer")#
+#
+d <- rbind(d1[coltokeep], d2[coltokeep])#
+# Format date, making a continuous day since beginning of experiment. * For chill, this is from the first day after taken out of chilling! *#
+d$Date <- strptime(d$Date, "%Y-%m-%d")#
+day0 <- as.numeric(format(d$Date, "%j"))#
+# from min(d$Date)#
+d$day <- day0 - as.numeric(format(strptime("2015-02-06", "%Y-%m-%d"), "%j")) + 1 #
+# see min(d[d$chill=="chill1","Date"]), but actual initiation was March 11, see budburst protocol#
+d$day.chill <- day0 - as.numeric(format(strptime("2015-03-11", "%Y-%m-%d"), "%j")) + 1 #
+#
+d$dayuse <- ifelse(d$chill == "chill0", d$day, d$day.chill)#
+#
+# order by date#
+#
+d <- d[order(d$Date, d$id, d$treatcode),]#
+#
+# typical difference in date by treatment#
+for(i in levels(d$treatcode)){#
+	datediff <- diff(d[d$treatcode == i,"Date"])#
+	cat(rep("<>", 20), "\n", i, "\n")#
+	print(summary(unclass(datediff[datediff!=0]/60/60/24)))#
+	}#
+# Cleanup: fix data types (slashes and other characters in the phenostage columns), date format#
+#
+names(d) #
+#
+# make continuous data, now using second value if something is split by slash#
+d$tleaf <- unlist(lapply(strsplit(as.character(d$Term.lf), "/"), function(x) ifelse(length(x)>1, x[2], x[1])))#
+d$lleaf <- unlist(lapply(strsplit(as.character(d$Lat.lf), "/"), function(x) ifelse(length(x)>1, x[2], x[1])))#
+#
+# and use first values if comma. This is a sequential manipulation, after slash data have been modified.#
+d$tleaf <- unlist(lapply(strsplit(as.character(d$tleaf), ", "), function(x) ifelse(length(x)>1, x[1], x[1])))#
+d$lleaf <- unlist(lapply(strsplit(as.character(d$lleaf), ", "), function(x) ifelse(length(x)>1, x[1], x[1])))#
+#
+# finally, make non-numeric data into NA#
+for(i in c("tleaf","lleaf","Term.fl","Lat.fl")){#
+	d[,i][d[,i] =="-"] = NA#
+	d[,i][d[,i] ==""] = NA#
+	d[,i][d[,i] =="*"] = NA#
+	}#
+d$lleaf <- sub("\\*", "", d$lleaf) # get rid of one asterix after 4*#
+#
+# Make into numeric data, needed because it was read in with weird characters and automaticially made into factors#
+for(i in c("tleaf","lleaf","Term.fl","Lat.fl")){#
+	d[,i] = as.numeric(as.character(d[,i])) }#
+#
+# calculating day since initiation of experiment, by twig id (includes treatment). Tricky part: what should NA be? They still haven't reached stage 6... for this calculation, I put them as 75.#
+#
+# #
+#
+# For chill treatments, count days since they started in chambers, not since chill0 started#
+# now adding vector nl for 0 if non-leafout, 1 if leafout.#
+#
+bday <- lday <- fday <- nl <- vector()#
+#
+for(i in levels(d$id)){ # i=levels(d$id)[500] # for each individual clipping.#
+	dx <- d[d$id == i,]#
+#
+	day.use <- ifelse(dx$chill[1] == "chill0", "day", "day.chill")#
+#
+	# 1. for both terminal and lateral buds, what is the max stage within a row. Identify which rows are greater or equal to the specific BBCH stage#
+	# 2. now for that individual, find the earliest day at which that stage was reached.#
+	bdax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 3)#
+	if(length(bdax) < 1) bdax = NA else bdax = dx[min(bdax),day.use]#
+#
+	ldax <- which(apply(dx[,c("tleaf","lleaf")], 1, max, na.rm=T) >= 6)#
+	if(length(ldax) < 1) {ldax = NA; nl <- c(nl, 0)} else {ldax = dx[min(ldax),day.use]; nl <- c(nl, 1)}#
+	fdax <- which(apply(dx[,c("Term.fl","Lat.fl")], 1, max) > 16)#
+	if(length(fdax) < 1) fdax = NA else fdax = dx[min(fdax),day.use]#
+#
+	bday <- c(bday, bdax)#
+	lday <- c(lday, ldax)#
+	fday <- c(fday, fdax)	#
+	}#
+#
+# merging with unique id data#
+#
+dx <- d[match(levels(d$id), d$id),] # with twig id in same order as the loop above#
+#
+dx <- dx[,2:20]#
+#
+dx <- data.frame(dx, lday, fday, bday, nl)#
+#
+# Clean up levels for the treatment factors. Default is alphabetical, here want to sort in a meaningful way.#
+# levels(dx$treatcode) <- c(2,1,4,3)#
+# dx$treatcode <- as.factor(dx$treatcode)#
+# levels(dx$treatcode) <- c("Cool-short","Cool-long","Warm-short","Warm-long")#
+#
+dx$photo <- as.factor(as.character(dx$photo))#
+levels(dx$photo) <- c('12', '08')#
+dx$photo <- as.factor(as.character(dx$photo))#
+#
+dx$warm <- as.factor(as.character(dx$warm))#
+levels(dx$warm) <- c('15', '20')#
+dx$warm <- as.factor(as.character(dx$warm))#
+## Check issue: were long-day individuals later leafing out than short-day individuals? No.#
+#
+aggregate(dx["lday"], dx[c("site", "warm", "photo")], FUN=mean, na.rm=T) #can replace lday with bday etc.#
+######## Additional calcuations: #
+# Calculating typical leafout day by species, across sites#
+#
+setwd("~/Documents/git/buds/analyses")#
+#
+# show latest data#
+sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]#
+#
+load("input/Budburst Data 2015-10-19")#
+#
+dxx <- dx[dx$treatcode == "WL0",]#
+#
+lday.agg <- aggregate(lday ~ sp, data = dxx, FUN = mean)#
+#
+hist(lday.agg$lday)#
+#
+lday.agg <- lday.agg[order(lday.agg$lday),]#
+#
+plot(lday.agg$lday,#
+	type = "n",#
+	main = "Typical Leafout Day in WL0",#
+	ylab = "Day")#
+text(1:nrow(lday.agg), lday.agg$lday, #
+	labels = lday.agg$sp,#
+	cex = 0.5, col = "midnightblue")#
+dev.print(device = pdf, file = "./graphs/Typical Leafout.pdf", width = 10, height = 8)#
+##### Saving#
+write.csv(dx, "input/Budburst By Day.csv", row.names=F)#
+write.csv(d, "input/Budburst.csv", row.names=F)#
+#
+save(list = c('d', 'dx', 'lday.agg'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
+# Analysis of budburst experiment. Starting with simple linear models#
+# 2015-0916 adding single species models#
+#
+library(nlme)#
+library(scales)#
+library(arm)#
+library(rstan)#
+#
+setwd("~/Documents/git/buds/analyses")#
+#
+# get latest data#
+toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]
+print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
+load(file.path("input", toload))
+file.path("input", toload)
+dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
+# Anovas based on day to leafout (stage 6)
+summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
+summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))#
+summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!#
+#
+summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effects interax with warm for budbust (stage 3) but not leafout (stage 6)#
+#
+summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering
+# with lme4 mixed effect model to better take into account species differences #
+#
+# test without the nonleafouts -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. Previously had '75' days was assigned to them as max value#
+#
+m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.#
+summary(m3)#
+fixef(m3)#
+ranef(m3)
+tr <- read.xls("/input/Species Traits.xlsx")
+tr <- read.xls("./input/Species Traits.xlsx")
+tr
+library(Taxonstand)
+??Taxonstand
+install.packages("Taxonstand",dep=T)
+library(Taxonstand)
+library(Taxonstand)
+head(tr)
+trTPL <- TPL(tr$Species)
+trTPL
+write.csv(trTPL, file = "./input/Species Traits Taxonstand.csv")
+trTPL <- TPL(tr$Species)
+trTPL
+tr <- read.xls("./input/Species Traits.xlsx")#
+library(Taxonstand)
+trTPL <- TPL(tr$Species)
+trTPL
+tr
+library(Taxonstand)
+?TPL
+TPLck("Ilex mucronatus")
+(TPLck("Ilex mucronatus"))
+(TPLck("Ilex mucronata"))
+tr <- read.xls("./input/Species Traits.xlsx")#
+library(Taxonstand)
+trTPL <- TPL(tr$Species)
+write.csv(trTPL, file = "./input/Species Traits Taxonstand.csv")
+# Where were the non-leafout cuttings, by species, site, and treatement?#
+library(scales)#
+library(gplots) # for textplot()#
+#
+setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
+#
+# get latest data#
+print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
+#
+load(file.path("input", toload))#
+#
+source("source/simpleplot.R")
+# Analysis of where the non-leafout cuttings were#
+nlx <- dx[dx$nl == 0,]
+summary(nlx)#
+#
+nl1 <- as.data.frame(table(nlx$sp, nlx$site))#
+#
+nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))#
+# proportional to total numbers in each#
+dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
+nl2$prop <- nl2$Freq/dl2$Freq#
+nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nlx$chill))#
+dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
+nl3$prop <- nl3$Freq/dl3$Freq#
+nl3$prop[is.nan(nl3$prop)==TRUE] <- 0
+names(nl1) <- c("sp","site","freq")#
+names(nl2) <- c("warm","photo","chill","freq", "prop")#
+names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")
+nl3.nochill <- subset(nl3, chill=="chill0")#
+nl3.1chill <- subset(nl3, chill=="chill1")#
+nl3.2chill <- subset(nl3, chill=="chill2")
+# Where were the non-leafout cuttings, by species, site, and treatement?#
+library(scales)#
+library(gplots) # for textplot()#
+#
+setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
+#
+# get latest data#
+print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
+#
+load(file.path("input", toload))#
+#
+source("source/simpleplot.R")#
+#
+dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
+#
+# Analysis of where the non-leafout cuttings were#
+nlx <- dx[dx$nl == 0,]#
+#
+summary(nlx)#
+#
+nl1 <- as.data.frame(table(nlx$sp, nlx$site))#
+#
+nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))#
+# proportional to total numbers in each#
+dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
+nl2$prop <- nl2$Freq/dl2$Freq#
+nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nlx$chill))#
+dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
+nl3$prop <- nl3$Freq/dl3$Freq#
+nl3$prop[is.nan(nl3$prop)==TRUE] <- 0#
+names(nl1) <- c("sp","site","freq")#
+names(nl2) <- c("warm","photo","chill","freq", "prop")#
+names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")#
+#
+nl3.nochill <- subset(nl3, chill=="chill0")#
+nl3.1chill <- subset(nl3, chill=="chill1")#
+nl3.2chill <- subset(nl3, chill=="chill2")#
+#
+# make some simple plots#
+makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined#
+makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")#
+makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")#
+makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")#
+#
+sitespp <- as.data.frame(table(nl3$sp, nl3$site))#
+sitespp <- subset(sitespp, Freq>0)#
+sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)#
+sppatbothsites <- subset(sppatsites, Var2>1)#
+#
+spp <- sppatbothsites$Var1#
+pdf(file="graphs/simpleplots/nonleafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
+for (i in c(1:length(spp))){#
+    spdf <- subset(nl3.nochill, sp==spp[i])#
+    makesimpleplot.sp(spdf, c(0, 1), "prop", "% non-leafout", spp[i])#
+}#
+dev.off()
+par(cex=0.7, xpd=TRUE, xaxt="n")
+layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
+i="ACEPEN"
+makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
+mx <- glm(nl ~ warm + photo + chill + site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							  + warm:photo:chill#
+#							  + warm:photo:site#
+#							  + warm:chill:site  #
+#							  + photo:chill:site#
+							  ,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)
+nl3
+nl3[nl3$sp ==i,]
+unique(nl3[nl3$sp ==i,"site"])
+?formula
+nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:si
+nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:site#
+							  )"
+nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:site#
+							  )"
+nlmodel
+nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:site#
+							  ")
+nlmodel
+if(length(unique(nl3[nl3$sp ==i,"site"])) > 1) {#
+			nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:site#
+							  ")#
+			} else {#
+				nlmodel = formula("nl ~ warm * photo * chill +#
+							warm:photo + warm:chill +#
+							 photo:chill #
+							  + warm:photo:chill#
+							  ") #
+			}
+nnlmodl
+nlmodel
+mx <- glm(nlmodel,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)
+mx
+textplot(round(coef(summary(mx)),3))
+pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
+#
+par(cex=0.7, xpd=TRUE, xaxt="n")#
+layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
+for(i in sort(unique(dx$sp))){#
+#
+	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
+#
+	# is this species across site?#
+	if(length(unique(nl3[nl3$sp ==i,"site"])) > 1) {#
+			nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:site#
+							  ")#
+			} else {#
+				nlmodel = formula("nl ~ warm * photo * chill +#
+							warm:photo + warm:chill +#
+							 photo:chill #
+							  + warm:photo:chill#
+							  ") #
+			}#
+	mx <- glm(nlmodel,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)#
+	textplot(round(coef(summary(mx)),3))#
+		}#
+dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
+nlmodel
+mx <- glm(nlmodel,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)
+mx
+i
+length(unique(nl3[nl3$sp ==i,"site"]))
+nl3[nl3$sp ==i,"site"]
+nl3[nl3$sp ==i,
+]
+nlmodel
+length(unique(nl3[nl3$sp ==i,"site"])) > 1
+nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:site#
+							  ")
+nlmodel
+formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site #
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:site#
+							  ")
+c("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site #
+							  + warm:photo:chill#
+							  + warm:photo:site#
+							  + warm:chill:site  #
+							  + photo:chill:site#
+							  ")
+formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site#
+							 + warm:photo:chill#
+							 + warm:photo:site#
+							 + warm:chill:site#
+							 + photo:chill:site#
+							 ")
+formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							 photo:chill + photo:site +#
+							 warm:photo:chill#
+							 + warm:photo:site#
+							 + warm:chill:site#
+							 + photo:chill:site#
+							 ")
+if(length(unique(nl3[nl3$sp ==i,"site"])) > 1) {#
+			nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							photo:chill + photo:site +#
+							warm:photo:chill +#
+							warm:photo:site +#
+							warm:chill:site +#
+							photo:chill:site#
+							")#
+			} else {#
+				nlmodel = formula("nl ~ warm * photo * chill +#
+							warm:photo + warm:chill +#
+							photo:chill +#
+							warm:photo:chill#
+							") #
+			}
+nlmodel
+mx <- glm(nlmodel,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)
+nlmodel
+makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
+#
+	# is this species across site?#
+	if(length(unique(nl3[nl3$sp ==i,"site"])) > 1) {#
+			nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							photo:chill + photo:site +#
+	#						warm:photo:chill +#
+	#						warm:photo:site +#
+	#						warm:chill:site +#
+	#						photo:chill:site#
+							")#
+			} else {#
+				nlmodel = formula("nl ~ warm * photo * chill +#
+							warm:photo + warm:chill +#
+							photo:chill +#
+	#						warm:photo:chill#
+							") #
+			}
+nlmodel = formula("nl ~ warm * photo * chill * site +#
+							warm:photo + warm:chill + warm:site +#
+							photo:chill + photo:site")
+mx <- glm(nlmodel,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)
+nlmodel = formula("nl ~ warm + photo + chill + site +#
+							warm:photo + warm:chill + warm:site +#
+							photo:chill + photo:site")#
+	#						warm:photo:chill +#
+	#						warm:photo:site +#
+	#						warm:chill:site +#
+	#						photo:chill:site#
+#							")
+mx <- glm(nlmodel,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)
+nlmodel = formula("nl ~ warm + photo + chill + site
+")
+mx <- glm(nlmodel,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)
+nlmodel = formula("prop ~ warm + photo + chill + site +#
+							warm:photo + warm:chill + warm:site +#
+							photo:chill + photo:site")
+mx <- glm(nlmodel,#
+			family=binomial(link='logit'), #
+			data = dx[dx$sp == i,]#
+			)
+head(nl)
+head(nl3)
+head(dx)
+glm(nl ~ warm + photo + chill + site +#
+							warm:photo + warm:chill + warm:site +#
+							photo:chill + photo:site#
+#
+	#						warm:photo:chill +#
+	#						warm:photo:site +#
+	#						warm:chill:site +#
+	#						photo:chill:site#
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]
+)
+glm(nl ~ warm + photo + chill + site +#
+#							warm:photo + warm:chill + warm:site +#
+#							photo:chill + photo:site#
+	#						warm:photo:chill +#
+	#						warm:photo:site +#
+	#						warm:chill:site +#
+	#						photo:chill:site#
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							)
+glm(nl ~ warm + photo + chill + site #
+#							+ warm:photo + warm:chill + warm:site #
+#							+ photo:chill + photo:site#
+	#						warm:photo:chill +#
+	#						warm:photo:site +#
+	#						warm:chill:site +#
+	#						photo:chill:site#
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							)
+I
+i
+dx[dx$sp==i,]
+unique(nl3[nl3$sp ==i,"chill"])
+nl3[nl3$sp ==i,"chill"]
+nl3
+glm(nl ~ warm + photo + chill + site #
+							+ warm:photo + warm:chill + warm:site #
+							+ photo:chill + photo:site#
+							warm:photo:chill +#
+							warm:photo:site +#
+							warm:chill:site +#
+							photo:chill:site#
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							)
+if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
+			glm(nl ~ warm + photo + chill + site #
+							+ warm:photo + warm:chill + warm:site #
+							+ photo:chill + photo:site#
+							+ warm:photo:chill#
+							+ warm:photo:site #
+							+ warm:chill:site #
+							+ photo:chill:site#
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							)#
+#
+			}
+if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
+			glm(nl ~ warm + photo + site #
+							+ warm:photo +  warm:site + photo:site#
+							+ warm:photo:site #
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							)#
+			}
+aggregate(site * chill ~ sp, data = dx, FUN = length)
+aggregate(chill ~ sp, data = dx, FUN = length)
+aggregate(chill ~ sp, data = dx, FUN = unique)
+aggregate(site ~ sp, data = dx, FUN = unique)
+with(dx, table(site. chill, sp))
+with(dx, table(site, chill, sp))
+pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
+#
+par(cex=0.7, xpd=TRUE, xaxt="n")#
+layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
+for(i in sort(unique(dx$sp))){#
+#
+	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
+#
+	# is this species across site and chill?#
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
+			mx <- glm(nl ~ warm + photo + chill + site #
+							+ warm:photo + warm:chill + warm:site #
+							+ photo:chill + photo:site#
+							+ warm:photo:chill#
+							+ warm:photo:site #
+							+ warm:chill:site #
+							+ photo:chill:site#
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							)#
+#
+			} #
+	# Across site but no chill?		#
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
+			mx <- glm(nl ~ warm + photo + site #
+							+ warm:photo +  warm:site + photo:site#
+							+ warm:photo:site #
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							)#
+			} #
+	# One site, no chill?		#
+	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
+		mx <- glm(nl ~ warm + photo +  #
+							+ warm:photo #
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							)#
+			} #
+	textplot(round(coef(summary(mx)),3))#
+		}#
+dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
+with(dx, table(site. chill, sp))
+with(dx, table(site, chill, sp))
+as.data.frame(with(dx, table(site, chill, sp)))
+xxx <- as.data.frame(with(dx, table(site, chill, sp)))
+xxx[xxx$Freq!=0,]
+summary(xxx[xxx$Freq!=0,])
+summary(xxx[xxx$Freq!=0,]$sp)
+sort(summary(xxx[xxx$Freq!=0,]$sp))
