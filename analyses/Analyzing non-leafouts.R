@@ -38,10 +38,10 @@ nl3.1chill <- subset(nl3, chill=="chill1")
 nl3.2chill <- subset(nl3, chill=="chill2")
 
 # make some simple plots
-makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined
-makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")
-makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")
-makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")
+# # makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined
+# makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")
+# makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")
+# makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")
 
 sitespp <- as.data.frame(table(nl3$sp, nl3$site))
 sitespp <- subset(sitespp, Freq>0)
@@ -58,10 +58,12 @@ dev.off()
 
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-# Simple models by species
+# Simple models by species. All predictors now numeric
 
 dx$chill <- as.numeric(dx$chill)
 dx$site <- as.numeric(dx$site)
+dx$photo <- as.numeric(dx$photo)
+dx$warm <- as.numeric(dx$warm)
 
 pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)
 
@@ -188,12 +190,112 @@ for(i in sort(unique(dx$sp))){
 dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
 
 
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
+# Across species
+	m1 <- glm(nl ~ warm + photo + chill + site 
+							+ warm:photo + warm:chill + warm:site 
+							+ photo:chill + photo:site
+							+ warm:photo:chill
+							+ warm:photo:site 
+							+ warm:chill:site 
+							+ photo:chill:site
+							, family=binomial(link='logit'), data = dx
+							)
+	summary(m1)						
+
+# across species, with partial pooling
+library(lme4)
+m2 <- glmer(nl ~ warm + photo + chill + site 
+							+ warm:photo + warm:chill + warm:site 
+							+ photo:chill + photo:site
+							+ warm:photo:chill
+							+ warm:photo:site 
+							+ warm:chill:site 
+							+ photo:chill:site
+							+ (1|sp),
+							, family=binomial(link='logit'), data = dx
+							)
+library(sjPlot)
+
+sjp.glmer(m2)
+sjp.glmer(m2, type = "fe")
+
+# Basically, we can't say much about nonleafouts. Let's shift to leafouts
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
+# Across species
+	l1 <- lm(lday ~ warm + photo + chill + site 
+							+ warm:photo + warm:chill + warm:site 
+							+ photo:chill + photo:site
+							+ warm:photo:chill
+							+ warm:photo:site 
+							+ warm:chill:site 
+							+ photo:chill:site
+							, data = dx[dx$nl==1,]
+							)
+	summary(l1)						
+	summary.aov(l1)						
+# With partial pooling
+
+l2 <- lmer(lday ~ warm + photo + chill + site 
+							+ warm:photo + warm:chill + warm:site 
+							+ photo:chill + photo:site
+							+ warm:photo:chill
+							+ warm:photo:site 
+							+ warm:chill:site 
+							+ photo:chill:site
+							+ (1|sp)
+							, data = dx[dx$nl==1,]
+							)
+	summary(l2)						
+sjp.lmer(l2)						
+sjp.lmer(l2, type = "fe")						
+interact
+
+# Within individual species, should match nl story
+
+
+pdf(file="graphs/leafoutday_byspp_simplemodel.pdf", height = 10, width = 10)
+
+par(cex=0.7, xpd=TRUE, xaxt="n")
+layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
+for(i in sort(unique(dx$sp))){
+
+		xx <- dx[dx$sp==i,]
+		
+		means <- with(xx, tapply(lday, list(warm, photo, site), mean, na.rm=T))
+		sds <- with(xx, tapply(lday, list(warm, photo, site), sd, na.rm=T))
+
+		plot(1:3, means[,1], ylim = c(0, 1.25), main = paste(i, "HF"), pch = 16, ylab = "prop leafout", xaxt="n")
+		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		
+		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
+
+		plot(1:3, means[,2], ylim = c(0, 1.25), main = "SH", pch = 16, ylab = "prop leafout", xaxt="n")
+		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		
+		arrows(1:3, means[,2]-sds[,2], 1:3, means[,2]+sds[,2], length = 0)
+
+
+		mx <- glm(nl ~ warm + photo  
+							+ warm:photo 
+							, family=binomial(link='logit'), data = dx[dx$sp == i,]
+							)
+					
+  	textplot(round(coef(summary(mx)),3))
+	
+	if(coef(summary(mx))[4,4] <= 0.05){
+	with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) 
+	} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="",xlab="") }
+
+		
+	}
+			
+dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
 
 
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-
 
 # colors for plotting
 cols = alpha(c("darkseagreen", "deepskyblue", "slateblue"), 0.5)
