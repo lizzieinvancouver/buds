@@ -12,3 +12,11 @@ analyses/graphs/.DS_Store
 *.history
 
 analyses/.Rapp.history
+
+*.history
+
+docs/outline/Budburst.synctex.gz
+
+docs/outline/Budburst.log
+
+docs/outline/Budburst.aux

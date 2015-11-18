@@ -37,6 +37,11 @@ nl3.nochill <- subset(nl3, chill=="chill0")
 nl3.1chill <- subset(nl3, chill=="chill1")
 nl3.2chill <- subset(nl3, chill=="chill2")
 
+#
+data.frame(sort(with(nl3, tapply(prop, sp, mean)), T))
+with(nl3, tapply(prop, chill, mean))
+with(nl3, tapply(prop, site, mean))
+
 # make some simple plots
 # # makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined
 # makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")

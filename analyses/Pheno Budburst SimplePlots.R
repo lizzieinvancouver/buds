@@ -3,7 +3,11 @@
 
 setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
 
-load("input/Budburst Data 2015-10-05")
+# get latest data
+print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
+
+load(file.path("input", toload))
+
 
 source("source/simpleplot.R")
 

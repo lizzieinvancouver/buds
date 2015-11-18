@@ -5,7 +5,10 @@ library(scales)
 
 setwd("~/Documents/git/buds/analyses")
 
-load("input/Budburst Data 2015-10-19")
+# get latest data
+print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
+
+load(file.path("input", toload))
 
 sp.info <- read.csv("data/Species General Info.csv")
 
