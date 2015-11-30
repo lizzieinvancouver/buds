@@ -20,10 +20,6 @@ dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 
 summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
 
-# Comparing Type I SS issues
-summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
-summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))
-summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
 
 summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
 
@@ -40,12 +36,20 @@ summary(m3)
 fixef(m3)
 ranef(m3)
 
+###########################################################################
+# Side analyses
+# Comparing Type I SS issues
+summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))
+summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+
+
 
 # What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1
 summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # 
 coef(m22)
-
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
 
 # New analyses, in stan, using simple models
 # model 1: lday ~ warm * photo, no species, site, or ind.
