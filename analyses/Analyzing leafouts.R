@@ -81,7 +81,7 @@ par(cex=0.7, xpd=TRUE, xaxt="n")
 layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
 for(i in sort(unique(dx$sp))){
 
-	makesimpleplot.sp.lday(ldayx[ldayx$sp == i,], c(0, 50), "lday", "Leafout day", i)
+	makesimpleplot.sp.lday(ldayx[ldayx$sp == i,], c(0, 70), "lday", "Leafout day", i)
 
 	# is this species across site and chill?
 	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {
@@ -118,7 +118,7 @@ for(i in sort(unique(dx$sp))){
 		}
 		
 		
-dev.off(); system('open graphs/simpleplots/leafouts_byspp_model.pdf -a /Applications/Preview.app')
+dev.off(); system('open graphs/simpleplots/leafoutday_byspp_model.pdf -a /Applications/Preview.app')
 
 
 # Repeat, with simple model for all. 

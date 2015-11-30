@@ -1,937 +1,715 @@
-=256/2
-256/2
-254/2
-255/2
-254/2
-# Where were the non-leafout cuttings, by species, site, and treatement?#
-library(scales)#
-<<<<<<< Updated upstream#
-library(gplots) # for textplot()#
-=======#
-library(gplots)#
->>>>>>> Stashed changes#
+apply(rbind(x0h, x1h), 1, mean)
+apply(rbind(x0h, x1h), 2, mean)
+xwrite <- apply(rbind(x0h, x1h), 2, mean)
+i.primeW
+text(x = xwrite, y = y0v, i.primeW)
+y1v
+text(x = xwrite, y = c(y0v, y1v), i.primeW)
+plot.default(0, type = "n", xlim = c(0,0.5), ylim = c(0,8), #
+xlab = "", #
+        ylab = "", axes = FALSE, asp = NA)
+segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
+            lty = edge.lty)#
+        segments(x0v, y0v, x0v, y1v, col = color.v, lwd = width.v, #
+            lty = lty.v)
+text(x = xwrite, y = c(y0v, y1v), i.primeW)
+A
+AFd
+AFw
+plot(tree)
+AFw/rowsum(AFw)
+AFw/rowSums(AFw)
+xtree
+x0h
+y0h
+x1h
+y0h
+segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
+            lty = edge.lty)#
+        segments(x0v, y0v, x0v, y1v, col = color.v, lwd = width.v, #
+            lty = lty.v)
+plot.default(0, type = "n", xlim = c(0,0.5), ylim = c(0,8), #
+xlab = "", #
+        ylab = "", axes = FALSE, asp = NA)#
 #
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
-# Where were the non-leafout cuttings, by species, site, and treatement?#
-library(scales)#
-library(gplots) # for textplot()#
+  segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
+            lty = edge.lty)#
+  segments(x0v, y0v, x0v, y1v, col = color.v, lwd = width.v, #
+            lty = lty.v)
+plot.default(0, type = "n", xlim = c(0,0.5), ylim = c(0,8), #
+xlab = "", #
+        ylab = "", axes = FALSE, asp = NA)#
 #
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
-load(file.path("input", toload))
-source("source/simpleplot.R")
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
-# Analysis of where the non-leafout cuttings were#
-nlx <- dx[dx$nl == 0,]
-summary(nlx)#
+  segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
+            lty = edge.lty)
+segments(x0v, y0v, x0v, y1v, col = color.v, lwd = width.v, #
+            lty = lty.v)
+plot.default(0, type = "n", xlim = c(0,0.5), ylim = c(0,8), #
+xlab = "", #
+        ylab = "", axes = FALSE, asp = NA)
+segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
+            lty = edge.lty)
+xwrite <- apply(rbind(x0h, x1h), 2, mean)
+xwrite <- apply(rbind(x0h, x1h), 2, mean)#
+text(x = xwrite, y = c(y0h), i.primeW)
+text(x = xwrite, y = c(y0h)+0.1, i.primeW)
+plot.default(0, type = "n", xlim = c(0,0.5), ylim = c(0,8), #
+xlab = "", #
+        ylab = "", axes = FALSE, asp = NA)#
 #
-nl1 <- as.data.frame(table(nlx$sp, nlx$site))#
+  segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
+            lty = edge.lty)#
 #
-nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))#
-# proportional to total numbers in each#
-dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
-nl2$prop <- nl2$Freq/dl2$Freq#
-nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nlx$chill))#
-dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
-nl3$prop <- nl3$Freq/dl3$Freq#
-nl3$prop[is.nan(nl3$prop)==TRUE] <- 0#
-names(nl1) <- c("sp","site","freq")#
-names(nl2) <- c("warm","photo","chill","freq", "prop")#
-names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")#
+xwrite <- apply(rbind(x0h, x1h), 2, mean)#
+text(x = xwrite, y = c(y0h)+0.1, i.primeW)    #
 #
-nl3.nochill <- subset(nl3, chill=="chill0")#
-nl3.1chill <- subset(nl3, chill=="chill1")#
-nl3.2chill <- subset(nl3, chill=="chill2")#
+  segments(x0v, y0v, x0v, y1v, col = color.v, lwd = width.v, #
+            lty = lty.v)
+x$edge
+text(x = xwrite, y = c(y0h)+0.1, i.primeW[x$edge[,2]])
+plot.default(0, type = "n", xlim = c(0,0.5), ylim = c(0,8), #
+xlab = "", #
+        ylab = "", axes = FALSE, asp = NA)#
 #
-# make some simple plots#
-makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined#
-makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")#
-makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")#
-makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")#
+  segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
+            lty = edge.lty)#
 #
-sitespp <- as.data.frame(table(nl3$sp, nl3$site))#
-sitespp <- subset(sitespp, Freq>0)#
-sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)#
-sppatbothsites <- subset(sppatsites, Var2>1)#
+xwrite <- apply(rbind(x0h, x1h), 2, mean)#
+text(x = xwrite, y = c(y0h)+0.1, i.primeW[x$edge[,2]])    #
 #
-spp <- sppatbothsites$Var1#
-pdf(file="graphs/simpleplots/nonleafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
-for (i in c(1:length(spp))){#
-    spdf <- subset(nl3.nochill, sp==spp[i])#
-    makesimpleplot.sp(spdf, c(0, 1), "prop", "% non-leafout", spp[i])#
+segments(x0v, y0v, x0v, y1v, col = color.v, lwd = width.v, #
+            lty = lty.v)
+1.25/2
+i.primeW
+A
+xtree$h1
+xtree
+xtree$H1
+tree$edge
+tt$edge
+tt$edge[,2]
+reorder(tt$edge[,2])
+order(tt$edge[,2])
+text(x = xwrite, y = c(y0h)+0.1, i.primeW[order(x$edge[,2]]))
+plot.default(0, type = "n", xlim = c(0,0.5), ylim = c(0,8), #
+xlab = "", #
+        ylab = "", axes = FALSE, asp = NA)#
+#
+  segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
+            lty = edge.lty)#
+#
+xwrite <- apply(rbind(x0h, x1h), 2, mean)#
+text(x = xwrite, y = c(y0h)+0.1, i.primeW[order(x$edge[,2])])
+segments(x0v, y0v, x0v, y1v, col = color.v, lwd = width.v, #
+            lty = lty.v)
+AFw[1,]
+A
+A[1,]
+plot(tree)
+sum(A[1,])
+1/8
+sum(AF2)
+sum(AFw[1,])
+i.primeW
+xtree
+Xtree
+h=tree
+h
+H1 <- matrix(0, length(h$order), 2 * length(h$order) - 2)
+H1
+l <- vector("numeric", 2 * length(h$order) - 2)
+l
+length(h$order)
+h$order
+h$merge
+i=1
+h$merge[i, 1]
+l[2 * i - 1] <- h$height[order(h$height)[i]]
+2 * i
+h$height
+[order(h$height)[i]
+order(h$height)[i]
+order(h$height)
+i
+order(h$height)[i]
+h$height[order(h$height)[i]]
+H1[ - h$merge[i, 1], 2 * i - 1] <- 1
+install.packages('rgdal', dep=T)
+library(rgdal)
+library(gdata)#
+#
+eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx")
+bdm <- read.xls("~/Dropbox/Work/Swiss BDM/1010_BDM_plant_species.xlsx~/Dropbox/Work/Swiss BDM/1010_BDM_plant_species.xlsx")
+bdm <- read.xls("~/Dropbox/Work/Swiss BDM/1010_BDM_plant_species.xlsx")
+bdm.sp <- paste(bdm$Genus, bdm$Species.aggregate)
+bdm.sp
+bdm.sp <- sub(" s.l.", "", bdm.sp)
+bdm.sp
+bdm.sp <- sub(" agg.", "", bdm.sp)
+eyster$Species
+# Harold Eyster plant list checking#
+#
+library(gdata)#
+#
+eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx")
+eyster$Species
+library(gdata)#
+#
+eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx")
+eyster$Species
+?read.csv
+eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx", as.is=T)
+eyster
+eyster$Species
+library(gdata)#
+#
+eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx", as.is=T)
+eyster$Species
+match(bdm.sp, eyster$Species)
+match(eyster$Species, bdm.sp)
+bdm.sp[match(eyster$Species, bdm.sp)]
+data.frame(eyster, bdm.sp[match(eyster$Species, bdm.sp)])
+nomatch <- eyster$Species[is.na(match(eyster$Species, bdm.sp))]
+nomatch
+nomatch <- eyster$Species[is.na(match(eyster$Species, bdm.sp))]
+nomatch
+bdm.sp[match(eyster$Species, bdm.sp)]
+eyster$Species[is.na(match(eyster$Species, bdm.sp))]
+nomatch
+bdm[grep("Lythrum", bdm.sp),]
+grep("Lythrum", bdm.sp)
+bdm[grep("Lythrum salicaria", bdm.sp),]
+grep("Lythrum salicaria", bdm.sp)
+bdm.sp
+bdm.sp <- paste(bdm$Genus, bdm$Species.aggregate)#
+bdm.sp <- sub(" s.l.+$", "", bdm.sp)
+bdm[grep("Lythrum salicaria", bdm.sp),]
+bdm.sp
+bdm.sp <- paste(bdm$Genus, bdm$Species.aggregate)#
+#bdm.sp <- sub(" s.l.+$", "", bdm.sp)#
+bdm.sp <- sub(" agg.", "", bdm.sp)
+bdm[grep("Lythrum salicaria", bdm.sp),]
+nomatch <- eyster$Species[is.na(match(eyster$Species, bdm.sp))]
+nomatch
+data.frame(eyster, bdm.sp[match(eyster$Species, bdm.sp)])
+library(gdata)#
+d <- read.xls("~/Dropbox/Work/Harvard/Farm and Forest/HF Tree Traits 2015-06-09.xlsx")
+head(d)
+summary(d)
+d$Summer.2015.Route
+d <- d[d$Summer.2015.Route != "",]
+d$Summer.2015.Route
+names(d)
+table(d$Species)
+# HF tree traits summary#
+library(gdata)#
+d <- read.xls("~/Dropbox/Work/Harvard/Farm and Forest/HF Tree Traits 2015-06-09.xlsx")#
+summary(d)#
+#
+d <- d[d$Summer.2015.Route != "",]#
+#
+table(d$Species)
+sort(table(d$Species), T)
+dt <- table(d$Species)
+dt[dt<4]
+head(d)
+SpeciesList <- unique(d$Species)
+SpeciesList
+length(SpeciesList)
+letters["c"]
+letter["c"]
+letters
+which(letters=="c")
+which(letters=="c")-which(letters==
+"u
+")
+which(letters=="c")-which(letters=="u")
+which(letters=="u")-which(letters=="c")
+which(letters=="u")-which(letters=="a")
+library(FD)
+dbFD
+example(dbFD)
+library(FD)
+source("FD_Calculators.R")#
+library(FD)#
+# Simulate traits
+traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
+rownames(traits) <- letters[1:10]#
+colnames(traits) <- make.names(paste("Trait", 1:3))#
+#
+# Simulate community #
+#
+community <- data.frame(rlnorm(10, 3), rep(NA,10))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- c("Real", "Empty")#
+#
+realFD <- Calculate.FD(community, traits, scale = F)#
+#
+plot(as.dendrogram(hclust(dist(traits))))#
+#
+# more meaningful example#
+#
+community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))#
+rownames(community) <- letters[1:10]
+dbFD(traits, community, calc.FGR=T)
+traits
+community
+head(dummy)
+dbFD(traits, t(community), calc.FGR=T)
+FGR.post <- dbFD(traits, t(community), calc.FGR=T)
+FGR.post
+t(community)
+community
+community <- data.frame(rlnorm(10, 3), rep(NA,10))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- c("Real", "Empty")
+community
+# FD calculation example using simulated data.#
+# First run or source FD_Calculators.R#
+#
+source("FD_Calculators.R")#
+library(FD)#
+# Simulate traits#
+#
+traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
+rownames(traits) <- letters[1:10]#
+colnames(traits) <- make.names(paste("Trait", 1:3))#
+#
+# Simulate community #
+#
+community <- data.frame(rlnorm(10, 3), rep(NA,10))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- c("Real", "Empty")#
+#
+realFD <- Calculate.FD(community, traits, scale = F)
+community
+community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))
+rownames(community) <- letters[1:10]#
+colnames(community) <- make.names(paste("Community", 1:4))
+community
+community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA)
+community
+t(community)
+FGR.post <- dbFD(traits, t(community), calc.FGR=T)
+FGR.post
+# Now simlate FD for genereting expected values for a certain number of species, for comparison with "real" observed values.#
+#
+runs = 1000#
+results = matrix(nrow=runs, ncol=3)#
+#
+for(j in 1:runs){#
+#
+	community.random <- matrix(NA, nrow = 10, ncol = 3)#
+	for(i in 1:3){#
+		community.random[,i] <- sample(community[,i], 10, replace = F)#
+		}	#
+#
+	rownames(community.random) <- letters[1:10]#
+	colnames(community.random) <- make.names(paste("Community", 1:3))#
+#
+	results[j,] <- Calculate.FD(community.random, traits, scale=F)#
+#
 }#
-dev.off()
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
 #
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
+# Red line shows observed value, histogram for expected values.#
 #
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
+par(mfrow=c(3,1))#
+hist(results[,1], xlim = c(0, 15))#
+abline(v = realFD[1], col = "red")#
 #
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
+hist(results[,2], xlim = c(0, 15))#
+abline(v = realFD[2], col = "red")#
 #
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	mx <- glm(nl ~ warm + photo + chill + site +#
-							warm:photo + warm:chill + warm:site +#
-							 photo:chill + photo:site#
-							  + site:chill#
-							  + warm:photo:chill#
-#							  + warm:photo:site#
-#							  + warm:chill:site  #
-#							  + photo:chill:site#
-							  ,#
-			family=binomial(link='logit'), #
-			data = dx[dx$sp == i,]#
-			)#
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
+hist(results[,3], xlim = c(0, 15))#
+abline(v = realFD[3], col = "red")
+# FD calculation example using simulated data.#
+# First run or source FD_Calculators.R#
 #
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
+source("FD_Calculators.R")#
+library(FD)#
+# Simulate traits#
 #
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
+traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
+rownames(traits) <- letters[1:10]#
+colnames(traits) <- make.names(paste("Trait", 1:3))#
 #
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
+# Simulate community #
 #
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-i="ACERUB"
-length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1
-mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-mx
-i="ACEPEN"
-mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-mx
-summary(mx)
-# colors for plotting#
-cols = alpha(c("darkseagreen", "deepskyblue", "slateblue"), 0.5)
-bb <- barplot(nl2$prop*100, ylab = "% of cuttings non-leafout", #
-	ylim = c(0,50), #
-	col = rep(cols, each = 4),#
-	main = "Percent of cuttings in each treatment which failed to leaf out",#
-	xlab = "Treatment combination", sub = "(temp + photo + chill)")#
-mtext(paste(nl2$warm, nl2$photo, nl2$chill, sep = "\n"), 1, line = -2, padj = 0, at = bb[,1])
-sort(unique(dx$sp))
-data.frame(sort(unique(dx$sp)))
-par(cex=0.7, xpd=TRUE, xaxt="n")
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
-makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
-# Repeat, with simple model for all#
-pdf(file="graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf", height = 10, width = 10)#
+community <- data.frame(rlnorm(10, 3), rep(NA,10))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- c("Real", "Empty")#
 #
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
+realFD <- Calculate.FD(community, traits, scale = F)#
 #
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
+plot(as.dendrogram(hclust(dist(traits))))#
 #
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-  	textplot(round(coef(summary(mx)),3))#
-	}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
-with(dx, interaction.plot(warm, photo, nl))
-with(dx[dx$sp == i,], interaction.plot(warm, photo, nl))
-pdf(file="graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf", height = 10, width = 10)#
+# more meaningful example#
 #
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
+community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- make.names(paste("Community", 1:4))#
 #
-	with(dx[dx$sp == i,], interaction.plot(warm, photo, nl))#
+community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA) #
 #
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-  	textplot(round(coef(summary(mx)),3))#
-	}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
-coef(summary(mx))
-coef(summary(mx))[,4]
-coef(summary(mx))[4,4]
-# Repeat, with simple model for all#
-pdf(file="graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf", height = 10, width = 10)#
+realFD <- Calculate.FD(community, traits, scale = F)#
 #
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
+(FGR.post <- dbFD(traits, t(community), calc.FGR=T))#
 #
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-  	textplot(round(coef(summary(mx)),3))#
-	if(coef(summary(mx))[4,4] <= 0.05){#
-	with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) #
-	} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="n",xlab="n")#
-	}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
+plot(as.dendrogram(hclust(dist(traits))))#
+#
+# Now simlate FD for genereting expected values for a certain number of species, for comparison with "real" observed values.#
+#
+runs = 1000#
+results = matrix(nrow=runs, ncol=3)#
+#
+for(j in 1:runs){#
+#
+	community.random <- matrix(NA, nrow = 10, ncol = 3)#
+	for(i in 1:3){#
+		community.random[,i] <- sample(community[,i], 10, replace = F)#
+		}	#
+#
+	rownames(community.random) <- letters[1:10]#
+	colnames(community.random) <- make.names(paste("Community", 1:3))#
+#
+	results[j,] <- Calculate.FD(community.random, traits, scale=F)#
+#
+}#
+#
+# Red line shows observed value, histogram for expected values.#
+#
+par(mfrow=c(3,1))#
+hist(results[,1], xlim = c(0, 15))#
+abline(v = realFD[1], col = "red")#
+#
+hist(results[,2], xlim = c(0, 15))#
+abline(v = realFD[2], col = "red")#
+#
+hist(results[,3], xlim = c(0, 15))#
+abline(v = realFD[3], col = "red")
+# FD calculation example using simulated data.#
+# First run or source FD_Calculators.R#
+#
+source("FD_Calculators.R")#
+library(FD)#
+# Simulate traits#
+#
+traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
+rownames(traits) <- letters[1:10]#
+colnames(traits) <- make.names(paste("Trait", 1:3))#
+#
+# Simulate community #
+#
+community <- data.frame(rlnorm(10, 3), rep(NA,10))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- c("Real", "Empty")#
+#
+realFD <- Calculate.FD(community, traits, scale = F)#
+#
+plot(as.dendrogram(hclust(dist(traits))))#
+#
+# more meaningful example#
+#
+community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- make.names(paste("Community", 1:4))#
+#
+community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA) #
+#
+realFD <- Calculate.FD(community, traits, scale = F)#
+#
+(FGR.post <- dbFD(traits, t(community), calc.FGR=T))#
+#
+plot(as.dendrogram(hclust(dist(traits))))#
+#
+# Now simlate FD for genereting expected values for a certain number of species, for comparison with "real" observed values.
+# FD calculation example using simulated data.#
+# First run or source FD_Calculators.R#
+#
+source("FD_Calculators.R")#
+library(FD)#
+# Simulate traits#
+#
+traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
+rownames(traits) <- letters[1:10]#
+colnames(traits) <- make.names(paste("Trait", 1:3))#
+#
+# Simulate community #
+#
+community <- data.frame(rlnorm(10, 3), rep(NA,10))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- c("Real", "Empty")#
+#
+realFD <- Calculate.FD(community, traits, scale = F)#
+#
+plot(as.dendrogram(hclust(dist(traits))))#
+#
+# more meaningful example#
+#
+community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))
+rownames(community) <- letters[1:10]#
+colnames(community) <- make.names(paste("Community", 1:4))
+community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA)
+realFD <- Calculate.FD(community, traits, scale = F)
+source('~/Dropbox/Work/FD R commands/FD_Calculators.R', chdir = TRUE)
+realFD <- Calculate.FD(community, traits, scale = F)
+realFD <- Calculate.FD(community, traits, scale = F) # 'real' as opposed to bootstrapped
+plot(as.dendrogram(hclust(dist(traits))))#
+#
+# more meaningful example#
+#
+community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))#
+rownames(community) <- letters[1:10]#
+colnames(community) <- make.names(paste("Community", 1:4))#
+#
+community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA) #
+#
+realFD <- Calculate.FD(community, traits, scale = F)#
+#
+(FGR.post <- dbFD(traits, t(community), calc.FGR=T))#
+#
+plot(as.dendrogram(hclust(dist(traits))))#
+#
+# Now simlate FD for genereting expected values for a certain number of species, for comparison with "real" observed values.#
+#
+runs = 1000#
+results = matrix(nrow=runs, ncol=3)#
+#
+for(j in 1:runs){#
+#
+	community.random <- matrix(NA, nrow = 10, ncol = 3)#
+	for(i in 1:3){#
+		community.random[,i] <- sample(community[,i], 10, replace = F)#
+		}	#
+#
+	rownames(community.random) <- letters[1:10]#
+	colnames(community.random) <- make.names(paste("Community", 1:3))#
+#
+	results[j,] <- Calculate.FD(community.random, traits, scale=F)#
+#
+}#
+#
+# Red line shows observed value, histogram for expected values.#
+#
+par(mfrow=c(3,1))#
+hist(results[,1], xlim = c(0, 15))#
+abline(v = realFD[1], col = "red")#
+#
+hist(results[,2], xlim = c(0, 15))#
+abline(v = realFD[2], col = "red")#
+#
+hist(results[,3], xlim = c(0, 15))#
+abline(v = realFD[3], col = "red")
+library(rstan)#
+library(ggplot2)
+srrs2 <- read.table ("~/Documents/git/gelmanhill/ARM_Data/radon/srrs2.dat", header=T, sep=",")
+install.packages('rstan', depend=T)
+Sys.setenv(MAKEFLAGS = "-j4")
+install.packages("rstan", dependencies = TRUE)
+install.packages('rstan', dependencies = TRUE)
+packs <- c('ade4', #
+           'ape', #
+           'arm',#
+           'bbmle',#
+           'car',#
+           'cluster',#
+           'FD',#
+           'gdata',#
+           'geometry', #
+           'geoR',#
+           'ggplot2',#
+           'Hmisc',#
+           'labdsv',#
+           'lattice',#
+           'lme4',#
+           'maptools',#
+           'nlme',#
+           'picante',#
+           'RCurl', #
+           'reshape',#
+           'rgl',#
+           'RgoogleMaps',#
+           'rpart', #
+           'rstan',#
+           'rgdal',#
+           'RColorBrewer',#
+           'sem',#
+           'sp',#
+           'vegan'#
+           )#
+#
+for(i in packs){#
+if(length(grep(i, (.packages(all.available=T))))==0) install.packages(i, dependencies =TRUE)#
 }
-# Repeat, with simple model for all#
-pdf(file="graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf", height = 10, width = 10)#
+library(arm)
+srrs2 <- read.table ("~/Documents/git/gelmanhill/ARM_Data/radon/srrs2.dat", header=T, sep=",")#
+mn <- srrs2$state=="MN"#
+radon <- srrs2$activity[mn]#
+log.radon <- log (ifelse (radon==0, .1, radon))#
+floor <- srrs2$floor[mn]       # 0 for basement, 1 for first floor#
+n <- length(radon)#
+y <- log.radon#
+x <- floor#
+# get county index variable#
+county.name <- as.vector(srrs2$county[mn])#
+uniq <- unique(county.name)#
+J <- length(uniq)#
+county <- rep (NA, J)#
+for (i in 1:J){#
+  county[county.name==uniq[i]] <- i#
+}#
+ # no predictors#
+ybarbar = mean(y)#
+sample.size <- as.vector (table (county))
+sample.size.jittered <- sample.size*exp (runif (J, -.1, .1))#
+cty.mns = tapply(y,county,mean)#
+cty.vars = tapply(y,county,var)#
+cty.sds = mean(sqrt(cty.vars[!is.na(cty.vars)]))/sqrt(sample.size)#
+cty.sds.sep = sqrt(tapply(y,county,var)/sample.size)#
+## Get the county-level predictor#
+srrs2.fips <- srrs2$stfips*1000 + srrs2$cntyfips#
+cty <- read.table ("cty.dat", header=T, sep=",")#
+usa.fips <- 1000*cty[,"stfips"] + cty[,"ctfips"]#
+usa.rows <- match (unique(srrs2.fips[mn]), usa.fips)#
+uranium <- cty[usa.rows,"Uppm"]#
+u <- log (uranium)#
+## Varying-intercept model w/ group-level predictors#
+u.full <- u[county]#
+dataList.3 <- list(N=length(y), y=y,x=x,county=county,u=u.full)#
+radon_group.sf1 <- stan(file='radon_group.stan', data=dataList.3,#
+                        iter=1000, chains=4)#
+print(radon_group.sf1, pars = c("b","beta", "sigma", "lp__"))#
+post1 <- extract(radon_group.sf1)#
+post1.ranef <- colMeans(post1$const_coef)#
+mean1.ranef <- mean(post1.ranef)#
+post1.beta <- colMeans(post1$beta)#
+post1.fixef1 <- mean(post1.ranef)#
+## Plots on Figure 12.5#
+dataList.4 <- list(N=length(y), y=y,x=x,county=county)#
+radon_no_pool.sf1 <- stan(file='radon_no_pool.stan', data=dataList.4,#
+                          iter=1000, chains=4)
+library(RCpp)
+library(Rcpp)
+library(inline)
+install.packages("inline",dep=T)
+library(rstan)
+install.packages('rstan',depend=T)
+install.packages('vegan',depend=T)
+library(vegan)
+q()
+install.package("rstan",depend=T)
+install.packages("rstan",depend=T)
+install.packages("vegan",depend=T)
+library(inline)
+library(vegan)
+?install.packages
+install.packages("Rcpp_0.12.0.tar.gz", repos = NULL)
+¬
+L
+ll
+install.packages("rstan")
+install.packages("rstan",depend=T)
+library(rstan)
+install.packages(“rstan”, dep=T)
+install.packages('rstan', dep=T)
+library(rstan)
+require(ggplot2)#
+require(GGally)#install.packages("GGally",dep=T)#
+require(reshape2)#
+require(lme4)#
+require(compiler)#
+require(parallel)#
+require(boot)
+uire(boot)#
 #
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-  	textplot(round(coef(summary(mx)),3))#
-	if(coef(summary(mx))[4,4] <= 0.05){#
-	with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) #
-	} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="n",xlab="n") }#
-	}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
-i="AROMEL"
-makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
-mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-dx[dx$sp == i,]
-mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-mx
-i
-dx$warm <- as.numeric(as.character(dx$warm))#
-dx$photo <- as.numeric(as.character(dx$photo))
-mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-mx
-textplot(round(coef(summary(mx)),3))
-mx <- glm(nl ~ warm + photo  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-mx
-mx <- glm(nl ~ warm + photo  #
-#							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-mx
-textplot(round(coef(summary(mx)),3))
-mx <- glm(nl ~ warm + photo  #
-#							+ warm:photo #
-							, data = dx[dx$sp == i,]#
-							)
-mx
-summary(mx)
-mx <- lm(nl ~ warm + photo  #
-#							+ warm:photo #
-							, data = dx[dx$sp == i,]#
-							)
-mx
-mx <- aov(nl ~ warm + photo  #
-#							+ warm:photo #
-							, data = dx[dx$sp == i,]#
-							)
-mx
-dx[dx$sp==i,]
-summary(dx[dx$sp==i,])
-summary(dx[dx$sp==i,]$warm)
-table(dx[dx$sp==i,]$warm)
-table(dx[dx$sp==i,]$photo)
-table(dx[dx$sp==i,]$photo, dx[dx$sp==i,]$warm)
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')#
-# Repeat, with simple model for all. Aronia: 1 nl occured in each of the four combinations of photo and warm, no separation.#
-dx$warm <- as.numeric(as.character(dx$warm))#
-dx$photo <- as.numeric(as.character(dx$photo))#
-#
-pdf(file="graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-		mx <- glm(nl ~ warm + photo  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-  	textplot(round(coef(summary(mx)),3))#
-	if(coef(summary(mx))[4,4] <= 0.05){#
-	with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) #
-	} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="n",xlab="n") }#
-	}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
-pdf(file="graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-		mx <- glm(nl ~ warm + photo  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-  	textplot(round(coef(summary(mx)),3))#
-	if(coef(summary(mx))[4,4] <= 0.05){#
-	with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) #
-	} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="n",xlab="n") }#
-	}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
-makesimpleplot.sp
-pdf(file="graphs/simpleplots/nonleafouts_sitechill.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-			mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-	textplot(round(coef(summary(mx)),3))#
-#
-			} 		#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
-as.character(dx$chill)
-as.numeric(as.character(dx$chill))
-as.numeric(dx$chill)
-dx$chill <- as.numeric(dx$chill)
-pdf(file="graphs/simpleplots/nonleafouts_sitechill.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-			mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-	textplot(round(coef(summary(mx)),3))#
-#
-			} 		#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
-dx$chill <- as.numeric(dx$chill)#
-#
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-summary.aov(mx)
-mx
-summary(mx)
-anova(mx)
-dx$site <- as.numeric(dx$site)
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary.aov(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-# Tally sig site * chill effects#
-dx$chill <- as.numeric(dx$chill)#
-dx$site <- as.numeric(dx$site)#
-#
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary.aov(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-as.numeric(dx$site)
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
-makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)
-# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			}
-length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1
-length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1
-textplot(round(coef(summary.aov(mx)),3))
-textplot(round(coef(summary(mx)),3))
-# Tally sig site * chill effects#
-dx$chill <- as.numeric(dx$chill)#
-dx$site <- as.numeric(dx$site)#
-#
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-pdf(file="graphs/simpleplots/nonleafouts_sitechill.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-			mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-	textplot(round(coef(summary(mx)),3))#
-#
-			} 		#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
-dx[dx$sp ==i,
-]
-boxplot(nl ~ chill, data = dx[dx$sp==i,])
-i
-dx[dx$sp==i,]
-dx[dx$sp==i,"nl"]
-barplot(nl ~ chill, data = dx[dx$sp==i,])
-boxplot(nl ~ chill, data = dx[dx$sp==i,])
-dx$site
-boxplot(nl ~ chill, data = dx[dx$sp==i & dx$site==1,])
-with(xx, tapply(nl, list(chill, site), mean, na.rm=T)
+hdp <- read.csv("http://www.ats.ucla.edu/stat/data/hdp.csv")#
+hdp <- within(hdp, {#
+  Married <- factor(Married, levels = 0:1, labels = c("no", "yes"))#
+  DID <- factor(DID)#
+  HID <- factor(HID)#
+})
+head(hdp)
+?within
+ggpairs(hdp[, c("IL6", "CRP", "LengthofStay", "Experience")])
+ggplot(hdp, aes(x = CancerStage, y = LengthofStay)) +
+ggplot(hdp, aes(x = CancerStage, y = LengthofStay)) +#
+  stat_sum(aes(size = ..n.., group = 1)) +#
+  scale_size_area(max_size=10)
+tmp <- melt(hdp[, c("CancerStage", "IL6", "CRP")], id.vars="CancerStage")#
+ggplot(tmp, aes(x = CancerStage, y = value)) +#
+  geom_jitter(alpha = .1) +#
+  geom_violin(alpha = .75) +#
+  facet_grid(variable ~ .) +#
+  scale_y_sqrt()
+tmp <- melt(hdp[, c("remission", "IL6", "CRP", "LengthofStay", "Experience")],#
+  id.vars="remission")#
+ggplot(tmp, aes(factor(remission), y = value, fill=factor(remission))) +#
+  geom_boxplot() +#
+  facet_wrap(~variable, scales="free_y")
+glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + ( 1 | DID),#
+	data = hdp, family = binomial)
+m1 <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + ( 1 | DID),#
+	data = hdp, family = binomial)
+m1 <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + ( 1 | DID),#
+	data = hdp, family = binomial,#
+	control = glmerControl(optimizer = "bobyqa")#
+	nAGQ = 10)
+m1 <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + ( 1 | DID),#
+	data = hdp, family = binomial,#
+	control = glmerControl(optimizer = "bobyqa"),#
+	nAGQ = 10) # fails to converge if controls are not set
+m1
+print(m1, corr=F)
+?glmer
+se <- sqrt(diag(vcov(m1))
+se
+se <- sqrt(diag(vcov(m1))
 )
-xx <- dx[dx$sp==i,]
-with(xx, tapply(nl, list(chill, site), mean, na.rm=T))
-sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))
-sds
-means <- with(xx, tapply(nl, list(chill, site), mean, na.rm=T))
-sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))
-plot(means[,1])
-plot(means[,1], ylim = c(0, 1))
-arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1])
-plot(means[,1], ylim = c(0, 1), main = "HF")#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], code = 1)
-plot(means[,1], ylim = c(0, 1), main = "HF")#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], code = 3)
-plot(means[,1], ylim = c(0, 1), main = "HF", col = "black")#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
-plot(means[,1], ylim = c(0, 1), main = "HF", pch = 16)#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
-axis(1, 1:3, labels = c("chill0", "chill1","chill2"))
-means <- with(xx, tapply(nl, list(chill, site), mean, na.rm=T))#
-		sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))#
-		axis(1, 1:3, labels = c("chill0", "chill1","chill2"))#
-		plot(means[,1], ylim = c(0, 1), main = "HF", pch = 16)#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
-axis(1, 1:3, labels = c("chill0", "chill1","chill2"))
-axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))
-plot(means[,1], ylim = c(0, 1), main = "HF", pch = 16, ylab = "prop leafout")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
-axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))
-?axis
-axis(1)
-plot(means[,1], ylim = c(0, 1), main = "HF", pch = 16, ylab = "prop leafout")
-axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))
-means[,1]
-locator()
-plot(1:3, means[,1], ylim = c(0, 1), main = "HF", pch = 16, ylab = "prop leafout")
-axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))
-arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)#
-			mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-locator()
-axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))
-par(cex=0.7)
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))
-xx <- dx[dx$sp==i,]#
-		means <- with(xx, tapply(nl, list(chill, site), mean, na.rm=T))#
-		sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))
-plot(1:3, means[,1], ylim = c(0, 1), main = "HF", pch = 16, ylab = "prop leafout")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
-plot(1:3, means[,1], ylim = c(0, 1), main = "HF", pch = 16, ylab = "prop leafout", xaxt="n")
-axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))
-arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
-plot(1:3, means[,1], ylim = c(0, 1.25), main = "HF", pch = 16, ylab = "prop leafout", xaxt="n")
-axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))
-arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)
-mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)
-mx
-textplot(round(coef(summary(mx)),3))
-coef(summary(mx))[4,4]
-pdf(file="graphs/simpleplots/nonleafouts_sitechill.pdf", height = 10, width = 10)#
-#
-par(cex=0.7)#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-		xx <- dx[dx$sp==i,]#
-		means <- with(xx, tapply(nl, list(chill, site), mean, na.rm=T))#
-		sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))#
-#
-		plot(1:3, means[,1], ylim = c(0, 1.25), main = "HF", pch = 16, ylab = "prop leafout", xaxt="n")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)#
-#
-		plot(1:3, means[,2], ylim = c(0, 1.25), main = "SH", pch = 16, ylab = "prop leafout", xaxt="n")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,2]-sds[,2], 1:3, means[,2]+sds[,2], length = 0)#
-			mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-		textplot(round(coef(summary(mx)),3))#
-		if(coef(summary(mx))[4,4] <= 0.05){#
-			with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) #
-			} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="n",xlab="n") }#
-		}#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
-# Repeat, with simple model for all. Aronia: 1 nl occured in each of the four combinations of photo and warm, no separation.#
-dx$warm <- as.numeric(as.character(dx$warm))#
-dx$photo <- as.numeric(as.character(dx$photo))#
-#
-pdf(file="graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf", height = 10, width = 10)#
+se
+pdf(file="graphs/simpleplots/leafoutday_byspp_model.pdf", height = 10, width = 10)#
 #
 par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
+layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
 for(i in sort(unique(dx$sp))){#
 #
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-		mx <- glm(nl ~ warm + photo  #
+	makesimpleplot.sp.lday(ldayx[ldayx$sp == i,], c(0, 70), "lday", "Leafout day", i)#
+#
+	# is this species across site and chill?#
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
+			mx <- glm(lday ~ warm + photo + chill + site #
+							+ warm:photo + warm:chill + warm:site #
+							+ photo:chill + photo:site#
+							+ warm:photo:chill#
+							+ warm:photo:site #
+							+ warm:chill:site #
+							+ photo:chill:site#
+							, data = dx[dx$sp == i,]#
+							)#
+#
+			} #
+	# Across site but no chill?		#
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
+			mx <- glm(lday ~ warm + photo + site #
+							+ warm:photo +  warm:site + photo:site#
+							+ warm:photo:site #
+							, data = dx[dx$sp == i,]#
+							)#
+			} #
+	# One site, no chill?		#
+	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
+		mx <- glm(lday ~ warm + photo +  #
 							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							, data = dx[dx$sp == i,]#
 							)#
-  	textplot(round(coef(summary(mx)),3))#
-	if(coef(summary(mx))[4,4] <= 0.05){#
-	with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) #
-	} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="",xlab="") }#
-	}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_simplemodel.pdf -a /Applications/Preview.app')
-# Focus on site x chill#
-#
-# Tally sig site * chill effects#
-#
-pdf(file="graphs/simpleplots/nonleafouts_sitechill.pdf", height = 10, width = 10)#
-#
-par(cex=0.7)#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-		xx <- dx[dx$sp==i,]#
-		means <- with(xx, tapply(nl, list(chill, site), mean, na.rm=T))#
-		sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))#
-#
-		plot(1:3, means[,1], ylim = c(0, 1.25), main = "HF", pch = 16, ylab = "prop leafout", xaxt="n")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)#
-#
-		plot(1:3, means[,2], ylim = c(0, 1.25), main = "SH", pch = 16, ylab = "prop leafout", xaxt="n")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,2]-sds[,2], 1:3, means[,2]+sds[,2], length = 0)#
-			mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-		textplot(round(coef(summary(mx)),3))#
-		if(coef(summary(mx))[4,4] <= 0.05){#
-			with(dx[dx$sp == i,], interaction.plot(warm, photo, nl)) #
-			} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="",xlab="") }#
+			} #
+	textplot(round(coef(summary(mx)),3))#
 		}#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
-pdf(file="graphs/simpleplots/nonleafouts_sitechill.pdf", height = 10, width = 10)#
-#
-par(cex=0.7)#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-		xx <- dx[dx$sp==i,]#
-		means <- with(xx, tapply(nl, list(chill, site), mean, na.rm=T))#
-		sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))#
-#
-		plot(1:3, means[,1], ylim = c(0, 1.25), main = "HF", pch = 16, ylab = "prop leafout", xaxt="n")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)#
-#
-		plot(1:3, means[,2], ylim = c(0, 1.25), main = "SH", pch = 16, ylab = "prop leafout", xaxt="n")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,2]-sds[,2], 1:3, means[,2]+sds[,2], length = 0)#
-			mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-		textplot(round(coef(summary(mx)),3))#
-		if(coef(summary(mx))[4,4] <= 0.05){#
-			with(dx[dx$sp == i,], interaction.plot(chill, site, nl)) #
-			} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="",xlab="") }#
-		}#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
-pdf(file="graphs/simpleplots/nonleafouts_sitechill.pdf", height = 10, width = 10)#
-#
-par(cex=0.7)#
-layout(matrix(c(1, 2, 3, 4), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-		xx <- dx[dx$sp==i,]#
-		means <- with(xx, tapply(nl, list(chill, site), mean, na.rm=T))#
-		sds <- with(xx, tapply(nl, list(chill, site), sd, na.rm=T))#
-#
-		plot(1:3, means[,1], ylim = c(0, 1.25), main = paste(i, "HF"), pch = 16, ylab = "prop leafout", xaxt="n")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,1]-sds[,1], 1:3, means[,1]+sds[,1], length = 0)#
-#
-		plot(1:3, means[,2], ylim = c(0, 1.25), main = "SH", pch = 16, ylab = "prop leafout", xaxt="n")#
-		axis(1, at=1:3, labels = c("chill0", "chill1","chill2"))		#
-		arrows(1:3, means[,2]-sds[,2], 1:3, means[,2]+sds[,2], length = 0)#
-			mx <- glm(nl ~ chill * site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-		textplot(round(coef(summary(mx)),3))#
-		if(coef(summary(mx))[4,4] <= 0.05){#
-			with(dx[dx$sp == i,], interaction.plot(chill, site, nl)) #
-			} else { plot(1:10, type = "n", bty = "n", yaxt="n", xaxt="n",ylab="",xlab="") }#
-		}#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_sitechill.pdf -a /Applications/Preview.app')
-i="ILEMUC"
-# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			}
-mx
-dx[dx$sp == i,]
-witable(dx[dx$sp == i,"warm"]
-with(dx[dx$sp == i,], table(warm, photo, site, chill))
-with(dx[dx$sp == i,], tapply(nl, list(warm, photo, site, chill), mean))
-m1 <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx#
-							)
-summary(m1)
-library(lme4)
-m2 <- glmer(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							+ (1|sp),#
-							, family=binomial(link='logit'), data = dx#
-							)
-m2
-summary(m2)
-head(dx)
-??sjplot
-librayr(sjPlot)
-library(sjPlot)
-sjp.glmer(m2)
-sjp.glmer(m2, type = "fe")
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
-#
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-#
-load(file.path("input", toload))#
-#
-source("source/simpleplot.R")#
-#
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
-#
-# Analysis of where the non-leafout cuttings were#
-nlx <- dx[dx$nl == 0,]#
-#
-summary(nlx)
-dx$chill <- as.numeric(dx$chill)#
-dx$site <- as.numeric(dx$site)#
-dx$photo <- as.numeric(as.character(dx$photo))#
-dx$warm <- as.numeric(as.character(dx$warm))
-# Where were the non-leafout cuttings, by species, site, and treatement?#
+dev.off(); system('open graphs/simpleplots/leafouts_byspp_model.pdf -a /Applications/Preview.app')
+# Where were the leafout cuttings, by species, site, and treatement? Analogous to non-leafout script earlier.#
 library(scales)#
 library(gplots) # for textplot()#
+library(lme4)#
+library(sjPlot)#
 #
 setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
 #
@@ -944,18 +722,18 @@ source("source/simpleplot.R")#
 #
 dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
 #
-# Analysis of where the non-leafout cuttings were#
-nlx <- dx[dx$nl == 0,]#
+# Analysis of where the leafout cuttings were#
+lx <- dx[dx$nl == 1,]#
 #
-summary(nlx)#
+summary(lx)#
 #
-nl1 <- as.data.frame(table(nlx$sp, nlx$site))#
+nl1 <- as.data.frame(table(lx$sp, lx$site))#
 #
-nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))#
+nl2 <- as.data.frame(table(lx$warm, lx$photo, lx$chill))#
 # proportional to total numbers in each#
 dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
 nl2$prop <- nl2$Freq/dl2$Freq#
-nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nlx$chill))#
+nl3 <- as.data.frame(table(lx$sp, lx$site,lx$warm, lx$photo, lx$chill))#
 dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
 nl3$prop <- nl3$Freq/dl3$Freq#
 nl3$prop[is.nan(nl3$prop)==TRUE] <- 0#
@@ -967,63 +745,10 @@ nl3.nochill <- subset(nl3, chill=="chill0")#
 nl3.1chill <- subset(nl3, chill=="chill1")#
 nl3.2chill <- subset(nl3, chill=="chill2")#
 #
-# make some simple plots#
-makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined#
-makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")#
-makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")#
-makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")#
-#
-sitespp <- as.data.frame(table(nl3$sp, nl3$site))#
-sitespp <- subset(sitespp, Freq>0)#
-sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)#
-sppatbothsites <- subset(sppatsites, Var2>1)#
-#
-spp <- sppatbothsites$Var1#
-pdf(file="graphs/simpleplots/nonleafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
-for (i in c(1:length(spp))){#
-    spdf <- subset(nl3.nochill, sp==spp[i])#
-    makesimpleplot.sp(spdf, c(0, 1), "prop", "% non-leafout", spp[i])#
-}#
-dev.off()#
-# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>#
-# Simple models by species. All predictors now numeric
-# Where were the non-leafout cuttings, by species, site, and treatement?#
-library(scales)#
-library(gplots) # for textplot()#
-#
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
-#
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-#
-load(file.path("input", toload))#
-#
-source("source/simpleplot.R")#
-#
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
-#
-# Analysis of where the non-leafout cuttings were#
-nlx <- dx[dx$nl == 0,]#
-#
-summary(nlx)#
-#
-nl1 <- as.data.frame(table(nlx$sp, nlx$site))#
-#
-nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))#
-# proportional to total numbers in each#
-dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
-nl2$prop <- nl2$Freq/dl2$Freq#
-nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nlx$chill))#
-dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
-nl3$prop <- nl3$Freq/dl3$Freq#
-nl3$prop[is.nan(nl3$prop)==TRUE] <- 0#
-names(nl1) <- c("sp","site","freq")#
-names(nl2) <- c("warm","photo","chill","freq", "prop")#
-names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")#
-#
-nl3.nochill <- subset(nl3, chill=="chill0")#
-nl3.1chill <- subset(nl3, chill=="chill1")#
-nl3.2chill <- subset(nl3, chill=="chill2")#
+##
+data.frame(sort(with(nl3, tapply(prop, sp, mean)), T))#
+with(nl3, tapply(prop, chill, mean))#
+with(nl3, tapply(prop, site, mean))#
 #
 # make some simple plots#
 # # makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined#
@@ -1037,466 +762,174 @@ sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)#
 sppatbothsites <- subset(sppatsites, Var2>1)#
 #
 spp <- sppatbothsites$Var1#
-pdf(file="graphs/simpleplots/nonleafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
+pdf(file="graphs/simpleplots/leafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
+par(mfrow=c(1,2))#
 for (i in c(1:length(spp))){#
     spdf <- subset(nl3.nochill, sp==spp[i])#
-    makesimpleplot.sp(spdf, c(0, 1), "prop", "% non-leafout", spp[i])#
+    makesimpleplot.sp(spdf, c(0, 1), "prop", "% leafout", spp[i])#
 }#
 dev.off()#
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>#
-# Simple models by species. All predictors now numeric#
+# Simple models by species. All predictors now numeric. Using lday as response, not nl as in nonleafout script.#
 #
-dx$chill <- as.numeric(dx$chill)#
-dx$site <- as.numeric(dx$site)#
-dx$photo <- as.numeric(as.character(dx$photo))#
-dx$warm <- as.numeric(as.character(dx$warm))
-# Where were the non-leafout cuttings, by species, site, and treatement?#
-library(scales)#
-library(gplots) # for textplot()#
-#
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
-#
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-#
-load(file.path("input", toload))#
-#
-source("source/simpleplot.R")#
-#
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
-#
-# Analysis of where the non-leafout cuttings were#
-nlx <- dx[dx$nl == 0,]#
-#
-summary(nlx)#
-#
-nl1 <- as.data.frame(table(nlx$sp, nlx$site))#
-#
-nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))#
-# proportional to total numbers in each#
-dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
-nl2$prop <- nl2$Freq/dl2$Freq#
-nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nlx$chill))#
-dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
-nl3$prop <- nl3$Freq/dl3$Freq#
-nl3$prop[is.nan(nl3$prop)==TRUE] <- 0#
-names(nl1) <- c("sp","site","freq")#
-names(nl2) <- c("warm","photo","chill","freq", "prop")#
-names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")#
-#
-nl3.nochill <- subset(nl3, chill=="chill0")#
-nl3.1chill <- subset(nl3, chill=="chill1")#
-nl3.2chill <- subset(nl3, chill=="chill2")#
-#
-# make some simple plots#
-# # makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined#
-# makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")#
-# makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")#
-# makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")#
-#
-sitespp <- as.data.frame(table(nl3$sp, nl3$site))#
-sitespp <- subset(sitespp, Freq>0)#
-sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)#
-sppatbothsites <- subset(sppatsites, Var2>1)#
-#
-spp <- sppatbothsites$Var1#
-pdf(file="graphs/simpleplots/nonleafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
-for (i in c(1:length(spp))){#
-    spdf <- subset(nl3.nochill, sp==spp[i])#
-    makesimpleplot.sp(spdf, c(0, 1), "prop", "% non-leafout", spp[i])#
-}#
-dev.off()#
-# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>#
-# Simple models by species. All predictors now numeric
-dx$photo
-as.numeric(dx$photo)
-dx$chill <- as.numeric(dx$chill)#
-dx$site <- as.numeric(dx$site)#
-dx$photo <- as.numeric(dx$photo)#
-dx$warm <- as.numeric(dx$warm)
-dx$warm
-dx$site
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')#
-#
-# examination code
-# Where were the non-leafout cuttings, by species, site, and treatement?#
-library(scales)#
-library(gplots) # for textplot()#
-#
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
-#
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-#
-load(file.path("input", toload))#
-#
-source("source/simpleplot.R")#
-#
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
-dx$site
-# Where were the non-leafout cuttings, by species, site, and treatement?#
-library(scales)#
-library(gplots) # for textplot()#
-#
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
-#
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-#
-load(file.path("input", toload))#
-#
-source("source/simpleplot.R")#
-#
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
-#
-# Analysis of where the non-leafout cuttings were#
-nlx <- dx[dx$nl == 0,]#
-#
-summary(nlx)#
-#
-nl1 <- as.data.frame(table(nlx$sp, nlx$site))#
-#
-nl2 <- as.data.frame(table(nlx$warm, nlx$photo, nlx$chill))#
-# proportional to total numbers in each#
-dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
-nl2$prop <- nl2$Freq/dl2$Freq#
-nl3 <- as.data.frame(table(nlx$sp, nlx$site,nlx$warm, nlx$photo, nlx$chill))#
-dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
-nl3$prop <- nl3$Freq/dl3$Freq#
-nl3$prop[is.nan(nl3$prop)==TRUE] <- 0#
-names(nl1) <- c("sp","site","freq")#
-names(nl2) <- c("warm","photo","chill","freq", "prop")#
-names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")#
-#
-nl3.nochill <- subset(nl3, chill=="chill0")#
-nl3.1chill <- subset(nl3, chill=="chill1")#
-nl3.2chill <- subset(nl3, chill=="chill2")#
-#
-# make some simple plots#
-# # makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined#
-# makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")#
-# makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")#
-# makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")#
-#
-sitespp <- as.data.frame(table(nl3$sp, nl3$site))#
-sitespp <- subset(sitespp, Freq>0)#
-sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)#
-sppatbothsites <- subset(sppatsites, Var2>1)#
-#
-spp <- sppatbothsites$Var1#
-pdf(file="graphs/simpleplots/nonleafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
-for (i in c(1:length(spp))){#
-    spdf <- subset(nl3.nochill, sp==spp[i])#
-    makesimpleplot.sp(spdf, c(0, 1), "prop", "% non-leafout", spp[i])#
-}#
-dev.off()#
-# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>#
-# Simple models by species. All predictors now numeric#
-#
-# # dx$chill <- as.numeric(dx$chill)#
-# dx$site <- as.numeric(dx$site)#
-# dx$photo <- as.numeric(dx$photo)#
-# dx$warm <- as.numeric(dx$warm)
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
-							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
 dx$chill <- as.numeric(dx$chill)#
 dx$site <- as.numeric(dx$site)#
 dx$photo <- as.numeric(dx$photo)#
 dx$warm <- as.numeric(dx$warm)#
 #
-pdf(file="graphs/simpleplots/nonleafouts_byspp_model.pdf", height = 10, width = 10)#
+ldayx <- with(dx, aggregate(lday ~ warm + photo+ site+chill + sp, FUN = mean, na.rm=T))#
+#
+pdf(file="graphs/simpleplots/leafoutday_byspp_model.pdf", height = 10, width = 10)#
 #
 par(cex=0.7, xpd=TRUE, xaxt="n")#
 layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
 for(i in sort(unique(dx$sp))){#
 #
-	makesimpleplot.sp(nl3[nl3$sp ==i,], c(0, 1), "prop", "% non-leafout", i)#
+	makesimpleplot.sp.lday(ldayx[ldayx$sp == i,], c(0, 70), "lday", "Leafout day", i)#
 #
 	# is this species across site and chill?#
 	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(nl ~ warm + photo + chill + site #
+			mx <- glm(lday ~ warm + photo + chill + site #
 							+ warm:photo + warm:chill + warm:site #
 							+ photo:chill + photo:site#
 							+ warm:photo:chill#
 							+ warm:photo:site #
 							+ warm:chill:site #
 							+ photo:chill:site#
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							, data = dx[dx$sp == i,]#
 							)#
 #
 			} #
 	# Across site but no chill?		#
 	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(nl ~ warm + photo + site #
+			mx <- glm(lday ~ warm + photo + site #
 							+ warm:photo +  warm:site + photo:site#
 							+ warm:photo:site #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							, data = dx[dx$sp == i,]#
 							)#
 			} #
 	# One site, no chill?		#
 	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(nl ~ warm + photo +  #
+		mx <- glm(lday ~ warm + photo +  #
 							+ warm:photo #
-							, family=binomial(link='logit'), data = dx[dx$sp == i,]#
+							, data = dx[dx$sp == i,]#
 							)#
 			} #
 	textplot(round(coef(summary(mx)),3))#
 		}#
-dev.off(); system('open graphs/simpleplots/nonleafouts_byspp_model.pdf -a /Applications/Preview.app')
-i="ACESAC"
-with(dx[dx$sp == i,], tapply(nl, list(warm, photo, site, chill), mean))
-with(dx[dx$sp == i,], tapply(nl, list(warm, site, chill), mean))
-with(dx[dx$sp == i,], tapply(nl, list(warm, chill, site), mean))
-dx$warm <- as.numeric(as.character(dx$warm))#
-dx$photo <- as.numeric(as.character(dx$photo))
-l1 <- lm(lday ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							data = dx[dx$nl==1,]#
-							)
-l1 <- lm(lday ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, data = dx[dx$nl==1,]#
-							)#
-	summary(l1)
-summary.aov(l1)
-l2 <- lmer(lday ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							+ (1|sp)#
-							, data = dx[dx$nl==1,]#
-							)#
-	summary(l2)
-sjp(l2)
-sjp.lmer(l2)
-sjp.lmer(l2, type = "fe")
-xx <- dx[dx$sp==i,]#
-		means <- with(xx, tapply(lday, list(warm, photo, site), mean, na.rm=T))#
-		sds <- with(xx, tapply(lday, list(warm, photo, site), sd, na.rm=T))
-xx
-means <- with(xx, tapply(lday, list(warm, photo, site), mean, na.rm=T))
-means
-sds
-summary(l2)
-source('savestan.R')
-# Analysis of budburst experiment. Starting with simple linear models#
-# 2015-09-16 adding single species models#
-#
-library(nlme)#
+dev.off(); system('open graphs/simpleplots/leafouts_byspp_model.pdf -a /Applications/Preview.app')
+# Where were the leafout cuttings, by species, site, and treatement? Analogous to non-leafout script earlier.#
 library(scales)#
-library(arm)#
-library(rstan)#
+library(gplots) # for textplot()#
+library(lme4)#
+library(sjPlot)#
 #
-setwd("~/Documents/git/buds/analyses")#
-source('savestan.R')
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
+setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
 #
-load(file.path("input", toload))
-# Analysis of budburst experiment. Starting with simple linear models#
-# 2015-09-16 adding single species models#
-#
-library(nlme)#
-library(scales)#
-library(arm)#
-library(rstan)#
-#
-setwd("~/Documents/git/buds/analyses")#
-source('savestan.R')#
 # get latest data#
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
 #
 load(file.path("input", toload))#
 #
+source("source/simpleplot.R")#
+#
 dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
 #
-# Anovas based on day to leafout (stage 6)#
+# Analysis of where the leafout cuttings were#
+lx <- dx[dx$nl == 1,]#
 #
-summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
+summary(lx)#
 #
-# Comparing Type I SS issues#
-summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
-summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))#
-summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
+nl1 <- as.data.frame(table(lx$sp, lx$site))#
 #
-summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!#
+nl2 <- as.data.frame(table(lx$warm, lx$photo, lx$chill))#
+# proportional to total numbers in each#
+dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
+nl2$prop <- nl2$Freq/dl2$Freq#
+nl3 <- as.data.frame(table(lx$sp, lx$site,lx$warm, lx$photo, lx$chill))#
+dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
+nl3$prop <- nl3$Freq/dl3$Freq#
+nl3$prop[is.nan(nl3$prop)==TRUE] <- 0#
+names(nl1) <- c("sp","site","freq")#
+names(nl2) <- c("warm","photo","chill","freq", "prop")#
+names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")#
 #
-summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effects interax with warm for budbust (stage 3) but not leafout (stage 6)#
+nl3.nochill <- subset(nl3, chill=="chill0")#
+nl3.1chill <- subset(nl3, chill=="chill1")#
+nl3.2chill <- subset(nl3, chill=="chill2")#
 #
-summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering#
+##
+data.frame(sort(with(nl3, tapply(prop, sp, mean)), T))#
+with(nl3, tapply(prop, chill, mean))#
+with(nl3, tapply(prop, site, mean))#
 #
-# with lme4 mixed effect model to better take into account species differences #
+# make some simple plots#
+# # makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined#
+# makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")#
+# makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")#
+# makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")#
 #
-# test without the nonleafouts -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. Previously had '75' days was assigned to them as max value#
+sitespp <- as.data.frame(table(nl3$sp, nl3$site))#
+sitespp <- subset(sitespp, Freq>0)#
+sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)#
+sppatbothsites <- subset(sppatsites, Var2>1)#
 #
-m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.#
-summary(m3)#
-fixef(m3)#
-ranef(m3)#
-# What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1#
-summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # #
-coef(m22)#
-#
+spp <- sppatbothsites$Var1#
+pdf(file="graphs/simpleplots/leafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
+par(mfrow=c(1,2))#
+for (i in c(1:length(spp))){#
+    spdf <- subset(nl3.nochill, sp==spp[i])#
+    makesimpleplot.sp(spdf, c(0, 1), "prop", "% leafout", spp[i])#
+}#
+dev.off()#
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>#
+# Simple models by species. All predictors now numeric. Using lday as response, not nl as in nonleafout script.#
 #
-# New analyses, in stan, using simple models#
-# model 1: lday ~ warm * photo, no species, site, or ind.#
-# make data all numeric.#
-levels(dx$warm) = c(0,1); levels(dx$photo) = c(0, 1); levels(dx$site) = 1:2; levels(dx$sp) = 1:length(levels(dx$sp))#
-dx$warm <- as.numeric(dx$warm)#
-dx$photo <- as.numeric(dx$photo)#
+dx$chill <- as.numeric(dx$chill)#
 dx$site <- as.numeric(dx$site)#
-dx$sp <- as.numeric(dx$sp)#
+dx$photo <- as.numeric(dx$photo)#
+dx$warm <- as.numeric(dx$warm)#
 #
-# Make sure no NA's (nonleafouts)#
-dx <- dx[!is.na(dx$lday),]#
+ldayx <- with(dx, aggregate(lday ~ warm + photo+ site+chill + sp, FUN = mean, na.rm=T))#
 #
-datalist1 <- list(lday = dx$lday, warm = dx$warm, photo = dx$photo, N = nrow(dx))#
+pdf(file="graphs/simpleplots/leafoutday_byspp_model.pdf", height = 10, width = 10)#
 #
-doym1 <- stan('doy_model1.stan', data = datalist1, iter = 1000, chains = 4)#
+par(cex=0.7, xpd=TRUE, xaxt="n")#
+layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
+for(i in sort(unique(dx$sp))){#
 #
-# Model 2: site added#
-datalist2 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, photo = dx$photo, N = nrow(dx), n_site = length(unique(dx$site)))#
+	makesimpleplot.sp.lday(ldayx[ldayx$sp == i,], c(0, 70), "lday", "Leafout day", i)#
 #
-doym2 <- stan('doy_model2.stan', data = datalist2, iter = 1000, chains = 4)#
+	# is this species across site and chill?#
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
+			mx <- glm(lday ~ warm + photo + chill + site #
+							+ warm:photo + warm:chill + warm:site #
+							+ photo:chill + photo:site#
+							+ warm:photo:chill#
+							+ warm:photo:site #
+							+ warm:chill:site #
+							+ photo:chill:site#
+							, data = dx[dx$sp == i,]#
+							)#
 #
-head(summary(doym2)$summary) # leafout day slightly later for HF#
-#
-# doym3  -- need to make a sp_site vector#
-sp_site = as.numeric(paste(dx$site, formatC(dx$sp, width = 2, flag = '0'), sep=""))#
-sp_sitef = factor(sp_site)#
-levels(sp_sitef) = 1:length(levels(sp_sitef))#
-sp_site = as.numeric(sp_sitef)#
-#
-datalist3 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$sp, photo = dx$photo, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), sp_site = sp_site, n_sp_site = length(unique(sp_site)))#
-#
-doym3 <- stan('doy_model3.stan', data = datalist3, iter = 1000, chains = 4) #
-#
-summary(doym3)$summary[1:50,] # no site effect now.#
-savestan()
+			} #
+	# Across site but no chill?		#
+	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
+			mx <- glm(lday ~ warm + photo + site #
+							+ warm:photo +  warm:site + photo:site#
+							+ warm:photo:site #
+							, data = dx[dx$sp == i,]#
+							)#
+			} #
+	# One site, no chill?		#
+	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
+		mx <- glm(lday ~ warm + photo +  #
+							+ warm:photo #
+							, data = dx[dx$sp == i,]#
+							)#
+			} #
+	textplot(round(coef(summary(mx)),3))#
+		}#
+dev.off(); system('open graphs/simpleplots/leafouts_byspp_model.pdf -a /Applications/Preview.app')
+dev.off(); system('open graphs/simpleplots/leafoutday_byspp_model.pdf -a /Applications/Preview.app')
+system('open graphs/simpleplots/leafoutday_byspp_model.pdf -a /Applications/Preview.app')
