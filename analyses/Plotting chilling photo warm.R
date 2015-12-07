@@ -117,11 +117,8 @@ text(sp.fix.coef.photo, sp.ran.coef.photo,
 	)
 
 dev.off()
+
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-
-
-
-
 
 
 # number of individuals per species, per site

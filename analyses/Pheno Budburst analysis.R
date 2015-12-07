@@ -44,8 +44,7 @@ summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill ==
 summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
 
 
-
-# What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1
+# What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1. See Plotting chilling photo warm.R for more details
 summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # 
 coef(m22)
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
@@ -88,8 +87,6 @@ summary(doym3)$summary[1:50,] # no site effect now.
 
 
 
-
-
 savestan()
 
 
@@ -105,12 +102,12 @@ savestan()
 # make a chillsp column
 chillsp = aggregate(chill ~ sp, FUN = function(x) length(x)>100, data = dx)
 chillsp = chillsp[chillsp$chill==TRUE,"sp"]
-dx.chill <-  dx[!is.na(match(dx$sp, chillsp)),]
+dx.chill <-  dx[!is.na(match(dx$sp, chillsp)),] # now only have chilled species
 
 #summary(m01 <- aov(lday ~ sp * site * warm * photo * chill + Error(ind), data =dx.chill))
 
 summary(m01 <- aov(lday ~ chill, data = dx.chill))
-# wrong...
+# wrong... but yes chilling has an effect
 summary(m01 <- aov(lday ~ sp * site * warm * photo * chill, data = dx.chill))
 coef(m01) # chill1 advanced leafout by 4.5 days, while chill2 delayed leafout by .67 days
 
