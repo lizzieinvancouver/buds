@@ -46,7 +46,7 @@ names(ht2)[2] = "Temp"
 
 chilling(ht2, 305, 60) # Already 18 chill portions as of Dec 8.
 
-chilling(ht, 305, 60) # 39 chill portions by Jan 20 last year.
+chill0calc <- chilling(ht, 305, 60) # 39 chill portions by Jan 20 last year.
 
 # Chilling in experimental setting. From Jan 22 - Feb 12 at 4, then to either 4 or 1.5 for additional 30 d. total: 22 d at 4, then 30 d extra.
 diff(as.POSIXlt(c("2015-01-22", "2015-02-12", "2015-03-14"), "%Y-%m-%d"))
@@ -63,17 +63,24 @@ chill1 <- data.frame(
 
 # bug: Jday vs JDay, returns error for "chillout not found"
 
-chilling(chill1, 305, 60)
+chill1calc <- chilling(chill1, 305, 60)
 
 chill2 <- chill1
 chill2$Temp = c(rep(4, 22), rep(1.5, 30))
 
-chilling(chill2, 305, 60) # FEWER chill portions and fewer Utah Model chill hours
+chill2calc <- chilling(chill2, 305, 60) # FEWER chill portions and fewer Utah Model chill hours
+
+allcalc <- rbind(chill0calc, chill0calc+chill1calc, chill0calc+chill2calc)
+
+xtable(allcalc)
+
 
 # Three models: Chilling Hours, Utah, Dynamic. Chilling hours: all temperatures equally effective (0-7.2 deg C). 
 # Utah: Richardson EA, Seeley SD, Walker DR (1974) A model for estimating the completion of rest for Redhaven and Elberta peach trees. Hortscience 9(4):331–332
 # No chill units below 1.4 deg C, half a unit from 1.4 to 2.4, full unit from 2.4 to 9.1, HALF from 9.1 to 12.4, FULL from 12.4 to 15.9??!
 # Dynamic: Erez 1990, Fishman 1987.
 
-# Now to add sequential, parallel, and unified models
- 
+# Sequential, parallel, and unified models: need multiple years of data?
+# Ecodormancy, from external factors, Endodormancy from internal factors (broken by chilling)
+
+

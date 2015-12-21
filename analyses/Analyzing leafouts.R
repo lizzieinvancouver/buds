@@ -1,4 +1,5 @@
 # Where were the leafout cuttings, by species, site, and treatement? Analogous to non-leafout script earlier.
+# Now adding random effects version, for same kind of xl table
 library(scales)
 library(gplots) # for textplot()
 library(lme4)
@@ -227,4 +228,29 @@ sjp.lmer(l2)
 sjp.lmer(l2, type = "fe")						
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
+
+# Random effects version
+
+mx <- lmer(lday ~ warm + photo + chill + site 
+							+ warm:photo + warm:chill + warm:site 
+							+ photo:chill + photo:site
+							+ warm:photo:chill
+							+ warm:photo:site 
+							+ warm:chill:site 
+							+ photo:chill:site
+							+ (warm * photo | sp)
+						#	+ (site * chill | sp) # Fails to converge
+							, data = dx
+							)
+
+# All in random? -- no, also fails to converge
+
+# mx <- lmer(lday ~ warm + photo + chill 
+							# + warm:photo + warm:chill
+							# + photo:chill 
+							# + warm:photo:chill
+							# + (warm * photo * chill | site/sp)
+							# , data = dx
+							# )
 

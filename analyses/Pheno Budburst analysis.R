@@ -1,8 +1,6 @@
 
 # Analysis of budburst experiment. Starting with simple linear models
-
 # 2015-09-16 adding single species models
-
 
 library(nlme)
 library(scales)
@@ -10,7 +8,6 @@ library(arm)
 library(rstan)
 
 setwd("~/Documents/git/buds/analyses")
-
 source('savestan.R')
 # get latest data
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
@@ -22,7 +19,6 @@ dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 # Anovas based on day to leafout (stage 6)
 
 summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
-
 
 
 summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
@@ -53,6 +49,10 @@ summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Err
 coef(m22)
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
+
+# Random effects 
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 # New analyses, in stan, using simple models
 # model 1: lday ~ warm * photo, no species, site, or ind.
