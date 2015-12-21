@@ -97,7 +97,7 @@ abline(a=0, b = 1, lty = 3, col = 'midnightblue')
 # species in random
 
 m.spran <- lmer(lday ~ (warm * photo | sp)
-				+ site*chill
+				+ (site*chill | sp)
 				, data = dx[dx$nl == 1,]) 
 summary(m.spran)
 species.rand <- ranef(m.spran)$sp
@@ -212,7 +212,7 @@ dev.off(); system('open graphs/Comparing_species_fixed_v_random1.pdf -a /Applica
 
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-
+# Repeat, with days to bb instead of change
 
 # number of individuals per species, per site
 
@@ -353,3 +353,9 @@ summary(m4)
 ranef(m4)
 
 
+########  
+m.spran <- lmer(lday ~ (warm * photo | sp)
+				+ site*chill
+				, data = dx[dx$nl == 1,]) 
+summary(m.spran)
+sjp.lmer(m.spran)
