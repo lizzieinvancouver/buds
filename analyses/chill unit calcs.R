@@ -57,7 +57,7 @@ dayseq = seq(as.numeric(format(as.POSIXlt("2015-01-22", "%Y-%m-%d"), "%j")),
 chill1 <- data.frame(
   Year = as.numeric(rep("2015", 52*24)),
   JDay = as.numeric(rep(dayseq, each = 24)),
-  Hour = as.numeric(rep(0:23, each = 52)),
+  Hour = rep(0:23, 52),
   Temp = 4
   )
 

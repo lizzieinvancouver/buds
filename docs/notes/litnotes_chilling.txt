@@ -6,7 +6,8 @@ Chilling literature notes
 Looks at projections of two chilling models, we would need to dig into their sources for the ‘Dynamic model’ to see what temperature it defines chilling as occurring between.
 
 From pg. 2-3:
-We use historic temperature data, as well as a range of climate change projections, to quantify winter chill with two different mathematical models, the Chilling Hours Model, which is predominantly used in California, and the Dynamic Model, which is often considered superior in subtropical climates [12–16]. While the Chilling Hours Model simply counts the number of hours during the winter, when temperatures are between 0 and 7.2uC [17,18], the Dynamic Model assumes that winter chill is accumulated in a two-step process. According to the Dynamic Model, an intermediate chilling product is first formed by a process that requires cool temperatures. This intermediate product, whose formation is enhanced by moderate temperatures, can be destroyed by high temperatures. When a certain quantum of the intermediate product has accumulated, it is converted irreversibly into a Chill Portion [19,20]. 
+We use historic temperature data, as well as a range of climate change projections, to quantify winter chill with two different mathematical models, the Chil
+ling Hours Model, which is predominantly used in California, and the Dynamic Model, which is often considered superior in subtropical climates [12–16]. While the Chilling Hours Model simply counts the number of hours during the winter, when temperatures are between 0 and 7.2uC [17,18], the Dynamic Model assumes that winter chill is accumulated in a two-step process. According to the Dynamic Model, an intermediate chilling product is first formed by a process that requires cool temperatures. This intermediate product, whose formation is enhanced by moderate temperatures, can be destroyed by high temperatures. When a certain quantum of the intermediate product has accumulated, it is converted irreversibly into a Chill Portion [19,20]. 
 
 - Guy et al. 2014 (New Phyto Commentary)
 
@@ -26,4 +27,9 @@ https://cran.r-project.org/web/packages/chillR/index.html
 
 Modeling pome fruit production in Australia; including chilling resulted in less obvious advance of spring phenology with warming.
 
-“Including winter chill creates less obvious outcomes from projection analyses as both winter and spring temperature conditions contribute to the determi- nation of flowering timing.”
+“Including winter chill creates less obvious outcomes from projection analyses as both winter and spring temperature conditions contribute to the determination of flowering timing.”
+
+
+Twigs/Cuttings
+Primack et al. 2015 Ann Bot
+'photoperiod requriements are less important than previously thought for most species. Invasivs plant species ahvae weather inter chilling requirements…'

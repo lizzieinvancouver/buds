@@ -1,851 +1,45 @@
-i.primeW
-A
-xtree$h1
-xtree
-xtree$H1
-tree$edge
-tt$edge
-tt$edge[,2]
-reorder(tt$edge[,2])
-order(tt$edge[,2])
-text(x = xwrite, y = c(y0h)+0.1, i.primeW[order(x$edge[,2]]))
-plot.default(0, type = "n", xlim = c(0,0.5), ylim = c(0,8), #
-xlab = "", #
-        ylab = "", axes = FALSE, asp = NA)#
-#
-  segments(x0h, y0h, x1h, y0h, col = edge.color, lwd = edge.width, #
-            lty = edge.lty)#
-#
-xwrite <- apply(rbind(x0h, x1h), 2, mean)#
-text(x = xwrite, y = c(y0h)+0.1, i.primeW[order(x$edge[,2])])
-segments(x0v, y0v, x0v, y1v, col = color.v, lwd = width.v, #
-            lty = lty.v)
-AFw[1,]
-A
-A[1,]
-plot(tree)
-sum(A[1,])
-1/8
-sum(AF2)
-sum(AFw[1,])
-i.primeW
-xtree
-Xtree
-h=tree
-h
-H1 <- matrix(0, length(h$order), 2 * length(h$order) - 2)
-H1
-l <- vector("numeric", 2 * length(h$order) - 2)
-l
-length(h$order)
-h$order
-h$merge
-i=1
-h$merge[i, 1]
-l[2 * i - 1] <- h$height[order(h$height)[i]]
-2 * i
-h$height
-[order(h$height)[i]
-order(h$height)[i]
-order(h$height)
-i
-order(h$height)[i]
-h$height[order(h$height)[i]]
-H1[ - h$merge[i, 1], 2 * i - 1] <- 1
-install.packages('rgdal', dep=T)
-library(rgdal)
-library(gdata)#
-#
-eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx")
-bdm <- read.xls("~/Dropbox/Work/Swiss BDM/1010_BDM_plant_species.xlsx~/Dropbox/Work/Swiss BDM/1010_BDM_plant_species.xlsx")
-bdm <- read.xls("~/Dropbox/Work/Swiss BDM/1010_BDM_plant_species.xlsx")
-bdm.sp <- paste(bdm$Genus, bdm$Species.aggregate)
-bdm.sp
-bdm.sp <- sub(" s.l.", "", bdm.sp)
-bdm.sp
-bdm.sp <- sub(" agg.", "", bdm.sp)
-eyster$Species
-# Harold Eyster plant list checking#
-#
-library(gdata)#
-#
-eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx")
-eyster$Species
-library(gdata)#
-#
-eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx")
-eyster$Species
-?read.csv
-eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx", as.is=T)
-eyster
-eyster$Species
-library(gdata)#
-#
-eyster <- read.xls("~/Dropbox/Work/Harvard/Wolkovich Lab/Eyester/Eyster_Plantlist_5-11.xlsx", as.is=T)
-eyster$Species
-match(bdm.sp, eyster$Species)
-match(eyster$Species, bdm.sp)
-bdm.sp[match(eyster$Species, bdm.sp)]
-data.frame(eyster, bdm.sp[match(eyster$Species, bdm.sp)])
-nomatch <- eyster$Species[is.na(match(eyster$Species, bdm.sp))]
-nomatch
-nomatch <- eyster$Species[is.na(match(eyster$Species, bdm.sp))]
-nomatch
-bdm.sp[match(eyster$Species, bdm.sp)]
-eyster$Species[is.na(match(eyster$Species, bdm.sp))]
-nomatch
-bdm[grep("Lythrum", bdm.sp),]
-grep("Lythrum", bdm.sp)
-bdm[grep("Lythrum salicaria", bdm.sp),]
-grep("Lythrum salicaria", bdm.sp)
-bdm.sp
-bdm.sp <- paste(bdm$Genus, bdm$Species.aggregate)#
-bdm.sp <- sub(" s.l.+$", "", bdm.sp)
-bdm[grep("Lythrum salicaria", bdm.sp),]
-bdm.sp
-bdm.sp <- paste(bdm$Genus, bdm$Species.aggregate)#
-#bdm.sp <- sub(" s.l.+$", "", bdm.sp)#
-bdm.sp <- sub(" agg.", "", bdm.sp)
-bdm[grep("Lythrum salicaria", bdm.sp),]
-nomatch <- eyster$Species[is.na(match(eyster$Species, bdm.sp))]
-nomatch
-data.frame(eyster, bdm.sp[match(eyster$Species, bdm.sp)])
-library(gdata)#
-d <- read.xls("~/Dropbox/Work/Harvard/Farm and Forest/HF Tree Traits 2015-06-09.xlsx")
-head(d)
-summary(d)
-d$Summer.2015.Route
-d <- d[d$Summer.2015.Route != "",]
-d$Summer.2015.Route
-names(d)
-table(d$Species)
-# HF tree traits summary#
-library(gdata)#
-d <- read.xls("~/Dropbox/Work/Harvard/Farm and Forest/HF Tree Traits 2015-06-09.xlsx")#
-summary(d)#
-#
-d <- d[d$Summer.2015.Route != "",]#
-#
-table(d$Species)
-sort(table(d$Species), T)
-dt <- table(d$Species)
-dt[dt<4]
-head(d)
-SpeciesList <- unique(d$Species)
-SpeciesList
-length(SpeciesList)
-letters["c"]
-letter["c"]
-letters
-which(letters=="c")
-which(letters=="c")-which(letters==
-"u
-")
-which(letters=="c")-which(letters=="u")
-which(letters=="u")-which(letters=="c")
-which(letters=="u")-which(letters=="a")
-library(FD)
-dbFD
-example(dbFD)
-library(FD)
-source("FD_Calculators.R")#
-library(FD)#
-# Simulate traits
-traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
-rownames(traits) <- letters[1:10]#
-colnames(traits) <- make.names(paste("Trait", 1:3))#
-#
-# Simulate community #
-#
-community <- data.frame(rlnorm(10, 3), rep(NA,10))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- c("Real", "Empty")#
-#
-realFD <- Calculate.FD(community, traits, scale = F)#
-#
-plot(as.dendrogram(hclust(dist(traits))))#
-#
-# more meaningful example#
-#
-community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))#
-rownames(community) <- letters[1:10]
-dbFD(traits, community, calc.FGR=T)
-traits
-community
-head(dummy)
-dbFD(traits, t(community), calc.FGR=T)
-FGR.post <- dbFD(traits, t(community), calc.FGR=T)
-FGR.post
-t(community)
-community
-community <- data.frame(rlnorm(10, 3), rep(NA,10))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- c("Real", "Empty")
-community
-# FD calculation example using simulated data.#
-# First run or source FD_Calculators.R#
-#
-source("FD_Calculators.R")#
-library(FD)#
-# Simulate traits#
-#
-traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
-rownames(traits) <- letters[1:10]#
-colnames(traits) <- make.names(paste("Trait", 1:3))#
-#
-# Simulate community #
-#
-community <- data.frame(rlnorm(10, 3), rep(NA,10))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- c("Real", "Empty")#
-#
-realFD <- Calculate.FD(community, traits, scale = F)
-community
-community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))
-rownames(community) <- letters[1:10]#
-colnames(community) <- make.names(paste("Community", 1:4))
-community
-community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA)
-community
-t(community)
-FGR.post <- dbFD(traits, t(community), calc.FGR=T)
-FGR.post
-# Now simlate FD for genereting expected values for a certain number of species, for comparison with "real" observed values.#
-#
-runs = 1000#
-results = matrix(nrow=runs, ncol=3)#
-#
-for(j in 1:runs){#
-#
-	community.random <- matrix(NA, nrow = 10, ncol = 3)#
-	for(i in 1:3){#
-		community.random[,i] <- sample(community[,i], 10, replace = F)#
-		}	#
-#
-	rownames(community.random) <- letters[1:10]#
-	colnames(community.random) <- make.names(paste("Community", 1:3))#
-#
-	results[j,] <- Calculate.FD(community.random, traits, scale=F)#
-#
-}#
-#
-# Red line shows observed value, histogram for expected values.#
-#
-par(mfrow=c(3,1))#
-hist(results[,1], xlim = c(0, 15))#
-abline(v = realFD[1], col = "red")#
-#
-hist(results[,2], xlim = c(0, 15))#
-abline(v = realFD[2], col = "red")#
-#
-hist(results[,3], xlim = c(0, 15))#
-abline(v = realFD[3], col = "red")
-# FD calculation example using simulated data.#
-# First run or source FD_Calculators.R#
-#
-source("FD_Calculators.R")#
-library(FD)#
-# Simulate traits#
-#
-traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
-rownames(traits) <- letters[1:10]#
-colnames(traits) <- make.names(paste("Trait", 1:3))#
-#
-# Simulate community #
-#
-community <- data.frame(rlnorm(10, 3), rep(NA,10))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- c("Real", "Empty")#
-#
-realFD <- Calculate.FD(community, traits, scale = F)#
-#
-plot(as.dendrogram(hclust(dist(traits))))#
-#
-# more meaningful example#
-#
-community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- make.names(paste("Community", 1:4))#
-#
-community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA) #
-#
-realFD <- Calculate.FD(community, traits, scale = F)#
-#
-(FGR.post <- dbFD(traits, t(community), calc.FGR=T))#
-#
-plot(as.dendrogram(hclust(dist(traits))))#
-#
-# Now simlate FD for genereting expected values for a certain number of species, for comparison with "real" observed values.#
-#
-runs = 1000#
-results = matrix(nrow=runs, ncol=3)#
-#
-for(j in 1:runs){#
-#
-	community.random <- matrix(NA, nrow = 10, ncol = 3)#
-	for(i in 1:3){#
-		community.random[,i] <- sample(community[,i], 10, replace = F)#
-		}	#
-#
-	rownames(community.random) <- letters[1:10]#
-	colnames(community.random) <- make.names(paste("Community", 1:3))#
-#
-	results[j,] <- Calculate.FD(community.random, traits, scale=F)#
-#
-}#
-#
-# Red line shows observed value, histogram for expected values.#
-#
-par(mfrow=c(3,1))#
-hist(results[,1], xlim = c(0, 15))#
-abline(v = realFD[1], col = "red")#
-#
-hist(results[,2], xlim = c(0, 15))#
-abline(v = realFD[2], col = "red")#
-#
-hist(results[,3], xlim = c(0, 15))#
-abline(v = realFD[3], col = "red")
-# FD calculation example using simulated data.#
-# First run or source FD_Calculators.R#
-#
-source("FD_Calculators.R")#
-library(FD)#
-# Simulate traits#
-#
-traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
-rownames(traits) <- letters[1:10]#
-colnames(traits) <- make.names(paste("Trait", 1:3))#
-#
-# Simulate community #
-#
-community <- data.frame(rlnorm(10, 3), rep(NA,10))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- c("Real", "Empty")#
-#
-realFD <- Calculate.FD(community, traits, scale = F)#
-#
-plot(as.dendrogram(hclust(dist(traits))))#
-#
-# more meaningful example#
-#
-community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- make.names(paste("Community", 1:4))#
-#
-community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA) #
-#
-realFD <- Calculate.FD(community, traits, scale = F)#
-#
-(FGR.post <- dbFD(traits, t(community), calc.FGR=T))#
-#
-plot(as.dendrogram(hclust(dist(traits))))#
-#
-# Now simlate FD for genereting expected values for a certain number of species, for comparison with "real" observed values.
-# FD calculation example using simulated data.#
-# First run or source FD_Calculators.R#
-#
-source("FD_Calculators.R")#
-library(FD)#
-# Simulate traits#
-#
-traits <- data.frame(rnorm(10), sort(rnorm(10)), sort(rnorm(10),T))#
-rownames(traits) <- letters[1:10]#
-colnames(traits) <- make.names(paste("Trait", 1:3))#
-#
-# Simulate community #
-#
-community <- data.frame(rlnorm(10, 3), rep(NA,10))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- c("Real", "Empty")#
-#
-realFD <- Calculate.FD(community, traits, scale = F)#
-#
-plot(as.dendrogram(hclust(dist(traits))))#
-#
-# more meaningful example#
-#
-community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))
-rownames(community) <- letters[1:10]#
-colnames(community) <- make.names(paste("Community", 1:4))
-community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA)
-realFD <- Calculate.FD(community, traits, scale = F)
-source('~/Dropbox/Work/FD R commands/FD_Calculators.R', chdir = TRUE)
-realFD <- Calculate.FD(community, traits, scale = F)
-realFD <- Calculate.FD(community, traits, scale = F) # 'real' as opposed to bootstrapped
-plot(as.dendrogram(hclust(dist(traits))))#
-#
-# more meaningful example#
-#
-community <- data.frame(sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), sample(c(NA,1), 10, T), c(1, rep(NA,9)))#
-rownames(community) <- letters[1:10]#
-colnames(community) <- make.names(paste("Community", 1:4))#
-#
-community$Community.5 <- c(NA,NA,1,1,NA,NA,NA,NA,NA,NA) #
-#
-realFD <- Calculate.FD(community, traits, scale = F)#
-#
-(FGR.post <- dbFD(traits, t(community), calc.FGR=T))#
-#
-plot(as.dendrogram(hclust(dist(traits))))#
-#
-# Now simlate FD for genereting expected values for a certain number of species, for comparison with "real" observed values.#
-#
-runs = 1000#
-results = matrix(nrow=runs, ncol=3)#
-#
-for(j in 1:runs){#
-#
-	community.random <- matrix(NA, nrow = 10, ncol = 3)#
-	for(i in 1:3){#
-		community.random[,i] <- sample(community[,i], 10, replace = F)#
-		}	#
-#
-	rownames(community.random) <- letters[1:10]#
-	colnames(community.random) <- make.names(paste("Community", 1:3))#
-#
-	results[j,] <- Calculate.FD(community.random, traits, scale=F)#
-#
-}#
-#
-# Red line shows observed value, histogram for expected values.#
-#
-par(mfrow=c(3,1))#
-hist(results[,1], xlim = c(0, 15))#
-abline(v = realFD[1], col = "red")#
-#
-hist(results[,2], xlim = c(0, 15))#
-abline(v = realFD[2], col = "red")#
-#
-hist(results[,3], xlim = c(0, 15))#
-abline(v = realFD[3], col = "red")
-library(rstan)#
-library(ggplot2)
-srrs2 <- read.table ("~/Documents/git/gelmanhill/ARM_Data/radon/srrs2.dat", header=T, sep=",")
-install.packages('rstan', depend=T)
-Sys.setenv(MAKEFLAGS = "-j4")
-install.packages("rstan", dependencies = TRUE)
-install.packages('rstan', dependencies = TRUE)
-packs <- c('ade4', #
-           'ape', #
-           'arm',#
-           'bbmle',#
-           'car',#
-           'cluster',#
-           'FD',#
-           'gdata',#
-           'geometry', #
-           'geoR',#
-           'ggplot2',#
-           'Hmisc',#
-           'labdsv',#
-           'lattice',#
-           'lme4',#
-           'maptools',#
-           'nlme',#
-           'picante',#
-           'RCurl', #
-           'reshape',#
-           'rgl',#
-           'RgoogleMaps',#
-           'rpart', #
-           'rstan',#
-           'rgdal',#
-           'RColorBrewer',#
-           'sem',#
-           'sp',#
-           'vegan'#
-           )#
-#
-for(i in packs){#
-if(length(grep(i, (.packages(all.available=T))))==0) install.packages(i, dependencies =TRUE)#
-}
-library(arm)
-srrs2 <- read.table ("~/Documents/git/gelmanhill/ARM_Data/radon/srrs2.dat", header=T, sep=",")#
-mn <- srrs2$state=="MN"#
-radon <- srrs2$activity[mn]#
-log.radon <- log (ifelse (radon==0, .1, radon))#
-floor <- srrs2$floor[mn]       # 0 for basement, 1 for first floor#
-n <- length(radon)#
-y <- log.radon#
-x <- floor#
-# get county index variable#
-county.name <- as.vector(srrs2$county[mn])#
-uniq <- unique(county.name)#
-J <- length(uniq)#
-county <- rep (NA, J)#
-for (i in 1:J){#
-  county[county.name==uniq[i]] <- i#
-}#
- # no predictors#
-ybarbar = mean(y)#
-sample.size <- as.vector (table (county))
-sample.size.jittered <- sample.size*exp (runif (J, -.1, .1))#
-cty.mns = tapply(y,county,mean)#
-cty.vars = tapply(y,county,var)#
-cty.sds = mean(sqrt(cty.vars[!is.na(cty.vars)]))/sqrt(sample.size)#
-cty.sds.sep = sqrt(tapply(y,county,var)/sample.size)#
-## Get the county-level predictor#
-srrs2.fips <- srrs2$stfips*1000 + srrs2$cntyfips#
-cty <- read.table ("cty.dat", header=T, sep=",")#
-usa.fips <- 1000*cty[,"stfips"] + cty[,"ctfips"]#
-usa.rows <- match (unique(srrs2.fips[mn]), usa.fips)#
-uranium <- cty[usa.rows,"Uppm"]#
-u <- log (uranium)#
-## Varying-intercept model w/ group-level predictors#
-u.full <- u[county]#
-dataList.3 <- list(N=length(y), y=y,x=x,county=county,u=u.full)#
-radon_group.sf1 <- stan(file='radon_group.stan', data=dataList.3,#
-                        iter=1000, chains=4)#
-print(radon_group.sf1, pars = c("b","beta", "sigma", "lp__"))#
-post1 <- extract(radon_group.sf1)#
-post1.ranef <- colMeans(post1$const_coef)#
-mean1.ranef <- mean(post1.ranef)#
-post1.beta <- colMeans(post1$beta)#
-post1.fixef1 <- mean(post1.ranef)#
-## Plots on Figure 12.5#
-dataList.4 <- list(N=length(y), y=y,x=x,county=county)#
-radon_no_pool.sf1 <- stan(file='radon_no_pool.stan', data=dataList.4,#
-                          iter=1000, chains=4)
-library(RCpp)
-library(Rcpp)
-library(inline)
-install.packages("inline",dep=T)
-library(rstan)
-install.packages('rstan',depend=T)
-install.packages('vegan',depend=T)
-library(vegan)
-q()
-install.package("rstan",depend=T)
-install.packages("rstan",depend=T)
-install.packages("vegan",depend=T)
-library(inline)
-library(vegan)
-?install.packages
-install.packages("Rcpp_0.12.0.tar.gz", repos = NULL)
-¬
-L
-ll
-install.packages("rstan")
-install.packages("rstan",depend=T)
-library(rstan)
-install.packages(“rstan”, dep=T)
-install.packages('rstan', dep=T)
-library(rstan)
-require(ggplot2)#
-require(GGally)#install.packages("GGally",dep=T)#
-require(reshape2)#
-require(lme4)#
-require(compiler)#
-require(parallel)#
-require(boot)
-uire(boot)#
-#
-hdp <- read.csv("http://www.ats.ucla.edu/stat/data/hdp.csv")#
-hdp <- within(hdp, {#
-  Married <- factor(Married, levels = 0:1, labels = c("no", "yes"))#
-  DID <- factor(DID)#
-  HID <- factor(HID)#
-})
-head(hdp)
-?within
-ggpairs(hdp[, c("IL6", "CRP", "LengthofStay", "Experience")])
-ggplot(hdp, aes(x = CancerStage, y = LengthofStay)) +
-ggplot(hdp, aes(x = CancerStage, y = LengthofStay)) +#
-  stat_sum(aes(size = ..n.., group = 1)) +#
-  scale_size_area(max_size=10)
-tmp <- melt(hdp[, c("CancerStage", "IL6", "CRP")], id.vars="CancerStage")#
-ggplot(tmp, aes(x = CancerStage, y = value)) +#
-  geom_jitter(alpha = .1) +#
-  geom_violin(alpha = .75) +#
-  facet_grid(variable ~ .) +#
-  scale_y_sqrt()
-tmp <- melt(hdp[, c("remission", "IL6", "CRP", "LengthofStay", "Experience")],#
-  id.vars="remission")#
-ggplot(tmp, aes(factor(remission), y = value, fill=factor(remission))) +#
-  geom_boxplot() +#
-  facet_wrap(~variable, scales="free_y")
-glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + ( 1 | DID),#
-	data = hdp, family = binomial)
-m1 <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + ( 1 | DID),#
-	data = hdp, family = binomial)
-m1 <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + ( 1 | DID),#
-	data = hdp, family = binomial,#
-	control = glmerControl(optimizer = "bobyqa")#
-	nAGQ = 10)
-m1 <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + ( 1 | DID),#
-	data = hdp, family = binomial,#
-	control = glmerControl(optimizer = "bobyqa"),#
-	nAGQ = 10) # fails to converge if controls are not set
-m1
-print(m1, corr=F)
-?glmer
-se <- sqrt(diag(vcov(m1))
-se
-se <- sqrt(diag(vcov(m1))
-)
-se
-pdf(file="graphs/simpleplots/leafoutday_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp.lday(ldayx[ldayx$sp == i,], c(0, 70), "lday", "Leafout day", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(lday ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(lday ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(lday ~ warm + photo +  #
-							+ warm:photo #
-							, data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/leafouts_byspp_model.pdf -a /Applications/Preview.app')
-# Where were the leafout cuttings, by species, site, and treatement? Analogous to non-leafout script earlier.#
-library(scales)#
-library(gplots) # for textplot()#
-library(lme4)#
-library(sjPlot)#
-#
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
-#
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-#
-load(file.path("input", toload))#
-#
-source("source/simpleplot.R")#
-#
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
-#
-# Analysis of where the leafout cuttings were#
-lx <- dx[dx$nl == 1,]#
-#
-summary(lx)#
-#
-nl1 <- as.data.frame(table(lx$sp, lx$site))#
-#
-nl2 <- as.data.frame(table(lx$warm, lx$photo, lx$chill))#
-# proportional to total numbers in each#
-dl2 <- as.data.frame(table(dx$warm, dx$photo, dx$chill))#
-nl2$prop <- nl2$Freq/dl2$Freq#
-nl3 <- as.data.frame(table(lx$sp, lx$site,lx$warm, lx$photo, lx$chill))#
-dl3 <- as.data.frame(table(dx$sp, dx$site, dx$warm, dx$photo, dx$chill))#
-nl3$prop <- nl3$Freq/dl3$Freq#
-nl3$prop[is.nan(nl3$prop)==TRUE] <- 0#
-names(nl1) <- c("sp","site","freq")#
-names(nl2) <- c("warm","photo","chill","freq", "prop")#
-names(nl3) <- c("sp", "site", "warm","photo","chill","freq", "prop")#
-#
-nl3.nochill <- subset(nl3, chill=="chill0")#
-nl3.1chill <- subset(nl3, chill=="chill1")#
-nl3.2chill <- subset(nl3, chill=="chill2")#
-#
-##
-data.frame(sort(with(nl3, tapply(prop, sp, mean)), T))#
-with(nl3, tapply(prop, chill, mean))#
-with(nl3, tapply(prop, site, mean))#
-#
-# make some simple plots#
-# # makesimpleplot(nl3, c(0, 0.4), "prop", "% non-leafout") # all chilling combined#
-# makesimpleplot(nl3.nochill, c(0, 0.4), "prop", "% non-leafout")#
-# makesimpleplot(nl3.1chill, c(0, 0.4), "prop", "% non-leafout")#
-# makesimpleplot(nl3.2chill, c(0, 0.4), "prop", "% non-leafout")#
-#
-sitespp <- as.data.frame(table(nl3$sp, nl3$site))#
-sitespp <- subset(sitespp, Freq>0)#
-sppatsites <- aggregate(sitespp["Var2"], sitespp["Var1"], FUN=length)#
-sppatbothsites <- subset(sppatsites, Var2>1)#
-#
-spp <- sppatbothsites$Var1#
-pdf(file="graphs/simpleplots/leafouts_byspp.pdf", 10, 6, paper="a4r", onefile=TRUE)#
-par(mfrow=c(1,2))#
-for (i in c(1:length(spp))){#
-    spdf <- subset(nl3.nochill, sp==spp[i])#
-    makesimpleplot.sp(spdf, c(0, 1), "prop", "% leafout", spp[i])#
-}#
-dev.off()#
-# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>#
-# Simple models by species. All predictors now numeric. Using lday as response, not nl as in nonleafout script.#
-#
-dx$chill <- as.numeric(dx$chill)#
-dx$site <- as.numeric(dx$site)#
-dx$photo <- as.numeric(dx$photo)#
-dx$warm <- as.numeric(dx$warm)#
-#
-ldayx <- with(dx, aggregate(lday ~ warm + photo+ site+chill + sp, FUN = mean, na.rm=T))#
-#
-pdf(file="graphs/simpleplots/leafoutday_byspp_model.pdf", height = 10, width = 10)#
-#
-par(cex=0.7, xpd=TRUE, xaxt="n")#
-layout(matrix(c(1, 2, 3, 3), byrow=T, ncol = 2, nrow = 2), heights = c(3, 2))#
-for(i in sort(unique(dx$sp))){#
-#
-	makesimpleplot.sp.lday(ldayx[ldayx$sp == i,], c(0, 70), "lday", "Leafout day", i)#
-#
-	# is this species across site and chill?#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) > 1)  {#
-			mx <- glm(lday ~ warm + photo + chill + site #
-							+ warm:photo + warm:chill + warm:site #
-							+ photo:chill + photo:site#
-							+ warm:photo:chill#
-							+ warm:photo:site #
-							+ warm:chill:site #
-							+ photo:chill:site#
-							, data = dx[dx$sp == i,]#
-							)#
-#
-			} #
-	# Across site but no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) > 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-			mx <- glm(lday ~ warm + photo + site #
-							+ warm:photo +  warm:site + photo:site#
-							+ warm:photo:site #
-							, data = dx[dx$sp == i,]#
-							)#
-			} #
-	# One site, no chill?		#
-	if(length(unique(dx[dx$sp ==i,"site"])) == 1 & length(unique(dx[dx$sp ==i,"chill"])) == 1)  {#
-		mx <- glm(lday ~ warm + photo +  #
-							+ warm:photo #
-							, data = dx[dx$sp == i,]#
-							)#
-			} #
-	textplot(round(coef(summary(mx)),3))#
-		}#
-dev.off(); system('open graphs/simpleplots/leafouts_byspp_model.pdf -a /Applications/Preview.app')
-dev.off(); system('open graphs/simpleplots/leafoutday_byspp_model.pdf -a /Applications/Preview.app')
-system('open graphs/simpleplots/leafoutday_byspp_model.pdf -a /Applications/Preview.app')
-# Analysis of budburst experiment. Starting with simple linear models#
-# 2015-09-16 adding single species models#
-#
-library(nlme)#
-library(scales)#
-library(arm)#
-library(rstan)#
-#
-setwd("~/Documents/git/buds/analyses")#
-source('savestan.R')#
-# get latest data
-# Analysis of budburst experiment. Starting with simple linear models#
-# 2015-09-16 adding single species models#
-#
-library(nlme)#
-library(scales)#
-library(arm)#
-library(rstan)#
-#
-setwd("~/Documents/git/buds/analyses")#
-source('savestan.R')#
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-#
-load(file.path("input", toload))#
-#
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
-#
-# Anovas based on day to leafout (stage 6)#
-#
-summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
-summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!#
-#
-summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effects interax with warm for budbust (stage 3) but not leafout (stage 6)#
-#
-summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering#
-#
-# with lme4 mixed effect model to better take into account species differences #
-#
-# test without the nonleafouts -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. Previously had '75' days was assigned to them as max value#
-#
-m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.#
-summary(m3)#
-fixef(m3)#
-ranef(m3)
-summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # #
-coef(m22)
-# New analyses, in stan, using simple models#
-# model 1: lday ~ warm * photo, no species, site, or ind.#
-# make data all numeric.#
-levels(dx$warm) = c(0,1); levels(dx$photo) = c(0, 1); levels(dx$site) = 1:2; levels(dx$sp) = 1:length(levels(dx$sp))#
-dx$warm <- as.numeric(dx$warm)#
-dx$photo <- as.numeric(dx$photo)#
-dx$site <- as.numeric(dx$site)#
-dx$sp <- as.numeric(dx$sp)
-# Make sure no NA's (nonleafouts)#
-dx <- dx[!is.na(dx$lday),]
-# simple - fails bc chill different by inds#
-# make a chillsp column#
-chillsp = aggregate(chill ~ sp, FUN = function(x) length(x)>100, data = dx)#
-chillsp = chillsp[chillsp$chill==TRUE,"sp"]
-dx.chill <-  dx[!is.na(match(dx$sp, chillsp)),]
-chillsp
-chill
-dx$chill
-aggregate(chill ~ sp, FUN = function(x) length(x)>100, data = dx)
-chillsp = aggregate(chill ~ sp, FUN = function(x) length(x)>100, data = dx)
-chillsp
-chillsp = chillsp[chillsp$chill==TRUE,"sp"]
-chillsp
-dx.chill <-  dx[!is.na(match(dx$sp, chillsp)),]
-dx.chill
-summary(m01 <- aov(lday ~ chill, data = dx.chill))
-summary(m01 <- aov(lday ~ sp * site * warm * photo * chill, data = dx.chill))
-coef(m01) # chill1 advanced leafout by 4.5 days, while chill2 delayed leafout by .67 days
-setwd("~/Documents/git/buds/analyses")#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-load(file.path("input", toload))
-library(chillR)
-install.packages("chillR")
-example(chillR)
-example(chilling)
+4 * 6 * 8 * 3
+4 * 6 * 8 * 3 + 4 * 4 * 3
+chilltreat = c(1.5, 2.5, 5)
+timetreat = c(1, 15, 30)
+chillev = length(chilltreat)#
+spno = length(spp)#
+repno = 8#
+timeno = length(timetreat)#
+lengthout = chillev*spno*repno*timeno
 # Calculating chilling portions for new chilling experiment#
 # 4 chilling levels, including control#
 # 6 species#
 # 12 reps / species / level#
 # 2 time points after control#
-3 * 6* 12 * 2#
-6 * 12 #
-chilltreat = c(1.5, 2.5, 5)#
-timetreat = c(20, 35)#
+4 * 6 * 8 * 3 + 4 * 4 * 3#
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(1, 15, 30)#
 spp = c("acesac", "acerub", "querub","hamvir","vibcas","franig")#
 chillev = length(chilltreat)#
 spno = length(spp)#
-repno = 12#
+repno = 8#
 timeno = length(timetreat)#
-lengthout = chillev*spno*repno*timeno #
+lengthout = chillev*spno*repno*timeno
 time <- gl(timeno, chillev*spno*repno, length = lengthout, labels = timetreat) # two time blocks#
 sp <- gl(spno, repno*chillev, length = lengthout, labels = spp) # within time block, have species repeat rep * chilllev times#
 chill <- gl(chillev, repno, length = lengthout, labels = chilltreat) # for each species in each time block, repeat rep number of times#
-reps <- gl(repno, 1, length = lengthout) # for each treatment combination, give number of reps#
-design <- data.frame(time, sp, chill, rep=reps)#
-design[1:50,]#
-# Now calculating chilling portions#
-#
-library(chillR)#
-# chill unit calcs, for each treatment#
-#
+reps <- gl(repno, 1, length = lengthout) # for each treatment combination, give number of reps
+design <- data.frame(time, sp, chill, rep=reps)
+design[1:50,]
+spp = c("acesac", "querub","hamvir","vibcas","faggra", "ilemuc")
+chillev = length(chilltreat)#
+spno = length(spp)#
+repno = 8#
+timeno = length(timetreat)#
+lengthout = chillev*spno*repno*timeno
+time <- gl(timeno, chillev*spno*repno, length = lengthout, labels = timetreat) # two time blocks#
+sp <- gl(spno, repno*chillev, length = lengthout, labels = spp) # within time block, have species repeat rep * chilllev times#
+chill <- gl(chillev, repno, length = lengthout, labels = chilltreat) # for each species in each time block, repeat rep number of times#
+reps <- gl(repno, 1, length = lengthout) # for each treatment combination, give number of reps
+design <- data.frame(time, sp, chill, rep=reps)
+design[1:50,]
+library(chillR)
 chillcalc <- function(days, temp){#
 	Year = 2016#
 	JDay = as.numeric(gl(days, 24))#
@@ -853,13 +47,256 @@ chillcalc <- function(days, temp){#
 	Temp = temp#
 	xx <- data.frame(Year, JDay, Hour, Temp)#
 	chilling(xx, 1, days)#
+	}
+chillcalc
+chillportions <- vector()#
+numdays <- vector()
+= seq(1, 10, by = 0.5)
+chilltreat
+chilltreat = seq(1, 10, by = 0.5)
+chilltreat
+timetreat = seq(10, 40, by = 5)
+timetreat
+for(i in chilltreat){#
+	for(j in timetreat){#
+	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
+	numdays <- c(numdays, j)#
 	}#
+}#
+dat <- data.frame(days = numdays, #
+					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
+					cp = chillportions)#
 #
+library(ggplot2)#
+#
+#qplot(days, cp, color = chill, data = dat)#
+#
+qplot(chill, cp, color = days, data = dat, #
+	ylab = "Chill Portions \n (Dynamic Model)", #
+	xlab = "Chilling Treatment (°C)")
+setwd("~/Documents/git/budchill")
+library(chillR)
+htemp <- read.csv("input/hf001-10-15min-m.csv")
+htemp$datetime <- as.POSIXlt(htemp$datetime, format = "%Y-%m-%dT%H:%M")
+htemp1 <- htemp[htemp$datetime > "2015-09-30" & htemp$datetime < "2015-12-23" & !is.na(htemp$datetime),]
+htemp1 <- htemp[htemp$datetime > "2015-09-30" & htemp$datetime < "2015-12-18" & !is.na(htemp$datetime),]#
+#
+htemp2 <- htemp[htemp$datetime > "2015-09-30" & htemp$datetime < "2015-12-23" & !is.na(htemp$datetime),]
+ht <- aggregate(airt ~ format(htemp1$datetime, "%Y-%m-%d %H"), mean, data = htemp1)#
+names(ht)[1] = 'datetime'#
+#
+ht$Year <- as.numeric(substr(ht$datetime, 1, 4))#
+ht$JDay <- as.numeric(format(strptime(substr(ht$datetime, 1, 10), "%Y-%m-%d"), "%j"))#
+ht$Hour <- as.numeric(substr(ht$datetime, 12, 13))#
+names(ht)[2] = "Temp"
+ht2 <- aggregate(airt ~ format(htemp2$datetime, "%Y-%m-%d %H"), mean, data = htemp2)#
+names(ht2)[1] = 'datetime'#
+#
+ht2$Year <- as.numeric(substr(ht2$datetime, 1, 4))#
+ht2$JDay <- as.numeric(format(strptime(substr(ht2$datetime, 1, 10), "%Y-%m-%d"), "%j"))#
+ht2$Hour <- as.numeric(substr(ht2$datetime, 12, 13))#
+names(ht2)[2] = "Temp"
+chilling(ht2, 305, 60) # Already 18 chill portions as of Dec 8.
+chilling(ht1, 305, 60) # Already 18 chill portions as of Dec 8.
+chilling(ht, 305, 60) # Already 18 chill portions as of Dec 8.
+chilling(ht2, 305, 60) # Already 18 chill portions as of Dec 8.
+diff(as.POSIXlt(c("2015-12-23", "2016-01-01"), "%Y-%m-%d"))
+dayseq = seq(as.numeric(format(as.POSIXlt("2016-01-01", "%Y-%m-%d"), "%j")),#
+             as.numeric(format(as.POSIXlt("2016-01-31", "%Y-%m-%d"), "%j")))
+dayseq
+dayseq = 1:30
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2016", 30*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = as.numeric(rep(0:23, each = 30)),#
+  Temp = 4#
+  )
+chill1
+chill1calc <- chilling(chill1, 305, 60)
+chill1calc
+length(dayseq)
+dayseq = 1:30#
+#
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2016", length(dayseq)*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = as.numeric(rep(0:23, each = length(dayseq))),#
+  Temp = 4#
+  )
+chill1calc <- chilling(chill1, 305, 60)
+chill1calc
+dayseq = 1:7#
+#
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2016", length(dayseq)*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = as.numeric(rep(0:23, each = length(dayseq))),#
+  Temp = 4#
+  )#
+#
+# bug: Jday vs JDay, returns error for "chillout not found"#
+#
+chill1calc <- chilling(chill1, 305, 60)
+chill1
+chill1calc <- chilling(chill1, 305, 60)
+chill1calc
+dayseq = 1:12#
+#
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2016", length(dayseq)*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = as.numeric(rep(0:23, each = length(dayseq))),#
+  Temp = 4#
+  )#
+#
+# bug: Jday vs JDay, returns error for "chillout not found"#
+#
+chill1calc <- chilling(chill1, 305, 60)
+chilling(chill1, 305, 60)
+dayseq = 1:7#
+#
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2016", length(dayseq)*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = as.numeric(rep(0:23, each = length(dayseq))),#
+  Temp = 4#
+  )#
+#
+# bug: Jday vs JDay, returns error for "chillout not found"#
+#
+chilling(chill1, 305, 60)
+32.5+8.1
+35.7+4.6
 chillportions <- vector()#
 numdays <- vector()#
 #
-chilltreat = seq(1, 10, by = 0.5)#
-timetreat = seq(10, 40, by = 5)#
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(15, 30)#
+#
+for(i in chilltreat){#
+	for(j in timetreat){#
+	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
+	numdays <- c(numdays, j)#
+	}#
+}#
+dat <- data.frame(days = numdays, #
+					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
+					cp = chillportions)
+dat
+library(ggplot2)#
+#
+#qplot(days, cp, color = chill, data = dat)#
+#
+qplot(chill, cp, color = days, data = dat, #
+	ylab = "Chill Portions \n (Dynamic Model)", #
+	xlab = "Chilling Treatment (°C)")
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(10, 20)#
+#
+for(i in chilltreat){#
+	for(j in timetreat){#
+	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
+	numdays <- c(numdays, j)#
+	}#
+}#
+dat <- data.frame(days = numdays, #
+					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
+					cp = chillportions)#
+#
+library(ggplot2)#
+#
+#qplot(days, cp, color = chill, data = dat)#
+#
+qplot(chill, cp, color = days, data = dat, #
+	ylab = "Chill Portions \n (Dynamic Model)", #
+	xlab = "Chilling Treatment (°C)")
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(15, 30)#
+#
+for(i in chilltreat){#
+	for(j in timetreat){#
+	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
+	numdays <- c(numdays, j)#
+	}#
+}#
+dat <- data.frame(days = numdays, #
+					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
+					cp = chillportions)#
+#
+library(ggplot2)#
+#
+#qplot(days, cp, color = chill, data = dat)#
+#
+qplot(chill, cp, color = days, data = dat, #
+	ylab = "Chill Portions \n (Dynamic Model)", #
+	xlab = "Chilling Treatment (°C)")
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(10, 20)#
+#
+for(i in chilltreat){#
+	for(j in timetreat){#
+	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
+	numdays <- c(numdays, j)#
+	}#
+}#
+dat <- data.frame(days = numdays, #
+					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
+					cp = chillportions)#
+#
+library(ggplot2)#
+#
+#qplot(days, cp, color = chill, data = dat)#
+#
+qplot(chill, cp, color = days, data = dat, #
+	ylab = "Chill Portions \n (Dynamic Model)", #
+	xlab = "Chilling Treatment (°C)")
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(15, 30)#
+#
+for(i in chilltreat){#
+	for(j in timetreat){#
+	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
+	numdays <- c(numdays, j)#
+	}#
+}#
+dat <- data.frame(days = numdays, #
+					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
+					cp = chillportions)#
+#
+library(ggplot2)#
+#
+#qplot(days, cp, color = chill, data = dat)#
+#
+qplot(chill, cp, color = days, data = dat, #
+	ylab = "Chill Portions \n (Dynamic Model)", #
+	xlab = "Chilling Treatment (°C)")
+dat
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(10, 20)#
+#
+for(i in chilltreat){#
+	for(j in timetreat){#
+	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
+	numdays <- c(numdays, j)#
+	}#
+}#
+dat <- data.frame(days = numdays, #
+					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
+					cp = chillportions)#
+#
+library(ggplot2)#
+#
+#qplot(days, cp, color = chill, data = dat)#
+#
+qplot(chill, cp, color = days, data = dat, #
+	ylab = "Chill Portions \n (Dynamic Model)", #
+	xlab = "Chilling Treatment (°C)")
+dat
+chillportions <- vector()#
+numdays <- vector()#
+#
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(10, 20)#
 #
 for(i in chilltreat){#
 	for(j in timetreat){#
@@ -881,8 +318,8 @@ qplot(chill, cp, color = days, data = dat, #
 chillportions <- vector()#
 numdays <- vector()#
 #
-chilltreat = c(1, 4, 8)#
-timetreat = c(15, 30)#
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(10, 20)#
 #
 for(i in chilltreat){#
 	for(j in timetreat){#
@@ -901,31 +338,15 @@ library(ggplot2)#
 qplot(chill, cp, color = days, data = dat, #
 	ylab = "Chill Portions \n (Dynamic Model)", #
 	xlab = "Chilling Treatment (°C)")
-chilltreat = c(1, 5, 8)#
-timetreat = c(15, 30)#
-#
-for(i in chilltreat){#
-	for(j in timetreat){#
-	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
-	numdays <- c(numdays, j)#
-	}#
-}#
-dat <- data.frame(days = numdays, #
-					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
-					cp = chillportions)#
-#
-library(ggplot2)#
-#
-#qplot(days, cp, color = chill, data = dat)#
-#
 qplot(chill, cp, color = days, data = dat, #
 	ylab = "Chill Portions \n (Dynamic Model)", #
-	xlab = "Chilling Treatment (°C)")
+	xlab = "Chilling Treatment (°C)",#
+	ylim = c(0, 25))
 chillportions <- vector()#
 numdays <- vector()#
 #
-chilltreat = c(1, 5, 8)#
-timetreat = c(15, 30)#
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(10, 20)#
 #
 for(i in chilltreat){#
 	for(j in timetreat){#
@@ -943,31 +364,12 @@ library(ggplot2)#
 #
 qplot(chill, cp, color = days, data = dat, #
 	ylab = "Chill Portions \n (Dynamic Model)", #
-	xlab = "Chilling Treatment (°C)")
-chilltreat = c(1, 4, 6)#
-timetreat = c(15, 30)#
-#
-for(i in chilltreat){#
-	for(j in timetreat){#
-	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
-	numdays <- c(numdays, j)#
-	}#
-}#
-dat <- data.frame(days = numdays, #
-					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
-					cp = chillportions)#
-#
-library(ggplot2)#
-#
-#qplot(days, cp, color = chill, data = dat)#
-#
-qplot(chill, cp, color = days, data = dat, #
-	ylab = "Chill Portions \n (Dynamic Model)", #
-	xlab = "Chilling Treatment (°C)")
+	xlab = "Chilling Treatment (°C)",#
+	ylim = c(0, 25))
 chillportions <- vector()#
 numdays <- vector()#
 #
-chilltreat = c(1, 4, 6)#
+chilltreat = c(1, 2, 4, 8)#
 timetreat = c(15, 30)#
 #
 for(i in chilltreat){#
@@ -986,32 +388,14 @@ library(ggplot2)#
 #
 qplot(chill, cp, color = days, data = dat, #
 	ylab = "Chill Portions \n (Dynamic Model)", #
-	xlab = "Chilling Treatment (°C)")
-chilltreat = c(1, 2, 6)#
-timetreat = c(15, 30)#
-#
-for(i in chilltreat){#
-	for(j in timetreat){#
-	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
-	numdays <- c(numdays, j)#
-	}#
-}#
-dat <- data.frame(days = numdays, #
-					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
-					cp = chillportions)#
-#
-library(ggplot2)#
-#
-#qplot(days, cp, color = chill, data = dat)#
-#
-qplot(chill, cp, color = days, data = dat, #
-	ylab = "Chill Portions \n (Dynamic Model)", #
-	xlab = "Chilling Treatment (°C)")
+	xlab = "Chilling Treatment (°C)",#
+	ylim = c(0, 25))
+dat
 chillportions <- vector()#
 numdays <- vector()#
 #
-chilltreat = c(1, 2, 6)#
-timetreat = c(15, 30)#
+chilltreat = c(1, 2, 4, 8)#
+timetreat = c(10, 20)#
 #
 for(i in chilltreat){#
 	for(j in timetreat){#
@@ -1029,111 +413,124 @@ library(ggplot2)#
 #
 qplot(chill, cp, color = days, data = dat, #
 	ylab = "Chill Portions \n (Dynamic Model)", #
-	xlab = "Chilling Treatment (°C)")
-chillportions <- vector()#
-numdays <- vector()#
+	xlab = "Chilling Treatment (°C)",#
+	ylim = c(0, 25))
+dat
+dayseq = seq(as.numeric(format(as.POSIXlt("2015-01-22", "%Y-%m-%d"), "%j")),#
+             as.numeric(format(as.POSIXlt("2015-03-14", "%Y-%m-%d"), "%j")))#
 #
-chilltreat = c(1, 4, 8)#
-timetreat = c(15, 30)#
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2015", 52*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = as.numeric(rep(0:23, each = 52)),#
+  Temp = 4#
+  )#
 #
-for(i in chilltreat){#
-	for(j in timetreat){#
-	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
-	numdays <- c(numdays, j)#
-	}#
-}#
-dat <- data.frame(days = numdays, #
-					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
-					cp = chillportions)#
-#
-library(ggplot2)#
-#
-#qplot(days, cp, color = chill, data = dat)#
-#
-qplot(chill, cp, color = days, data = dat, #
-	ylab = "Chill Portions \n (Dynamic Model)", #
-	xlab = "Chilling Treatment (°C)")
-library(nlme)#
-library(scales)#
-library(arm)#
-library(rstan)#
+# bug: Jday vs JDay, returns error for "chillout not found"
+chill1calc <- chilling(chill1, 305, 60)
+chill2 <- chill1#
+chill2$Temp = c(rep(4, 22), rep(1.5, 30))
+chill2calc <- chilling(chill2, 305, 60) # FEWER chill portions and fewer Utah Model chill hours
+allcalc <- rbind(chill0calc, chill0calc+chill1calc, chill0calc+chill2calc)
+# Calculating chill units#
 #
 setwd("~/Documents/git/buds/analyses")#
-source('savestan.R')#
-# get latest data#
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
-#
 load(file.path("input", toload))#
+# Dynamic Model#
 #
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
+library(chillR)#
+# Luedeling recommends Dynamic Modle (chill portions)#
 #
-# Anovas based on day to leafout (stage 6)#
+# HF chilling from Oct 1 2014#
+htemp <- read.csv("~/Documents/git/buds/analyses/data/hf001-10-15min-m.csv")#
+htemp$datetime <- as.POSIXlt(htemp$datetime, format = "%Y-%m-%dT%H:%M")#
 #
-summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
-summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!#
+# select years. There are 44 na's#
 #
-summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effects interax with warm for budbust (stage 3) but not leafout (stage 6)#
+htemp1 <- htemp[htemp$datetime > "2014-09-30" & htemp$datetime < "2015-01-20" & !is.na(htemp$datetime),]#
 #
-summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering#
+htemp2 <- htemp[htemp$datetime > "2015-11-01" & !is.na(htemp$datetime),]#
 #
-# with lme4 mixed effect model to better take into account species differences #
+# aggregate to hourly averages #
 #
-# test without the nonleafouts -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. Previously had '75' days was assigned to them as max value#
+ht <- aggregate(airt ~ format(htemp1$datetime, "%Y-%m-%d %H"), mean, data = htemp1)#
+names(ht)[1] = 'datetime'#
 #
-m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.#
-summary(m3)#
-fixef(m3)#
-ranef(m3)
-# Analysis of budburst experiment. Starting with simple linear models#
-# 2015-09-16 adding single species models#
+ht$Year <- as.numeric(substr(ht$datetime, 1, 4))#
+ht$JDay <- as.numeric(format(strptime(substr(ht$datetime, 1, 10), "%Y-%m-%d"), "%j"))#
+ht$Hour <- as.numeric(substr(ht$datetime, 12, 13))#
+names(ht)[2] = "Temp"#
 #
-library(nlme)#
-library(scales)#
-library(arm)#
-library(rstan)#
+# For current year chilling #
+ht2 <- aggregate(airt ~ format(htemp2$datetime, "%Y-%m-%d %H"), mean, data = htemp2)#
+names(ht2)[1] = 'datetime'#
 #
-setwd("~/Documents/git/buds/analyses")#
-source('savestan.R')#
-# get latest data#
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
+ht2$Year <- as.numeric(substr(ht2$datetime, 1, 4))#
+ht2$JDay <- as.numeric(format(strptime(substr(ht2$datetime, 1, 10), "%Y-%m-%d"), "%j"))#
+ht2$Hour <- as.numeric(substr(ht2$datetime, 12, 13))#
+names(ht2)[2] = "Temp"#
 #
-load(file.path("input", toload))#
+chilling(ht2, 305, 60) # Already 18 chill portions as of Dec 8.#
 #
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check#
+chill0calc <- chilling(ht, 305, 60) # 39 chill portions by Jan 20 last year.#
 #
-# Anovas based on day to leafout (stage 6)#
+# Chilling in experimental setting. From Jan 22 - Feb 12 at 4, then to either 4 or 1.5 for additional 30 d. total: 22 d at 4, then 30 d extra.#
+diff(as.POSIXlt(c("2015-01-22", "2015-02-12", "2015-03-14"), "%Y-%m-%d"))#
 #
-summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
-summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!#
+dayseq = seq(as.numeric(format(as.POSIXlt("2015-01-22", "%Y-%m-%d"), "%j")),#
+             as.numeric(format(as.POSIXlt("2015-03-14", "%Y-%m-%d"), "%j")))#
 #
-summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effects interax with warm for budbust (stage 3) but not leafout (stage 6)#
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2015", 52*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = as.numeric(rep(0:23, each = 52)),#
+  Temp = 4#
+  )#
 #
-summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering#
+# bug: Jday vs JDay, returns error for "chillout not found"#
 #
-# with lme4 mixed effect model to better take into account species differences #
+chill1calc <- chilling(chill1, 305, 60)#
 #
-# test without the nonleafouts -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. Previously had '75' days was assigned to them as max value#
+chill2 <- chill1#
+chill2$Temp = c(rep(4, 22), rep(1.5, 30))#
 #
-m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.#
-summary(m3)#
-fixef(m3)#
-ranef(m3)#
+chill2calc <- chilling(chill2, 305, 60) # FEWER chill portions and fewer Utah Model chill hours#
 #
-############################################################################
-# Side analyses#
-# Comparing Type I SS issues#
-summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
-summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))#
-summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))#
-# What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1. See Plotting chilling photo warm.R for more details#
-summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # #
-coef(m22)#
-# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>#
-# New analyses, in stan, using simple models#
-# model 1: lday ~ warm * photo, no species, site, or ind.#
-# make data all numeric.#
-levels(dx$warm) = c(0,1); levels(dx$photo) = c(0, 1); levels(dx$site) = 1:2; levels(dx$sp) = 1:length(levels(dx$sp))#
-dx$warm <- as.numeric(dx$warm)#
-dx$photo <- as.numeric(dx$photo)#
-dx$site <- as.numeric(dx$site)#
-dx$sp <- as.numeric(dx$sp)
+allcalc <- rbind(chill0calc, chill0calc+chill1calc, chill0calc+chill2calc)#
+#
+xtable(allcalc)
+allcalc
+chill0calc <- chilling(ht, 305, 60) # 39 chill portions by Jan 20 last year.
+chill0calc
+chill1calc <- chilling(chill1, 305, 60)
+chill1calc
+head(ht)
+tail(ht)
+chill1calc <- chilling(chill1, 305, 60)
+chill1
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2015", 52*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = as.numeric(rep(0:23, each = 52)),#
+  Temp = 4#
+  )
+head(chill1)
+rep(0:23, 52)
+chill1 <- data.frame(#
+  Year = as.numeric(rep("2015", 52*24)),#
+  JDay = as.numeric(rep(dayseq, each = 24)),#
+  Hour = rep(0:23, 52),#
+  Temp = 4#
+  )
+head(chill1)
+chill1calc <- chilling(chill1, 305, 60)
+chill1calc
+chill2 <- chill1#
+chill2$Temp = c(rep(4, 22), rep(1.5, 30))
+chill2$Temp
+chill2calc <- chilling(chill2, 305, 60) # FEWER chill portions and fewer Utah Model chill hours
+chill2calc
+chill0calc
+chill0calc+chill1calc
+chill0calc+chill2calc
