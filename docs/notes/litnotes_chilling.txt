@@ -27,9 +27,18 @@ https://cran.r-project.org/web/packages/chillR/index.html
 
 Modeling pome fruit production in Australia; including chilling resulted in less obvious advance of spring phenology with warming.
 
+<<<<<<< Updated upstream
 “Including winter chill creates less obvious outcomes from projection analyses as both winter and spring temperature conditions contribute to the determination of flowering timing.”
 
 
 Twigs/Cuttings
 Primack et al. 2015 Ann Bot
 'photoperiod requriements are less important than previously thought for most species. Invasivs plant species ahvae weather inter chilling requirements…'
+=======
+“Including winter chill creates less obvious outcomes from projection analyses as both winter and spring temperature conditions contribute to the determi- nation of flowering timing.”
+
+Hawking 2012 Scan J For Res
+Hannerz et al. 2003: northern provenances of Picea abies require less chilling than southern provenances
+
+
+>>>>>>> Stashed changes
