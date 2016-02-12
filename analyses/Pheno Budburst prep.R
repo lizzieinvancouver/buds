@@ -174,18 +174,45 @@ dev.print(device = pdf, file = "./graphs/Typical Leafout.pdf", width = 10, heigh
 ########## Prep of species traits
 
 tr <- read.xls("./input/Species Traits.xlsx")
+
+tr$code = paste(toupper(substr(tr$Genus, 1, 3)), toupper(substr(tr$Species.1, 1, 3)), sep="")
+
 library(Taxonstand)
 
 trTPL <- TPL(tr$Species)
 
-write.csv(trTPL, file = "./input/Species Traits Taxonstand.csv")
+trTPL$code = paste(toupper(substr(trTPL$Genus, 1, 3)), toupper(substr(trTPL$Species, 1, 3)), sep="")
+
+tr15 <- read.csv("./data/Summer 2015 Tree Traits.csv")
+
+# input species level wood density, leaf N, and sla in
+tr15$wd <- tr15$Stem.mass / tr15$Stem.volume
+tr15$sla <- tr15$Leaf.area / tr15$Dry.mass
+
+# exclude outliers
+tr15$wd[tr15$wd >= mean(tr15$wd,na.rm=T)+sd(tr15$wd,na.rm=T)*2] = NA # 10 additional values
+tr15$sla[tr15$sla >= mean(tr15$sla,na.rm=T)+sd(tr15$sla,na.rm=T)*2] = NA # 26 additional values
+tr15$X.N[tr15$X.N >= mean(tr15$X.N,na.rm=T)+sd(tr15$X.N,na.rm=T)*2] = NA # 20 additional values
+
+tragg <- aggregate(cbind(wd,sla,X.N) ~ Species, mean, data = tr15)
+
+# Merge with wood density and TPL data
+
+trall <- merge(trTPL, tragg, by.x = 'code', by.y = 'Species', all.x=T)
+
+tr <- trall <- merge(trall, tr[,c("code","Pore.anatomy")], by = 'code', all.x=T)
+
+
+write.csv(trall, file = "./input/Species Traits Taxonstand.csv")
+
+
+# Read in phylogenetic data
 
 ##### Saving
-
 
 write.csv(dx, "input/Budburst By Day.csv", row.names=F)
 write.csv(d, "input/Budburst.csv", row.names=F)
 
-save(list = c('d', 'dx', 'lday.agg'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
+save(list = c('d', 'dx', 'lday.agg','tr'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
 
 

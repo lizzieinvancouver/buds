@@ -8,13 +8,23 @@ library(arm)
 library(rstan)
 
 setwd("~/Documents/git/buds/analyses")
-source('savestan.R')
+source('stan/savestan.R')
 # get latest data
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
 
 load(file.path("input", toload))
 
 dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
+
+# Analyses:
+# 1. day of budburst by all factors, lmer 
+# 1a. day of leaf out by all factors, lmer
+# 2. Effects on budburst day for species: 
+#  - Traits (wood density, sla)
+#  - Phylogeny
+#  - observed bbd
+ 
+
 
 # Anovas based on day to leafout (stage 6)
 
