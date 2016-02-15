@@ -147,7 +147,7 @@ summary(m17)
 
 
 
-# Plot m3
+# Plot m3 intercepts
 plot(ranef(m3)$sp[,1],ranef(m3)$sp[,3],
 	pch = "+", col = "grey10",
 	type = "n",
@@ -168,6 +168,86 @@ abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
 dev.print(file = "ranefs.pdf", device = pdf)
 
 
+# plot slopes
+plot(ranef(m3)$sp[,2],ranef(m3)$sp[,4],
+     pch = "+", col = "grey10",
+     type = "n",
+     xlab = "Warming response",
+     ylab = "Photoperiod response",
+     xlim = c(-8, 8),
+     ylim = c(-8, 8)
+)
+rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col = "white")
+points(ranef(m3)$sp[,2],ranef(m3)$sp[,4],
+       pch = "+", col = "grey10")
+
+text(ranef(m3)$sp[,2],ranef(m3)$sp[,4], 
+     labels = rownames(ranef(m3)$sp), cex = 0.6, pos = 1,
+     col = alpha('grey20', 0.8))
+abline(h=0, lty = 3, col = alpha('darkblue', 0.5))
+abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
+
+# Plot actual change in leafout by species
+lday.agg <- aggregate(dx$lday, by=list(sp=dx$sp,
+                                       warm=dx$warm, photo=dx$photo
+                                       #,chill=dx$chill, site=dx$site,  treatcode=dx$treatcode, 
+                                       ), FUN = mean, na.rm=T)
+
+lday.se <- aggregate(dx$lday, list(sp=dx$sp, 
+                                   warm=dx$warm, photo=dx$photo
+                                   #,chill=dx$chill, site=dx$site, treatcode=dx$treatcode, 
+                                   ), function(x) sd(x,na.rm=T)/sqrt(length(x[!is.na(x)])))
+
+lday.agg$se = lday.se$x
+
+library(ggplot2)
+ggplot(lday.agg, aes(warm, x, col = photo)) + geom_point() + facet_grid(.~sp)
+
+
+# Advance due to each factor
+wa = la = oa = vector()
+for(i in unique(dx$sp)){ # i="ACEPEN"
+  dxx <- dx[dx$sp == i,]
+  
+  overallm = mean(dxx$lday, na.rm=T)
+  # mean across all cool
+  cm <- mean(dxx[dxx$warm == 15,'lday'], na.rm=T)
+  # advance from warming
+  wm <- mean(dxx[dxx$warm == 20, 'lday'], na.rm=T)
+  
+  warmadv = cm - wm    
+  
+  # mean across all short
+  sm <- mean(dxx[dxx$photo == '08','lday'], na.rm=T)
+  # advance from warming
+  lm <- mean(dxx[dxx$photo == '12', 'lday'], na.rm=T)
+   
+  longadv = sm - lm   
+
+  wa = c(wa, warmadv); la =c(la, longadv); oa=c(oa, overallm)
+  }
+adv=data.frame(sp=unique(dx$sp), warm=wa, photo=la, overall=oa)
+
+
+plot(warm ~ photo, data = adv, xlim = c(0, 20),ylim=c(0,30),
+     xlab = "Advance in leafout due to photoperiod",
+     ylab = "Advance in leafout due to warming",
+     pch = 1, col = alpha("midnightblue",0.5), lwd = 3,
+     cex = overall/4
+     )
+text(adv$photo,adv$warm,
+     labels = adv$sp, cex = 0.8, adj = 0.5,
+     col = alpha('grey20', 0.9))
+
+dev.print(pdf, "graphs/Advance plot.pdf", width = 10, height = 12)
+system("open 'graphs/Advance plot.pdf' -a /Applications/Preview.app")
+
+#ggplot(dx, aes(warm, lday, group = photo)) + geom_point() + facet_grid(site~sp)
+
+
+
+#dev.print(file = "Sensitivities by sp.pdf", device = pdf)
+
 # now repeat, with other chillings on here
 
 
@@ -175,7 +255,7 @@ dev.print(file = "ranefs.pdf", device = pdf)
 
 # Plot sensitivity by actual leafout time
 
-xx <- data.frame(aggregate(dx1$lday, by=list(dx1$sp), FUN = mean, na.rm=T), ranef(m3)$sp[,2], ranef(m3)$sp[,4])
+xx <- data.frame(aggregate(dx$lday, by=list(dx$sp), FUN = mean, na.rm=T), ranef(m3)$sp[,2], ranef(m3)$sp[,4])
 
 # xx: col 1 is the mean leafout day across all treatments for that species. col 2 is interecept of that species for warming effect, col 3 intercept for photo. Should use slope instead?
 
