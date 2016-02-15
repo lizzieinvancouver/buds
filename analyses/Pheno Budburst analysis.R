@@ -10,6 +10,7 @@ library(xtable)
 library(memisc)
 library(ggplot2)
 library(GGally)
+library(picante)
 
 
 setwd("~/Documents/git/buds/analyses")
@@ -57,7 +58,6 @@ xtable(getSummary(m3l)$coef)
 
 # 2. Species-specific responses
 
-
 # use trait data
 
 dxt <- merge(dx, tr, by.x = "sp", by.y = "code")
@@ -102,9 +102,42 @@ Nsummary[order(Nsummary$X.N),]
 
 SLAsummary <- aggregate(sla ~ sp, data = dxt, mean, na.rm=T)
 
+WDsummary <- aggregate(wd ~ sp, data = dxt, mean, na.rm=T)
+
+LDaysummary <- aggregate(lday ~ sp, data = dxt, mean, na.rm=T)
+BDaysummary <- aggregate(bday ~ sp, data = dxt, mean, na.rm=T)
+
+PAsummary <- aggregate(Pore.anatomy ~ sp, data = dxt, mean, na.rm=T)
 
 plot(SLAsummary$sla, Nsummary$X.N)
 text(SLAsummary$sla, Nsummary$X.N, SLAsummary$sp)
+
+# Phylogeny
+phsp <- ph$tip.label
+phspcode <- unlist(lapply(strsplit(phsp, "_"), function(x) toupper(paste(substr(x[[1]],1,3), substr(x[[2]],1,3), sep=""))))
+
+pa.phylo <- drop.tip(ph, phsp[is.na(match(phspcode, PAsummary$sp))])
+pamatch <- match(phspcode, PAsummary$sp)
+
+
+
+sla.signal <- phylosignal(SLAsummary[match(phspcode, SLAsummary$sp),2], ph)
+n.signal <- phylosignal(Nsummary[match(phspcode, Nsummary$sp),2], ph)
+wd.signal <- phylosignal(WDsummary[match(phspcode, WDsummary$sp),2], ph)
+lday.signal <- phylosignal(LDaysummary[match(phspcode, LDaysummary$sp),2], ph)
+bday.signal <- phylosignal(BDaysummary[match(phspcode, BDaysummary$sp),2], ph)
+
+pa.signal <- phylosignal(PAsummary[pamatch[!is.na(pamatch)],2], pa.phylo)
+
+
+signaldat <- data.frame(rbind(bday.signal, lday.signal, wd.signal, pa.signal, sla.signal,n.signal))
+signaldat$var = c("Budburst","Leafout","Wood Density","Pore anatomy","SLA", "% N")
+
+names(signaldat) = c("K","PIC variance","PIC var rand", "PIC variance P","PIC variance Z","Variable")
+
+
+xtable(signaldat[c(6,1,2,4)])
+
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
