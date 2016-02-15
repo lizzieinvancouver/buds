@@ -7,6 +7,8 @@ library(gdata)
 library(nlme)
 library(scales)
 library(arm)
+library(picante)
+library(ade4)
 
 setwd("~/Documents/git/buds/analyses")
 
@@ -120,7 +122,7 @@ for(i in levels(d$id)){ # i=levels(d$id)[500] # for each individual clipping.
 
 dx <- d[match(levels(d$id), d$id),] # with twig id in same order as the loop above
 
-dx <- dx[,2:20]
+dx <- dx[,2:ncol(dx)]
 
 dx <- data.frame(dx, lday, fday, bday, nl)
 
@@ -148,11 +150,6 @@ aggregate(dx["lday"], dx[c("site", "warm", "photo")], FUN=mean, na.rm=T) #can re
 
 setwd("~/Documents/git/buds/analyses")
 
-# show latest data
-sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]
-
-load("input/Budburst Data 2015-10-19")
-
 dxx <- dx[dx$treatcode == "WL0",]
 
 lday.agg <- aggregate(lday ~ sp, data = dxx, FUN = mean)
@@ -168,7 +165,7 @@ plot(lday.agg$lday,
 text(1:nrow(lday.agg), lday.agg$lday, 
 	labels = lday.agg$sp,
 	cex = 0.5, col = "midnightblue")
-dev.print(device = pdf, file = "./graphs/Typical Leafout.pdf", width = 10, height = 8)
+dev.print(device = pdf, file = "./graphs/Typical Leafout WL0.pdf", width = 10, height = 8)
 
 
 ########## Prep of species traits
@@ -206,8 +203,26 @@ tr <- trall <- merge(trall, tr[,c("code","Pore.anatomy")], by = 'code', all.x=T)
 write.csv(trall, file = "./input/Species Traits Taxonstand.csv")
 
 
-# Read in phylogenetic data
+# Read in phylogenetic data -- ??? Where is it? Get from Lizzie.
 
+# for now using Phylomatic. Yup.
+
+write.table(file="BudSp For Phylom.txt", data.frame(tr$Family, tr$New.Genus, paste(tr$New.Genus, tr$New.Species, sep="_")), sep= "/",row.names=F, quote=F, col.names=F)
+
+
+tre <- read.tree('./input/budphylo3.new')
+
+#phtree <- scan('./input/budphylo2.new', what = "character")
+#phtre <- newick2phylog(phtree) # Convert it ade4 phylog class
+#plot(phtre)
+#ph <- as.phylo(phtre)
+spnames <- tre$tip.label # Get species names
+
+# as codes
+spcode <- unlist(lapply(strsplit(spnames, "_"), function(x) toupper(paste(substr(x[[1]],1,3), substr(x[[2]],1,3), sep=""))))
+
+ph <- drop.tip(tre, spnames[!spcode %in% unique(dx$sp)])
+plot(ph, cex = 0.75)
 
 
 
@@ -216,6 +231,6 @@ write.csv(trall, file = "./input/Species Traits Taxonstand.csv")
 write.csv(dx, "input/Budburst By Day.csv", row.names=F)
 write.csv(d, "input/Budburst.csv", row.names=F)
 
-save(list = c('d', 'dx', 'lday.agg','tr'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
+save(list = c('d', 'dx', 'lday.agg','tr', 'ph'), file = paste("input/Budburst Data", Sys.Date())) # save as R formatted data frames for easier use next time.
 
 

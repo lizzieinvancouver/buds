@@ -65,6 +65,125 @@ Species varied widely in response to chilling treatments, with some exhibiting s
 Response of \emph{Fagus grandifolia} to increasingly strong vernalization varies by latitude of origin and by phenological stage; winter chilling reduced day to budburst (right) and leaf-out (left), but more strongly for individuals from the northern SH site.
 
 
+% from Pheno budburst analyses.R, using memisc and xtable
+
+Warming, photoperiod, and chilling individually and interactively acted to drive budburst  and leafout earlier across species. The strength of the accelleration in budburst due to both warming and photoperiod were similar, but the accelleration of leafout due to warming exceeded that of photoperiod. Surprisingly, site of origin exerted no effect on either budburst or leafout across species.
+
+Table 1. Summary of mixed effect model of budburst day by species
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & est & se & stat & p & lwr & upr \\ 
+  \hline
+(Intercept) & 25.90 & 1.75 & 14.76 & 0.00 & 22.46 & 29.34 \\ 
+  warmn & -2.20 & 0.43 & -5.16 & 0.00 & -3.03 & -1.36 \\ 
+  photon & -2.50 & 0.39 & -6.34 & 0.00 & -3.27 & -1.73 \\ 
+  siteSH & -0.41 & 0.43 & -0.96 & 0.34 & -1.24 & 0.43 \\ 
+  chilln & -3.99 & 0.33 & -11.93 & 0.00 & -4.65 & -3.34 \\ 
+  warmn:photon & -0.20 & 0.28 & -0.73 & 0.46 & -0.75 & 0.34 \\ 
+  warmn:siteSH & -0.49 & 0.41 & -1.18 & 0.24 & -1.29 & 0.32 \\ 
+  photon:siteSH & 0.06 & 0.41 & 0.14 & 0.89 & -0.75 & 0.87 \\ 
+  warmn:chilln & 2.16 & 0.30 & 7.16 & 0.00 & 1.57 & 2.75 \\ 
+  photon:chilln & -0.11 & 0.31 & -0.34 & 0.73 & -0.71 & 0.50 \\ 
+  siteSH:chilln & -0.52 & 0.44 & -1.18 & 0.24 & -1.37 & 0.34 \\ 
+  warmn:photon:siteSH & -0.13 & 0.41 & -0.32 & 0.75 & -0.93 & 0.67 \\ 
+  warmn:photon:chilln & -0.59 & 0.29 & -2.02 & 0.04 & -1.17 & -0.02 \\ 
+  warmn:siteSH:chilln & -0.31 & 0.42 & -0.74 & 0.46 & -1.14 & 0.51 \\ 
+  photon:siteSH:chilln & 0.06 & 0.42 & 0.15 & 0.88 & -0.77 & 0.89 \\ 
+  warmn:photon:siteSH:chilln & 0.06 & 0.42 & 0.14 & 0.89 & -0.77 & 0.88 \\ 
+           Var(\~{}1$|$sp) & 60.41 &  &  &  &  &  \\ 
+       Var(\~{}warmn$|$sp) & 2.72 &  &  &  &  &  \\ 
+     Cov(\~{}1:warmn$|$sp) & -12.82 &  &  &  &  &  \\ 
+         Var(\~{}1$|$sp.1) & 22.57 &  &  &  &  &  \\ 
+    Var(\~{}photon$|$sp.1) & 1.88 &  &  &  &  &  \\ 
+  Cov(\~{}1:photon$|$sp.1) & -6.52 &  &  &  &  &  \\ 
+        Var(residual) & 68.42 &  &  &  &  &  \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+Table 2. Summary of mixed effect model of leafout day by species.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & est & se & stat & p & lwr & upr \\ 
+  \hline
+Intercept & 38.52 & 1.90 & 20.28 & 0.00 & 34.80 & 42.25 \\ 
+  warmn & -5.94 & 0.47 & -12.76 & 0.00 & -6.86 & -5.03 \\ 
+  photon & -4.24 & 0.36 & -11.75 & 0.00 & -4.95 & -3.53 \\ 
+  siteSH & 0.29 & 0.46 & 0.63 & 0.53 & -0.61 & 1.18 \\ 
+  chilln & -4.26 & 0.36 & -11.93 & 0.00 & -4.96 & -3.56 \\ 
+  warmn:photon & 0.85 & 0.30 & 2.84 & 0.00 & 0.26 & 1.43 \\ 
+  warmn:siteSH & -0.44 & 0.44 & -1.00 & 0.32 & -1.30 & 0.42 \\ 
+  photon:siteSH & -0.46 & 0.44 & -1.04 & 0.30 & -1.32 & 0.41 \\ 
+  warmn:chilln & 2.97 & 0.32 & 9.25 & 0.00 & 2.34 & 3.60 \\ 
+  photon:chilln & 0.76 & 0.32 & 2.33 & 0.02 & 0.12 & 1.39 \\ 
+  siteSH:chilln & -0.43 & 0.46 & -0.92 & 0.36 & -1.34 & 0.49 \\ 
+  warmn:photon:siteSH & -0.13 & 0.44 & -0.30 & 0.76 & -0.99 & 0.72 \\ 
+  warmn:photon:chilln & -1.23 & 0.31 & -3.91 & 0.00 & -1.84 & -0.61 \\ 
+  warmn:siteSH:chilln & -0.75 & 0.45 & -1.66 & 0.10 & -1.63 & 0.13 \\ 
+  photon:siteSH:chilln & -0.45 & 0.45 & -1.01 & 0.31 & -1.34 & 0.43 \\ 
+  warmn:photon:siteSH:chilln & 0.40 & 0.45 & 0.89 & 0.37 & -0.48 & 1.28 \\ 
+           Var(\~{}1$|$sp) & 80.60 &  &  &  &  &  \\ 
+       Var(\~{}warmn$|$sp) & 3.40 &  &  &  &  &  \\ 
+     Cov(\~{}1:warmn$|$sp) & -16.57 &  &  &  &  &  \\ 
+         Var(\~{}1$|$sp.1) & 16.75 &  &  &  &  &  \\ 
+    Var(\~{}photon$|$sp.1) & 0.95 &  &  &  &  &  \\ 
+  Cov(\~{}1:photon$|$sp.1) & -3.99 &  &  &  &  &  \\ 
+        Var(residual) & 78.07 &  &  &  &  &  \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+Species traits partly explain variation in budburst and leafout. Plant with high nitrogen leaves, as well as high SLA (thinner, less dense) leaves, were significantly later in both budburst and leafout. Thus early leafout species tended to be tougher, less N-dense, and have higher carbon investments than later species. Greater wood density
+
+Ring-porous species (Fraxinus sp., Lonicera, Myrica, and Quercus; lower values of Pore Anatomy variable) exhibited significantly later budburst and leafout compared to diffuse-porous species, in line with previous work on wood anatomy and freezing risk (Sperrry & Sullivan 1991 Plant Phys).
+
+
+
+Table 3. Summary of species-specific predictors of budburst day. 
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & est & se & stat & p & lwr & upr \\ 
+  \hline
+Intercept & 26.48 & 0.30 & 88.55 & 0.00 & 25.90 & 27.07 \\ 
+  Wood density & 2.02 & 0.36 & 5.65 & 0.00 & 1.32 & 2.73 \\ 
+  SLA & 2.18 & 0.30 & 7.21 & 0.00 & 1.59 & 2.78 \\ 
+  \% N & 4.00 & 0.34 & 11.61 & 0.00 & 3.32 & 4.67 \\ 
+  Pore Anatomy & -3.69 & 0.31 & -11.82 & 0.00 & -4.30 & -3.08 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+Table 4. Summary of species-specific predictors of leafout day. 
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & est & se & stat & p & lwr & upr \\ 
+  \hline
+ Intercept & 37.44 & 0.37 & 102.24 & 0.00 & 36.72 & 38.15 \\ 
+  Wood density & -0.18 & 0.46 & -0.38 & 0.70 & -1.08 & 0.73 \\ 
+  SLA & 1.83 & 0.37 & 4.95 & 0.00 & 1.11 & 2.56 \\ 
+  \% N & 3.97 & 0.43 & 9.28 & 0.00 & 3.13 & 4.81 \\ 
+Pore Anatomy & -0.89 & 0.38 & -2.36 & 0.02 & -1.63 & -0.15 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+
+
 \subsection{Nonleafouts}
 
 Separate analysis of samples which did not break bud or leafout. Across species, there was no overall predictive effect of temperature, photoperiod, chilling, or site on the propensity to fail to leaf out. 

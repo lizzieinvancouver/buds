@@ -6,15 +6,21 @@ library(nlme)
 library(scales)
 library(arm)
 library(rstan)
+library(xtable)
+library(memisc)
+library(ggplot2)
+library(GGally)
+
 
 setwd("~/Documents/git/buds/analyses")
 source('stan/savestan.R')
-# get latest data
+# get latest .Rdata file
+
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
 
 load(file.path("input", toload))
 
-dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
+dx <- dx[!is.na(dx$site),] # Delete betpap with not site, mystery twig which showed up at end of exp.
 
 # Analyses:
 # 1. day of budburst by all factors, lmer 
@@ -24,47 +30,89 @@ dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
 #  - Phylogeny
 #  - observed bbd
  
+# 1. day of budburst by all factors, lmer. Using numeric predictors
+dx$warmn = scale(as.numeric(as.character(dx$warm)))
+dx$photon = scale(as.numeric(as.character(dx$photo)))
+dx$chilln = scale(as.numeric(substr(as.character(dx$chill), 6, 6)))
 
 
-# Anovas based on day to leafout (stage 6)
-
-summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
-
-
-summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
-
-summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effects interax with warm for budbust (stage 3) but not leafout (stage 6)
-
-summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering
-
-# with lme4 mixed effect model to better take into account species differences 
-
-# test without the nonleafouts -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. Previously had '75' days was assigned to them as max value
-
-m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
+m3 <- lmer(bday ~ warmn * photon * site * chilln + (warmn|sp) + (photon|sp), data = dx[dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
 summary(m3)
 fixef(m3)
 ranef(m3)
 
-###########################################################################
-# Side analyses
-# Comparing Type I SS issues
-summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
-summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))
-summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+
+xtable(getSummary(m3)$coef)
 
 
-# What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1. See Plotting chilling photo warm.R for more details
-summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # 
-coef(m22)
+# 1a. leafout
+
+m3l <- lmer(lday ~ warmn * photon * site * chilln + (warmn|sp) + (photon|sp), data = dx[dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
+summary(m3l)
+fixef(m3l)
+ranef(m3l)
+
+xtable(getSummary(m3l)$coef)
+
+
+# 2. Species-specific responses
+
+
+# use trait data
+
+dxt <- merge(dx, tr, by.x = "sp", by.y = "code")
+
+# 3. Individual level
+# look at consistency of performance within individuals, across treatments, as measure of plasticity.
+
+# Is consistency related to earlier leafout?
+
+vars <- aggregate(lday ~ sp + site + ind + wd + sla + X.N + Pore.anatomy, FUN = function(x) sd(x, na.rm=T) 
+                  / mean(x, na.rm=T)
+                  , data = dxt)
+
+# remove extreme values 
+
+vars$day = lday.agg[match(vars$sp, lday.agg$sp),"lday"]
+
+summary(lmer(lday ~ day + (1|sp), data = vars))
+  
+ggplot(vars, aes(day, lday, col = site)) + geom_point(aes(size=3)) + geom_smooth(method = "lm") + 
+    xlab("Day of leafout in Warm/Long") + ylab("CV of leafout across treatments within individuals") #+
+      
+    # + facet_grid(. ~ sp) 
+
+# 
+ggpairs(dxt[c("wd","sla","X.N","Pore.anatomy","lday","bday")])
+
+dxt[c("wd","sla","X.N","Pore.anatomy")] = scale(dxt[c("wd","sla","X.N","Pore.anatomy")])
+
+(traitlm <- getSummary(lm(lday ~ wd + sla + X.N + Pore.anatomy, data = dxt)))
+
+(traitlmb <- getSummary(lm(bday ~ wd + sla + X.N + Pore.anatomy, data = dxt)))
+
+xtable(traitlm$coef)
+
+xtable(traitlmb$coef)
+
+
+Nsummary <- aggregate(X.N ~ sp, data = dxt, mean, na.rm=T)
+Nsummary[order(Nsummary$X.N),]
+
+
+SLAsummary <- aggregate(sla ~ sp, data = dxt, mean, na.rm=T)
+
+
+plot(SLAsummary$sla, Nsummary$X.N)
+text(SLAsummary$sla, Nsummary$X.N, SLAsummary$sp)
+
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-
 
 # Random effects 
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
-# New analyses, in stan, using simple models
+# In stan, using simple models
 # model 1: lday ~ warm * photo, no species, site, or ind.
 # make data all numeric.
 levels(dx$warm) = c(0,1); levels(dx$photo) = c(0, 1); levels(dx$site) = 1:2; levels(dx$sp) = 1:length(levels(dx$sp))
@@ -450,5 +498,37 @@ system(paste("open '", paste("Pheno Test ", Sys.Date(), ".pdf", sep=""), "' -a /
 
 # Days to first leaf out (6)
 
-# 
+# ###### Archived
+# Anovas based on day to leafout (stage 6)
+
+summary(m1 <- aov(lday ~ sp * site + warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+
+
+summary(m2 <- aov(lday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # interax with sp and warm, also sp and photo, no site effects!
+
+summary(bm2 <- aov(bday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # site effects interax with warm for budbust (stage 3) but not leafout (stage 6)
+
+summary(fm2 <- aov(fday ~ sp * site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',])) # no clear effects of anything other than species for the flowering
+
+# with lme4 mixed effect model to better take into account species differences 
+
+# test without the nonleafouts -- these did no ever leaf out, or flower, over the course of the experiment, but were not dead. Previously had '75' days was assigned to them as max value
+
+m3 <- lmer(lday ~ warm * photo * site  + (warm|sp) + (photo|sp), data = dx[dx$chill == 'chill0' & dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
+summary(m3)
+fixef(m3)
+ranef(m3)
+
+###########################################################################
+# Side analyses
+# Comparing Type I SS issues
+summary(m1 <- aov(lday ~ site * warm * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+summary(m1 <- aov(lday ~ warm * photo * site + Error(ind), data = dx[dx$chill == 'chill0',]))
+summary(m1 <- aov(lday ~ warm * site  * photo + Error(ind), data = dx[dx$chill == 'chill0',]))
+
+
+# What if we try this with moving the species to fixed effects? Trying this talking to Lizzie Oct 1. See Plotting chilling photo warm.R for more details
+summary(m22 <- aov(lday ~ sp * site * as.numeric(warm) * as.numeric(photo) + Error(ind), data = dx[dx$chill == 'chill0',])) # 
+coef(m22)
+
 

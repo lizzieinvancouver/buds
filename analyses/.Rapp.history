@@ -315,29 +315,6 @@ library(ggplot2)#
 qplot(chill, cp, color = days, data = dat, #
 	ylab = "Chill Portions \n (Dynamic Model)", #
 	xlab = "Chilling Treatment (°C)")
-chillportions <- vector()#
-numdays <- vector()#
-#
-chilltreat = c(1, 2, 4, 8)#
-timetreat = c(10, 20)#
-#
-for(i in chilltreat){#
-	for(j in timetreat){#
-	chillportions <- c(chillportions, as.numeric(chillcalc(j, i)[6]))#
-	numdays <- c(numdays, j)#
-	}#
-}#
-dat <- data.frame(days = numdays, #
-					chill = gl(length(chilltreat), length(timetreat), labels = chilltreat), #
-					cp = chillportions)#
-#
-library(ggplot2)#
-#
-#qplot(days, cp, color = chill, data = dat)#
-#
-qplot(chill, cp, color = days, data = dat, #
-	ylab = "Chill Portions \n (Dynamic Model)", #
-	xlab = "Chilling Treatment (°C)")
 qplot(chill, cp, color = days, data = dat, #
 	ylab = "Chill Portions \n (Dynamic Model)", #
 	xlab = "Chilling Treatment (°C)",#
@@ -534,3 +511,54 @@ chill2calc
 chill0calc
 chill0calc+chill1calc
 chill0calc+chill2calc
+setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
+#
+# get latest data#
+print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])#
+#
+load(file.path("input", toload))
+# Analyzing phenology first work March 2015. Script also for Tim to work with R#
+# Setup: load packages, set working directory, read in the data.#
+#
+#library(gdata)#
+#library(nlme)#
+library(scales)#
+#library(arm)#
+#
+setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")#
+#
+# get latest data#
+load("input/Budburst Data 2015-10-28"))
+load("input/Budburst Data 2015-10-28")
+head(d)
+# re-sort to make sure ordered by date correctly#
+d <- d[order(d$Date, d$id, d$treatcode),]#
+#
+colz <- c("darkred","darkgreen")#
+lcol <- alpha(colz, 0.1)
+par(mfcol=c(3, 4), mar = c(3,3,1,0.5))#
+for(spx in levels(d$sp)){ # spx = "ACEPEN"#
+#
+	dxx = d[d$sp == spx,]#
+#
+	counter = 1#
+	for(i in sort(as.character((unique(dx$treatcode))))){#c("CS0","CL0","WS0","WL0")){#
+		dseq = seq(0, max(dx$dayuse))#
+		plot(dseq, seq(0,25,length=length(dseq)), type = "n", #
+			ylab = "Stage",#
+			xlab = "")#
+		if(counter == 1) mtext(spx, line = -2, adj = 0.5)#
+		legend("topleft",bty="n",i, cex = 0.85, inset = 0)#
+		xx <- dxx[dxx$treatcode == i,]#
+		# calculate mean response by date and site#
+		xt <- tapply(pmax(xx$tleaf, xx$lleaf,na.rm=T), list(xx$dayuse, xx$site), mean, na.rm=T)#
+		for(j in unique(xx$ind)){ #j=unique(xx$ind)[1]#
+			xj <- xx[xx$ind == j,]#
+			pcol = ifelse(xj$site[1] == "HF", lcol[1], lcol[2])#
+			lines(xj$dayuse, xj$tleaf, col = pcol)#
+			}#
+		lines(rownames(xt), xt[,1], col = colz[1])#
+		lines(rownames(xt), xt[,2], col = colz[2])#
+			counter = counter + 1#
+			}#
+	}
