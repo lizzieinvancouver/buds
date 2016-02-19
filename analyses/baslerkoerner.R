@@ -6,20 +6,31 @@ options(stringsAsFactors=FALSE)
 
 setwd("~/Documents/git/budreview")
 
-# what other studies manipulate both photoperiod and temperature, and have daystobudburst as a response?
 
 dat<-read.csv("growthchambers_litreview_clean1.csv") # after response variables cleaned
 
+dat$sp = paste(dat$genus, dat$species)
+
+dat$response = as.numeric(dat$response)
+dat$response.time = as.numeric(dat$response.time)
+
+dat$forcetemp = as.numeric(dat$forcetemp)
+dat$photoperiod_day = as.numeric(dat$photoperiod_day)
+
+# what other studies manipulate both photoperiod and temperature, and have daystobudburst as a response?
+# Loop through review database. Find studies where there are multiple values in both forcetemp and photoperiod_day, across mutiple species.
+
+looksee <-vector()
+
+#for(i in unique(
+
+# First work with Basler & Koerner 2012
 #bk <- dat[grep("basler", dat$datasetID),]
 
 bk <- dat[dat$datasetID == 'basler12',]
 
 # Calculate sensitivity to elevation vs sensistivty to photoperiod
 
-bk$sp = paste(bk$genus, bk$species)
-
-bk$response = as.numeric(bk$response)
-bk$response.time = as.numeric(bk$response.time)
 wa = la = oa = vector()
 
 for(i in unique(bk$sp)){ # i="Betula pendula"
@@ -104,3 +115,49 @@ title(main="Degree days to leafout")
 
 dev.print(pdf, "/Users/danflynn/Documents/git/buds/analyses/graphs/BK12 Advance plot degreedays.pdf", width = 15, height = 10)
 system("open '/Users/danflynn/Documents/git/buds/analyses/graphs/BK12 Advance plot degreedays.pdf' -a /Applications/Preview.app")
+
+################################################################################################################
+# Now B & K 2014
+
+bk <- dat[dat$datasetID == 'basler14',]
+
+# Calculate sensitivity to elevation vs sensistivty to photoperiod
+
+wa = la = oa = vector()
+
+for(i in unique(bk$sp)){ # i="Fagus sylvatica"
+  dxx <- bk[bk$sp == i & bk$respvar == 'daystobudburst',]
+  
+  overallm = mean(dxx$response.time, na.rm=T)
+  # mean across all cool
+  cm <- mean(dxx[dxx$forcetemp == 6,'response.time'], na.rm=T)
+  # advance from warming
+  wm <- mean(dxx[dxx$forcetemp == 9,'response.time'], na.rm=T)
+  
+  warmadv = cm - wm    
+  
+  # mean across all short
+  sm <- mean(dxx[dxx$photoperiod_day == 9.2,'response.time'], na.rm=T)
+  # advance from long day
+  lm <- mean(dxx[dxx$photoperiod_day == 10.2,'response.time'], na.rm=T)
+  
+  longadv = sm - lm   
+  
+  wa = c(wa, warmadv); la =c(la, longadv); oa=c(oa, overallm)
+}
+adv=data.frame(sp=unique(bk$sp), warm=wa, photo=la, overall=oa)
+
+plot(warm ~ photo, data = adv, xlim = c(-2, 12),ylim=c(8,20),
+     xlab = "Advance in leafout due to photoperiod",
+     ylab = "Advance in leafout due to warming",
+     pch = 1, col = alpha("midnightblue",0.5), lwd = 3,
+     cex = overall/5
+)
+text(adv$photo,adv$warm,
+     labels = adv$sp, cex = 0.8, adj = 0.5,
+     col = alpha('grey20', 0.9))
+
+title(main="Days to leafout")
+
+dev.print(pdf, "/Users/danflynn/Documents/git/buds/analyses/graphs/BK14 Advance plot.pdf", width = 8, height = 8)
+system("open '/Users/danflynn/Documents/git/buds/analyses/graphs/BK14 Advance plot.pdf' -a /Applications/Preview.app")
