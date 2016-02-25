@@ -61,30 +61,28 @@ xtable(getSummary(m3)$coef)
 # Stan version
 dx <- dx[!is.na(dx$lday),]
 
-datalist1 <- list(lday = dx$lday, warm = dx$warm, photo = dx$photo, N = nrow(dx))
-
-# doym3  -- need to make a sp_site vector
-sp_site = as.numeric(paste(dx$site, formatC(dx$sp, width = 2, flag = '0'), sep=""))
-sp_sitef = factor(sp_site)
-levels(sp_sitef) = 1:length(levels(sp_sitef))
-sp_site = as.numeric(sp_sitef)
-
-datalist3 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$sp, photo = dx$photo, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), sp_site = sp_site, n_sp_site = length(unique(sp_site)))
-
-doym3 <- stan('stan/doy_model3.stan', data = datalist3, iter = 1000, chains = 4) 
-
-summary(doym3)$summary[1:50,] # no site effect now. Rhat for some species very large > 200?
-
+# doym5 doesn't work, problem with sp x site. Go back to 4
 # adding chilling and site x sp effects for chilling
-datalist4 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$sp, photo = dx$photo, chill = dx$chill, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), sp_site = sp_site, n_sp_site = length(unique(sp_site)))
+datalist4 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$sp, photo = dx$photo, chill = dx$chill, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)))
 
 doym4 <- stan('stan/doy_model4.stan', data = datalist4, iter = 1000, chains = 4) 
 
-sum4 <- summary(doym4)$summary# 3765 rows... 
+sum4 <- summary(doym3)$summary# 3765 rows... 
+# make it shiny!!!
 # Site effects are a1 and a2. Species level effects for warming and photo are 3:28 and 31:58. Then chill, then interaction of warm x photo. 
-# how to see the pooled parameters?
+# how to see the pooled parameters Use extract
 
-xtable(sum4)
+a <- extract(doym4)
+
+mean(a$b_warm) # overall effect of warming on leafout day
+mean(a$b_photo) 
+mean(a$b_chill) 
+
+mean(a$b_inter) # warm * photo interax
+hist(a$a) # site effects
+
+
+# xtable(sum4)
 
 
 savestan()
