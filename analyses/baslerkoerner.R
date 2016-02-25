@@ -9,6 +9,8 @@ setwd("~/Documents/git/budreview")
 
 dat<-read.csv("growthchambers_litreview_clean1.csv") # after response variables cleaned
 
+load("Days to BB.Rdata")
+
 dat$sp = paste(dat$genus, dat$species)
 
 dat$response = as.numeric(dat$response)
@@ -36,6 +38,10 @@ for(i in unique(dat$datasetID)){ # i = 'basler14'
 
 dat[match(looksee, dat$datasetID),'respvar']
 
+# Match with days to budburst calcs
+
+dbb <- dbb[!is.na(match(dbb$datasetID, looksee)),]
+    
 # First work with Basler & Koerner 2012
 #bk <- dat[grep("basler", dat$datasetID),]
 

@@ -11,7 +11,7 @@ library(memisc)
 library(ggplot2)
 library(GGally)
 library(picante)
-
+library(sjPlot)
 
 setwd("~/Documents/git/buds/analyses")
 source('stan/savestan.R')
@@ -44,6 +44,13 @@ ranef(m3)
 
 
 xtable(getSummary(m3)$coef)
+
+# Graphic representation
+
+sjp.lmer(m3, type = 'fe.std', 
+         axisTitle.x = "Predictors of days to budburst",
+          axisTitle.y = "Effect size",
+         fade.ns = F)
 
 
 # 1a. leafout
