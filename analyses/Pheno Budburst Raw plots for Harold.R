@@ -40,7 +40,7 @@ for(spx in levels(d$sp)){ # spx = "ACEPEN"
 			ylab = "Stage",
 			xlab = "")
 		if(counter == 1) mtext(spx, line = -2, adj = 0.5)
-		legend("topleft",bty="n",i, cex = 0.85, inset = 0)
+		legend("topleft", bty="n",i, cex = 0.85, inset = 0)
 		xx <- dxx[dxx$treatcode == i,]
 		# calculate mean response by date and site
 		xt <- tapply(pmax(xx$tleaf, xx$lleaf,na.rm=T), list(xx$dayuse, xx$site), mean, na.rm=T)

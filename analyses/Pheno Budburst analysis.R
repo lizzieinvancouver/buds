@@ -7,9 +7,9 @@ library(scales)
 library(arm)
 library(rstan)
 library(xtable)
-library(memisc)
+library(memisc) # for getSummary
 library(ggplot2)
-library(GGally)
+library(GGally) # for ggpairs
 library(picante)
 library(sjPlot)
 
@@ -23,6 +23,8 @@ load(file.path("input", toload))
 
 dx <- dx[!is.na(dx$site),] # Delete betpap with not site, mystery twig which showed up at end of exp.
 
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
 # Analyses:
 # 1. day of budburst by all factors, lmer 
 # 1a. day of leaf out by all factors, lmer
@@ -30,11 +32,22 @@ dx <- dx[!is.na(dx$site),] # Delete betpap with not site, mystery twig which sho
 #  - Traits (wood density, sla)
 #  - Phylogeny
 #  - observed bbd
- 
+# 3. Individual level
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
 # 1. day of budburst by all factors, lmer. Using numeric predictors
 dx$warmn = scale(as.numeric(as.character(dx$warm)))
 dx$photon = scale(as.numeric(as.character(dx$photo)))
 dx$chilln = scale(as.numeric(substr(as.character(dx$chill), 6, 6)))
+
+levels(dx$warm) = c(0,1); levels(dx$photo) = c(0, 1); levels(dx$site) = 1:2; levels(dx$sp) = 1:length(levels(dx$sp)); levels(dx$chill) = 1:3
+dx$warm <- as.numeric(dx$warm)
+dx$photo <- as.numeric(dx$photo)
+dx$chill <- as.numeric(dx$chill)
+dx$site <- as.numeric(dx$site)
+dx$sp <- as.numeric(dx$sp)
+
 
 
 m3 <- lmer(bday ~ warmn * photon * site * chilln + (warmn|sp) + (photon|sp), data = dx[dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
@@ -51,6 +64,37 @@ sjp.lmer(m3, type = 'fe.std',
          axisTitle.x = "Predictors of days to budburst",
           axisTitle.y = "Effect size",
          fade.ns = F)
+
+
+# Stan version
+dx <- dx[!is.na(dx$lday),]
+
+# doym5 doesn't work, problem with sp x site. Go back to 4
+# adding chilling and site x sp effects for chilling
+datalist4 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$sp, photo = dx$photo, chill = dx$chill, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)))
+
+doym4 <- stan('stan/doy_model4.stan', data = datalist4, iter = 1000, chains = 4) 
+
+sum4 <- summary(doym3)$summary# 3765 rows... 
+# make it shiny!!!
+# Site effects are a1 and a2. Species level effects for warming and photo are 3:28 and 31:58. Then chill, then interaction of warm x photo. 
+# how to see the pooled parameters Use extract
+
+a <- extract(doym4)
+
+mean(a$b_warm) # overall effect of warming on leafout day
+mean(a$b_photo) 
+mean(a$b_chill) 
+
+mean(a$b_inter) # warm * photo interax
+hist(a$a) # site effects
+
+
+# xtable(sum4)
+
+
+savestan()
+>>>>>>> origin/master
 
 
 # 1a. leafout
@@ -85,10 +129,7 @@ vars$day = lday.agg[match(vars$sp, lday.agg$sp),"lday"]
 summary(lmer(lday ~ day + (1|sp), data = vars))
   
 ggplot(vars, aes(day, lday, col = site)) + geom_point(aes(size=3)) + geom_smooth(method = "lm") + 
-    xlab("Day of leafout in Warm/Long") + ylab("CV of leafout across treatments within individuals") #+
-      
-    # + facet_grid(. ~ sp) 
-
+    xlab("Day of leafout in Warm/Long") + ylab("CV of leafout across treatments within individuals") 
 # 
 ggpairs(dxt[c("wd","sla","X.N","Pore.anatomy","lday","bday")])
 
@@ -148,48 +189,7 @@ xtable(signaldat[c(6,1,2,4)])
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
-# Random effects 
 
-# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-
-# In stan, using simple models
-# model 1: lday ~ warm * photo, no species, site, or ind.
-# make data all numeric.
-levels(dx$warm) = c(0,1); levels(dx$photo) = c(0, 1); levels(dx$site) = 1:2; levels(dx$sp) = 1:length(levels(dx$sp))
-dx$warm <- as.numeric(dx$warm)
-dx$photo <- as.numeric(dx$photo)
-dx$site <- as.numeric(dx$site)
-dx$sp <- as.numeric(dx$sp)
-
-# Make sure no NA's (nonleafouts)
-dx <- dx[!is.na(dx$lday),]
-
-datalist1 <- list(lday = dx$lday, warm = dx$warm, photo = dx$photo, N = nrow(dx))
-
-doym1 <- stan('stan/doy_model1.stan', data = datalist1, iter = 1000, chains = 4)
-
-# Model 2: site added
-datalist2 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, photo = dx$photo, N = nrow(dx), n_site = length(unique(dx$site)))
-
-doym2 <- stan('stan/doy_model2.stan', data = datalist2, iter = 1000, chains = 4)
-
-head(summary(doym2)$summary) # leafout day slightly later for HF
-
-# doym3  -- need to make a sp_site vector
-sp_site = as.numeric(paste(dx$site, formatC(dx$sp, width = 2, flag = '0'), sep=""))
-sp_sitef = factor(sp_site)
-levels(sp_sitef) = 1:length(levels(sp_sitef))
-sp_site = as.numeric(sp_sitef)
-
-datalist3 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$sp, photo = dx$photo, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), sp_site = sp_site, n_sp_site = length(unique(sp_site)))
-
-doym3 <- stan('stan/doy_model3.stan', data = datalist3, iter = 1000, chains = 4) 
-
-summary(doym3)$summary[1:50,] # no site effect now.
-
-
-
-savestan()
 
 
 
