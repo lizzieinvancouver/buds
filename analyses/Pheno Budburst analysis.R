@@ -73,7 +73,7 @@ dev.off();system(paste("open", file.path(figpath, "lmerDBB.pdf"), "-a /Applicati
 
 
 # Stan version for budburst day
-dx <- dx[!is.na(dx$bday),]
+dx <- dx[!is.na(dx$bday) & !is.na(dx$lday),]
 sp_site = as.numeric(paste(dx$site, formatC(dx$sp, width = 2, flag = '0'), sep=""))
 sp_sitef = factor(sp_site)
 levels(sp_sitef) = 1:length(levels(sp_sitef))
@@ -98,7 +98,7 @@ sum4 <- summary(doym4)$summary# 3765 rows... what is best way to summarize?
 # #hist(a$a) # site effects
 sumparams <- c("a","b_warm","b_photo","b_chill","b_inter")
 
-xtable(sum4[1:114,]) # for supplemental material for now, need a betterw way to summarize.
+xtable(sum4[1:114,c(1,2,3,10)]) # for supplemental material for now, need a better way to summarize.
 
 ranef(m3) # compare with stan version
 sum4[grep("b_warm", rownames(sum4)),c(1,2,3,10)]
@@ -122,14 +122,15 @@ sjp.lmer(m3l, type = 'fe.std',
          fade.ns = F)
 dev.off();system(paste("open", file.path(figpath, "lmerDLO.pdf"), "-a /Applications/Preview.app"))
 
-# Stan version
+# Stan version for leafout day
 datalist4 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$spn, sp_site = sp_site, photo = dx$photo, chill = dx$chill, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), n_sp_site = length(unique(sp_site)))
+
 doym4l <- stan('stan/doy_model41.stan', data = datalist4, iter = 1000, chains = 4) 
 
 sum4l <- summary(doym4l)$summary
-ssm4l <- launch_shinystan(doym4l) 
+# ssm4l <- launch_shinystan(doym4l) 
 
-xtable(sum4l[1:114,]) # for supplemental material for now, need a betterw way to summarize.
+xtable(sum4l[1:114,c(1,2,3,10)]) # for supplemental material for now, need a betterw way to summarize.
 
 savestan()
 

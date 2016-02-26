@@ -25,6 +25,8 @@ htemp1 <- htemp[htemp$datetime > "2014-09-30" & htemp$datetime < "2015-01-20" & 
 htemp2 <- htemp[htemp$datetime > "2015-11-01" & !is.na(htemp$datetime),]
 
 # aggregate to hourly averages 
+ht <- aggregate(airt ~ format(htemp1$datetime, "%Y-%m-%d %H"), mean, data = htemp1)
+names(ht)[1] = 'datetime'
 
 ht$Year <- as.numeric(substr(ht$datetime, 1, 4))
 ht$JDay <- as.numeric(format(strptime(substr(ht$datetime, 1, 10), "%Y-%m-%d"), "%j"))
@@ -66,8 +68,10 @@ chill2$Temp = c(rep(4, 22), rep(1.5, 30))
 
 chill2calc <- chilling(chill2, 305, 60) # FEWER chill portions and fewer Utah Model chill hours
 
-allcalc <- rbind(chill0calc, chill0calc+chill1calc, chill0calc+chill2calc)
+allcalc <- rbind(chill0calc[3:6], chill0calc[3:6]+chill1calc[3:6], chill0calc[3:6]+chill2calc[3:6])
 
+allcalc <- data.frame(Treatment = c("Field chilling","4.0° x 30 d", "1.5° x 30 d"), allcalc)
+rownames(allcalc)=NULL
 xtable(allcalc)
 
 
@@ -76,15 +80,13 @@ xtable(allcalc)
 # No chill units below 1.4 deg C, half a unit from 1.4 to 2.4, full unit from 2.4 to 9.1, HALF from 9.1 to 12.4, FULL from 12.4 to 15.9??!
 # Dynamic: Erez 1990, Fishman 1987.
 
-<<<<<<< Updated upstream
+
 # Sequential, parallel, and unified models: need multiple years of data?
 # Ecodormancy, from external factors, Endodormancy from internal factors (broken by chilling)
 
-=======
 #
 # Interpolating hourly temperature data
 
 # install.packages("Interpol.T")
 library(Interpol.T)
->>>>>>> Stashed changes
 
