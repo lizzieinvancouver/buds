@@ -1,4 +1,4 @@
-forlatex = TRUE # set to F if just trying new figures, T if outputting for final
+forlatex = F # set to F if just trying new figures, T if outputting for final
 
 # Analysis of budburst experiment. Starting with simple linear models
 # 2015-09-16 adding single species models
@@ -81,7 +81,7 @@ sp_site = as.numeric(sp_sitef)
 
 datalist4 <- list(lday = dx$bday, warm = dx$warm, site = dx$site, sp = dx$spn, sp_site = sp_site, photo = dx$photo, chill = dx$chill, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), n_sp_site = length(unique(sp_site)))
   
-doym4 <- stan('stan/doy_model41.stan', data = datalist4, iter = 1000, chains = 4) 
+doym4 <- stan('stan/doy_model7.stan', data = datalist4, iter = 4000, chains = 4) 
 
 sum4 <- summary(doym4)$summary# 3765 rows... what is best way to summarize?
 # ssm4 <- launch_shinystan(doym4) 
