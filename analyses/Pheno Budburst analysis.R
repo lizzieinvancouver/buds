@@ -23,8 +23,6 @@ print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1
 
 load(file.path("input", toload))
 
-dx <- dx[!is.na(dx$site),] # Delete betpap with not site, mystery twig which showed up at end of exp.
-
 if(forlatex) figpath = "../docs/outline/images" else figpath = "graphs"
 
 # Prep 

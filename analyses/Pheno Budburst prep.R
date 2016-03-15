@@ -224,7 +224,9 @@ spcode <- unlist(lapply(strsplit(spnames, "_"), function(x) toupper(paste(substr
 ph <- drop.tip(tre, spnames[!spcode %in% unique(dx$sp)])
 plot(ph, cex = 0.75)
 
-
+# Drop one row with NA for site
+d <- d[!is.na(d$site),]
+dx <- dx[!is.na(dx$site),]
 
 ##### Saving
 

@@ -72,7 +72,7 @@ for(i in tofix){
  if(length(dat3$response[!is.na(dat3$response)])>1 & is.numeric(dat3$response.time) & length(unique(dat3$response.time))>1) {
    
    if(length(dat3[which(dat3$response==50),]$response.time)==1){ 
-      dbb <- dat3[which(dat3$response==50),]$response.time } else #days to 50%bb if there is exactly one measurement at 50% bb
+      dbb <- dat3[which(dat3$response==50),]$response.time } else #days to 50% bb if there is exactly one measurement at 50% bb
      
      if(length(dat3[which(dat3$response==50),]$response.time)==0){ # If there are no 50's
        

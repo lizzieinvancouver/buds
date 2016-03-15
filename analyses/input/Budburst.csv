@@ -16327,7 +16327,6 @@
 2015-04-16,"VIBLAN11_HF_09","VIBLAN","09","HF","VIBLAN11_HF","CL2","cool","long","chill2","VIB",24,NA,"0","0","","TS",70,37,37,0,0
 2015-04-16,"VIBLAN12_HF_06","VIBLAN","06","HF","VIBLAN12_HF","CL2","cool","long","chill2","VIB",NA,NA,"-","-","missing","TS",70,37,37,NA,NA
 2015-04-16,"VIBLAN12_HF_07","VIBLAN","07","HF","VIBLAN12_HF","CL1","cool","long","chill1","VIB",NA,NA,"9","9","","TS",70,37,37,9,9
-2015-04-16,"BETPAP","BETPAP",NA,NA,"BETPAP","CL2","cool","long","chill2","BET",NA,NA,"6","7","in 6 2 flask","TS",70,37,37,6,7
 2015-04-17,"ACEPEN01_HF_11","ACEPEN","11","HF","ACEPEN01_HF","WL1","warm","long","chill1","ACE",16,NA,"6","1","","TS",71,38,38,6,1
 2015-04-17,"ACEPEN02_HF_11","ACEPEN","11","HF","ACEPEN02_HF","WL1","warm","long","chill1","ACE",NA,NA,"6","0","","TS",71,38,38,6,0
 2015-04-17,"ACEPEN03_HF_08","ACEPEN","08","HF","ACEPEN03_HF","WL1","warm","long","chill1","ACE",NA,NA,"6","5","","TS",71,38,38,6,5
@@ -17368,7 +17367,6 @@
 2015-04-22,"VIBLAN11_HF_09","VIBLAN","09","HF","VIBLAN11_HF","CL2","cool","long","chill2","VIB",20,NA,"0","0","","TS",76,43,43,0,0
 2015-04-22,"VIBLAN12_HF_06","VIBLAN","06","HF","VIBLAN12_HF","CL2","cool","long","chill2","VIB",NA,NA,"-","-","missing","TS",76,43,43,NA,NA
 2015-04-22,"VIBLAN12_HF_07","VIBLAN","07","HF","VIBLAN12_HF","CL1","cool","long","chill1","VIB",NA,NA,"9","9","","TS",76,43,43,9,9
-2015-04-22,"BETPAP","BETPAP",NA,NA,"BETPAP","CL2","cool","long","chill2","BET",NA,NA,"6","7","extra in flask 6 2","TS",76,43,43,6,7
 2015-04-23,"ACEPEN01_HF_02","ACEPEN","02","HF","ACEPEN01_HF","CS1","cool","short","chill1","ACE",NA,NA,"5","5","","TS",77,44,44,5,5
 2015-04-23,"ACEPEN01_HF_06","ACEPEN","06","HF","ACEPEN01_HF","CS2","cool","short","chill2","ACE",NA,16,"5","5","","TS",77,44,44,5,5
 2015-04-23,"ACEPEN02_HF_01","ACEPEN","01","HF","ACEPEN02_HF","CS1","cool","short","chill1","ACE",NA,NA,"6","1","","TS",77,44,44,6,1
