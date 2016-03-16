@@ -20,12 +20,12 @@ parameters {
   vector[n_sp] b_photo;
   vector[n_sp] b_chill;
   
-  real mu_a;
+  // real mu_a;
   real mu_b_warm; // vectors of length n_sp instead of real?
   real mu_b_chill;
   real mu_b_photo;
 
-  real<lower=0> sigma_a;
+  // real<lower=0> sigma_a;
   real<lower=0> sigma_b_warm;
   real<lower=0> sigma_b_photo;
   real<lower=0> sigma_b_chill;
@@ -49,12 +49,12 @@ transformed parameters {
 
 model {
 	// Priors. Make them flat
-	mu_a ~ normal(0, 100);
+	// mu_a ~ normal(0, 100);
 	mu_b_warm ~ normal(0, 100);
 	mu_b_photo ~ normal(0, 100);
 	mu_b_chill ~ normal(0, 100);
 	
-	a ~ normal(mu_a, sigma_a);	
+	// a ~ normal(mu_a, sigma_a);	
 	b_warm ~ normal(mu_b_warm, sigma_b_warm);
 	b_photo ~ normal(mu_b_photo, sigma_b_photo);
 	b_chill ~ normal(mu_b_chill, sigma_b_chill);

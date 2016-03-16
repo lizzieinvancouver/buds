@@ -19,6 +19,15 @@ setwd("~/Documents/git/buds/analyses")
 source('stan/savestan.R')
 # get latest .Rdata file
 
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
+# To run from saved stan output
+load(sort(dir()[grep("Stan Output", dir())], T)[1]); ls()
+
+ssm <- launch_shinystan(doym) 
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> 
+
+
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
 
 load(file.path("input", toload))
@@ -131,6 +140,7 @@ sum4l <- summary(doym4l)$summary
 xtable(sum4l[1:114,c(1,2,3,10)]) # for supplemental material for now, need a betterw way to summarize.
 
 savestan()
+
 
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>

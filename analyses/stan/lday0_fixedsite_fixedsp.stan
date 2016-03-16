@@ -16,16 +16,17 @@ data {
 
 parameters {
   vector[n_site] a;
+  vector[n_sp] a_sp;
   vector[n_sp] b_warm;
   vector[n_sp] b_photo;
   vector[n_sp] b_chill;
   
-  real mu_a;
+  // real mu_a;
   real mu_b_warm; // vectors of length n_sp instead of real?
   real mu_b_chill;
   real mu_b_photo;
 
-  real<lower=0> sigma_a;
+  // real<lower=0> sigma_a;
   real<lower=0> sigma_b_warm;
   real<lower=0> sigma_b_photo;
   real<lower=0> sigma_b_chill;
@@ -39,8 +40,12 @@ transformed parameters {
 		
 	for(i in 1:N){
 		// different intercepts for sites. Different slopes for species, of warming, photo, and chill. No interactions here
+		// Fake data generation: 
+		//  meanx = spmeans[sppx] + sitemeans[sitx] + warmdiff[warmx] + photodiff[photx] + chilldiff[chilx]
+
+		y_hat[i] <- a_sp[sp[i]] + a[site[i]] + b_warm[sp[i]] * warm[i] + b_photo[sp[i]] * photo[i] + b_chill[sp[i]] * chill[i];
 		
-		y_hat[i] <- a[site[i]] + b_warm[sp[i]] * warm[i] + b_photo[sp[i]] * photo[i] + b_chill[sp[i]] * chill[i];
+		
 		
 		}
 
@@ -49,12 +54,13 @@ transformed parameters {
 
 model {
 	// Priors. Make them flat
-	mu_a ~ normal(0, 100);
+	// mu_a ~ normal(0, 100);
 	mu_b_warm ~ normal(0, 100);
 	mu_b_photo ~ normal(0, 100);
 	mu_b_chill ~ normal(0, 100);
 	
-	a ~ normal(mu_a, sigma_a);	
+	// a ~ normal(mu_a, sigma_a);	
+
 	b_warm ~ normal(mu_b_warm, sigma_b_warm);
 	b_photo ~ normal(mu_b_photo, sigma_b_photo);
 	b_chill ~ normal(mu_b_chill, sigma_b_chill);
