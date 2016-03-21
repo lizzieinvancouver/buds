@@ -9,6 +9,7 @@
 \usepackage{multicol}
 \usepackage{gensymb}
 \usepackage{placeins}
+\usepackage{booktabs}
 \setlength{\parskip}{3 mm}
 
 \graphicspath{{images/}}	% Root directory of the figures
@@ -73,6 +74,9 @@ Figure 1. Coordinated responses of 28 woody plant species to photoperiod and tem
 
 \includegraphics[scale=0.5]{Advplot}
 
+
+Figure 1b. Modeled effects plots
+
 While both photoperiod and temperature cues were important for driving woody plant phenology, responses to chilling were also substantial. Budburst day was accelerated most by the chilling treatments. Tables 1 and 2 summarizes mixed-effects model analysis of day of budburst and leaf-out, with negative values indicate earlier day of experiment for each event. Overall the 5\degree C experimental warming resulted in 2.2 days earlier budburst and 5.5 days earlier leafout. Such advance was delayed by the severe chilling treatment. Latitude of origin overall had little direct effect on budburst or leaf-out, but populations from the northern site tended to exhibit more rapid leaf-out under the severe chilling treatment.
 
 % from Pheno budburst analyses.R, using memisc and xtable
@@ -116,15 +120,38 @@ Table 1. Summary of mixed effect model of budburst day by species
 \end{table}
 \FloatBarrier
 
+Table 1stan. Summary of stan model for budburst day by species
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrrrrrr}
+  \toprule
+Parameter & Rhat & n\_eff & mean & sd & 2.5\% & 50\% & 97.5\% \\ 
+  \midrule
+mu\_a & 1.0 & 1008 & 65.5 & 42.0 & -59.7 & 75.4 & 122.5 \\ 
+  mu\_b\_warm & 1.2 & 22 & -13.1 & 1.0 & -15.1 & -13.0 & -11.5 \\ 
+  mu\_b\_chill & 1.1 & 35 & -2.2 & 2.3 & -6.0 & -2.3 & 3.0 \\ 
+  mu\_b\_photo & 1.1 & 36 & -8.3 & 0.8 & -10.0 & -8.2 & -6.8 \\ 
+   \bottomrule
+\end{tabular}
+\end{table}
+
+
 %%%%%%%%%%% Figures for these tables
 Figure 2. Summary of mixed effect model of days to budburst as predicted by temperature, photoperiod, chilling, site, and species.
 
 \includegraphics[scale=0.5]{lmerDBB}
 
 
+Figure 2stan. Effects of warming and photoperiod on budburst (Stan version).
+
+\includegraphics[scale=0.7]{stanbb}
+
+
+
 Table 2. Summary of mixed effect model of leafout day by species.
 \FloatBarrier
-\begin{table}[H]
+\begin{table}
 \centering
 \begin{tabular}{rrrrrrr}
   \hline
@@ -157,12 +184,23 @@ Table 2. Summary of mixed effect model of leafout day by species.
 \end{tabular}
 \end{table}
 \FloatBarrier
+
 %%%%%%%%%%% Figures for this table
 Figure 3. Summary of mixed effect model of days to leafout as predicted by temperature, photoperiod, chilling, site, and species.
 
 \begin{center}
 \includegraphics[scale=0.5]{lmerDLO}
 \end{center}
+
+
+
+
+Figure 3stan. Effects of warming and photoperiod on leafout  (Stan version).
+
+\includegraphics[scale=0.7]{stanlo}
+
+
+
 
 \subsection*{Effect of chilling}
 The cuttings were harvested in late January 2015, and thus experienced substantial chilling in the field. Using weather station data from the Harvard Forest site, chilling hours (below 7.2°C), Utah Model chill portions (hours below 7.2°C and between 0°C and 7.2°C) and Dynamic Model chill portions (Erez \& Fishman 1997) were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4°C and 1.5°C treatments. With both the Utah and Dynamic model, the more severe chilling treatment resulted in fewer calculated chilling portions.
@@ -222,6 +260,43 @@ Intercept & 26.48 & 0.30 & 88.55 & 0.00 & 25.90 & 27.07 \\
 \end{table}
 \FloatBarrier
 
+%%%% Tree traits on budburst
+
+Table 3tree. Subset of Table 3, for buburst predictors for trees only.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & est & se & stat & p & lwr & upr \\ 
+  \hline
+(Intercept) & 22.15 & 7.82 & 2.83 & 0.00 & 6.81 & 37.50 \\ 
+  wd & 36.99 & 8.28 & 4.47 & 0.00 & 20.75 & 53.24 \\ 
+  sla & 0.03 & 0.01 & 4.52 & 0.00 & 0.02 & 0.04 \\ 
+  X.N & 4.13 & 1.44 & 2.87 & 0.00 & 1.31 & 6.95 \\ 
+  Pore.anatomy & -6.91 & 0.54 & -12.89 & 0.00 & -7.96 & -5.85 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+%%%%% Shrub traits on budburst
+Table 3shrub. Subset of Table 3, for buburst predictors for shrubs only. Effect of wood density changes sign with shrubs, with higher wood density related to earlier budburst for shrubs but later budburst for trees.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & est & se & stat & p & lwr & upr \\ 
+  \hline
+(Intercept) & 41.40 & 8.33 & 4.97 & 0.00 & 25.04 & 57.76 \\ 
+  wd & -78.56 & 13.45 & -5.84 & 0.00 & -104.97 & -52.14 \\ 
+  sla & 0.01 & 0.01 & 0.55 & 0.58 & -0.01 & 0.02 \\ 
+  X.N & 6.74 & 2.97 & 2.27 & 0.02 & 0.90 & 12.59 \\ 
+  Pore.anatomy & 2.27 & 1.82 & 1.25 & 0.21 & -1.30 & 5.84 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 Table 4. Summary of species-specific predictors of leafout day. Greater wood density (n.s.) and tendancy to be diffuse porous resulted in earlier leafout, while high specific leaf area (thinner/less dense leaves) and high leaf \% N resulted in later leafout.
 
 \FloatBarrier
@@ -241,21 +316,54 @@ Pore Anatomy & -0.89 & 0.38 & -2.36 & 0.02 & -1.63 & -0.15 \\
 \end{table}
 \FloatBarrier
 
-Table 5. Phylogenetic signal in timing of budburst and leafout and species specific traits. Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal. 
+Table 4trees. As for Table 4, but for trees only. Leafout day significantly earlier with greater wood density (opposite effect of budburst day).
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & est & se & stat & p & lwr & upr \\ 
+  \hline
+(Intercept) & 89.36 & 9.60 & 9.31 & 0.00 & 70.52 & 108.19 \\ 
+  wd & -48.08 & 10.28 & -4.68 & 0.00 & -68.25 & -27.90 \\ 
+  sla & 0.04 & 0.01 & 4.74 & 0.00 & 0.02 & 0.05 \\ 
+  X.N & -3.08 & 1.74 & -1.77 & 0.08 & -6.50 & 0.34 \\ 
+  Pore.anatomy & -5.06 & 0.61 & -8.35 & 0.00 & -6.24 & -3.87 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+Table 4shrubs. As for Table 3, but for shrubs. Wood density not a significant predictor of leafout day for shrubs.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & est & se & stat & p & lwr & upr \\ 
+  \hline
+(Intercept) & -3.40 & 9.21 & -0.37 & 0.71 & -21.49 & 14.70 \\ 
+  wd & 9.57 & 15.99 & 0.60 & 0.55 & -21.85 & 40.99 \\ 
+  sla & 0.04 & 0.01 & 4.06 & 0.00 & 0.02 & 0.06 \\ 
+  X.N & 9.66 & 3.51 & 2.75 & 0.01 & 2.76 & 16.57 \\ 
+  Pore.anatomy & -1.60 & 2.34 & -0.68 & 0.50 & -6.20 & 3.01 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+Table 5. Phylogenetic signal in timing of budburst and leafout and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal. 
 
 \FloatBarrier
 \begin{table}[ht]
 \centering
-\begin{tabular}{rlrrr}
+\begin{tabular}{rrl}
   \hline
- & Variable & K & PIC variance & PIC variance P \\ 
+ & lambda & var \\ 
   \hline
-1 & Budburst & 0.02 & 47.53 & 0.73 \\ 
-  2 & Leafout & 0.03 & 38.47 & 0.58 \\ 
-  3 & Wood Density & 0.25 & 0.04 & 0.06 \\ 
-  4 & Pore anatomy & 1.38 & 0.01 & 0.00 \\ 
-  5 & SLA & 0.15 & 240.79 & 0.19 \\ 
-  6 & \% N & 0.19 & 0.01 & 0.12 \\ 
+1 & 0.00 & SLA \\ 
+  2 & 0.26 & \% N \\ 
+  3 & 0.00 & Wood Density \\ 
+  4 & 1.00 & Pore anatomy \\ 
    \hline
 \end{tabular}
 \end{table}

@@ -1,4 +1,5 @@
-forlatex = F # set to F if just trying new figures, T if outputting for final
+forlatex =T # set to F if just trying new figures, T if outputting for final
+runstan = F # set to T to actually run stan models. F if loading from previous runs
 
 # Analysis of budburst experiment. Starting with simple linear models
 # 2015-09-16 adding single species models
@@ -14,6 +15,10 @@ library(GGally) # for ggpairs
 library(picante)
 library(sjPlot)
 library(shinystan)
+library(caper)
+
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
 
 setwd("~/Documents/git/buds/analyses")
 source('stan/savestan.R')
@@ -22,17 +27,17 @@ source('stan/savestan.R')
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 # To run from saved stan output
-load(sort(dir()[grep("Stan Output", dir())], T)[1]); ls()
+#load(sort(dir()[grep("Stan Output", dir())], T)[1]); ls()
 
-ssm <- launch_shinystan(doym) 
+#ssm <- launch_shinystan(doyml)
+
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> 
-
 
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
 
 load(file.path("input", toload))
 
-if(forlatex) figpath = "../docs/outline/images" else figpath = "graphs"
+if(forlatex) figpath = "../docs/ms/images" else figpath = "graphs"
 
 # Prep 
 
@@ -74,24 +79,36 @@ xtable(getSummary(m3)$coef)
 pdf(file.path(figpath, "lmerDBB.pdf"), width = 5, height = 5)
 sjp.lmer(m3, type = 'fe.std', 
          axisTitle.x = "Predictors of days to budburst",
-          axisTitle.y = "Effect size",
+         axisTitle.y = "Effect size",
          fade.ns = F)
 dev.off();system(paste("open", file.path(figpath, "lmerDBB.pdf"), "-a /Applications/Preview.app"))
 
 
 # Stan version for budburst day
 dx <- dx[!is.na(dx$bday) & !is.na(dx$lday),]
-sp_site = as.numeric(paste(dx$site, formatC(dx$sp, width = 2, flag = '0'), sep=""))
-sp_sitef = factor(sp_site)
-levels(sp_sitef) = 1:length(levels(sp_sitef))
-sp_site = as.numeric(sp_sitef)
 
-datalist4 <- list(lday = dx$bday, warm = dx$warm, site = dx$site, sp = dx$spn, sp_site = sp_site, photo = dx$photo, chill = dx$chill, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), n_sp_site = length(unique(sp_site)))
+datalist.b <- list(lday = dx$bday, # budburst as respose 
+                   warm = as.numeric(dx$warm), 
+                   site = as.numeric(dx$site), 
+                   sp = as.numeric(dx$sp), 
+                   photo = as.numeric(dx$photo), 
+                   chill = as.numeric(dx$chill), 
+                   N = nrow(dx), 
+                   n_site = length(unique(dx$site)), 
+                   n_sp = length(unique(dx$sp))
+)
+
+
+if(runstan){
+  doym.b <- stan('stan/lday0.stan', data = datalist.b, iter = 4000, chains = 4) 
   
-doym4 <- stan('stan/doy_model7.stan', data = datalist4, iter = 4000, chains = 4) 
-
-sum4 <- summary(doym4)$summary# 3765 rows... what is best way to summarize?
-# ssm4 <- launch_shinystan(doym4) 
+  sumerb <- summary(doym.b)$summary
+  sumerb[grep("mu_", rownames(sumerb)),]
+  
+  ssm.b <- as.shinystan(doym.b)
+  # launch_shinystan(ssm.b) 
+  
+  
 
 # Site effects are a1 and a2. Species level effects for warming and photo are 3:28 and 31:58. Then chill, then interaction of warm x photo. 
 # how to see the pooled parameters - Use extract
@@ -105,14 +122,49 @@ sum4 <- summary(doym4)$summary# 3765 rows... what is best way to summarize?
 # #hist(a$a) # site effects
 sumparams <- c("a","b_warm","b_photo","b_chill","b_inter")
 
-xtable(sum4[1:114,c(1,2,3,10)]) # for supplemental material for now, need a better way to summarize.
+xtable(sumerb[grep("mu_", rownames(sumerb)),c(1,2,3,10)]) # Stan table
 
-ranef(m3) # compare with stan version
-sum4[grep("b_warm", rownames(sum4)),c(1,2,3,10)]
-plot(ranef(m3)$sp$warmn, sum4[grep("b_warm", rownames(sum4)),1]) # Barely related. Need help with stan model
+# Plot random effects as for lmer
+pdf(file.path(figpath, "stanbb.pdf"), width = 7, height = 7)
 
-savestan()
 
+plot(
+  sumerb[grep("b_warm\\[", rownames(sumerb)),1],
+  sumerb[grep("b_photo\\[", rownames(sumerb)),1],
+  pch = "+",
+  xlim = c(-10, 2),
+  ylim = c(-10, 2),
+  ylab = "Estimate under long photoperiod",
+  xlab = "Estimate under warm temperature"
+  )
+
+abline(h=0, lty = 3, col = "grey60")
+abline(v=0, lty = 3, col = "grey60")
+
+arrows(
+  sumerb[grep("b_warm\\[", rownames(sumerb)),"mean"],
+  sumerb[grep("b_photo\\[", rownames(sumerb)),"25%"],
+  sumerb[grep("b_warm\\[", rownames(sumerb)),"mean"],
+  sumerb[grep("b_photo\\[", rownames(sumerb)),"75%"],
+  length = 0, col = alpha("grey50",0.5))
+
+arrows(
+  sumerb[grep("b_warm\\[", rownames(sumerb)),"25%"],
+  sumerb[grep("b_photo\\[", rownames(sumerb)),"mean"],
+  sumerb[grep("b_warm\\[", rownames(sumerb)),"75%"],
+  sumerb[grep("b_photo\\[", rownames(sumerb)),"mean"],
+  length = 0, col = alpha("grey50",0.5))
+
+
+# match with species names
+text( sumerb[grep("b_warm\\[", rownames(sumerb)),1],
+      sumerb[grep("b_photo\\[", rownames(sumerb)),1],
+      sort(unique(dx$sp)),
+      cex = 0.5, 
+      pos = 3)
+dev.off();system(paste("open", file.path(figpath, "stanbb.pdf"), "-a /Applications/Preview.app"))
+
+}
 # 1a. leafout
 
 m3l <- lmer(lday ~ warmn * photon * site * chilln + (warmn|sp) + (photon|sp), data = dx[dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
@@ -124,32 +176,95 @@ xtable(getSummary(m3l)$coef)
 
 pdf(file.path(figpath, "lmerDLO.pdf"), width = 5, height = 5)
 sjp.lmer(m3l, type = 'fe.std', 
-         axisTitle.x = "Predictors of days to budburst",
+         axisTitle.x = "Predictors of days to leafout",
          axisTitle.y = "Effect size",
          fade.ns = F)
 dev.off();system(paste("open", file.path(figpath, "lmerDLO.pdf"), "-a /Applications/Preview.app"))
 
 # Stan version for leafout day
-datalist4 <- list(lday = dx$lday, warm = dx$warm, site = dx$site, sp = dx$spn, sp_site = sp_site, photo = dx$photo, chill = dx$chill, N = nrow(dx), n_site = length(unique(dx$site)), n_sp = length(unique(dx$sp)), n_sp_site = length(unique(sp_site)))
 
-doym4l <- stan('stan/doy_model41.stan', data = datalist4, iter = 1000, chains = 4) 
+datalist.l <- list(lday = dx$lday, # leafout as respose 
+                   warm = as.numeric(dx$warm), 
+                   site = as.numeric(dx$site), 
+                   sp = as.numeric(dx$sp), 
+                   photo = as.numeric(dx$photo), 
+                   chill = as.numeric(dx$chill), 
+                   N = nrow(dx), 
+                   n_site = length(unique(dx$site)), 
+                   n_sp = length(unique(dx$sp))
+)
 
-sum4l <- summary(doym4l)$summary
-# ssm4l <- launch_shinystan(doym4l) 
+if(runstan){
+  doym.l <- stan('stan/lday0.stan', data = datalist.l, iter = 4000, chains = 4) 
+  
+  sumerl <- summary(doym.l)$summary
+  sumerl[grep("mu_", rownames(sumerl)),]
+  
+  ssm.l <- as.shinystan(doym.l)
+  # launch_shinystan(ssm.b) 
+  
 
-xtable(sum4l[1:114,c(1,2,3,10)]) # for supplemental material for now, need a betterw way to summarize.
-
-savestan()
+pdf(file.path(figpath, "stanlo.pdf"), width = 7, height = 7)
 
 
+plot(
+  sumerl[grep("b_warm\\[", rownames(sumerl)),1],
+  sumerl[grep("b_photo\\[", rownames(sumerl)),1],
+  pch = "+",
+  xlim = c(-20, -2),
+  ylim = c(-20, -2),
+  ylab = "Estimate under long photoperiod",
+  xlab = "Estimate under warm temperature"
+)
+
+abline(h=0, lty = 3, col = "grey60")
+abline(v=0, lty = 3, col = "grey60")
+
+arrows(
+  sumerl[grep("b_warm\\[", rownames(sumerl)),"mean"],
+  sumerl[grep("b_photo\\[", rownames(sumerl)),"25%"],
+  sumerl[grep("b_warm\\[", rownames(sumerl)),"mean"],
+  sumerl[grep("b_photo\\[", rownames(sumerl)),"75%"],
+  length = 0, col = alpha("grey50",0.5))
+
+arrows(
+  sumerl[grep("b_warm\\[", rownames(sumerl)),"25%"],
+  sumerl[grep("b_photo\\[", rownames(sumerl)),"mean"],
+  sumerl[grep("b_warm\\[", rownames(sumerl)),"75%"],
+  sumerl[grep("b_photo\\[", rownames(sumerl)),"mean"],
+  length = 0, col = alpha("grey50",0.5))
+
+
+# match with species names
+text( sumerl[grep("b_warm\\[", rownames(sumerl)),1],
+      sumerl[grep("b_photo\\[", rownames(sumerl)),1],
+      sort(unique(dx$sp)),
+      cex = 0.5, 
+      pos = 3)
+dev.off();system(paste("open", file.path(figpath, "stanlo.pdf"), "-a /Applications/Preview.app"))
+
+
+  savestan() 
+  
+}
+# TODO: Plot interactions vs photo, temp, and leafout day. Stan models currently don't have interactions
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # 2. Species-specific responses
 
 # use trait data
 
+# Groups
+
+shrubs = c("VIBLAN","RHAFRA","RHOPRI","SPIALB","VACMYR","VIBCAS", "AROMEL","ILEMUC", "KALANG", "LONCAN", "LYOLIG")
+trees = c("ACEPEN", "ACERUB", "ACESAC", "ALNINC", "BETALL", "BETLEN", "BETPAP", "CORCOR", "FAGGRA", "FRANIG", "HAMVIR", "NYSSYL", "POPGRA", "PRUPEN", "QUEALB" , "QUERUB", "QUEVEL")
+
+
 dxt <- merge(dx, tr, by.x = "sp", by.y = "code")
 #ggpairs(dxt[c("wd","sla","X.N","Pore.anatomy","lday","bday")])
+
+dxt$fg = "shrub"
+dxt$fg[!is.na(match(dxt$sp, trees))] = "tree"
 
 panel.hist <- function(x, ...) {
   usr <- par("usr"); on.exit(par(usr))
@@ -173,6 +288,7 @@ panel.cor <- function(x, y, digits=2, prefix="", cex.cor, ...){
   else text(0.5, 0.5, txt, cex = 1, font=1)
 }
 
+
 pdf(file.path(figpath, "traitpairs.pdf"), width = 6, height = 6)
 pairs(dxt[c("bday","lday","wd","sla","X.N","Pore.anatomy")],
       diag.panel = panel.hist, lower.panel = panel.cor,
@@ -185,15 +301,28 @@ pairs(dxt[c("bday","lday","wd","sla","X.N","Pore.anatomy")],
 )
 dev.off();system(paste("open", file.path(figpath, "traitpairs.pdf"), "-a /Applications/Preview.app"))
 
+
+
+
 dxt[c("wd","sla","X.N","Pore.anatomy")] = scale(dxt[c("wd","sla","X.N","Pore.anatomy")])
 
-(traitlm <- getSummary(lm(lday ~ wd + sla + X.N + Pore.anatomy, data = dxt)))
+(traitlm.t <- getSummary(lm(lday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "tree",])))
 
-(traitlmb <- getSummary(lm(bday ~ wd + sla + X.N + Pore.anatomy, data = dxt)))
+(traitlmb.t <- getSummary(lm(bday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "tree",])))
 
-xtable(traitlmb$coef)
+xtable(traitlmb.t$coef)
 
-xtable(traitlm$coef)
+xtable(traitlm.t$coef)
+
+
+
+(traitlm.s <- getSummary(lm(lday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "shrub",])))
+
+(traitlmb.s <- getSummary(lm(bday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "shrub",])))
+
+xtable(traitlmb.s$coef)
+
+xtable(traitlm.s$coef)
 
 
 Nsummary <- aggregate(X.N ~ sp, data = dxt, mean, na.rm=T)
@@ -216,7 +345,10 @@ PAsummary <- aggregate(Pore.anatomy ~ sp, data = dxt, mean, na.rm=T)
 phsp <- ph$tip.label
 phspcode <- unlist(lapply(strsplit(phsp, "_"), function(x) toupper(paste(substr(x[[1]],1,3), substr(x[[2]],1,3), sep=""))))
 
+ph$tip.label = phspcode
+
 pa.phylo <- drop.tip(ph, phsp[is.na(match(phspcode, PAsummary$sp))])
+
 pamatch <- match(phspcode, PAsummary$sp)
 
 sla.signal <- phylosignal(SLAsummary[match(phspcode, SLAsummary$sp),2], ph)
@@ -234,7 +366,29 @@ signaldat$var = c("Budburst","Leafout","Wood Density","Pore anatomy","SLA", "% N
 names(signaldat) = c("K","PIC variance","PIC var rand", "PIC variance P","PIC variance Z","Variable")
 
 
-xtable(signaldat[c(6,1,2,4)])
+## now with caper
+dxt.agg <- aggregate(dxt[c("wd","sla","X.N","Pore.anatomy","lday","bday")], by = list(dxt$sp), mean)
+names(dxt.agg)[1] = "sp"
+
+ph$node.label = NULL # otherwise give duplicated names error, because of multiple "" in node labels.
+
+sig <- comparative.data(ph, dxt.agg, names.col = "sp")
+
+sla.signal <- pgls(sla ~ lday, sig, lambda = 'ML')
+n.signal <- pgls(X.N ~ lday, sig, lambda = 'ML')
+wd.signal <- pgls(wd ~ lday, sig, lambda = 'ML')
+pa.signal <- pgls(Pore.anatomy ~ lday, sig, lambda = 'ML')
+
+signaldat <- data.frame(
+  rbind(summary(sla.signal)$param["lambda"], 
+        summary(n.signal)$param["lambda"],
+        summary(wd.signal)$param["lambda"],
+        summary(pa.signal)$param["lambda"]))
+        
+signaldat$var = c("SLA","% N","Wood Density","Pore anatomy")
+
+xtable(signaldat)
+
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # 3. Individual level
@@ -284,7 +438,6 @@ abline(h=0, lty = 3, col = alpha('darkblue', 0.5))
 abline(v=0, lty = 3, col = alpha('darkblue', 0.5))
 dev.print(file = "ranefs.pdf", device = pdf)
 
-
 # plot slopes
 plot(ranef(m3)$sp[,2],ranef(m3)$sp[,4],
      pch = "+", col = "grey10",
@@ -329,27 +482,29 @@ for(i in unique(dx$sp)){ # i="ACEPEN"
   # advance from warming
   wm <- mean(dxx[dxx$warm == 2, 'lday'], na.rm=T)
   
-  warmadv = cm - wm    
+  warmadv = wm - cm    
   
   # mean across all short
   sm <- mean(dxx[dxx$photo == 1,'lday'], na.rm=T)
   # advance from warming
   lm <- mean(dxx[dxx$photo == 2, 'lday'], na.rm=T)
    
-  longadv = sm - lm   
+  longadv = lm - sm   
 
   wa = c(wa, warmadv); la =c(la, longadv); oa=c(oa, overallm)
   }
 adv=data.frame(sp=unique(dx$sp), warm=wa, photo=la, overall=oa)
 
 pdf(file.path(figpath, "Advplot.pdf"), width = 8, height = 9)
-plot(warm ~ photo, data = adv, xlim = c(0, 20),ylim=c(0,30),
-     xlab = "Advance in leafout due to photoperiod",
-     ylab = "Advance in leafout due to warming",
+plot(adv$warm, adv$photo, 
+     xlim = c(-25, -2),
+     ylim=c(-25,-2),
+     ylab = "Advance in leafout due to photoperiod",
+     xlab = "Advance in leafout due to warming",
      pch = 1, col = alpha("midnightblue",0.5), lwd = 3,
-     cex = overall/4
+     cex = adv$overall/4
      )
-text(adv$photo,adv$warm,
+text(adv$warm, adv$photo,
      labels = adv$sp, cex = 0.8, adj = 0.5,
      col = alpha('grey20', 0.9))
 
