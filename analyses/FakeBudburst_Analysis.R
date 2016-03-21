@@ -78,7 +78,17 @@ datalist.f <- list(lday = fake$bb, # budburst as respose
                    n_sp = length(unique(fake$sp))
 )
 
-doym.f <- stan('stan/lday0_fixedsite_fixedsp.stan', data = datalist.f, iter = 1000, chains = 4) 
+doym.f2 <- stan('stan/lday0_fixedsite_fixedsp.stan', data = datalist.f, iter = 4000, chains = 4) 
 
+ssm.f <- as.shinystan(doym.f2)
+launch_shinystan(ssm.f2) 
 
 (sumer <- summary(doym.f)$summary)
+
+savestan()
+
+
+# Tips for speeding up, from google groups
+set_cppo(mode = "fast")
+# For finding part of code that is slow
+dir(tempdir())
