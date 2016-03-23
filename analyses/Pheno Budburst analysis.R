@@ -1,21 +1,23 @@
 forlatex =T # set to F if just trying new figures, T if outputting for final
-runstan = F # set to T to actually run stan models. F if loading from previous runs
+runstan = T # set to T to actually run stan models. F if loading from previous runs
 
 # Analysis of budburst experiment. Starting with simple linear models
 # 2015-09-16 adding single species models
 
 library(nlme)
-library(scales)
 library(arm)
 library(rstan)
+library(shinystan)
+library(sjPlot)
+
 library(xtable)
 library(memisc) # for getSummary
+
+library(scales) # for alpha
 library(ggplot2)
 library(GGally) # for ggpairs
 library(picante)
-library(sjPlot)
-library(shinystan)
-library(caper)
+library(caper) # for pgls
 
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
@@ -27,9 +29,11 @@ source('stan/savestan.R')
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 # To run from saved stan output
-#load(sort(dir()[grep("Stan Output", dir())], T)[1]); ls()
-
-#ssm <- launch_shinystan(doyml)
+if(!runstan) { 
+  load(sort(dir()[grep("Stan Output", dir())], T)[1])
+  ls() 
+  launch_shinystan(ssm.l)
+}
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> 
 
@@ -78,6 +82,8 @@ xtable(getSummary(m3)$coef)
 # Graphic representation of model
 pdf(file.path(figpath, "lmerDBB.pdf"), width = 5, height = 5)
 sjp.lmer(m3, type = 'fe.std', 
+         
+         
          axisTitle.x = "Predictors of days to budburst",
          axisTitle.y = "Effect size",
          fade.ns = F)
@@ -108,7 +114,7 @@ if(runstan){
   ssm.b <- as.shinystan(doym.b)
   # launch_shinystan(ssm.b) 
   
-  
+y = dx$bday # for shinystan posterior checks
 
 # Site effects are a1 and a2. Species level effects for warming and photo are 3:28 and 31:58. Then chill, then interaction of warm x photo. 
 # how to see the pooled parameters - Use extract

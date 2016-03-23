@@ -65,6 +65,29 @@ launch_shinystan(ssm.f)
 
 #savestan()
 
+#### now with sp intercept only
+
+datalist.spint <- list(lday = fake$bb, # budburst as respose
+                   warm = as.numeric(fake$warm), 
+                   sp = as.numeric(fake$sp), 
+                   photo = as.numeric(fake$photo), 
+                   chill = as.numeric(fake$chill), 
+                   N = nrow(fake), 
+                   n_sp = length(unique(fake$sp))
+)
+
+doym.f <- stan('stan/lday_nosite_plusspint.stan', data = datalist.spint, iter = 4000, chains = 4) 
+
+sumer <- summary(doym.f)$summary
+sumer[grep("mu_", rownames(sumer)),]
+
+ssm.f <- as.shinystan(doym.f)
+launch_shinystan(ssm.f) 
+
+
+
+
+
 # now with fixed site and fixed sp
 
 datalist.f <- list(lday = fake$bb, # budburst as respose 
