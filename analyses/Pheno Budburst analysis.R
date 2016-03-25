@@ -56,6 +56,11 @@ dx$photo <- as.numeric(dx$photo)
 dx$chill <- as.numeric(dx$chill)
 dx$site <- as.numeric(dx$site)
 
+# Chill dummy variables
+dx$chill1 = ifelse(dx$chill == 1, 1, 0) 
+dx$chill2 = ifelse(dx$chill == 2, 1, 0) 
+dx$chill3 = ifelse(dx$chill == 3, 1, 0) 
+
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 # Analyses:
@@ -82,8 +87,6 @@ xtable(getSummary(m3)$coef)
 # Graphic representation of model
 pdf(file.path(figpath, "lmerDBB.pdf"), width = 5, height = 5)
 sjp.lmer(m3, type = 'fe.std', 
-         
-         
          axisTitle.x = "Predictors of days to budburst",
          axisTitle.y = "Effect size",
          fade.ns = F)
@@ -98,7 +101,9 @@ datalist.b <- list(lday = dx$bday, # budburst as respose
                    site = as.numeric(dx$site), 
                    sp = as.numeric(dx$sp), 
                    photo = as.numeric(dx$photo), 
-                   chill = as.numeric(dx$chill), 
+                   chill1 = as.numeric(dx$chill1),
+                   chill2 = as.numeric(dx$chill2),
+                   chill3 = as.numeric(dx$chill3),
                    N = nrow(dx), 
                    n_site = length(unique(dx$site)), 
                    n_sp = length(unique(dx$sp))
@@ -106,7 +111,7 @@ datalist.b <- list(lday = dx$bday, # budburst as respose
 
 
 if(runstan){
-  doym.b <- stan('stan/lday0.stan', data = datalist.b, iter = 4000, chains = 4) 
+  doym.b <- stan('stan/lday_nosite_plusspint_chill.stan', data = datalist.b, iter = 4000, chains = 4) 
   
   sumerb <- summary(doym.b)$summary
   sumerb[grep("mu_", rownames(sumerb)),]
@@ -194,14 +199,16 @@ datalist.l <- list(lday = dx$lday, # leafout as respose
                    site = as.numeric(dx$site), 
                    sp = as.numeric(dx$sp), 
                    photo = as.numeric(dx$photo), 
-                   chill = as.numeric(dx$chill), 
+                   chill1 = as.numeric(dx$chill1),
+                   chill2 = as.numeric(dx$chill2),
+                   chill3 = as.numeric(dx$chill3),
                    N = nrow(dx), 
                    n_site = length(unique(dx$site)), 
                    n_sp = length(unique(dx$sp))
 )
 
 if(runstan){
-  doym.l <- stan('stan/lday0.stan', data = datalist.l, iter = 4000, chains = 4) 
+  doym.l <- stan('stan/lday_nosite_plusspint_chill.stan', data = datalist.l, iter = 4000, chains = 4) 
   
   sumerl <- summary(doym.l)$summary
   sumerl[grep("mu_", rownames(sumerl)),]
@@ -251,7 +258,12 @@ dev.off();system(paste("open", file.path(figpath, "stanlo.pdf"), "-a /Applicatio
 
 
   savestan() 
+
   
+# Plot overall effects
+  
+  
+    
 }
 # TODO: Plot interactions vs photo, temp, and leafout day. Stan models currently don't have interactions
 
@@ -319,6 +331,7 @@ dxt[c("wd","sla","X.N","Pore.anatomy")] = scale(dxt[c("wd","sla","X.N","Pore.ana
 xtable(traitlmb.t$coef)
 
 xtable(traitlm.t$coef)
+
 
 
 

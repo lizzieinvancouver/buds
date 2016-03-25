@@ -49,13 +49,16 @@ datalist.f <- list(lday = fake$bb, # budburst as respose
                    site = as.numeric(fake$site), 
                    sp = as.numeric(fake$sp), 
                    photo = as.numeric(fake$photo), 
-                   chill = as.numeric(fake$chill), 
+                   chill1 = as.numeric(fake$chill1), 
+                   chill2 = as.numeric(fake$chill2), 
+                   chill3 = as.numeric(fake$chill3), 
                    N = nrow(fake), 
                    n_site = length(unique(fake$site)), 
                    n_sp = length(unique(fake$sp))
 )
 
-doym.f <- stan('stan/lday0.stan', data = datalist.f, iter = 4000, chains = 4) 
+doym.f <- stan('stan/lday_nosite_plusspint_chill.stan', data = datalist.f, iter = 4000, chains = 4) 
+#doym.f <- stan('stan/lday0.stan', data = datalist.f, iter = 4000, chains = 4) 
 
 sumer <- summary(doym.f)$summary
 sumer[grep("mu_", rownames(sumer)),]
