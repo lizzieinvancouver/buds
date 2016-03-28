@@ -562,3 +562,27 @@ for(spx in levels(d$sp)){ # spx = "ACEPEN"#
 			counter = counter + 1#
 			}#
 	}
+load("/Users/danflynn/Documents/git/buds/analyses/Stan Output 2016-03-21.RData")
+ting of pheno budburst experiment 2015#
+#
+library(nlme)#
+library(scales)#
+library(arm)#
+library(rstan)#
+library(xtable)#
+library(memisc) # for getSummary#
+library(ggplot2)#
+library(GGally) # for ggpairs#
+library(picante)#
+library(sjPlot)#
+library(shinystan)#
+#
+setwd("~/Documents/git/buds/analyses")#
+source('stan/savestan.R')
+ls()
+sumer <- summary(doym.f)$summary#
+sumer[grep("mu_", rownames(sumer)),]
+sumer <- summary(doym.l)$summary#
+sumer[grep("mu_", rownames(sumer)),]
+ssm.f <- as.shinystan(doym.f)#
+#launch_shinystan(ssm.f)

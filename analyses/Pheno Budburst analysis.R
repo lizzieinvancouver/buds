@@ -1,5 +1,5 @@
 forlatex =T # set to F if just trying new figures, T if outputting for final
-runstan = T # set to T to actually run stan models. F if loading from previous runs
+runstan = F # set to T to actually run stan models. F if loading from previous runs
 
 # Analysis of budburst experiment. Starting with simple linear models
 # 2015-09-16 adding single species models
@@ -35,6 +35,9 @@ if(!runstan) {
   launch_shinystan(ssm.l)
 }
 
+
+load("Stan Output 2016-03-21.RData") # this one is for lday_nosite_plusspint.stan, without the three levels of chilling. But need to re-do, this one pools for site.
+launch_shinystan(doym.l)
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> 
 
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
@@ -93,7 +96,8 @@ sjp.lmer(m3, type = 'fe.std',
 dev.off();system(paste("open", file.path(figpath, "lmerDBB.pdf"), "-a /Applications/Preview.app"))
 
 
-# Stan version for budburst day
+# Stan version for budburst day. 
+
 dx <- dx[!is.na(dx$bday) & !is.na(dx$lday),]
 
 datalist.b <- list(lday = dx$bday, # budburst as respose 
@@ -118,7 +122,10 @@ if(runstan){
   
   ssm.b <- as.shinystan(doym.b)
   # launch_shinystan(ssm.b) 
+
   
+
+    
 y = dx$bday # for shinystan posterior checks
 
 # Site effects are a1 and a2. Species level effects for warming and photo are 3:28 and 31:58. Then chill, then interaction of warm x photo. 
@@ -131,7 +138,7 @@ y = dx$bday # for shinystan posterior checks
 # 
 # mean(a$b_inter) # warm * photo interax
 # #hist(a$a) # site effects
-sumparams <- c("a","b_warm","b_photo","b_chill","b_inter")
+sumparams <- c("a","b_warm","b_photo","b_chill")#,"b_inter")
 
 xtable(sumerb[grep("mu_", rownames(sumerb)),c(1,2,3,10)]) # Stan table
 
@@ -143,10 +150,10 @@ plot(
   sumerb[grep("b_warm\\[", rownames(sumerb)),1],
   sumerb[grep("b_photo\\[", rownames(sumerb)),1],
   pch = "+",
-  xlim = c(-10, 2),
-  ylim = c(-10, 2),
-  ylab = "Estimate under long photoperiod",
-  xlab = "Estimate under warm temperature"
+  xlim = c(-13, 2),
+  ylim = c(-13, 2),
+  ylab = "Advance due to long photoperiod",
+  xlab = "Advance due to warm temperature"
   )
 
 abline(h=0, lty = 3, col = "grey60")
@@ -224,10 +231,10 @@ plot(
   sumerl[grep("b_warm\\[", rownames(sumerl)),1],
   sumerl[grep("b_photo\\[", rownames(sumerl)),1],
   pch = "+",
-  xlim = c(-20, -2),
-  ylim = c(-20, -2),
-  ylab = "Estimate under long photoperiod",
-  xlab = "Estimate under warm temperature"
+  xlim = c(-20, -5),
+  ylim = c(-20, -5),
+  ylab = "Advance due to long photoperiod",
+  xlab = "Advance due to warm temperature"
 )
 
 abline(h=0, lty = 3, col = "grey60")
@@ -257,8 +264,12 @@ text( sumerl[grep("b_warm\\[", rownames(sumerl)),1],
 dev.off();system(paste("open", file.path(figpath, "stanlo.pdf"), "-a /Applications/Preview.app"))
 
 
-  savestan() 
 
+setwd("~/Dropbox")
+
+savestan()
+
+setwd("~/Documents/git/buds/analyses")
   
 # Plot overall effects
   

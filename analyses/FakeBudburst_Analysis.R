@@ -21,6 +21,12 @@ options(mc.cores = parallel::detectCores())
 
 load("Fake Budburst Smaller.RData")
 
+
+# Chill dummy variables
+fake$chill1 = ifelse(fake$chill == 1, 1, 0) 
+fake$chill2 = ifelse(fake$chill == 2, 1, 0) 
+fake$chill3 = ifelse(fake$chill == 3, 1, 0) 
+
 ### Ideas 2016-03-16
 ### 1. Center data
 ### 2. Throw out site
@@ -64,9 +70,14 @@ sumer <- summary(doym.f)$summary
 sumer[grep("mu_", rownames(sumer)),]
 
 ssm.f <- as.shinystan(doym.f)
-launch_shinystan(ssm.f) 
+# launch_shinystan(ssm.f) 
 
-#savestan()
+setwd("~/Dropbox")
+
+savestan()
+
+setwd("~/Documents/git/buds/analyses")
+
 
 #### now with sp intercept only
 
@@ -85,36 +96,44 @@ sumer <- summary(doym.f)$summary
 sumer[grep("mu_", rownames(sumer)),]
 
 ssm.f <- as.shinystan(doym.f)
-launch_shinystan(ssm.f) 
-
-
-
-
-
-# now with fixed site and fixed sp
-
-datalist.f <- list(lday = fake$bb, # budburst as respose 
-                   warm = as.numeric(fake$warm), 
-                   site = as.numeric(fake$site), 
-                   sp = as.numeric(fake$sp), 
-                   photo = as.numeric(fake$photo), 
-                   chill = as.numeric(fake$chill), 
-                   N = nrow(fake), 
-                   n_site = length(unique(fake$site)), 
-                   n_sp = length(unique(fake$sp))
-)
-
-doym.f2 <- stan('stan/lday0_fixedsite_fixedsp.stan', data = datalist.f, iter = 4000, chains = 4) 
-
-ssm.f <- as.shinystan(doym.f2)
-launch_shinystan(ssm.f2) 
+#launch_shinystan(ssm.f) 
 
 (sumer <- summary(doym.f)$summary)
 
+setwd("~/Dropbox")
+
 savestan()
 
+setwd("~/Documents/git/buds/analyses")
 
-# Tips for speeding up, from google groups
-set_cppo(mode = "fast")
-# For finding part of code that is slow
-dir(tempdir())
+# 
+# # now with fixed site and fixed sp
+# 
+# datalist.f <- list(lday = fake$bb, # budburst as respose 
+#                    warm = as.numeric(fake$warm), 
+#                    site = as.numeric(fake$site), 
+#                    sp = as.numeric(fake$sp), 
+#                    photo = as.numeric(fake$photo), 
+#                    chill = as.numeric(fake$chill), 
+#                    N = nrow(fake), 
+#                    n_site = length(unique(fake$site)), 
+#                    n_sp = length(unique(fake$sp))
+# )
+# 
+# doym.f2 <- stan('stan/lday0_fixedsite_fixedsp.stan', data = datalist.f, iter = 4000, chains = 4) 
+# 
+# ssm.f <- as.shinystan(doym.f2)
+# #launch_shinystan(ssm.f2) 
+# 
+# (sumer <- summary(doym.f)$summary)
+# 
+# setwd("~/Dropbox")
+# 
+# savestan()
+# 
+# setwd("~/Documents/git/buds/analyses")
+# 
+# # Tips for speeding up, from google groups
+# set_cppo(mode = "fast")
+# # For finding part of code that is slow
+# dir(tempdir())

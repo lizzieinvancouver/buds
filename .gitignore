@@ -21,3 +21,5 @@ docs/outline/Budburst.log
 
 docs/outline/Budburst.aux
 .Rproj.user
+
+*.RData
