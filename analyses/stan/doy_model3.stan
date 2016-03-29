@@ -3,7 +3,7 @@ data {
   int<lower=0> n_site;
   int<lower=0> n_sp;
   int<lower=0> n_sp_site;
-    int<lower=1, upper=n_site> site[N];
+  int<lower=1, upper=n_site> site[N];
   int<lower=1, upper=n_sp> sp[N];
   int<lower=1, upper=n_sp_site> sp_site[N]; // created in R
   vector[N] lday;

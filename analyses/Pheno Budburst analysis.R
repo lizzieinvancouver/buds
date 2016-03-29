@@ -1,5 +1,5 @@
 forlatex =T # set to F if just trying new figures, T if outputting for final
-runstan = F # set to T to actually run stan models. F if loading from previous runs
+runstan = T # set to T to actually run stan models. F if loading from previous runs
 
 # Analysis of budburst experiment. Starting with simple linear models
 # 2015-09-16 adding single species models
@@ -60,9 +60,10 @@ dx$chill <- as.numeric(dx$chill)
 dx$site <- as.numeric(dx$site)
 
 # Chill dummy variables
-dx$chill1 = ifelse(dx$chill == 1, 1, 0) 
-dx$chill2 = ifelse(dx$chill == 2, 1, 0) 
-dx$chill3 = ifelse(dx$chill == 3, 1, 0) 
+dx$chill1 = ifelse(dx$chill == 2, 1, 0) 
+dx$chill2 = ifelse(dx$chill == 3, 1, 0) 
+
+with(dx, table(chill1, chill2)) # all three levels in here
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
@@ -80,7 +81,7 @@ dx$chill3 = ifelse(dx$chill == 3, 1, 0)
 # 1. day of budburst by all factors, lmer. Using numeric predictors
 # Graphic representation of data
 
-m3 <- lmer(bday ~ warmn * photon * site * chilln + (warmn|sp) + (photon|sp), data = dx[dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
+m3 <- lmer(bday ~ site + warmn * photon * chilln + (warmn|sp) + (photon|sp) + (chill|sp), data = dx[dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
 summary(m3)
 fixef(m3)
 ranef(m3)
@@ -107,7 +108,6 @@ datalist.b <- list(lday = dx$bday, # budburst as respose
                    photo = as.numeric(dx$photo), 
                    chill1 = as.numeric(dx$chill1),
                    chill2 = as.numeric(dx$chill2),
-                   chill3 = as.numeric(dx$chill3),
                    N = nrow(dx), 
                    n_site = length(unique(dx$site)), 
                    n_sp = length(unique(dx$sp))
@@ -115,7 +115,7 @@ datalist.b <- list(lday = dx$bday, # budburst as respose
 
 
 if(runstan){
-  doym.b <- stan('stan/lday_nosite_plusspint_chill.stan', data = datalist.b, iter = 4000, chains = 4) 
+  doym.b <- stan('stan/lday_site_sp_chill.stan', data = datalist.b, iter = 4000, chains = 4) 
   
   sumerb <- summary(doym.b)$summary
   sumerb[grep("mu_", rownames(sumerb)),]

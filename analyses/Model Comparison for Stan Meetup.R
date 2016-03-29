@@ -100,3 +100,55 @@ mchillcatsite <- doym.3
 pairs(mchillcatsite, pars = c(names(mchillcatsite)[grep("mu_", names(mchillcatsite))], "lp__"))
 
 launch_shinystan(mchillcatsite)
+
+## notes from Stanleyi meeting 2016-03-21
+
+
+
+
+setwd("~/Documents/git/buds/analyses")
+source('stan/savestan.R')
+# get latest .Rdata file
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
+# To run from saved stan output
+if(!runstan) { 
+  load(sort(dir()[grep("Stan Output", dir())], T)[1])
+  ls() 
+  launch_shinystan(ssm.l)
+}
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> 
+
+print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
+
+load(file.path("input", toload))
+
+
+dx$warmn = scale(as.numeric(as.character(dx$warm)))
+dx$photon = scale(as.numeric(as.character(dx$photo)))
+dx$chilln = scale(as.numeric(substr(as.character(dx$chill), 6, 6)))
+dx$spn <- as.numeric(dx$sp)
+
+levels(dx$warm) = c(0,1); levels(dx$photo) = c(0, 1); levels(dx$site) = 1:2; levels(dx$chill) = 1:3
+dx$warm <- as.numeric(dx$warm)
+dx$photo <- as.numeric(dx$photo)
+dx$chill <- as.numeric(dx$chill)
+dx$site <- as.numeric(dx$site)
+
+
+### looking at a real species
+with(dx[dx$sp == "VIBLAN",],
+     table(warm, photo, chill)
+)
+
+vx <- dx[dx$sp == "VIBLAN",]
+
+tapply(vx$lday, list(vx$warm, vx$photo, vx$chill), mean,na.rm=T)
+
+
+tapply(vx$lday, list(vx$warm, vx$photo, vx$chill), function(x) length(x[!is.na(x)]))
+
+mean(vx$lday,na.rm=T)
+
