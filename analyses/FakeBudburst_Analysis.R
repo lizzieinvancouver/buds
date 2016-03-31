@@ -29,7 +29,7 @@ fake$chill2 = ifelse(fake$chill == 3, 1, 0)
 with(fake, table(chill1, chill2)) # three levels are represented
 
 ### Ideas 2016-03-16
-### 1. Center data
+### 1. Center data - not needed
 ### 3. Parallelize for cluster -- look for training session coming up. Find a way to run each chain on a different node. 
 
 # Lmer on fake
@@ -38,7 +38,7 @@ fake.lmer <- lmer(bb ~ site + (warm|sp) + (photo|sp) + (chill1|sp) + (chill2|sp)
 
 fake.lmer <- lmer(bb ~ site + (warm|sp) + (photo|sp) + (chill|sp), data = fake)
 
-# also gives warming, this is too hard to fit
+# also gives warning, this is too hard to fit
 fake.lmer <- lmer(bb ~ site + warm + photo + chill + (warm|sp) + (photo|sp) + (chill|sp), data = fake)
 
 
@@ -70,7 +70,7 @@ datalist.f <- list(lday = fake$bb, # budburst as respose
 
 doym.f <- stan('stan/lday_site_sp_chill.stan', data = datalist.f, iter = 4000, chains = 4) 
 # lday_site_chill: < 120 seconds per chain, very fast
-# lday_site_sp_chill: much slower. 
+# lday_site_sp_chill: much slower.   
 #doym.f <- stan('stan/lday0.stan', data = datalist.f, iter = 4000, chains = 4) 
 
 sumer <- summary(doym.f)$summary

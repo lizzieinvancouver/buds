@@ -34,10 +34,10 @@ if(!runstan) {
   ls() 
   launch_shinystan(ssm.l)
 }
-
-
-load("Stan Output 2016-03-21.RData") # this one is for lday_nosite_plusspint.stan, without the three levels of chilling. But need to re-do, this one pools for site.
-launch_shinystan(doym.l)
+# 
+# 
+# load("Stan Output 2016-03-21.RData") # this one is for lday_nosite_plusspint.stan, without the three levels of chilling. But need to re-do, this one pools for site.
+# launch_shinystan(doym.l)
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> 
 
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
@@ -65,6 +65,73 @@ dx$chill2 = ifelse(dx$chill == 3, 1, 0)
 
 with(dx, table(chill1, chill2)) # all three levels in here
 
+dx <- dx[!is.na(dx$bday) & !is.na(dx$lday),]
+
+with(dx, table(chill1, chill2)) # reductions due to nonleafouts
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
+plotlet <- function(x, y, xlab, ylab, data, groups = NULL){
+  
+  minmax = range(c(data[grep(paste(x,"\\[",sep=""), rownames(data)),1], data[grep(paste(y,"\\[",sep=""), rownames(data)),1]))
+  
+  if(is.null(groups)) { col.pch = "black"; col.lines = "grey50" }
+    else {
+      colz = c("midnightblue", "darkgreen")
+      ccolz = rep(colz[1], length(groups))
+      ccolz[groups == 2] = colz[2]
+      col.pch = ccolz
+      col.lines = alpha(ccolz, 0.4)
+    }
+  
+  
+  plot(
+  data[grep(paste(x,"\\[",sep=""), rownames(data)),1],
+  data[grep(paste(y,"\\[",sep=""), rownames(data)),1],
+  pch = "+",
+  xlim = c(floor(minmax)[1], ceiling(minmax)[2]),
+  ylim = c(floor(minmax)[1], ceiling(minmax)[2]),
+  ylab = ylab,
+  xlab = xlab,
+  col = col.pch
+  )
+
+  abline(h=0, lty = 3, col = "grey60")
+  abline(v=0, lty = 3, col = "grey60")
+  
+  arrows(
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),"25%"],
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),"75%"],
+    length = 0, col = col.lines)
+  
+  arrows(
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),"25%"],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"],
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),"75%"],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"],
+    length = 0, col = col.lines)
+  
+  
+  # match with species names
+  text( data[grep(paste(x,"\\[",sep=""), rownames(data)),1],
+        data[grep(paste(y,"\\[",sep=""), rownames(data)),1],
+        sort(unique(dx$sp)),
+        cex = 0.5, 
+        pos = 3,
+        col = col.pch)
+}
+
+# Groups
+
+shrubs = c("VIBLAN","RHAFRA","RHOPRI","SPIALB","VACMYR","VIBCAS", "AROMEL","ILEMUC", "KALANG", "LONCAN", "LYOLIG")
+trees = c("ACEPEN", "ACERUB", "ACESAC", "ALNINC", "BETALL", "BETLEN", "BETPAP", "CORCOR", "FAGGRA", "FRANIG", "HAMVIR", "NYSSYL", "POPGRA", "PRUPEN", "QUEALB" , "QUERUB", "QUEVEL")
+
+treeshrub = levels(dx$sp)
+treeshrub[treeshrub %in% shrubs] = 1
+treeshrub[treeshrub %in% trees] = 2
+treeshrub = as.numeric(treeshrub)
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 # Analyses:
@@ -81,25 +148,37 @@ with(dx, table(chill1, chill2)) # all three levels in here
 # 1. day of budburst by all factors, lmer. Using numeric predictors
 # Graphic representation of data
 
-m3 <- lmer(bday ~ site + warmn * photon * chilln + (warmn|sp) + (photon|sp) + (chill|sp), data = dx[dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
-summary(m3)
-fixef(m3)
-ranef(m3)
+m1 <- lmer(bday ~ (site|sp) + (warmn|sp) + (photon|sp) + (chill1|sp) + (chill2|sp), data = dx) 
 
-xtable(getSummary(m3)$coef)
+# with interactions... hard for lmer to do. I didn't have patience to let it try, seems stuck after ~ 10 min
 
-# Graphic representation of model
-pdf(file.path(figpath, "lmerDBB.pdf"), width = 5, height = 5)
-sjp.lmer(m3, type = 'fe.std', 
-         axisTitle.x = "Predictors of days to budburst",
-         axisTitle.y = "Effect size",
-         fade.ns = F)
-dev.off();system(paste("open", file.path(figpath, "lmerDBB.pdf"), "-a /Applications/Preview.app"))
+# m2 <- lmer(bday ~ (site*warmn|sp) + 
+#              (site*photon|sp) + 
+#              (site*chill1|sp) + 
+#              (site*chill2|sp) + 
+#              (warmn*photon|sp) +
+#              (warmn*chill1|sp) +
+#              (warmn*chill2|sp) +
+#              (photon*chill1|sp) +
+#              (photon*chill2|sp) 
+#            , data = dx) 
 
+# with interactions
 
+summary(m1)
+fixef(m1)
+ranef(m1) # chill1 and chill2 effects similar to stan estimates
+
+# xtable(getSummary(m3)$coef)
+# # Graphic representation of model
+# pdf(file.path(figpath, "lmerDBB.pdf"), width = 5, height = 5)
+# sjp.lmer(m3, type = 'fe.std', 
+#          axisTitle.x = "Predictors of days to budburst",
+#          axisTitle.y = "Effect size",
+#          fade.ns = F)
+# dev.off();system(paste("open", file.path(figpath, "lmerDBB.pdf"), "-a /Applications/Preview.app"))
+# 
 # Stan version for budburst day. 
-
-dx <- dx[!is.na(dx$bday) & !is.na(dx$lday),]
 
 datalist.b <- list(lday = dx$bday, # budburst as respose 
                    warm = as.numeric(dx$warm), 
@@ -113,9 +192,11 @@ datalist.b <- list(lday = dx$bday, # budburst as respose
                    n_sp = length(unique(dx$sp))
 )
 
-
 if(runstan){
-  doym.b <- stan('stan/lday_site_sp_chill.stan', data = datalist.b, iter = 4000, chains = 4) 
+  doym.b <- stan('stan/lday_site_sp_chill_inter.stan', 
+                 data = datalist.b, iter = 4000, chains = 4,
+                 control = list(adapt_delta = 0.9,
+                                max_treedepth = 15)) 
   
   sumerb <- summary(doym.b)$summary
   sumerb[grep("mu_", rownames(sumerb)),]
@@ -123,83 +204,27 @@ if(runstan){
   ssm.b <- as.shinystan(doym.b)
   # launch_shinystan(ssm.b) 
 
-  
-
-    
 y = dx$bday # for shinystan posterior checks
 
-# Site effects are a1 and a2. Species level effects for warming and photo are 3:28 and 31:58. Then chill, then interaction of warm x photo. 
-# how to see the pooled parameters - Use extract
-# a <- extract(doym4)
-# 
-# mean(a$b_warm) # overall effect of warming on leafout day
-# mean(a$b_photo) 
-# mean(a$b_chill) 
-# 
-# mean(a$b_inter) # warm * photo interax
-# #hist(a$a) # site effects
-sumparams <- c("a","b_warm","b_photo","b_chill")#,"b_inter")
-
-xtable(sumerb[grep("mu_", rownames(sumerb)),c(1,2,3,10)]) # Stan table
-
-# Plot random effects as for lmer
+# Plot random effects 
 pdf(file.path(figpath, "stanbb.pdf"), width = 7, height = 7)
 
+plotlet("b_warm", "b_photo", 
+        xlab = "Advance due to 10° warming", 
+        ylab = "Advance due to 4 hr longer photoperiod", 
+        group = treeshrub,
+        data = sumerb)
 
-plot(
-  sumerb[grep("b_warm\\[", rownames(sumerb)),1],
-  sumerb[grep("b_photo\\[", rownames(sumerb)),1],
-  pch = "+",
-  xlim = c(-13, 2),
-  ylim = c(-13, 2),
-  ylab = "Advance due to long photoperiod",
-  xlab = "Advance due to warm temperature"
-  )
+plotlet("b_chill1", "b_chill1", 
+        xlab = "Advance due to 30d 4° chilling", 
+        ylab = "Advance due to 30d 1.5° chilling", 
+        group = treeshrub,
+        data = sumerb)
 
-abline(h=0, lty = 3, col = "grey60")
-abline(v=0, lty = 3, col = "grey60")
-
-arrows(
-  sumerb[grep("b_warm\\[", rownames(sumerb)),"mean"],
-  sumerb[grep("b_photo\\[", rownames(sumerb)),"25%"],
-  sumerb[grep("b_warm\\[", rownames(sumerb)),"mean"],
-  sumerb[grep("b_photo\\[", rownames(sumerb)),"75%"],
-  length = 0, col = alpha("grey50",0.5))
-
-arrows(
-  sumerb[grep("b_warm\\[", rownames(sumerb)),"25%"],
-  sumerb[grep("b_photo\\[", rownames(sumerb)),"mean"],
-  sumerb[grep("b_warm\\[", rownames(sumerb)),"75%"],
-  sumerb[grep("b_photo\\[", rownames(sumerb)),"mean"],
-  length = 0, col = alpha("grey50",0.5))
-
-
-# match with species names
-text( sumerb[grep("b_warm\\[", rownames(sumerb)),1],
-      sumerb[grep("b_photo\\[", rownames(sumerb)),1],
-      sort(unique(dx$sp)),
-      cex = 0.5, 
-      pos = 3)
 dev.off();system(paste("open", file.path(figpath, "stanbb.pdf"), "-a /Applications/Preview.app"))
 
 }
 # 1a. leafout
-
-m3l <- lmer(lday ~ warmn * photon * site * chilln + (warmn|sp) + (photon|sp), data = dx[dx$nl == 1,]) # NAs in lday being omitted, doesn't matter if specify nl == 1 or not.
-summary(m3l)
-fixef(m3l)
-ranef(m3l)
-
-xtable(getSummary(m3l)$coef)
-
-pdf(file.path(figpath, "lmerDLO.pdf"), width = 5, height = 5)
-sjp.lmer(m3l, type = 'fe.std', 
-         axisTitle.x = "Predictors of days to leafout",
-         axisTitle.y = "Effect size",
-         fade.ns = F)
-dev.off();system(paste("open", file.path(figpath, "lmerDLO.pdf"), "-a /Applications/Preview.app"))
-
-# Stan version for leafout day
 
 datalist.l <- list(lday = dx$lday, # leafout as respose 
                    warm = as.numeric(dx$warm), 
@@ -208,85 +233,42 @@ datalist.l <- list(lday = dx$lday, # leafout as respose
                    photo = as.numeric(dx$photo), 
                    chill1 = as.numeric(dx$chill1),
                    chill2 = as.numeric(dx$chill2),
-                   chill3 = as.numeric(dx$chill3),
                    N = nrow(dx), 
                    n_site = length(unique(dx$site)), 
                    n_sp = length(unique(dx$sp))
 )
 
 if(runstan){
-  doym.l <- stan('stan/lday_nosite_plusspint_chill.stan', data = datalist.l, iter = 4000, chains = 4) 
+  doym.l <- stan('stan/lday_site_sp_chill_inter.stan',
+                data = datalist.l, iter = 4000, chains = 4,
+                control = list(adapt_delta = 0.9,
+                               max_treedepth = 15)) 
   
   sumerl <- summary(doym.l)$summary
   sumerl[grep("mu_", rownames(sumerl)),]
   
   ssm.l <- as.shinystan(doym.l)
-  # launch_shinystan(ssm.b) 
+  # launch_shinystan(ssm.l) 
   
-
 pdf(file.path(figpath, "stanlo.pdf"), width = 7, height = 7)
+           
+plotlet("b_warm", "b_photo", 
+        xlab = "Advance due to 10° warming", 
+        ylab = "Advance due to 4 hr longer photoperiod", 
+        group = treeshrub,
+        data = sumerl)
 
-
-plot(
-  sumerl[grep("b_warm\\[", rownames(sumerl)),1],
-  sumerl[grep("b_photo\\[", rownames(sumerl)),1],
-  pch = "+",
-  xlim = c(-20, -5),
-  ylim = c(-20, -5),
-  ylab = "Advance due to long photoperiod",
-  xlab = "Advance due to warm temperature"
-)
-
-abline(h=0, lty = 3, col = "grey60")
-abline(v=0, lty = 3, col = "grey60")
-
-arrows(
-  sumerl[grep("b_warm\\[", rownames(sumerl)),"mean"],
-  sumerl[grep("b_photo\\[", rownames(sumerl)),"25%"],
-  sumerl[grep("b_warm\\[", rownames(sumerl)),"mean"],
-  sumerl[grep("b_photo\\[", rownames(sumerl)),"75%"],
-  length = 0, col = alpha("grey50",0.5))
-
-arrows(
-  sumerl[grep("b_warm\\[", rownames(sumerl)),"25%"],
-  sumerl[grep("b_photo\\[", rownames(sumerl)),"mean"],
-  sumerl[grep("b_warm\\[", rownames(sumerl)),"75%"],
-  sumerl[grep("b_photo\\[", rownames(sumerl)),"mean"],
-  length = 0, col = alpha("grey50",0.5))
-
-
-# match with species names
-text( sumerl[grep("b_warm\\[", rownames(sumerl)),1],
-      sumerl[grep("b_photo\\[", rownames(sumerl)),1],
-      sort(unique(dx$sp)),
-      cex = 0.5, 
-      pos = 3)
 dev.off();system(paste("open", file.path(figpath, "stanlo.pdf"), "-a /Applications/Preview.app"))
 
+savestan("Inter")
 
-
-setwd("~/Dropbox")
-
-savestan()
-
-setwd("~/Documents/git/buds/analyses")
-  
-# Plot overall effects
-  
-  
-    
 }
-# TODO: Plot interactions vs photo, temp, and leafout day. Stan models currently don't have interactions
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # 2. Species-specific responses
 
 # use trait data
 
-# Groups
-
-shrubs = c("VIBLAN","RHAFRA","RHOPRI","SPIALB","VACMYR","VIBCAS", "AROMEL","ILEMUC", "KALANG", "LONCAN", "LYOLIG")
-trees = c("ACEPEN", "ACERUB", "ACESAC", "ALNINC", "BETALL", "BETLEN", "BETPAP", "CORCOR", "FAGGRA", "FRANIG", "HAMVIR", "NYSSYL", "POPGRA", "PRUPEN", "QUEALB" , "QUERUB", "QUEVEL")
 
 
 dxt <- merge(dx, tr, by.x = "sp", by.y = "code")
