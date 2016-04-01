@@ -2,7 +2,7 @@
 library(dplyr)
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-# new version, with vectorized random value generation
+# Set up: same as experiment, with two sites, 28 species, two levels each of warming and photoperiod, and three levels of chilling. 2016-04-01 adding interactions, and changing to 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 nsite = 2
@@ -12,141 +12,86 @@ nwarm = 2
 nphoto = 2
 nchill = 3
 
-rep = 101
+rep = 33 # within each combination of treatments. 
 
-(ntot = nsp*nsite*nwarm*nphoto*nchill*rep) # 67k rows
+(ntot = nsite*nwarm*nphoto*nchill*rep) # 792 rows; 22k rows across species
 
 # Build up the data frame
-sp = gl(nsp, rep, length = ntot) 
-site = gl(nsite, rep*nsp, length = ntot)
+site = gl(nsite, rep, length = ntot)
 
-warm = gl(nwarm, rep*nsp*nsite, length = ntot)
-photo = gl(nphoto, rep*nsp*nsite*nwarm, length = ntot)
-chill = gl(nchill, rep*nsp*nsite*nwarm*nphoto, length = ntot)
+warm = gl(nwarm, rep*nsite, length = ntot)
+photo = gl(nphoto, rep*nsite*nwarm, length = ntot)
+chill = gl(nchill, rep*nsite*nwarm*nphoto, length = ntot)
 
-treatcombo = paste(warm, photo, chill, sep = "_")
+chill1 = ifelse(chill == 2, 1, 0) 
+chill2 = ifelse(chill == 3, 1, 0) 
 
-(d <- data_frame(sp, site, warm, photo, chill, treatcombo))
+treatcombo = paste(warm, photo, chill1, chill2, sep = "_")
+
+(d <- data_frame(site, warm, photo, chill1, chill2, treatcombo))
 
 ###### Set up differences for each level
+sitediff = 2 
+warmdiff = -20 # days earlier from 1 to 2
+photodiff = -14
+chill1diff = -20
+chill2diff = -19
 
-warmdiff = c(0, -10) # days earlier from 1 to 2
-photodiff = c(0, -7)
-chilldiff = c(0, -3, -1)
+# interactions. 9 two-way interactions
+sitewarm = 0
+sitephoto = 0
+sitechill1 = -1 # similar to stan results
+sitechill2 = -2
+warmphoto = 3.5 # positive 3.5. So at the warm level, the effect of longer days is muted by 3.5 days.
+warmchill1 = 11 # both positive ~ 10. 
+warmchill2 = 9
+photochill1 = 0.1 # from stan results
+photochill2 = 1
 
-sd.warmdiff = 1 
-sd.photodiff = 0.5 
-sd.chilldiff = 2 
+mm <- model.matrix(~(site+warm+photo+chill1+chill2)^2, data.frame(site, warm, photo))
+# remove last column, chill1 x chill2, empty
+mm <- mm[,-grep("chill1:chill2", colnames(mm))]
+colnames(mm)
 
-sd.sp = seq(0.1, 2, length.out = nsp) # perhaps remove... giving species different sd
+coeff <- c(1, sitediff, warmdiff, photodiff, chill1diff, chill2diff, 
+           sitewarm, sitephoto, sitechill1, sitechill2,
+           warmphoto, warmchill1, warmchill2,
+           photochill1, photochill2
+)
 
-sitemeans = c(55, 57) # day of year of budburst
-spmeans = 1:nsp # intercept for each species
+bb <- rnorm(n = length(warm), mean = mm %*% coeff, sd = 1) # should be able to do sd = mm %*% sd.coeff as well, with a different sd for each parameter.
 
-####### Generate values. Go over site, then treatment combo. First arrange data frame in order of loop
-d <- arrange(d, site, treatcombo)
+fake <- data.frame(bb, site, warm, photo, chill1, chill2)
 
-bb <- vector()
+summary(lm(bb ~ (site+warm+photo+chill1+chill2)^2, data = fake)) # sanity check 
 
-for(i in 1:nsite){
-  d1 <- filter(d, site == i)
-  for(j in unique(d1$treatcombo)){
-    d2 <- filter(d1, treatcombo == j)
-    
-    warmx = d2$warm[1]
-    photx = d2$photo[1]
-    chilx = d2$chill[1]
-    sitx = d2$site[1]
-    
-    # vector of means, based on species values at this site and treatment combination
-    meanx = spmeans + sitemeans[sitx] + warmdiff[warmx]+ photodiff[photx] + chilldiff[chilx]
-    
-    # Draw species_number x replicate number of draws, for each mean
-    xx <- rnorm(nsp*rep, meanx, sqrt( sd.warmdiff^2 + sd.photodiff^2 + sd.chilldiff^2 + sd.sp^2) )
-    xx.sp <- rep(1:nsp, rep) # put these values in the right order to match the data frame
-    
-    bb <- c(bb, xx[order(xx.sp)])
+##### Again, now with species now.
+
+baseinter = 35 # baseline intercept across all species 
+spint <- baseinter + c(1:nsp)-mean(1:nsp) # different intercepts by species
+
+fake <- vector()
+
+for(i in 1:nsp){ # loop over species, as these are the random effect modeled
+  
+  coeff <- c(spint[i], sitediff, warmdiff, photodiff, chill1diff, chill2diff, 
+             sitewarm, sitephoto, sitechill1, sitechill2,
+             warmphoto, warmchill1, warmchill2,
+             photochill1, photochill2
+  )
+  
+  bb <- rnorm(n = length(warm), mean = mm %*% coeff, sd = 0.1)
+  
+  fakex <- data.frame(bb, sp = i, site, warm, photo, chill1, chill2)
+      
+  fake <- rbind(fake, fakex)  
   }
-}
 
-fake <- data.frame(d, bb)
+summary(lm(bb ~ (site+warm+photo+chill1+chill2)^2, data = fake)) # sanity check 
 
-#ggplot(d, aes(warm, bb)) + geom_point(color = site) + facet_grid(.~sp)
-tapply(fake$bb, list(fake$sp, fake$site), mean)
+#summary(lmer(bb ~ (site|sp) + (warm|sp) + (photo|sp) + (chill1|sp) + (chill2|sp), data = fake)) # too hard for lmer.
 
 save(list=c("fake"), file = "Fake Budburst.RData")
-
-# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-  
-### do a small fake 
-
-nsite = 2
-nsp = 28
-
-nwarm = 2
-nphoto = 2
-nchill = 3
-
-rep = 5
-
-(ntot = nsp*nsite*nwarm*nphoto*nchill*rep) # 3k rows
-
-# Build up the data frame
-sp = gl(nsp, rep, length = ntot) 
-site = gl(nsite, rep*nsp, length = ntot)
-
-warm = gl(nwarm, rep*nsp*nsite, length = ntot)
-photo = gl(nphoto, rep*nsp*nsite*nwarm, length = ntot)
-chill = gl(nchill, rep*nsp*nsite*nwarm*nphoto, length = ntot)
-
-treatcombo = paste(warm, photo, chill, sep = "_")
-
-(d <- data_frame(sp, site, warm, photo, chill, treatcombo))
-
-###### Set up differences for each level
-
-warmdiff = c(0, -10) # days earlier from 1 to 2
-photodiff = c(0, -7)
-chilldiff = c(0, -3, -1)
-
-sd.warmdiff = 1 
-sd.photodiff = 0.5 
-sd.chilldiff = 2 
-
-sd.sp = seq(0.1, 2, length.out = nsp) # perhaps remove... giving species different sd
-
-sitemeans = c(55, 57) # day of year of budburst -- this will be main intercept a
-spmeans = 1:nsp # additional days for each species
-
-####### Generate values. Go over site, then treatment combo. First arrange data frame in order of loop
-d <- arrange(d, site, treatcombo)
-
-bb <- vector()
-
-for(i in 1:nsite){
-  d1 <- filter(d, site == i)
-  for(j in unique(d1$treatcombo)){
-    d2 <- filter(d1, treatcombo == j)
-    
-    warmx = d2$warm[1]
-    photx = d2$photo[1]
-    chilx = d2$chill[1]
-    sitx = d2$site[1]
-    
-    # vector of means, based on species values at this site and treatment combination
-    meanx = spmeans + sitemeans[sitx] + warmdiff[warmx]+ photodiff[photx] + chilldiff[chilx]
-    
-    # Draw species_number x replicate number of draws, for each mean
-    xx <- rnorm(nsp*rep, meanx, sqrt( sd.warmdiff^2 + sd.photodiff^2 + sd.chilldiff^2 + sd.sp^2) )
-    xx.sp <- rep(1:nsp, rep) # put these values in the right order to match the data frame
-    
-    bb <- c(bb, xx[order(xx.sp)])
-  }
-}
-
-fake <- data.frame(d, bb)
-
-save(list=c("fake"), file = "Fake Budburst Smaller.RData")
 
 
 

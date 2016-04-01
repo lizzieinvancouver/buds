@@ -7,7 +7,6 @@ library(rstan)
 library(xtable)
 library(memisc) # for getSummary
 library(ggplot2)
-library(GGally) # for ggpairs
 library(picante)
 library(sjPlot)
 library(shinystan)
@@ -19,41 +18,7 @@ source('stan/savestan.R')
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
-load("Fake Budburst Smaller.RData")
-
-
-# Chill dummy variables
-fake$chill1 = ifelse(fake$chill == 2, 1, 0) 
-fake$chill2 = ifelse(fake$chill == 3, 1, 0) 
-
-with(fake, table(chill1, chill2)) # three levels are represented
-
-### Ideas 2016-03-16
-### 1. Center data - not needed
-### 3. Parallelize for cluster -- look for training session coming up. Find a way to run each chain on a different node. 
-
-# Lmer on fake
-# both these fail
-fake.lmer <- lmer(bb ~ site + (warm|sp) + (photo|sp) + (chill1|sp) + (chill2|sp), data = fake)
-
-fake.lmer <- lmer(bb ~ site + (warm|sp) + (photo|sp) + (chill|sp), data = fake)
-
-# also gives warning, this is too hard to fit
-fake.lmer <- lmer(bb ~ site + warm + photo + chill + (warm|sp) + (photo|sp) + (chill|sp), data = fake)
-
-
-anova(fake.lmer)
-summary(fake.lmer)
-# Expect site effect ~ 2
-# warming ~ 10
-# photo ~ 7
-# chill ~ 1, 3
-# no interax
-ranef(fake.lmer)
-sjp.lmer(fake.lmer, type = "fe")
-
-sjp.lmer(fake.lmer, type = "fe.std") # standardized effect sizes
-sjt.lmer(fake.lmer)
+load("Fake Budburst.RData")
 
 # To Stan!
 datalist.f <- list(lday = fake$bb, # budburst as respose 
@@ -83,7 +48,7 @@ launch_shinystan(ssm.f)
 
 setwd("~/Dropbox")
 
-savestan()
+savestan("Fake")
 
 setwd("~/Documents/git/buds/analyses")
 

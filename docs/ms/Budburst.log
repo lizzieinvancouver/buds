@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  21 MAR 2016 10:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  1 APR 2016 10:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -456,20 +456,20 @@ Missing character: There is no ° in font cmss10!
 Missing character: There is no ° in font cmss10!
 Missing character: There is no ° in font cmss10!
 
-<images/Chillplot.pdf, id=81, 505.89pt x 578.16pt>
+<images/Chillplot.pdf, id=93, 505.89pt x 578.16pt>
 File: images/Chillplot.pdf Graphic file (type pdf)
  <use images/Chillplot.pdf>
 Package pdftex.def Info: images/Chillplot.pdf used on input line 234.
 (pdftex.def)             Requested size: 328.82458pt x 375.79955pt.
 
 [11] [12 <./images/Chillplot.pdf>] [13] [14]
-<images/traitpairs.pdf, id=114, 433.62pt x 433.62pt>
+<images/traitpairs.pdf, id=117, 433.62pt x 433.62pt>
 File: images/traitpairs.pdf Graphic file (type pdf)
 
 <use images/traitpairs.pdf>
 Package pdftex.def Info: images/traitpairs.pdf used on input line 375.
 (pdftex.def)             Requested size: 325.2142pt x 325.2142pt.
- <images/indvar.pdf, id=115, 361.35pt x 361.35pt>
+ <images/indvar.pdf, id=118, 361.35pt x 361.35pt>
 File: images/indvar.pdf Graphic file (type pdf)
 
 <use images/indvar.pdf>
@@ -503,10 +503,10 @@ fonts/cm/cmssbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmssi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-
 super/sfss1095.pfb>
-Output written on Budburst.pdf (20 pages, 439022 bytes).
+Output written on Budburst.pdf (20 pages, 416396 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 130 compressed objects within 2 object streams
+ 182 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

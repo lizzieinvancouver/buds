@@ -15,7 +15,6 @@ library(memisc) # for getSummary
 
 library(scales) # for alpha
 library(ggplot2)
-library(GGally) # for ggpairs
 library(picante)
 library(caper) # for pgls
 
@@ -194,7 +193,7 @@ datalist.b <- list(lday = dx$bday, # budburst as respose
 
 if(runstan){
   doym.b <- stan('stan/lday_site_sp_chill_inter.stan', 
-                 data = datalist.b, iter = 4000, chains = 4,
+                 data = datalist.b, iter = 5005, chains = 4,
                  control = list(adapt_delta = 0.9,
                                 max_treedepth = 15)) 
   
@@ -581,3 +580,16 @@ dev.off();system(paste("open", file.path(figpath, "Chillplot.pdf"), "-a /Applica
 
 
 
+## understanding the interactions
+# warm x photo
+tapply(dx$lday, list(dx$warm, dx$photo), mean, na.rm=T)
+# warm as rows, photo as columns.
+diff(tapply(dx$lday, list(dx$warm, dx$photo), mean, na.rm=T))
+# 13 days earlier effect of warming under short days, only 10 days earlier under long days. So a positive interaction (delay of leafout under the combination of both factors).
+
+tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T)
+diff(tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T))
+# effect of warming was largest without additional chilling. When additional chilling was present, effect of warming was much more muted (replacement of warming effect by chilling effect).
+
+tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T)
+diff(tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T))

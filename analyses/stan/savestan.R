@@ -6,7 +6,7 @@ savestan <- function(suffix=NULL) {
 		  sapply(ls(envir=.GlobalEnv), function(x) class(get(x)))
 		=="shinystan" 
 		  )
-  suffix = paste(suffix, " ", collapse = "")
-	save(file=paste("Stan Output ", suffix, Sys.Date(), ".RData", sep=""), list = ls(envir=.GlobalEnv)[tosave])
+  suffix = paste(" ", suffix, collapse = "")
+	save(file=paste("Stan Output ", Sys.Date(), suffix, ".RData", sep=""), list = ls(envir=.GlobalEnv)[tosave])
 	
 	} 
