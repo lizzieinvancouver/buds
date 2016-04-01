@@ -215,13 +215,15 @@ plotlet("b_warm", "b_photo",
         group = treeshrub,
         data = sumerb)
 
-plotlet("b_chill1", "b_chill1", 
+plotlet("b_chill1", "b_chill2", 
         xlab = "Advance due to 30d 4° chilling", 
         ylab = "Advance due to 30d 1.5° chilling", 
         group = treeshrub,
         data = sumerb)
 
 dev.off();system(paste("open", file.path(figpath, "stanbb.pdf"), "-a /Applications/Preview.app"))
+
+savestan("Inter")
 
 }
 # 1a. leafout
@@ -255,6 +257,12 @@ pdf(file.path(figpath, "stanlo.pdf"), width = 7, height = 7)
 plotlet("b_warm", "b_photo", 
         xlab = "Advance due to 10° warming", 
         ylab = "Advance due to 4 hr longer photoperiod", 
+        group = treeshrub,
+        data = sumerl)
+
+plotlet("b_chill1", "b_chill2", 
+        xlab = "Advance due to 30d 4° chilling", 
+        ylab = "Advance due to 30d 1.5° chilling", 
         group = treeshrub,
         data = sumerl)
 
