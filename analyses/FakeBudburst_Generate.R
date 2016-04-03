@@ -12,7 +12,7 @@ nwarm = 2
 nphoto = 2
 nchill = 3
 
-rep = 33 # within each combination of treatments. 
+rep = 10 # within each combination of treatments. 
 
 (ntot = nsite*nwarm*nphoto*nchill*rep) # 792 rows; 22k rows across species
 

@@ -1,14 +1,8 @@
 # Fake data testing of pheno budburst experiment 2015
 
-library(nlme)
-library(scales)
-library(arm)
 library(rstan)
 library(xtable)
-library(memisc) # for getSummary
 library(ggplot2)
-library(picante)
-library(sjPlot)
 library(shinystan)
 
 setwd("~/Documents/git/buds/analyses")
@@ -33,7 +27,11 @@ datalist.f <- list(lday = fake$bb, # budburst as respose
                    n_sp = length(unique(fake$sp))
                   )
 
-doym.f <- stan('stan/lday_site_sp_chill.stan', data = datalist.f, iter = 4000, chains = 4) 
+doym.f <- stan('stan/lday_site_sp_chill_inter.stan', data = datalist.f, 
+               iter = 4004, 
+               control = list(adapt_delta = 0.9,
+                              max_treedepth = 15)) 
+
 # lday_site_chill: < 120 seconds per chain, very fast
 # lday_site_sp_chill: much slower.   
 #doym.f <- stan('stan/lday0.stan', data = datalist.f, iter = 4000, chains = 4) 
@@ -46,41 +44,30 @@ pairs(doym.f, pars = names(doym.f)[grep("mu_", names(doym.f))])
 ssm.f <- as.shinystan(doym.f)
 launch_shinystan(ssm.f) 
 
-setwd("~/Dropbox")
+#setwd("~/Dropbox")
 
-savestan("Fake")
+savestan("Fake Interax")
 
-setwd("~/Documents/git/buds/analyses")
+#setwd("~/Documents/git/buds/analyses")
+
+# Load lastest fake data output. Grep for both Fake and Stan Output.
+fakes <- na.omit(grep("Stan Output", dir())[match(grep("Fake", dir()), grep("Stan Output", dir()))])
+
+load(sort(dir()[fakes], T)[1])
+
+sf <- summary(doym.f)$summary
+
+plotlet("b_warm", "b_photo", 
+        xlab = "Advance due to 30d 4° chilling", 
+        ylab = "Advance due to 30d 1.5° chilling", 
+        data = sf)
+
+di <- sf[grep("mu_b_inter", rownames(sf)),]
+
+plot(seq(min(di[,"mean"]-di[,"sd"]*1.5), max(di[,"mean"]+di[,"sd"]*1.5), length.out = nrow(di)),
+     1:nrow(di), type ="n")
 
 
-#### now with sp intercept only
-
-datalist.spint <- list(lday = fake$bb, # budburst as respose
-                   warm = as.numeric(fake$warm), 
-                   sp = as.numeric(fake$sp), 
-                   photo = as.numeric(fake$photo), 
-                   chill = as.numeric(fake$chill), 
-                   N = nrow(fake), 
-                   n_sp = length(unique(fake$sp))
-)
-
-doym.f <- stan('stan/lday_nosite_plusspint.stan', data = datalist.spint, iter = 4000, chains = 4) 
-
-sumer <- summary(doym.f)$summary
-sumer[grep("mu_", rownames(sumer)),]
-
-ssm.f <- as.shinystan(doym.f)
-#launch_shinystan(ssm.f) 
-
-(sumer <- summary(doym.f)$summary)
-
-setwd("~/Dropbox")
-
-savestan()
-
-setwd("~/Documents/git/buds/analyses")
-
-# 
 # # now with fixed site and fixed sp
 # 
 # datalist.f <- list(lday = fake$bb, # budburst as respose 
@@ -111,3 +98,50 @@ setwd("~/Documents/git/buds/analyses")
 # set_cppo(mode = "fast")
 # # For finding part of code that is slow
 # dir(tempdir())
+
+
+
+plotlet <- function(x, y, xlab, ylab, data, groups = NULL){
+  
+  minmax = range(c(data[grep(paste(x,"\\[",sep=""), rownames(data)),1], data[grep(paste(y,"\\[",sep=""), rownames(data)),1]))
+  
+  if(is.null(groups)) { col.pch = "black"; col.lines = "grey50" }
+  else {
+    colz = c("midnightblue", "darkgreen")
+    ccolz = rep(colz[1], length(groups))
+    ccolz[groups == 2] = colz[2]
+    col.pch = ccolz
+    col.lines = alpha(ccolz, 0.4)
+  }
+  
+  
+  plot(
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),1],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),1],
+    pch = "+",
+    xlim = c(floor(minmax)[1], ceiling(minmax)[2]),
+    ylim = c(floor(minmax)[1], ceiling(minmax)[2]),
+    ylab = ylab,
+    xlab = xlab,
+    col = col.pch
+  )
+  
+  abline(h=0, lty = 3, col = "grey60")
+  abline(v=0, lty = 3, col = "grey60")
+  
+  arrows(
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),"25%"],
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),"75%"],
+    length = 0, col = col.lines)
+  
+  arrows(
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),"25%"],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"],
+    data[grep(paste(x,"\\[",sep=""), rownames(data)),"75%"],
+    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"],
+    length = 0, col = col.lines)
+  
+
+}
