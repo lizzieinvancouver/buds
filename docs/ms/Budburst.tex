@@ -90,52 +90,26 @@ Table 1. Summary of mixed effect model of budburst day by species
 \centering
 \begin{tabular}{rrrrrrr}
   \hline
- & est & se & stat & p & lwr & upr \\ 
+ & mean & sd & 25\% & 50\% & 75\% & Rhat \\ 
   \hline
-(Intercept) & 25.90 & 1.75 & 14.76 & 0.00 & 22.46 & 29.34 \\ 
-  warmn & -2.20 & 0.43 & -5.16 & 0.00 & -3.03 & -1.36 \\ 
-  photon & -2.50 & 0.39 & -6.34 & 0.00 & -3.27 & -1.73 \\ 
-  siteSH & -0.41 & 0.43 & -0.96 & 0.34 & -1.24 & 0.43 \\ 
-  chilln & -3.99 & 0.33 & -11.93 & 0.00 & -4.65 & -3.34 \\ 
-  warmn:photon & -0.20 & 0.28 & -0.73 & 0.46 & -0.75 & 0.34 \\ 
-  warmn:siteSH & -0.49 & 0.41 & -1.18 & 0.24 & -1.29 & 0.32 \\ 
-  photon:siteSH & 0.06 & 0.41 & 0.14 & 0.89 & -0.75 & 0.87 \\ 
-  warmn:chilln & 2.16 & 0.30 & 7.16 & 0.00 & 1.57 & 2.75 \\ 
-  photon:chilln & -0.11 & 0.31 & -0.34 & 0.73 & -0.71 & 0.50 \\ 
-  siteSH:chilln & -0.52 & 0.44 & -1.18 & 0.24 & -1.37 & 0.34 \\ 
-  warmn:photon:siteSH & -0.13 & 0.41 & -0.32 & 0.75 & -0.93 & 0.67 \\ 
-  warmn:photon:chilln & -0.59 & 0.29 & -2.02 & 0.04 & -1.17 & -0.02 \\ 
-  warmn:siteSH:chilln & -0.31 & 0.42 & -0.74 & 0.46 & -1.14 & 0.51 \\ 
-  photon:siteSH:chilln & 0.06 & 0.42 & 0.15 & 0.88 & -0.77 & 0.89 \\ 
-  warmn:photon:siteSH:chilln & 0.06 & 0.42 & 0.14 & 0.89 & -0.77 & 0.88 \\ 
-           Var(\~{}1$|$sp) & 60.41 &  &  &  &  &  \\ 
-       Var(\~{}warmn$|$sp) & 2.72 &  &  &  &  &  \\ 
-     Cov(\~{}1:warmn$|$sp) & -12.82 &  &  &  &  &  \\ 
-         Var(\~{}1$|$sp.1) & 22.57 &  &  &  &  &  \\ 
-    Var(\~{}photon$|$sp.1) & 1.88 &  &  &  &  &  \\ 
-  Cov(\~{}1:photon$|$sp.1) & -6.52 &  &  &  &  &  \\ 
-        Var(residual) & 68.42 &  &  &  &  &  \\ 
+Temperature & -6.80 & 1.71 & -7.95 & -7.02 & -5.63 & 1.05 \\ 
+  Chilling 4° & -22.09 & 2.84 & -24.05 & -21.75 & -20.26 & 1.03 \\ 
+  Chilling 1.5°C & -19.79 & 2.96 & -22.32 & -19.90 & -17.78 & 1.13 \\ 
+  Photoperiod & -3.96 & 1.67 & -5.13 & -4.13 & -2.80 & 1.05 \\ 
+  Site & 2.59 & 1.88 & 0.93 & 2.54 & 3.93 & 1.13 \\ 
+  Temperature x Photoperiod & -0.60 & 0.72 & -1.07 & -0.46 & -0.24 & 1.02 \\ 
+  Temperature x Site & -1.48 & 0.76 & -1.99 & -1.35 & -1.00 & 1.04 \\ 
+  Photoperiod x Site & 0.05 & 0.79 & -0.52 & 0.09 & 0.76 & 1.10 \\ 
+  Temperature x Chilling 4°C & 9.17 & 1.00 & 8.50 & 9.32 & 9.77 & 1.03 \\ 
+  Temperature x Chilling 1.5°C & 9.68 & 1.06 & 9.11 & 9.57 & 10.33 & 1.00 \\ 
+  Photoperiod x Chilling 4°C & -0.18 & 0.96 & -0.82 & -0.06 & 0.47 & 1.04 \\ 
+  Photoperiod x Chilling 1.5°C & -0.02 & 1.03 & -0.67 & 0.14 & 0.48 & 1.02 \\ 
+  Site x Chilling 4°C & -1.96 & 1.33 & -2.84 & -1.86 & -0.85 & 1.09 \\ 
+  Site x Chilling 1.5°C & -3.49 & 1.23 & -4.14 & -3.55 & -2.78 & 1.01 \\ 
    \hline
 \end{tabular}
 \end{table}
 \FloatBarrier
-
-Table 1stan. Summary of stan model for budburst day by species
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{lrrrrrrr}
-  \toprule
-Parameter & Rhat & n\_eff & mean & sd & 2.5\% & 50\% & 97.5\% \\ 
-  \midrule
-mu\_a & 1.0 & 1008 & 65.5 & 42.0 & -59.7 & 75.4 & 122.5 \\ 
-  mu\_b\_warm & 1.2 & 22 & -13.1 & 1.0 & -15.1 & -13.0 & -11.5 \\ 
-  mu\_b\_chill & 1.1 & 35 & -2.2 & 2.3 & -6.0 & -2.3 & 3.0 \\ 
-  mu\_b\_photo & 1.1 & 36 & -8.3 & 0.8 & -10.0 & -8.2 & -6.8 \\ 
-   \bottomrule
-\end{tabular}
-\end{table}
-
 
 %%%%%%%%%%% Figures for these tables
 Figure 2. Summary of mixed effect model of days to budburst as predicted by temperature, photoperiod, chilling, site, and species.
