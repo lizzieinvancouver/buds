@@ -2,7 +2,7 @@
 library(dplyr)
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-# Set up: same as experiment, with two sites, 28 species, two levels each of warming and photoperiod, and three levels of chilling. 2016-04-01 adding interactions, and changing to 
+# Set up: same as experiment, with two sites, 28 species, two levels each of warming and photoperiod, and three levels of chilling. 2016-04-01 adding interactions. This ends up generating expected differences, but variation in effect sizes across species is minimal currently.
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 nsite = 2
@@ -48,6 +48,25 @@ warmchill2 = 9
 photochill1 = 0.1 # from stan results
 photochill2 = 1
 
+######## SD for each treatment
+sitediff.sd = 1.5 
+warmdiff.sd = 1 
+photodiff.sd = 1
+chill1diff.sd = 1.5
+chill2diff.sd = 2
+
+# interactions. 9 two-way interactions
+sitewarm.sd = 1
+sitephoto.sd = 1
+sitechill1.sd = 2 
+sitechill2.sd = 2
+warmphoto.sd = 1
+warmchill1.sd = 1.5
+warmchill2.sd = 1.5
+photochill1.sd = 1
+photochill2.sd = 1
+
+
 mm <- model.matrix(~(site+warm+photo+chill1+chill2)^2, data.frame(site, warm, photo))
 # remove last column, chill1 x chill2, empty
 mm <- mm[,-grep("chill1:chill2", colnames(mm))]
@@ -74,10 +93,23 @@ fake <- vector()
 
 for(i in 1:nsp){ # loop over species, as these are the random effect modeled
   
-  coeff <- c(spint[i], sitediff, warmdiff, photodiff, chill1diff, chill2diff, 
-             sitewarm, sitephoto, sitechill1, sitechill2,
-             warmphoto, warmchill1, warmchill2,
-             photochill1, photochill2
+  # Give species different difference values, drawn from normal. Could make dataframe of diffs and diff.sds, and use apply..
+  
+  coeff <- c(spint[i], 
+             rnorm(1, sitediff, sitediff.sd),
+             rnorm(1, warmdiff, warmdiff.sd),
+             rnorm(1, photodiff, photodiff.sd), 
+             rnorm(1, chill1diff, chill1diff.sd),
+             rnorm(1, chill2diff, chill2diff.sd), 
+             rnorm(1, sitewarm, sitewarm.sd), 
+             rnorm(1, sitephoto, sitephoto.sd),
+             rnorm(1, sitechill1, sitechill1.sd),
+             rnorm(1, sitechill2, sitechill2.sd),
+             rnorm(1, warmphoto, warmphoto.sd),
+             rnorm(1, warmchill1, warmchill1.sd),
+             rnorm(1, warmchill2, warmchill2.sd),
+             rnorm(1, photochill1, photochill1.sd),
+             rnorm(1, photochill2, photochill2.sd)
   )
   
   bb <- rnorm(n = length(warm), mean = mm %*% coeff, sd = 0.1)

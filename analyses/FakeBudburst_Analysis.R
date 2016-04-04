@@ -14,6 +14,8 @@ options(mc.cores = parallel::detectCores())
 
 load("Fake Budburst.RData")
 
+
+
 # To Stan!
 datalist.f <- list(lday = fake$bb, # budburst as respose 
                    warm = as.numeric(fake$warm), 
@@ -51,16 +53,25 @@ savestan("Fake Interax")
 #setwd("~/Documents/git/buds/analyses")
 
 # Load lastest fake data output. Grep for both Fake and Stan Output.
-fakes <- na.omit(grep("Stan Output", dir())[match(grep("Fake", dir()), grep("Stan Output", dir()))])
+if(!exists('doym.f')){
+  
+  fakes <- na.omit(grep("Stan Output", dir())[match(grep("Fake", dir()), grep("Stan Output", dir()))])
 
-load(sort(dir()[fakes], T)[1])
+  load(sort(dir()[fakes], T)[1])
+}
 
 sf <- summary(doym.f)$summary
 
 plotlet("b_warm", "b_photo", 
-        xlab = "Advance due to 30d 4° chilling", 
-        ylab = "Advance due to 30d 1.5° chilling", 
-        data = sf)
+        #xlab = "Advance due to 30d 4° chilling", 
+        #ylab = "Advance due to 30d 1.5° chilling", 
+        dat = sf)
+
+plotlet("b_inter_wc2", "b_inter_wc1", 
+        #xlab = "Advance due to 30d 4° chilling", 
+        #ylab = "Advance due to 30d 1.5° chilling", 
+        dat = sf)
+
 
 di <- sf[grep("mu_b_inter", rownames(sf)),]
 
@@ -101,9 +112,12 @@ plot(seq(min(di[,"mean"]-di[,"sd"]*1.5), max(di[,"mean"]+di[,"sd"]*1.5), length.
 
 
 
-plotlet <- function(x, y, xlab, ylab, data, groups = NULL){
+plotlet <- function(x, y, xlab=NULL, ylab=NULL, dat, groups = NULL){
   
-  minmax = range(c(data[grep(paste(x,"\\[",sep=""), rownames(data)),1], data[grep(paste(y,"\\[",sep=""), rownames(data)),1]))
+  if(is.null(xlab)) xlab = x
+  if(is.null(ylab)) ylab = y
+  
+  minmax = range(c(dat[grep(paste(x,"\\[",sep=""), rownames(dat)),1], dat[grep(paste(y,"\\[",sep=""), rownames(dat)),1]))
   
   if(is.null(groups)) { col.pch = "black"; col.lines = "grey50" }
   else {
@@ -114,10 +128,9 @@ plotlet <- function(x, y, xlab, ylab, data, groups = NULL){
     col.lines = alpha(ccolz, 0.4)
   }
   
-  
-  plot(
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),1],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),1],
+    plot(
+    dat[grep(paste(x,"\\[",sep=""), rownames(dat)),1],
+    dat[grep(paste(y,"\\[",sep=""), rownames(dat)),1],
     pch = "+",
     xlim = c(floor(minmax)[1], ceiling(minmax)[2]),
     ylim = c(floor(minmax)[1], ceiling(minmax)[2]),
@@ -130,17 +143,17 @@ plotlet <- function(x, y, xlab, ylab, data, groups = NULL){
   abline(v=0, lty = 3, col = "grey60")
   
   arrows(
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),"25%"],
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),"75%"],
+    dat[grep(paste(x,"\\[",sep=""), rownames(dat)),"mean"],
+    dat[grep(paste(y,"\\[",sep=""), rownames(dat)),"25%"],
+    dat[grep(paste(x,"\\[",sep=""), rownames(dat)),"mean"],
+    dat[grep(paste(y,"\\[",sep=""), rownames(dat)),"75%"],
     length = 0, col = col.lines)
   
   arrows(
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),"25%"],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"],
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),"75%"],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"],
+    dat[grep(paste(x,"\\[",sep=""), rownames(dat)),"25%"],
+    dat[grep(paste(y,"\\[",sep=""), rownames(dat)),"mean"],
+    dat[grep(paste(x,"\\[",sep=""), rownames(dat)),"75%"],
+    dat[grep(paste(y,"\\[",sep=""), rownames(dat)),"mean"],
     length = 0, col = col.lines)
   
 
