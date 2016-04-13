@@ -17,7 +17,7 @@ sumerl[!is.na(match(rownames(sumerl), paste("b_chill2[", nochill, "]", sep="")))
 
 ## budburst
 
-pdf(file.path(figpath, "stanbb.pdf"), width = 8, height = 8)  
+pdf(file.path(figpath, "stanbb_1.pdf"), width = 8, height = 8)  
 
 plotlet("b_warm","b_photo",
         group = treeshrub,
@@ -35,7 +35,7 @@ legend("bottomright",
        inset = 0.02, 
        bg = 'white')
 
-dev.off();system(paste("open", file.path(figpath, "stanbb.pdf"), "-a/Applications/Preview.app"))
+dev.off();system(paste("open", file.path(figpath, "stanbb_1.pdf"), "-a/Applications/Preview.app"))
 
 ### 3-way with chilling
 
@@ -87,8 +87,9 @@ plotlet("b_chill2","b_warm",
         
 dev.off();system(paste("open", file.path(figpath, "stanbb_3.pdf"), "-a/Applications/Preview.app"))
 
-pdf(file.path(figpath, "stanbb_sitechill.pdf"), width = 8, height = 5)  
 
+
+pdf(file.path(figpath, "stanbb_sitechill.pdf"), width = 8, height = 5)  
 par(mfrow=c(1,2))
 
 plotlet("b_chill1","b_site",
@@ -111,8 +112,7 @@ plotlet("b_chill2","b_site",
 
 dev.off();system(paste("open", file.path(figpath, "stanbb_sitechill.pdf"), "-a/Applications/Preview.app"))
 
-
-pdf(file.path(figpath, "stanlo.pdf"), width = 8, height = 8)  
+pdf(file.path(figpath, "stanlo_1.pdf"), width = 8, height = 8)  
 
 plotlet("b_warm","b_photo",
         group = treeshrub,
@@ -129,7 +129,7 @@ plotlet("b_warm","b_photo",
          legend = c("Shrubs","Trees"),
          inset = 0.02)
   
-dev.off();system(paste("open", file.path(figpath, "stanlo.pdf"), "-a/Applications/Preview.app"))
+dev.off();system(paste("open", file.path(figpath, "stanlo_1.pdf"), "-a/Applications/Preview.app"))
 
 ### 3-way with chilling
 
@@ -209,9 +209,6 @@ dev.off();system(paste("open", file.path(figpath, "stanlo_sitechill.pdf"), "-a/A
 
 
 ######## Trait plots
-
-#the basic traits figures of  TRAIT ~ warmeff with shrubs and trees on one figure, color coded and slopes for each group from simple regressions added? I only need woody density and/or SLA.
-
 
 # SLA, wood density, and N vs warmeff, photoeff, chilleff, budburst and leafout
 tr <- tr[!duplicated(tr$code),]
