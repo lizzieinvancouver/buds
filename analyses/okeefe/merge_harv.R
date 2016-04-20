@@ -13,6 +13,8 @@ library(zoo)
 
 setwd("~/Documents/git/projects/treegarden/okeefe/analyses")
 
+if(length(grep("danflynn", getwd()))>0){ setwd("~/Documents/git/buds/analyses/okeefe") }
+
 # Species binomials etc. extractions #
 sppexpr <- "^([^ ]*) *([^ ]*) *([^ ]*) *$"
 sppexprcrazy <- "^([^ ]*) ?([^ ]*)? ?(var. |subsp. | )?(.*)?"

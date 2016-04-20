@@ -670,6 +670,7 @@ spxtreat <- data.frame(spxtreat, leafout.order = lo, budburst.order = bo)
 write.csv(spxtreat, file="Species x Treat BB LO for OKeefe.csv",row.names=F)
 
 
+
 ####### Trait pairs plot
 
 panel.hist <- function(x, ...) {
