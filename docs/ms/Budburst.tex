@@ -156,18 +156,30 @@ With 6 replicates of these species across 6 experimental treatments being monito
 
 \begin{table}
 \caption{Phylogenetic signal in timing of budburst and leafout and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal.}
-\centering
-\begin{tabular}{rrl}
+\begin{tabular}{lr}
   \hline
- & lambda & var \\ 
+Relationship & Lambda \\ 
   \hline
-1 & 0.00 & SLA \\ 
-  2 & 0.26 & \% N \\ 
-  3 & 0.00 & Wood Density \\ 
-  4 & 1.00 & Pore anatomy \\ 
+SLA - Temperature & 0.000 \\ 
+  SLA - Photoperiod & 0.000 \\ 
+  SLA - Chilling 4° & 0.000 \\ 
+  SLA - Chilling 1.5° & 0.000 \\ 
+  Wood Density - Temperature & 0.000 \\ 
+  Wood Density - Photoperiod & 0.000 \\ 
+  Wood Density - Chilling 4° & 0.000 \\ 
+  Wood Density - Chilling 1.5° & 0.000 \\ 
+  \% N - Temperature & 0.285 \\ 
+  \% N - Photoperiod & 0.203 \\ 
+  \% N - Chilling 4° & 0.127 \\ 
+  \% N - Chilling 1.5° & 0.130 \\ 
+  Pore anatomy - Temperature & 1.000 \\ 
+  Pore anatomy - Photoperiod & 1.000 \\ 
+  Pore anatomy - Chilling 4° & 1.000 \\ 
+  Pore anatomy - Chilling 1.5° & 1.000 \\ 
    \hline
 \end{tabular}
 \end{table}
+
 
 % Trait tables
 \begin{table}[ht]
@@ -327,37 +339,44 @@ Temperature & -21.91 & 1.72 & -23.05 & -21.90 & -20.75 & 1.01 \\
 \includegraphics[scale=0.6]{stanbb_3}
 \end{figure}
 
+
 \begin{figure}
 \caption{Budburst, site x chill}
 \includegraphics[scale=0.75]{stanbb_sitechill}
 \end{figure}
+
 
 \begin{figure}
 \caption{Leafout, three-way plots}
 \includegraphics[scale=0.6]{stanlo_3}
 \end{figure}
 
+
 \begin{figure}
 \caption{Leafout, site x chill}
 \includegraphics[scale=0.75]{stanlo_sitechill}
 \end{figure}
 
+\clearpage % dealing with 'too many unprocessed floats' error
 
 \begin{figure}
 \caption{Frequency of days to budburst and leaf-out for two of the 28 species under the three chilling treatments, no additional chilling (0), additional 30 days at 4.0\degree C, or additional 30 days at 1.5\degree C.}
 \includegraphics[scale=0.65]{Chillplot}
 \end{figure}
 
+
 \begin{figure}
 \caption{Summary of relationships between budburst day, leafout day, and plant functional traits.}
-
 \includegraphics[scale=0.75]{traitpairs}
 \end{figure}
+
 
 \begin{figure}
 \caption{Model estimates of budburst, including species-level effects}
 \includegraphics[scale=0.75,page=1]{Fig1_bb_lo+sp}
 \end{figure}
+
+
 \begin{figure}
 \caption{Model estimates of leafout, including species-level effects}
 \includegraphics[scale=0.75,page=2]{Fig1_bb_lo+sp}

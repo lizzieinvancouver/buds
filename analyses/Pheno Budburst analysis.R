@@ -4,10 +4,9 @@ runstan = F # set to T to actually run stan models. F if loading from previous r
 # Analysis of budburst experiment. Starting with simple linear models
 # 2015-09-16 adding single species models
 
-library(lme4)
 library(rstan)
 library(shinystan)
-library(sjPlot)
+library(sjPlot) # for sjp.lmer and sjt.lmer in prev versions
 
 library(memisc) # for getSummary (in trait effect plotting)
 library(xtable)
@@ -23,10 +22,10 @@ options(mc.cores = parallel::detectCores())
 
 setwd("~/Documents/git/buds/analyses")
 source('stan/savestan.R')
-# get latest .Rdata file
+
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-
+# get latest .Rdata file
 # To run from saved stan output (exclude Fake data output)
 if(!runstan) {
   realout <- dir()[grep("Stan Output", dir())[is.na(match(grep("Stan Output", dir()), grep("Fake", dir())))]]
@@ -124,6 +123,8 @@ plotlet <- function(x, y, xlab=NULL, ylab=NULL, data, groups = NULL, xlim=NULL, 
 }
 
 # Groups
+colz = c("brown",#"brown3", 
+         "blue3")#"midnightblue")
 
 shrubs = c("VIBLAN","RHAFRA","RHOPRI","SPIALB","VACMYR","VIBCAS", "AROMEL","ILEMUC", "KALANG", "LONCAN", "LYOLIG")
 trees = c("ACEPEN", "ACERUB", "ACESAC", "ALNINC", "BETALL", "BETLEN", "BETPAP", "CORCOR", "FAGGRA", "FRANIG", "HAMVIR", "NYSSYL", "POPGRA", "PRUPEN", "QUEALB" , "QUERUB", "QUEVEL")
@@ -135,8 +136,8 @@ treeshrub = as.numeric(treeshrub)
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 # Analyses:
-# 1. day of budburst by all factors, stan 
-# 2. day of leaf out by all factors, stan
+# 1. Day of budburst by all factors, stan 
+# 2. Day of leaf out by all factors, stan
 # 3. Effects on budburst/leafout day for species: 
 #  - Traits (wood density, sla, N, stomata when we have it), 
 #  - Phylogeny
@@ -204,8 +205,6 @@ rownames(meanzb) = c("Temperature",
                     "Site x Chilling 1.5°C"
                     )
 
-# 2. leafout
-
 if(runstan){
   datalist.l <- list(lday = dxl$lday, # leafout as respose 
                      warm = as.numeric(dxl$warm), 
@@ -235,7 +234,7 @@ rownames(meanzl) = rownames(meanzb)
   
 # Figure 1: Stan model effects for budburst and leafout
 
-bbpng <- readPNG(file.path(figpath, "Finn_BB.png")) # Illustrations from Finn et al. 
+bbpng <- readPNG(file.path(figpath, "Finn_BB.png")) # Illustrations from Finn et al.
 lopng <- readPNG(file.path(figpath, "Finn_LO.png"))
 
 pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
@@ -289,35 +288,89 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
   
 dev.off();system(paste("open", file.path(figpath, "Fig1_bb_lo.pdf"), "-a /Applications/Preview.app"))
   
-# Figure 2: random effects 
-pdf(file.path(figpath, "stanbb.pdf"), width = 14, height = 7)
-  
-  par(mfrow = c(1, 2))
-  plotlet("b_warm", "b_photo", 
-          xlab = "Advance due to 5° warming", 
-          ylab = "Advance due to 4 hr longer photoperiod", 
-          group = treeshrub,
-          data = sumerb)
-  
-  plotlet("b_chill1", "b_chill2", 
-          xlab = "Advance due to 30d 4° chilling", 
-          ylab = "Advance due to 30d 1.5° chilling", 
-          group = treeshrub,
-          data = sumerb)
-  
-plotlet("b_warm", "b_photo", 
-        xlab = "Advance due to 5° warming", 
-        ylab = "Advance due to 4 hr longer photoperiod", 
+# Figure 2: random effects. Photo x warm and chill1 x warm for bb and lo as 4 panels
+gotchill <- tapply(dx$spn, dx$chill2, unique)$'1'
+nochill <- unique(dx$spn)[is.na(match(unique(dx$spn), gotchill))]
+sumerb[!is.na(match(rownames(sumerb), paste("b_chill1[", nochill, "]", sep=""))),] = 99
+sumerb[!is.na(match(rownames(sumerb), paste("b_chill2[", nochill, "]", sep=""))),] = 99
+sumerl[!is.na(match(rownames(sumerl), paste("b_chill1[", nochill, "]", sep=""))),] = 99
+sumerl[!is.na(match(rownames(sumerl), paste("b_chill2[", nochill, "]", sep=""))),] = 99
+pdf(file.path(figpath, "Fig2_4panel.pdf"), width = 7, height = 7)
+
+#par(mfrow = c(2, 2))
+par(mar=rep(1,4))
+layout(matrix(c(1, 2, 3,
+                4, 5, 6,
+                7, 8, 9,
+                10, 11, 12),ncol = 3, byrow = T),
+       widths = c(1, 4, 4),
+       heights = c(1, 4, 4, 1))
+plotblank = function(){plot(1:10, type="n",bty="n",xaxt="n",yaxt="n",ylab="",xlab="")}
+
+plotblank() # upper left corner
+plotblank() # top of left column 
+text(5,5, "Advance due to 4 hr longer photoperiod", font = 2, pos = 1)
+plotblank() # top of right column
+text(5,5, "Advance due to 30d 4° chilling", font = 2, pos = 1)
+plotblank() 
+text(5,5, "Budburst \n\n Advance due to 5° warming", font = 2, srt = 90)
+
+plotlet( "b_photo", "b_warm",
+         #  ylab = "Advance due to 5° warming", 
+         # xlab = "Advance due to 4 hr longer photoperiod", 
+         ylim = c(-14, 0.5),
+         xlim = c(-11, 0.5),
+         #  xaxt="n", 
+         group = treeshrub,
+         data = sumerb)
+
+legend("topleft", bty = "n", inset = 0.05, legend = "A.", text.font=2)
+
+legend("bottomright",
+       pch = 16,
+       col = colz,
+       legend = c("Shrubs","Trees"),
+       inset = 0.02, 
+       bg = 'white')
+
+plotlet("b_chill1", "b_warm", 
+        # ylab = "Advance due to 5° warming", 
+        #  xlab = "Advance due to 30d 4° chilling", 
+        ylim = c(-14, 0.5),
+        xlim = c(-33, -13),
+        yaxt="n",
+        # xaxt="n", 
+        group = treeshrub,
+        data = sumerb)
+axis(2, seq(0, -10, by = -5), labels = F)
+legend("topleft", bty = "n", inset = 0.05, legend = "B.", text.font=2)
+
+plotblank()
+text(5,5, "Leafout \n\n Advance due to 5° warming", font = 2, srt = 90)
+
+plotlet("b_photo", "b_warm", 
+        #    ylab = "Advance due to 5° warming", 
+        #     xlab = "Advance due to 4 hr longer photoperiod", 
+        ylim = c(-28, -16),
+        xlim = c(-16, -11),
         group = treeshrub,
         data = sumerl)
-
-plotlet("b_chill1", "b_chill2", 
-        xlab = "Advance due to 30d 4° chilling", 
-        ylab = "Advance due to 30d 1.5° chilling", 
+legend("topleft", bty = "n", inset = 0.05, legend = "C.", text.font=2)
+plotlet("b_chill1", "b_warm", 
+        #   ylab = "Advance due to 5° warming", 
+        #   xlab = "Advance due to 30d 4° chilling", 
+        ylim = c(-28, -16),
+        xlim = c(-33, -20),
+        yaxt="n",
         group = treeshrub,
         data = sumerl)
+axis(2, seq(-16, -28, by = -2), labels = F)
+legend("topleft", bty = "n", inset = 0.05, legend = "D.", text.font=2)
+plotblank()
+plotblank()
+plotblank()
 
-dev.off();system(paste("open", file.path(figpath, "stanlo.pdf"), "-a /Applications/Preview.app"))
+dev.off();system(paste("open", file.path(figpath, "Fig2_4panel.pdf"), "-a /Applications/Preview.app"))
 
 # Supp table 1: Stan model effects for bb
 xtable(meanzb)
@@ -329,7 +382,6 @@ if(runstan) { savestan("Inter") }
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # 2. Species-specific responses
-
 # use trait data
 
 dxt <- merge(dx, tr, by.x = "sp", by.y = "code")
@@ -349,8 +401,6 @@ names(dxt.agg)[1:3] = c("sp","site","fg")
 names(dxt.agg2)[1:2] = c("site","fg")
 
 # Analyze leafout not #effect sizes# vs traits
-gotchill <- tapply(dx$spn, dx$chill2, unique)$'1'
-nochill <- unique(dx$spn)[is.na(match(unique(dx$spn), gotchill))]
 dlo <- summary(doym.l)$summary
 dlo[!is.na(match(rownames(dlo), paste("b_chill1[", nochill, "]", sep=""))),] = 99
 dlo[!is.na(match(rownames(dlo), paste("b_chill2[", nochill, "]", sep=""))),] = 99
@@ -390,52 +440,73 @@ xtable(traitlm.s)
 
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-
 # Phylogeny
-Nsummary <- aggregate(X.N ~ sp, data = dxt, mean, na.rm=T)
-Nsummary[order(Nsummary$X.N),]
-SLAsummary <- aggregate(sla ~ sp, data = dxt, mean, na.rm=T)
-WDsummary <- aggregate(wd ~ sp, data = dxt, mean, na.rm=T)
-LDaysummary <- aggregate(lday ~ sp, data = dxt, mean, na.rm=T)
-BDaysummary <- aggregate(bday ~ sp, data = dxt, mean, na.rm=T)
-PAsummary <- aggregate(Pore.anatomy ~ sp, data = dxt, mean, na.rm=T)
 
 phsp <- ph$tip.label
 phspcode <- unlist(lapply(strsplit(phsp, "_"), function(x) toupper(paste(substr(x[[1]],1,3), substr(x[[2]],1,3), sep=""))))
 
 ph$tip.label = phspcode
 
-pa.phylo <- drop.tip(ph, phsp[is.na(match(phspcode, PAsummary$sp))])
-
-pamatch <- match(phspcode, PAsummary$sp)
-
-## now with caper
-dxt.agg <- aggregate(dxt[c("wd","sla","X.N","Pore.anatomy","lday","bday")], by = list(dxt$sp), mean, na.rm=T)
-names(dxt.agg)[1] = "sp"
-
 ph$node.label = NULL # otherwise give duplicated names error, because of multiple "" in node labels.
 
-sig <- comparative.data(ph, dxt.agg, names.col = "sp")
+sig <- comparative.data(ph, dxt2, names.col = "sp")
 
-sla.signal <- pgls(sla ~ lday, sig, lambda = 'ML')
-n.signal <- pgls(X.N ~ lday, sig, lambda = 'ML')
-wd.signal <- pgls(wd ~ lday, sig, lambda = 'ML')
-pa.signal <- pgls(Pore.anatomy ~ lday, sig, lambda = 'ML')
+sla.signal.warm <- pgls(sla ~ warmeff, sig, lambda = 'ML')
+sla.signal.photo <- pgls(sla ~ photoeff, sig, lambda = 'ML')
+sla.signal.chill1 <- pgls(sla ~ chill1eff, sig, lambda = 'ML')
+sla.signal.chill2 <- pgls(sla ~ chill2eff, sig, lambda = 'ML')
+
+n.signal.warm <- pgls(X.N ~ warmeff, sig, lambda = 'ML')
+n.signal.photo <- pgls(X.N ~ photoeff, sig, lambda = 'ML')
+n.signal.chill1 <- pgls(X.N ~ chill1eff, sig, lambda = 'ML')
+n.signal.chill2 <- pgls(X.N ~ chill2eff, sig, lambda = 'ML')
+
+wd.signal.warm <- pgls(wd ~ warmeff, sig, lambda = 'ML')
+wd.signal.photo <- pgls(wd ~ photoeff, sig, lambda = 'ML')
+wd.signal.chill1 <- pgls(wd ~ chill1eff, sig, lambda = 'ML')
+wd.signal.chill2 <- pgls(wd ~ chill2eff, sig, lambda = 'ML')
+
+pa.signal.warm <- pgls(Pore.anatomy ~ warmeff, sig, lambda = 'ML')
+pa.signal.photo <- pgls(Pore.anatomy ~ photoeff, sig, lambda = 'ML')
+pa.signal.chill1 <- pgls(Pore.anatomy ~ chill1eff, sig, lambda = 'ML')
+pa.signal.chill2 <- pgls(Pore.anatomy ~ chill2eff, sig, lambda = 'ML')
 
 signaldat <- data.frame(
-  rbind(summary(sla.signal)$param["lambda"], 
-        summary(n.signal)$param["lambda"],
-        summary(wd.signal)$param["lambda"],
-        summary(pa.signal)$param["lambda"]))
+  rbind(summary(sla.signal.warm)$param["lambda"], 
+        summary(sla.signal.photo)$param["lambda"],
+        summary(sla.signal.chill1)$param["lambda"],
+        summary(sla.signal.chill2)$param["lambda"],
         
-signaldat$var = c("SLA","% N","Wood Density","Pore anatomy")
+        summary(wd.signal.warm)$param["lambda"], 
+        summary(wd.signal.photo)$param["lambda"],
+        summary(wd.signal.chill1)$param["lambda"],
+        summary(wd.signal.chill2)$param["lambda"],
+        
+        summary(n.signal.warm)$param["lambda"], 
+        summary(n.signal.photo)$param["lambda"],
+        summary(n.signal.chill1)$param["lambda"],
+        summary(n.signal.chill2)$param["lambda"],
+        
+        summary(pa.signal.warm)$param["lambda"], 
+        summary(pa.signal.photo)$param["lambda"],
+        summary(pa.signal.chill1)$param["lambda"],
+        summary(pa.signal.chill2)$param["lambda"]
+        )
+)
+        
+signaldat$var = paste(
+  rep(c("SLA","Wood Density","% N","Pore anatomy"), each = 4), 
+  rep(c("Temperature", "Photoperiod", "Chilling 4°", "Chilling 1.5°"), 4), 
+  sep = " - ")
 
-xtable(signaldat)
+print(xtable(data.frame(Relationship = signaldat[,"var"],Lambda = signaldat[,"lambda"]), digits = 3), include.rownames = FALSE)
+
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Additional plotting
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Plot actual change in leafout by species
+
 lday.agg <- aggregate(dx$lday, by=list(sp=dx$sp,
                                        warm=dx$warm, photo=dx$photo
                                        #,chill=dx$chill, site=dx$site,  treatcode=dx$treatcode, 
@@ -575,6 +646,28 @@ diff(tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T))
 
 tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T)
 diff(tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T))
+
+### O'Keefe work
+
+# BB and LO by treatment, by species
+spxtreat <- aggregate(cbind(lday, bday) ~ sp + warm + photo + chill1 + chill2, data = dx, FUN = mean)
+
+
+#### Order of leafout by treatment
+lo <- bo <- vector()
+
+spxtreat$treats = with(spxtreat, paste(warm, photo, chill1, chill2))
+
+for(i in unique(spxtreat$treats)){ # i = spxtreat$treats[1]
+  dxx <- spxtreat[spxtreat$treats == i,]
+  lox <- rank(dxx$lday, na.last = T)
+  box <- rank(dxx$bday, na.last = T)
+  lo = c(lo, lox)
+  bo = c(bo, box)
+}
+
+spxtreat <- data.frame(spxtreat, leafout.order = lo, budburst.order = bo)
+write.csv(spxtreat, file="Species x Treat BB LO for OKeefe.csv",row.names=F)
 
 
 ####### Trait pairs plot

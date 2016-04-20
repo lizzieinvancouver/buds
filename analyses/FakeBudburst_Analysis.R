@@ -14,6 +14,10 @@ options(mc.cores = parallel::detectCores())
 
 load("Fake Budburst.RData")
 
+load("Stan Output 2016-04-04 Fake Interax.RData")
+# fakeout <- dir()[grep("Stan Output", dir())[is.na(match(grep("Stan Output", dir()), grep("Fake", dir())))]]
+# load(sort(realout, T)[1])
+# ls() 
 
 
 # To Stan!
@@ -37,6 +41,8 @@ doym.f <- stan('stan/lday_site_sp_chill_inter.stan', data = datalist.f,
 # lday_site_chill: < 120 seconds per chain, very fast
 # lday_site_sp_chill: much slower.   
 #doym.f <- stan('stan/lday0.stan', data = datalist.f, iter = 4000, chains = 4) 
+
+
 
 sumer <- summary(doym.f)$summary
 sumer[grep("mu_", rownames(sumer)),] # effects are perfectly captured now.

@@ -1,3 +1,15 @@
+# notes april 13 for monday
+
+- consistency of rank order across treatments (lizzie compares to okeefe), at chill0 for all species
+- physignal on warmeff, photoeff, chill1eff
+- difference in bb and lo responses from models 
+- dotplots of fixed eff with each species as plots
+- sigmas as dotplot 
+
+Friday April 22 — finish 1st draft of ms
+
+
+
 # Todo update Feb 2016
 
 Additional analyses
@@ -5,14 +17,9 @@ Additional analyses
 2. Traits (wood anatomy)
 3. By date of budburst
 
-
 Table 1: 
-
-Table 2
-
-Figure 1
-
-
+Table 2:
+Figure 1:
 
 
 ##
