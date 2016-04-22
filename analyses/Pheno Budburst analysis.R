@@ -521,7 +521,8 @@ lday.agg$se = lday.se$x
 
 
 # Advance due to each factor
-wa = la = oa = nn = vector()
+wa = la = ca = oa = nn = vector()
+wab = lab = cab = oab = vector()
 
 for(i in unique(dx$sp)){ # i="ACEPEN"
   dxx <- dx[dx$sp == i,]
@@ -529,23 +530,47 @@ for(i in unique(dx$sp)){ # i="ACEPEN"
   nn <- c(nn, nrow(dxx[dxx$nl==1,]))
   
   overallm = mean(dxx[dxx$warm == 1 & dxx$photo == 1 & dxx$chill == 1, "lday"], na.rm=T)
+  overallmb = mean(dxx[dxx$warm == 1 & dxx$photo == 1 & dxx$chill == 1, "bday"], na.rm=T)
+  
   # mean across all cool
   cm <- mean(dxx[dxx$warm == 1,'lday'], na.rm=T)
+  cmb <- mean(dxx[dxx$warm == 1,'bday'], na.rm=T)
+  
   # advance from warming
   wm <- mean(dxx[dxx$warm == 2, 'lday'], na.rm=T)
-  
+  wmb <- mean(dxx[dxx$warm == 2, 'bday'], na.rm=T)
   warmadv = wm - cm    
+  warmadvb = wmb - cmb
   
   # mean across all short
   sm <- mean(dxx[dxx$photo == 1,'lday'], na.rm=T)
-  # advance from warming
+  smb <- mean(dxx[dxx$photo == 1,'bday'], na.rm=T)
+  
+  # mean across long
   lm <- mean(dxx[dxx$photo == 2, 'lday'], na.rm=T)
-   
+  lmb <- mean(dxx[dxx$photo == 2, 'bday'], na.rm=T)
+  
+  # advance from photo
   longadv = lm - sm   
+  longadvb = lmb - smb   
+  
+  # mean across chill1 (no additional chill)
+  cm <- mean(dxx[dxx$chill == 1,'lday'], na.rm=T)
+  cmb <- mean(dxx[dxx$chill == 1,'bday'], na.rm=T)
 
-  wa = c(wa, warmadv); la =c(la, longadv); oa=c(oa, overallm)
+  # mean across chill2 (chill 4deg)
+  wm <- mean(dxx[dxx$chill == 2, 'lday'], na.rm=T)
+  wmb <- mean(dxx[dxx$chill == 2, 'bday'], na.rm=T)
+  chilladv = wm - cm    
+  chilladvb = wmb - cmb
+  
+  # advance from chill
+  
+  wa = c(wa, warmadv); la =c(la, longadv); oa=c(oa, overallm); ca = c(ca, chilladv)
+  wab = c(wab, warmadvb); lab =c(lab, longadvb); oab=c(oab, overallmb); cab = c(cab, chilladvb)
   }
-adv=data.frame(sp=unique(dx$sp), warm=wa, photo=la, overall=oa, n=nn)
+adv=data.frame(sp=unique(dx$sp), warm=wa, photo=la, overall=oa, n=nn, chill = ca,
+               warmb=wab, photob=lab, overallb=oab, chillb = cab)
 
 # Color classes for early - mid - late fl
 hist(adv$overall)
@@ -646,6 +671,35 @@ diff(tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T))
 
 tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T)
 diff(tapply(dx$lday, list(dx$warm, dx$chill), mean, na.rm=T))
+
+
+### Correlations between main effects and lo/bb
+# warm, photo, chill1, chill2 vs. day of lo and day of bb
+
+#bb, warm
+bwarm <- sumerb[grep(paste("b_warm","\\[",sep=""), rownames(sumerb)),1]
+bphoto <- sumerb[grep(paste("b_photo","\\[",sep=""), rownames(sumerb)),1]
+bchill1 <- sumerb[grep(paste("b_chill1","\\[",sep=""), rownames(sumerb)),1]
+
+
+lwarm <- sumerb[grep(paste("b_warm","\\[",sep=""), rownames(sumerl)),1]
+lphoto <- sumerb[grep(paste("b_photo","\\[",sep=""), rownames(sumerl)),1]
+lchill1 <- sumerb[grep(paste("b_chill1","\\[",sep=""), rownames(sumerl)),1]
+
+pdf(file.path(figpath, "Sens_vs_day.pdf"), width = 9, height = 7)
+
+par(mfrow=c(2,3))
+plot(adv$overallb, bwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
+legend("top", legend="Budburst", text.font=2, inset = 0.05, bty ="n", cex = 2)
+plot(adv$overallb, bphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
+plot(adv$overallb, bchill1, ylim = c(-30, -10), ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
+
+plot(adv$overall, lwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
+legend("top", legend="Leafout", text.font=2, inset = 0.05, bty ="n", cex = 2)
+plot(adv$overall, lphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
+plot(adv$overall, lchill1, ylim = c(-30, -10), ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
+
+dev.off();system(paste("open", file.path(figpath, "Sens_vs_day.pdf"), "-a /Applications/Preview.app"))
 
 ### O'Keefe work
 
