@@ -65,7 +65,7 @@ with(dxl, table(chill1, chill2)) # reductions due to nonleafouts
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Utility function
-plotlet <- function(x, y, xlab=NULL, ylab=NULL, data, groups = NULL, xlim=NULL, ylim=NULL,...){
+plotlet <- function(x, y, xlab=NULL, ylab=NULL, data, groups = NULL, ...){
   
   minmax = range(c(data[grep(paste(x,"\\[",sep=""), rownames(data)),1], data[grep(paste(y,"\\[",sep=""), rownames(data)),1]))
   
@@ -81,15 +81,15 @@ plotlet <- function(x, y, xlab=NULL, ylab=NULL, data, groups = NULL, xlim=NULL, 
       col.lines = alpha(ccolz, 0.4)
     }
   
-  if(is.null(xlim)) xlim = c(floor(minmax)[1], ceiling(minmax)[2])
-  if(is.null(ylim)) ylim = c(floor(minmax)[1], ceiling(minmax)[2])
+  #if(is.null(xlim)) xlim = c(floor(minmax)[1], ceiling(minmax)[2])
+  #if(is.null(ylim)) ylim = c(floor(minmax)[1], ceiling(minmax)[2])
   
   plot(
   data[grep(paste(x,"\\[",sep=""), rownames(data)),1],
   data[grep(paste(y,"\\[",sep=""), rownames(data)),1],
   pch = "+",
-  xlim = xlim,
-  ylim = ylim,
+  #xlim = xlim,
+  #ylim = ylim,
   ylab = ylab,
   xlab = xlab,
   col = col.pch,
@@ -701,7 +701,33 @@ plot(adv$overall, lchill1, ylim = c(-30, -10), ylab = "Chilling sensitivity", pc
 
 dev.off();system(paste("open", file.path(figpath, "Sens_vs_day.pdf"), "-a /Applications/Preview.app"))
 
-### O'Keefe work
+
+
+### Correlations between main effects and interactions
+par(mfrow=c(3,2))
+plotlet("b_warm", "b_inter_wp", data=sumerb, xlim = c(-20, 5), ylim = c(-2, 0))
+plotlet("b_photo", "b_inter_wp", data=sumerb, xlim = c(-10, 0), ylim = c(-2, 0))
+
+plotlet("b_warm", "b_inter_wc1", data=sumerb, xlim = c(-20, 5), ylim = c(5, 12))
+plotlet("b_chill1", "b_inter_wc1", data=sumerb, xlim =c(-35, -10), ylim = c(5, 12))
+
+plotlet("b_photo", "b_inter_pc1", data=sumerb, xlim = c(-10, 0), ylim = c(-1, 1))
+plotlet("b_chill1", "b_inter_pc1", data=sumerb, xlim =c(-35, -10), ylim = c(-1, 1))
+
+
+
+plotlet("b_warm", "b_inter_wp", data=sumerl, xlim = c(-30, -15), ylim = c(2, 5))
+plotlet("b_photo", "b_inter_wp", data=sumerl, xlim = c(-15, -10), ylim = c(2, 5))
+
+plotlet("b_warm", "b_inter_wc1", data=sumerl, xlim = c(-30, -15), ylim = c(5, 12))
+plotlet("b_chill1", "b_inter_wc1", data=sumerl, xlim =c(-35, -10), ylim = c(5, 12))
+
+plotlet("b_photo", "b_inter_pc1", data=sumerl, xlim = c(-15, -10), ylim = c(0, 1.5))
+plotlet("b_chill1", "b_inter_pc1", data=sumerl, xlim =c(-35, -10), ylim = c(0, 1.5))
+
+
+
+### O'Keefe work -- see okeefe > order_harv for analysis
 
 # BB and LO by treatment, by species
 spxtreat <- aggregate(cbind(lday, bday) ~ sp + warm + photo + chill1 + chill2, data = dx, FUN = mean)
