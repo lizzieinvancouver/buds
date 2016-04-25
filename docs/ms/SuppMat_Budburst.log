@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  25 APR 2016 15:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  25 APR 2016 15:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Budburst.tex
-(./Budburst.tex
+**SuppMat_Budburst.tex
+(./SuppMat_Budburst.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
@@ -189,8 +189,6 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen119
 \Gm@dimlist=\toks15
 )
-\bibdata{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
-No file Budburst.bbl.
 (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Sweave.sty
 Package: Sweave 
 
@@ -230,29 +228,30 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 105.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-)))) (./Budburst.aux)
-\openout1 = `Budburst.aux'.
+))))
+(./SuppMat_Budburst.aux)
+\openout1 = `SuppMat_Budburst.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 23.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Try loading font information for T1+aess on input line 20.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Try loading font information for T1+aess on input line 23.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/ae/t1aess.fd
 File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
@@ -318,15 +317,15 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 \symgns@font=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `gns@font' in version `bold'
-(Font)                  TS1/aess/m/n --> TS1/aess/bx/n on input line 20.
-Package gensymb Info: Math companion symbols declared on input line 20.
-LaTeX Info: Redefining \degree on input line 20.
-LaTeX Info: Redefining \celsius on input line 20.
+(Font)                  TS1/aess/m/n --> TS1/aess/bx/n on input line 23.
+Package gensymb Info: Math companion symbols declared on input line 23.
+LaTeX Info: Redefining \degree on input line 23.
+LaTeX Info: Redefining \celsius on input line 23.
 Package gensymb Info: Using text companion symbols for \degree, \celsius and \p
-erthousand on input line 20.
-LaTeX Info: Redefining \ohm on input line 20.
-Package gensymb Info: Using \textohm for \ohm on input line 20.
-Package gensymb Info: Using \textmu for \micro on input line 20.
+erthousand on input line 23.
+LaTeX Info: Redefining \ohm on input line 23.
+Package gensymb Info: Using \textohm for \ohm on input line 23.
+Package gensymb Info: Using \textmu for \micro on input line 23.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -362,82 +361,76 @@ Package gensymb Info: Using \textmu for \micro on input line 20.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(./Budburst-concordance.tex)
+(./SuppMat_Budburst-concordance.tex)
 LaTeX Font Info:    Font shape `T1/aess/m/it' in size <10> not available
-(Font)              Font shape `T1/aess/m/sl' tried instead on input line 28.
-LaTeX Font Info:    Try loading font information for TS1+aess on input line 36.
+(Font)              Font shape `T1/aess/m/sl' tried instead on input line 34.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 50.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 50.
+LaTeX Font Info:    Try loading font information for TS1+aess on input line 50.
 
-LaTeX Font Info:    No file TS1aess.fd. on input line 36.
-
-
-LaTeX Font Warning: Font shape `TS1/aess/bx/n' undefined
-(Font)              using `TS1/cmr/m/n' instead
-(Font)              for symbol `textdegree' on input line 36.
+LaTeX Font Info:    No file TS1aess.fd. on input line 50.
 
 
 LaTeX Font Warning: Font shape `TS1/aess/m/n' undefined
-(Font)              using `TS1/cmr/m/n' instead
-(Font)              for symbol `textbullet' on input line 48.
+(Font)              using `TS1/cmr/m/n' instead on input line 50.
 
-[1
+<images/traitpairs.pdf, id=2, 433.62pt x 433.62pt>
+File: images/traitpairs.pdf Graphic file (type pdf)
+ <use images/traitpairs.pdf>
+Package pdftex.def Info: images/traitpairs.pdf used on input line 102.
+(pdftex.def)             Requested size: 325.2142pt x 325.2142pt.
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] [3] (./Budburst.lot
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 1.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 1.
-)
-\tf@lot=\write4
-\openout4 = `Budburst.lot'.
+<images/Fig1_bb_lo+sp.pdf, id=3, page=1, 505.89pt x 578.16pt>
+File: images/Fig1_bb_lo+sp.pdf Graphic file (type pdf)
 
- (./Budburst.lof [4])
-\tf@lof=\write5
-\openout5 = `Budburst.lof'.
+<use images/Fig1_bb_lo+sp.pdf, page 1>
+Package pdftex.def Info: images/Fig1_bb_lo+sp.pdf, page1 used on input line 108
+.
+(pdftex.def)             Requested size: 379.41655pt x 433.61893pt.
+ [1
 
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2 <./i
+mages/traitpairs.pdf>] [3 <./images/Fig1_bb_lo+sp.pdf>]
+<images/Fig1_bb_lo+sp.pdf, id=42, page=2, 505.89pt x 578.16pt>
+File: images/Fig1_bb_lo+sp.pdf Graphic file (type pdf)
 
-<images/Advplot2.pdf, id=20, 578.16pt x 650.43pt>
-File: images/Advplot2.pdf Graphic file (type pdf)
- <use images/Advplot2.pdf>
-Package pdftex.def Info: images/Advplot2.pdf used on input line 261.
-(pdftex.def)             Requested size: 289.07928pt x 325.2142pt.
+<use images/Fig1_bb_lo+sp.pdf, page 2>
+Package pdftex.def Info: images/Fig1_bb_lo+sp.pdf, page2 used on input line 116
+.
+(pdftex.def)             Requested size: 379.41655pt x 433.61893pt.
 
-<images/Fig1_bb_lo.pdf, id=21, 505.89pt x 578.16pt>
-File: images/Fig1_bb_lo.pdf Graphic file (type pdf)
+<images/Sens_vs_day.pdf, id=43, 650.43pt x 505.89pt>
+File: images/Sens_vs_day.pdf Graphic file (type pdf)
 
-<use images/Fig1_bb_lo.pdf>
-Package pdftex.def Info: images/Fig1_bb_lo.pdf used on input line 270.
-(pdftex.def)             Requested size: 404.71254pt x 462.52863pt.
-
-<images/Fig2_4panel.pdf, id=22, 505.89pt x 505.89pt>
-File: images/Fig2_4panel.pdf Graphic file (type pdf)
-
-<use images/Fig2_4panel.pdf>
-Package pdftex.def Info: images/Fig2_4panel.pdf used on input line 279.
-(pdftex.def)             Requested size: 455.29678pt x 455.29678pt.
- [5] [6 <./images/Advplot2.pdf>] [7 <./images/Fig1_bb_lo.pdf>] [8 <./images/Fig
-2_4panel.pdf>] [9] (./Budburst.aux)
+<use images/Sens_vs_day.pdf>
+Package pdftex.def Info: images/Sens_vs_day.pdf used on input line 122.
+(pdftex.def)             Requested size: 487.8213pt x 379.41655pt.
+ [4 <./images/Fig1_bb_lo+sp.pdf>] [5 <./images/Sens_vs_day.pdf>] (./SuppMat_Bud
+burst.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 4311 strings out of 493089
- 66471 string characters out of 6134842
- 135485 words of memory out of 5000000
- 7712 multiletter control sequences out of 15000+600000
- 21299 words of font info for 41 fonts, out of 8000000 for 9000
+ 4301 strings out of 493089
+ 66558 string characters out of 6134842
+ 133477 words of memory out of 5000000
+ 7713 multiletter control sequences out of 15000+600000
+ 18665 words of font info for 36 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,7n,38p,1327b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,8n,38p,303b,271s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on Budburst.pdf (9 pages, 113539 bytes).
+></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on SuppMat_Budburst.pdf (5 pages, 406413 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 90 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 20 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 25 words of extra memory for PDF output out of 10000 (max. 10000000)
 

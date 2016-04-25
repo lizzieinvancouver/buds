@@ -1,0 +1,112 @@
+\documentclass{article}
+
+\usepackage{textcomp}
+\usepackage{fontenc}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{gensymb} % for \degree
+\usepackage{placeins} % for \images
+\usepackage[margin=1in]{geometry} % to set margins
+
+\bibliographystyle{naturemag}
+
+\renewcommand{\familydefault}{\sfdefault}
+\graphicspath{{images/}}	% Root directory of the figures
+\setlength{\parskip}{2 mm}
+
+%\bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
+%\bibliographystyle{naturemag}
+
+
+\begin{document}
+
+\SweaveOpts{concordance=T} % set to F?
+
+
+\flushleft
+
+\textbf{\large{Supplemental Materials: Photoperiod and temperature interactively drive spring phenology in multiple species}}
+
+Flynn, Wolkovich...
+
+\textit{The Arnold Arboretum of Harvard University}
+
+%% Add S prefix for tables and figures in Supplemental Materials
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Supplemental Figures and Tables}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<echo=FALSE>>=
+setwd("~/Documents/git/buds/analyses")
+source("Pheno Budburst analysis.R")
+@
+
+
+<<label=supptable1, echo=FALSE, results=tex>>=
+#print(memodels.table.phlaw.far.noCheno , include.rownames=TRUE, caption.placement="top", hline.after=c(-1,0))
+# Supp table 1: Stan model effects for bb
+rownames(meanzb) = c(
+                    "Temperature",
+                    "Photoperiod",
+                    "Chilling 4 \\degree C",
+                    "Chilling 1.5 \\degree C",
+                    "Site",
+                    "Temperature $\\times$ Photoperiod",
+                    "Temperature $\\times$ Site",
+                    "Photoperiod $\\times$ Site",
+                    "Temperature $\\times$ Chilling 4 \\degree C",
+                    "Temperature $\\times$ Chilling 1.5 \\degree C",
+                    "Photoperiod $\\times$ Chilling 4 \\degree C",
+                    "Photoperiod $\\times$ Chilling 1.5 \\degree C",
+                    "Site $\\times$ Chilling 4 \\degree C",
+                    "Site $\\times$ Chilling 1.5 \\degree C"
+                    )
+
+print(xtable(meanzb, caption = "Summary of mixed effect model of budburst day by species."), 
+      include.rownames=TRUE, 
+      caption.placement = "top",
+      sanitize.rownames.function = function(x) {x})
+@ 
+
+<<label=supptable2, echo=FALSE, results=tex>>=
+rownames(meanzl) = rownames(meanzb)
+
+print(xtable(meanzl, caption = "Summary of mixed effect model of leafout day by species."), 
+      include.rownames=TRUE, 
+      caption.placement = "top",
+      sanitize.rownames.function = function(x) {x})
+
+@
+
+%% \clearpage % use if get 'too many unprocessed floats' error
+
+\begin{figure}
+\caption{Summary of relationships between budburst day, leafout day, and plant functional traits.}
+\label{figS1}
+\includegraphics[scale=0.75]{traitpairs}
+\end{figure}
+
+\begin{figure}
+\caption{Model estimates of budburst, including species-level effects.}
+\label{figS2}
+\includegraphics[scale=0.75, page=1]{Fig1_bb_lo+sp}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+\caption{Model estimates of leafout, including species-level effects.}
+\label{figS3}
+\includegraphics[scale=0.75, page=2]{Fig1_bb_lo+sp}
+\end{figure}
+
+\begin{figure}
+\caption{Model estimates of sensitivity to warming, photoperiod, and chilling, compared to day of budburst (upper panels) or leafout (lower panels) across all experimental conditions.}
+\label{figS4}
+\includegraphics[scale=0.75]{Sens_vs_day}
+\end{figure}
+
+\end{document}

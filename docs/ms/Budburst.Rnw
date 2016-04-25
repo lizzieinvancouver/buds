@@ -16,9 +16,8 @@
 \bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
 \bibliographystyle{naturemag}
 
-\usepackage{Sweave}
 \begin{document}
-\input{Budburst-concordance} % set to F?
+\SweaveOpts{concordance=T} % set to F?
 
 \flushleft
 \textbf{\large{Photoperiod and temperature interactively drive spring phenology in multiple species}}
@@ -142,116 +141,60 @@ Phenology was assessed using a modified BBCH scale (Finn et al. 2011), with obse
 
 \listoffigures
 
+<<echo=FALSE>>=
+setwd("~/Documents/git/buds/analyses")
+source("chill unit calc.R")
 
-\begin{table}[ht]
-\caption{Chill unit calcs}
-\centering
-\begin{tabular}{rlrrrr}
-  \hline
- & Treatment & Days & Chilling\_Hours & Utah\_Model & Chill\_portions \\ 
-  \hline
-1 & Field chilling & 80.00 & 686.00 & 494.00 & 39.14 \\ 
-  2 & 4.0? x 30 d & 119.00 & 1622.00 & 1430.00 & 66.96 \\ 
-  3 & 1.5? x 30 d & 119.00 & 1622.00 & 1160.00 & 64.78 \\ 
-   \hline
-\end{tabular}
-\end{table}
+source("Pheno Budburst analysis.R")
+@
 
-% latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Mon Apr 25 15:59:34 2016
-\begin{table}[ht]
-\centering
-\caption{Phylogenetic signal in timing of budburst and leafout and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal} 
-\begin{tabular}{lr}
-  \hline
-Relationship & Lambda \\ 
-  \hline
-SLA - Temperature & 0.000 \\ 
-  SLA - Photoperiod & 0.000 \\ 
-  SLA - Chilling 4 \degree C & 0.000 \\ 
-  SLA - Chilling 1.5 \degree C & 0.000 \\ 
-  Wood Density - Temperature & 0.000 \\ 
-  Wood Density - Photoperiod & 0.000 \\ 
-  Wood Density - Chilling 4 \degree C & 0.000 \\ 
-  Wood Density - Chilling 1.5 \degree C & 0.000 \\ 
-  \% N - Temperature & 0.285 \\ 
-  \% N - Photoperiod & 0.203 \\ 
-  \% N - Chilling 4 \degree C & 0.127 \\ 
-  \% N - Chilling 1.5 \degree C & 0.130 \\ 
-  Pore anatomy - Temperature & 1.000 \\ 
-  Pore anatomy - Photoperiod & 1.000 \\ 
-  Pore anatomy - Chilling 4 \degree C & 1.000 \\ 
-  Pore anatomy - Chilling 1.5 \degree C & 1.000 \\ 
-   \hline
-\end{tabular}
-\end{table}
+
+<<label=chillcalc, echo=FALSE, results = tex>>=
+hftable <- xtable(hfallcalc, caption = "Chill unit calculations")
+
+print(hftable,
+      include.rownames = FALSE<
+      caption.placement = "top")
+      
+@
+
+<<label=phylotable, echo=FALSE, results=tex>>=
+signaldat$var = paste(
+  rep(c("SLA","Wood Density","\\% N","Pore anatomy"), each = 4), 
+  rep(c("Temperature", "Photoperiod", "Chilling 4 \\degree C","Chilling 1.5 \\degree C"), 4), 
+  sep = " - ")
+
+phylosigtable <- xtable(data.frame(Relationship = signaldat[,"var"],Lambda = signaldat[,"lambda"]), digits = 3,
+                        caption = "Phylogenetic signal in timing of budburst and leafout and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal")
+                   
+
+print(phylosigtable, 
+      include.rownames = FALSE,
+      caption.placement = "top",
+      sanitize.text.function = function(x) {x})
+@
+
 
 % Trait tables
-% latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Mon Apr 25 15:59:34 2016
-\begin{table}[ht]
-\centering
-\caption{Trees, budburst} 
-\begin{tabular}{rrrrrrr}
-  \hline
- & est & se & stat & p & lwr & upr \\ 
-  \hline
-Intercept & 29.45 & 0.37 & 78.70 & 0.00 & 28.72 & 30.19 \\ 
-  Stem density & 2.16 & 0.48 & 4.47 & 0.00 & 1.21 & 3.11 \\ 
-  SLA & 1.70 & 0.38 & 4.52 & 0.00 & 0.96 & 2.44 \\ 
-  % N & 1.30 & 0.45 & 2.87 & 0.00 & 0.41 & 2.19 \\ 
-  Pore anatomy & -4.81 & 0.37 & -12.89 & 0.00 & -5.55 & -4.08 \\ 
-   \hline
-\end{tabular}
-\end{table}% latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Mon Apr 25 15:59:34 2016
-\begin{table}[ht]
-\centering
-\caption{Trees, leafout} 
-\begin{tabular}{rrrrrrr}
-  \hline
- & est & se & stat & p & lwr & upr \\ 
-  \hline
-Intercept & 42.91 & 0.44 & 97.56 & 0.00 & 42.04 & 43.77 \\ 
-  Stem density & -2.81 & 0.60 & -4.68 & 0.00 & -3.98 & -1.63 \\ 
-  SLA & 2.07 & 0.44 & 4.74 & 0.00 & 1.21 & 2.92 \\ 
-  % N & -0.97 & 0.55 & -1.77 & 0.08 & -2.05 & 0.11 \\ 
-  Pore anatomy & -3.52 & 0.42 & -8.35 & 0.00 & -4.35 & -2.70 \\ 
-   \hline
-\end{tabular}
-\end{table}% latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Mon Apr 25 15:59:34 2016
-\begin{table}[ht]
-\centering
-\caption{Shrubs, budburst} 
-\begin{tabular}{rrrrrrr}
-  \hline
- & est & se & stat & p & lwr & upr \\ 
-  \hline
-Intercept & 23.76 & 0.53 & 45.07 & 0.00 & 22.72 & 24.79 \\ 
-  Stem density & -4.59 & 0.79 & -5.84 & 0.00 & -6.13 & -3.04 \\ 
-  SLA & 0.29 & 0.52 & 0.55 & 0.58 & -0.74 & 1.32 \\ 
-  % N & 2.12 & 0.94 & 2.27 & 0.02 & 0.28 & 3.96 \\ 
-  Pore anatomy & 1.58 & 1.27 & 1.25 & 0.21 & -0.91 & 4.07 \\ 
-   \hline
-\end{tabular}
-\end{table}% latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Mon Apr 25 15:59:34 2016
-\begin{table}[ht]
-\centering
-\caption{Shrubs, leafout} 
-\begin{tabular}{rrrrrrr}
-  \hline
- & est & se & stat & p & lwr & upr \\ 
-  \hline
-Intercept & 27.16 & 0.68 & 39.69 & 0.00 & 25.82 & 28.50 \\ 
-  Stem density & 0.56 & 0.93 & 0.60 & 0.55 & -1.28 & 2.39 \\ 
-  SLA & 2.32 & 0.57 & 4.06 & 0.00 & 1.20 & 3.45 \\ 
-  % N & 3.04 & 1.11 & 2.75 & 0.01 & 0.87 & 5.21 \\ 
-  Pore anatomy & -1.11 & 1.63 & -0.68 & 0.50 & -4.32 & 2.10 \\ 
-   \hline
-\end{tabular}
-\end{table}
+<< echo=FALSE, results=tex>>=
+print(xtable(traitlmb.t, caption = "Trees, budburst"),
+         caption.placement = "top",
+      sanitize.text.function = function(x) {x})
+
+print(xtable(traitlm.t, caption = "Trees, leafout"),
+      caption.placement = "top",
+      sanitize.text.function = function(x) {x})
+
+print(xtable(traitlmb.s, caption = "Shrubs, budburst"),
+      caption.placement = "top",
+      sanitize.text.function = function(x) {x})
+
+print(xtable(traitlm.s, caption = "Shrubs, leafout"),
+      caption.placement = "top",
+      sanitize.text.function = function(x) {x})
+
+@
+
 %%%%%%%%%%% Figures
 % 1. Raw data plot
 
