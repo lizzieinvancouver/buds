@@ -1,7 +1,7 @@
 # Calculating chill units
 
 setwd("~/Documents/git/buds/analyses")
-print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
+toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]
 load(file.path("input", toload))
 
 

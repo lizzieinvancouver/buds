@@ -544,25 +544,25 @@ levels(oa.col) <- oc <- alpha(c("blue","purple","red"), 0.8)
 oa.col = as.character(oa.col)
 
 pdf(file.path(figpath, "Advplot2.pdf"), width = 8, height = 9) # Adv plot is without varying cex by sample size
-plot(adv$warm, adv$photo, 
-     xlim = c(-30, -2),
-     ylim=c(-20,-2),
-     ylab = "Advance in leafout due to 4h longer photoperiod",
-     xlab = "Advance in leafout due to 5 °C warmer temperature",
+plot(adv$photo, adv$warm, 
+     ylim = c(-30, -2),
+     xlim=c(-20,-2),
+     xlab = "Advance in leafout due to 4h longer photoperiod",
+     ylab = "Advance in leafout due to 5 °C warmer temperature",
      pch = 16, 
      col = oa.col,
      cex = adv$n/12#log(adv$n)
      )
 
-text(adv$warm, adv$photo,
+text(adv$photo, adv$warm,
      labels = adv$sp, cex = 0.7, adj = 0.5, #pos = 3,
      col = alpha('grey20', 0.9))
 
-legend(x = -7, y = -16, bty = "n", legend = c("Early", "Intermediate", "Late"), title = "Leafout period", col = oc, pch = 16, 
+legend(x = -20, y = -3, bty = "n", legend = c("Early", "Intermediate", "Late"), title = "Leafout period", col = oc, pch = 16, 
        pt.cex = 2,
        y.intersp = 1.5,
        x.intersp = 1.5)
-legend(x = -13, y = -16, bty = "n", legend = c(25, 75), 
+legend(x = -16, y = -3, bty = "n", legend = c(25, 75), 
        title = "N leafout samples", col = "black", pch = 1, pt.cex = c(25, 75)/12,
        y.intersp = 2,
        x.intersp = 2
