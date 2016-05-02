@@ -31,3 +31,7 @@ docs/outline/Budburst.aux
 *.gz
 
 *.aux
+
+*.gz
+
+*.log

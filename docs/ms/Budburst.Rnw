@@ -143,7 +143,7 @@ Phenology was assessed using a modified BBCH scale (Finn et al. 2011), with obse
 
 <<echo=FALSE>>=
 setwd("~/Documents/git/buds/analyses")
-source("chill unit calc.R")
+source("chill unit calcs.R")
 
 source("Pheno Budburst analysis.R")
 @
@@ -153,7 +153,7 @@ source("Pheno Budburst analysis.R")
 hftable <- xtable(hfallcalc, caption = "Chill unit calculations")
 
 print(hftable,
-      include.rownames = FALSE<
+      include.rownames = FALSE,
       caption.placement = "top")
       
 @
