@@ -40,7 +40,7 @@ ht2$JDay <- as.numeric(format(strptime(substr(ht2$datetime, 1, 10), "%Y-%m-%d"),
 ht2$Hour <- as.numeric(substr(ht2$datetime, 12, 13))
 names(ht2)[2] = "Temp"
 
-chill0calc <- chilling(ht2, 273, 60) # 39 chill portions by Jan 20 last year.
+chill0calc <- chilling(ht2, 273, 21) # 56 chill portions by Jan 21 last year.
 
 # Chilling in experimental setting. From Jan 22 - Feb 12 at 4, then to either 4 or 1.5 for additional 30 d. total: 22 d at 4, then 30 d extra.
 # diff(as.POSIXlt(c("2015-01-22", "2015-02-12", "2015-03-14"), "%Y-%m-%d"))
@@ -71,6 +71,68 @@ allcalc <- rbind(chill0calc[colz], chill0calc[colz]+chill1calc[colz], chill0calc
 hfallcalc <- data.frame(Treatment = c("Field chilling","4.0° x 30 d", "1.5° x 30 d"), allcalc)
 rownames(hfallcalc)=NULL
 
+## St. Hipp data 
+
+stemp <- read.csv("~/Documents/git/buds/analyses/data/St. Hip Weather Data.csv")
+
+stemp$datetime <- as.POSIXlt(stemp$Date, format = "%Y-%m-%d")
+
+# interporlate to hourly, based on max min 
+# install.packages("Interpol.T")
+library(Interpol.T)
+
+# Build a calibration table, here we don't actually have hourly data, use best guess
+
+calibration_l = list(
+  Average = data.frame(time_min = rep(5, 12),
+                       time_max = rep(14, 12),
+                       time_suns = rep(17, 12),
+                       C_m = rep(0.35, 12))
+                      )
+
+year = as.numeric(substr(stemp$Month, 1, 4))
+month = as.numeric(substr(stemp$Month, 6, 7))
+day = stemp$Day
+
+Tmin = data.frame(year, month, day, T = stemp$Tmin)
+Tmax = data.frame(year, month, day, T = stemp$Tmax)
+
+hrly = vector()
+
+for(i in 1:nrow(stemp)){
+  
+  xx <- Th_interp(Tmin, Tmax, 
+          day = i,
+          tab_calibr = calibration_l$Average)
+  
+  hrly = rbind(hrly,
+            data.frame(
+              date = strptime(stemp$Date[i], "%Y-%m-%d"),
+              Temp = xx$Th,
+              Year = Tmin$year[i], 
+              JDay = as.numeric(format(strptime(stemp$Date[i], "%Y-%m-%d"), "%j")),
+              month = Tmin$month[i],
+              day = Tmin$day[i],
+              Hour = 1:24
+              )
+            )
+  
+  }
+
+st <- hrly
+st <- st[st$date > "2014-08-30" & st$date < "2015-03-01",] 
+
+chill0calc.SH <- chilling(st, 273, 21) # 39 chill portions by Jan 20 last year.
+
+colz = c("Chilling_Hours","Utah_Model","Chill_portions")
+
+
+allcalc <- rbind(chill0calc[colz], chill0calc[colz]+chill1calc[colz], chill0calc[colz]+chill2calc[colz],
+            chill0calc.SH[colz], chill0calc.SH[colz]+chill1calc[colz], chill0calc.SH[colz]+chill2calc[colz])
+
+
+allcalc <- data.frame(Site = c("Harvard Forest", "","","St. Hippolyte","",""), Treatment = rep(c("Field chilling","4.0° x 30 d", "1.5° x 30 d"), 2), allcalc)
+rownames(allcalc)=NULL
 
 
 
@@ -83,64 +145,4 @@ rownames(hfallcalc)=NULL
 
 # Sequential, parallel, and unified models: need multiple years of data?
 # Ecodormancy, from external factors, Endodormancy from internal factors (broken by chilling)
-
-
-# ## St. Hipp data 
-# 
-# stemp <- read.csv("~/Documents/git/buds/analyses/data/St. Hip Weather Data.csv")
-# 
-# stemp$datetime <- as.POSIXlt(stemp$Date, format = "%Y-%m-%d")
-# 
-# # interporlate to hourly, based on max min 
-# # install.packages("Interpol.T")
-# library(Interpol.T)
-# 
-# 
-# ht$Year <- as.numeric(substr(ht$datetime, 1, 4))
-# ht$JDay <- as.numeric(format(strptime(substr(ht$datetime, 1, 10), "%Y-%m-%d"), "%j"))
-# ht$Hour <- as.numeric(substr(ht$datetime, 12, 13))
-# names(ht)[2] = "Temp"
-# 
-# # For current year chilling 
-# ht2 <- aggregate(airt ~ format(htemp2$datetime, "%Y-%m-%d %H"), mean, data = htemp2)
-# names(ht2)[1] = 'datetime'
-# 
-# ht2$Year <- as.numeric(substr(ht2$datetime, 1, 4))
-# ht2$JDay <- as.numeric(format(strptime(substr(ht2$datetime, 1, 10), "%Y-%m-%d"), "%j"))
-# ht2$Hour <- as.numeric(substr(ht2$datetime, 12, 13))
-# names(ht2)[2] = "Temp"
-# 
-# chilling(ht2, 305, 60) # Already 18 chill portions as of Dec 8.
-# 
-# chill0calc <- chilling(ht, 305, 60) # 39 chill portions by Jan 20 last year.
-# 
-# # Chilling in experimental setting. From Jan 22 - Feb 12 at 4, then to either 4 or 1.5 for additional 30 d. total: 22 d at 4, then 30 d extra.
-# diff(as.POSIXlt(c("2015-01-22", "2015-02-12", "2015-03-14"), "%Y-%m-%d"))
-# 
-# dayseq = seq(as.numeric(format(as.POSIXlt("2015-01-22", "%Y-%m-%d"), "%j")),
-#              as.numeric(format(as.POSIXlt("2015-03-14", "%Y-%m-%d"), "%j")))
-# 
-# chill1 <- data.frame(
-#   Year = as.numeric(rep("2015", 52*24)),
-#   JDay = as.numeric(rep(dayseq, each = 24)),
-#   Hour = rep(0:23, 52),
-#   Temp = 4
-# )
-# 
-# # bug: Jday vs JDay, returns error for "chillout not found"
-# 
-# chill1calc <- chilling(chill1, 305, 60)
-# 
-# chill2 <- chill1
-# chill2$Temp = c(rep(4, 22), rep(1.5, 30))
-# 
-# chill2calc <- chilling(chill2, 305, 60) # FEWER chill portions and fewer Utah Model chill hours
-# 
-# allcalc <- rbind(chill0calc[3:6], chill0calc[3:6]+chill1calc[3:6], chill0calc[3:6]+chill2calc[3:6])
-# 
-# hfallcalc <- data.frame(Treatment = c("Field chilling","4.0° x 30 d", "1.5° x 30 d"), allcalc)
-# rownames(hfallcalc)=NULL
-# 
-# 
-
 

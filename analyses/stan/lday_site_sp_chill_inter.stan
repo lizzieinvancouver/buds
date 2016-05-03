@@ -99,7 +99,12 @@ transformed parameters {
 	vector[N] y_hat;
 		
 	for(i in 1:N){
-		y_hat[i] <- a_sp[sp[i]] + b_site[sp[i]] * site[i] + b_warm[sp[i]] * warm[i] + b_photo[sp[i]] * photo[i] + b_chill1[sp[i]] * chill1[i] + b_chill2[sp[i]] * chill2[i] +
+		y_hat[i] <- a_sp[sp[i]] + 
+		b_site[sp[i]] * site[i] + 
+		b_warm[sp[i]] * warm[i] + 
+		b_photo[sp[i]] * photo[i] + 
+		b_chill1[sp[i]] * chill1[i] + 
+		b_chill2[sp[i]] * chill2[i] +
 		b_inter_wp[sp[i]] * inter_wp[i] +
 		b_inter_ws[sp[i]] * inter_ws[i] +
 		b_inter_ps[sp[i]] * inter_ps[i] +

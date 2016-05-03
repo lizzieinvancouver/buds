@@ -408,6 +408,8 @@ traitlmb.t <- getSummary(lm(bday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt
 traitlm.s <- getSummary(lm(lday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "shrub",]))$coef
 traitlmb.s <- getSummary(lm(bday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "shrub",]))$coef
 rownames(traitlm.t) = rownames(traitlm.s) = rownames(traitlmb.t) = rownames(traitlmb.s) = rowz
+
+
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # Phylogeny
