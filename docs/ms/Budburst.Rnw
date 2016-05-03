@@ -126,6 +126,8 @@ Rank order of leafout and budburst was stable across warming and photoperiod tre
 \item{Given these results, the future of the northeastern forests may shift away from shrubs and small trees, as late-successional, later-event species demonstrated a greater ability to lengthen their growing seasons opportunistically in response to warmer temperatures.} % I think we should be more cautious in stating this. We still don't know *what* controls their leafout!
 \end{itemize}
 
+% Re the above about shrubs versus trees -- I am just not sure what to think! And it comes back to the models. Our models give each species a fundamental leafout day -- their intercept. This makes lots of sense to me but biologically I am not sure what to do with it (and if we take it away then the early species become hyper-sensitive, right?). I think we need to think on what that intercept means and what we should and shouldn't say given that it's in our models. I think it could be what you suggested, it could also be that they have super weak chilling, it could be that they are sensitive to humidity or something we don't study. But fundamentally I think we need to think harder about that before we push our conclusions too far. To discuss next week! And maybe we can ask people at the Stan meeting next Wednesday night. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Methods}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
