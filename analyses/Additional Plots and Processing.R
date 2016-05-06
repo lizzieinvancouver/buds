@@ -68,7 +68,7 @@ legend("bottomright",
        inset = 0.02, 
        bg = 'white')
 
-dev.off();system(paste("open", file.path(figpath, "stanbb_1.pdf"), "-a/Applications/Preview.app"))
+dev.off();#system(paste("open", file.path(figpath, "stanbb_1.pdf"), "-a/Applications/Preview.app"))
 
 ### 3-way with chilling
 
@@ -118,7 +118,7 @@ plotlet("b_chill2","b_warm",
         xlim = c(-33, -13),
         ylim = c(-14, 0.5))
         
-dev.off();system(paste("open", file.path(figpath, "stanbb_3.pdf"), "-a/Applications/Preview.app"))
+dev.off();#system(paste("open", file.path(figpath, "stanbb_3.pdf"), "-a/Applications/Preview.app"))
 
 
 
@@ -143,7 +143,7 @@ plotlet("b_chill2","b_site",
         ylim = c(-1, 8)
 )
 
-dev.off();system(paste("open", file.path(figpath, "stanbb_sitechill.pdf"), "-a/Applications/Preview.app"))
+dev.off();#system(paste("open", file.path(figpath, "stanbb_sitechill.pdf"), "-a/Applications/Preview.app"))
 
 pdf(file.path(figpath, "stanlo_1.pdf"), width = 8, height = 8)  
 
@@ -162,7 +162,7 @@ plotlet("b_warm","b_photo",
          legend = c("Shrubs","Trees"),
          inset = 0.02)
   
-dev.off();system(paste("open", file.path(figpath, "stanlo_1.pdf"), "-a/Applications/Preview.app"))
+dev.off();#system(paste("open", file.path(figpath, "stanlo_1.pdf"), "-a/Applications/Preview.app"))
 
 ### 3-way with chilling
 
@@ -195,7 +195,7 @@ plotlet("b_chill2","b_photo",
         xlim = c(-33, -20),
         ylim = c(-16, -11))
 
-plot(1:10,type="n",xlab="",ylab="",xaxt="",yaxt="",bty="n")
+plot(1:10,type="n",xlab="",ylab="",xaxt="n",yaxt="n",bty="n")
 
 plotlet("b_chill1","b_warm",
         group = treeshrub,
@@ -213,7 +213,7 @@ plotlet("b_chill2","b_warm",
         xlim = c(-33, -20),
         ylim = c(-28, -16))
 
-dev.off();system(paste("open", file.path(figpath, "stanlo_3.pdf"), "-a/Applications/Preview.app"))
+dev.off();#system(paste("open", file.path(figpath, "stanlo_3.pdf"), "-a/Applications/Preview.app"))
 
 pdf(file.path(figpath, "stanlo_sitechill.pdf"), width = 8, height = 5)  
 
@@ -237,7 +237,7 @@ plotlet("b_chill2","b_site",
         ylim = c(-3, 12)
 )
 
-dev.off();system(paste("open", file.path(figpath, "stanlo_sitechill.pdf"), "-a/Applications/Preview.app"))
+dev.off();#system(paste("open", file.path(figpath, "stanlo_sitechill.pdf"), "-a/Applications/Preview.app"))
 
 
 
@@ -256,12 +256,66 @@ photoeff <- sumerb[grep("b_photo\\[", rownames(sumerb)),'mean']
 chill1eff <- sumerb[grep("b_chill1\\[", rownames(sumerb)),'mean']
 chill2eff <- sumerb[grep("b_chill2\\[", rownames(sumerb)),'mean']
 
-plot(tr$sla, warmeff)
-plot(tr$wd, warmeff)
+identical(tr$code, as.character(adv$sp))
 
-plot(tr$sla, warmeff)
-plot(tr$wd, warmeff)
+tr <- data.frame(tr, adv$overall, treeshrub) # 1 = shrub
 
+tr2 <- rbind(tr[c(1:3,19:ncol(tr))],
+             tr[c(1:3,19:ncol(tr))],
+             tr[c(1:3,19:ncol(tr))],
+             tr[c(1:3,19:ncol(tr))])
+tr2$effect = gl(4, nrow(tr), labels = c("Temperature","Photoperiod","Chilling 4°","Chilling 1.5°"))
+tr2$sensitivity = c(warmeff, photoeff, chill1eff, chill2eff)
+
+pdf(file.path(figpath, "Traits_vs_sensitivity.pdf"), width = 12, height = 5)  
+
+ggplot(tr2, aes(sla, sensitivity, group= effect)) + 
+  geom_point(aes(col = adv.overall), cex=3, alpha=0.8) + 
+  facet_grid(.~effect) + 
+  xlab("Specific leaf area") + ylab("Days earlier") + 
+  theme_bw() + scale_color_continuous(low = "dodgerblue3", high = "goldenrod1", name="Overall day \nof leafout")
+
+ggplot(tr2, aes(wd, sensitivity, group= effect)) + 
+  geom_point(aes(col = adv.overall), cex=3, alpha=0.8) + 
+  facet_grid(.~effect) + 
+  xlab("Stem density") + ylab("Days earlier") + 
+  theme_bw() + scale_color_continuous(low = "dodgerblue3", high = "goldenrod1", name="Overall day \nof leafout")
+
+ggplot(tr2, aes(X.N, sensitivity, group= effect)) + 
+  geom_point(aes(col = adv.overall), cex=3, alpha=0.8) + 
+  facet_grid(.~effect) + 
+  xlab("Percent nitrogen") + ylab("Days earlier") + 
+  theme_bw() + scale_color_continuous(low = "dodgerblue3", high = "goldenrod1", name="Overall day \nof leafout")
+
+dev.off();#system(paste("open", file.path(figpath, "Traits_vs_sensitivity.pdf"), "-a/Applications/Preview.app"))
+
+#############
+
+# plot of traits vs traits, for trees and shrubs
+tr2$treeshrub[tr2$treeshrub == 1] = "Shrubs"
+tr2$treeshrub[tr2$treeshrub == 2] = "Trees"
+
+pdf(file.path(figpath, "Tree_shrub_traits.pdf"), width = 8, height = 4)
+ggplot(tr2, aes(sla, wd)) + 
+  geom_point(aes(col = adv.overall), cex=3, alpha=0.8) + 
+  facet_grid(.~treeshrub) + 
+  xlab("Specific leaf area") + ylab("Stem density") + 
+  theme_bw() + scale_color_continuous(low = "dodgerblue3", high = "goldenrod1", name="Overall day \nof leafout")
+
+ggplot(tr2, aes(sla, X.N)) + 
+  geom_point(aes(col = adv.overall), cex=3, alpha=0.8) + 
+  facet_grid(.~treeshrub) + 
+  xlab("Specific leaf area") + ylab("Percent nitrogen") + 
+  theme_bw() + scale_color_continuous(low = "dodgerblue3", high = "goldenrod1", name="Overall day \nof leafout")
+
+
+ggplot(tr2, aes(wd, X.N)) + 
+  geom_point(aes(col = adv.overall), cex=3, alpha=0.8) + 
+  facet_grid(.~treeshrub) + 
+  xlab("Stem density") + ylab("Percent nitrogen") + 
+  theme_bw() + scale_color_continuous(low = "dodgerblue3", high = "goldenrod1", name="Overall day \nof leafout")
+
+dev.off();#system(paste("open", file.path(figpath, "Tree_shrub_traits.pdf"), "-a/Applications/Preview.app"))
 
 #############   #############   #############   #############   #############
 #############   More additional plotting        #############   #############
@@ -371,7 +425,7 @@ points(meanzl[,'mean'],
 abline(v = 0, lty = 2)
 
 
-dev.off();system(paste("open", file.path(figpath, "Fig1_bb_lo+sp.pdf"), "-a /Applications/Preview.app"))
+dev.off();#system(paste("open", file.path(figpath, "Fig1_bb_lo+sp.pdf"), "-a /Applications/Preview.app"))
 
 ###### How many species have pos/neg of each response?
 
