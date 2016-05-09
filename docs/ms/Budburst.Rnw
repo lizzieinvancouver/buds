@@ -1,3 +1,7 @@
+% ---------------------------------------------------- %
+% Budburst 2015 manuscript
+% Preamble
+% ---------------------------------------------------- %
 \documentclass{article}
 \usepackage{textcomp}
 \usepackage{fontenc}
@@ -8,32 +12,30 @@
 \usepackage[margin=1in]{geometry} % to set margins
 \usepackage{setspace}
 \usepackage{lineno}
+\usepackage{cite}
 
 \doublespacing
-
-\bibliographystyle{naturemag}
-
 \renewcommand{\familydefault}{\sfdefault}
 \graphicspath{{images/}}	% Root directory of the figures
 \setlength{\parskip}{2 mm}
 
-\bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
-\bibliographystyle{naturemag}
-
 \begin{document}
+
 \linenumbers
-\SweaveOpts{concordance=T} % set to F?
+\SweaveOpts{concordance=T} 
 
 \flushleft
+
 \textbf{\large{Photoperiod and temperature interactively drive spring phenology in multiple species}}
 
-Flynn, Wolkovich...
+Flynn, Wolkovich
 
 \textit{The Arnold Arboretum of Harvard University}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Abstract
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \textbf{
 % First two sentences are good -- but you only have room for one 'why to care about phenology' statement so adjust.
 % Also need a quicker intro to design, including a clear problem statement. Consider something along the lines of: how diverse species respond to warming is a big question but few studies have looked at many species and such work has been generally observational. Observational studies, however, have known difficulties in teasing out plant responses to climate with are generally thought to be based on one or several major cues plant receive from the fall to spring: chilling temperatures, photoperiod and spring forcing temperatures. For a handful of well-studied temperate woody species these cues appear to be interactive, meaning predictions of plant responses to climate change will be complex and non-linear (cite CHUINE). Other work, however has suggested many species may be dominated by one of the three possible cues (cite Korner & Basler), making some species responses simple to predict. 
@@ -49,7 +51,8 @@ Woody plant spring phenology drives global carbon cycles and local ecosystem pro
 
 While observational studies of long-term trends are essential for understanding how climate affects timing of phenological events, experimental manipulations can disentangle otherwise covarying environmental factors and directly assess species- and individual-level responses to climate change factors. Early phenological events such as bud swelling and budburst are challenging to study from remote sensing, requiring experimental work at the individual level.
 
-Timing of spring phenology is critical for understanding net ecosystem assimilation at the forest scale, as maximizing the length of the growing season and minimizing risk of tissue loss due to early spring freezing depends on accurate timing of budburst and leafout (Basler \& Korner 2014).  
+Timing of spring phenology is critical for understanding net ecosystem assimilation at the forest scale, as maximizing the length of the growing season and minimizing risk of tissue loss due to early spring freezing depends on accurate timing of budburst and leafout. 
+\cite{Basler:2014aa}
 
 Here we ask the following questions:
 \begin{itemize}
@@ -64,7 +67,7 @@ Here we ask the following questions:
 % On the other hand I think we should definitely set up more about risky or conservative strategies ACROSS the growing season. It would be easy to suggest that early species are 'riskier' and later species more conservative with regards to late frosts. I think we can also tie that into Koerner and Basler (but we should re-read it) and say that later a more photoperiod dominating cue system could be best.  
 % This might also be a way to sneak in the traits possibly ... because I think the strategy could be early, risky but cheaper, less competitively dominant versus later, safer and more competitively dominant. Then the traits work provides a very simple test of this? And we say 'ah, teasing out the traits will be trickier and probably involve understanding which traits really tie to competitive superiority versus which might tie to frost resistance etc.. 
 
-Photoperiod has long been known to be a critical driver of the onset of endormancy, in combination with cooling temperatures (Foley et al. 2009). However, the role of photoperiod in determining the breadking of dormancy has been debated, with various authors finding that the strength of daylength as a driver may depend on phenological stage, species and location (Heide 1993; Kramer 1994; Falusi and Calamassi 1996). Photoperiod and winter chilling can interact, as long as photoperiod enhances cell growth, compensating for a lack of chilling during the endodormancy phase (Chuine 2013; Wareing 1953; Heide 1993b; Myking and Heide 1995; Caffarra et al. 2011a). In the few experimental studies that have directly manipulated both forcing temperature and photoperiod, photoperiod has been shown to 
+Photoperiod has long been known to be a critical driver of the onset of endormancy, in combination with cooling temperatures \cite{Foley:2009aa}. However, the role of photoperiod in determining the breadking of dormancy has been debated, with various authors finding that the strength of daylength as a driver may depend on phenological stage, species and location (Heide 1993; Kramer 1994; \cite{Falusi:1996aa}. Photoperiod and winter chilling can interact, as long as photoperiod enhances cell growth, compensating for a lack of chilling during the endodormancy phase (Chuine 2013; Wareing 1953; Heide 1993b.. \cite{Caffarra:2011aa} \cite{Myking:1995aa}. In the few experimental studies that have directly manipulated both forcing temperature and photoperiod, photoperiod has been shown to 
 
 % The below is good but can probably move to the supplement and you can have just a sentence here saying 'A literature review (see Supp) shows that the most species examined for photoperiod and temperature cues in a manipulative study to date is four' or something like that. 
 We conducted a literature review, finding 109 studies which investigated effects of photoperiod, temperature, or their interaction on the timing of bud burst or flowering for woody or semi-woody plants.  No study varied chilling period, photoperiod, and temperature simultaneously across multiple species at multiple sites. Of those studies, eight simultaneously manipulated photoperiod and temperature. Basler \& Koerner 14 found a negative tradeoff between sensitivity to photoperiod and sensitivity to warming for four species, for example with Fagus sylvatica advanced on average in leafout by 12 days in response to experimentally lengthened photoperiod, but only ca. 8 days in response to warmer temperatures, while Acer pseudoplatanus advanced in leafout by 17 days in response to warming but essentially had no change in response to photoperiod. The current study expands on this work by including 28 species, across two sites, with addition manipulations of chilling temperature.
@@ -153,6 +156,8 @@ Linear mixed effects models in R, then stan.
 \section*{References Cited}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
+\bibliographystyle{naturemag}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Figures and Tables}
@@ -170,11 +175,16 @@ source("Pheno Budburst analysis.R")
 
 
 <<label=chillcalc, echo=FALSE, results = tex>>=
-hftable <- xtable(hfallcalc, caption = "Chill unit calculations")
+allcalc$Treatment <- rep(c("Field chilling", "4.0 \\degree C x 30 d", "1.5 \\degree C x 30 d"),2)
+colnames(allcalc) <- sub("_", " ", colnames(allcalc))
+chilltable <- xtable(allcalc, 
+                     digits = c(0, 0, 0, 0, 2, 2),
+                     caption = "Chill units in field and field and growth chamber conditions.")
 
-print(hftable,
+print(chilltable,
       include.rownames = FALSE,
-      caption.placement = "top")
+      caption.placement = "top",
+      sanitize.text.function = function(x) {x})
       
 @
 

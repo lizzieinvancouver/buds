@@ -1,0 +1,53 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibinfo}[2]{#2}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Basler:2014aa}
+\bibinfo{author}{Basler, D.} \& \bibinfo{author}{K{\"o}rner, C.}
+\newblock \bibinfo{title}{Photoperiod and temperature responses of bud swelling
+  and bud burst in four temperate forest tree species}.
+\newblock \emph{\bibinfo{journal}{Tree physiology}}
+  \textbf{\bibinfo{volume}{34}}, \bibinfo{pages}{377--388}
+  (\bibinfo{year}{2014}).
+\newblock
+  \urlprefix\url{http://treephys.oxfordjournals.org/content/34/4/377.full.pdf}.
+
+\bibitem{Foley:2009aa}
+\bibinfo{author}{Foley, M.~E.}, \bibinfo{author}{Anderson, J.~V.} \&
+  \bibinfo{author}{Horvath, D.~P.}
+\newblock \bibinfo{title}{The effects of temperature, photoperiod, and
+  vernalization on regrowth and flowering competence ineuphorbia
+  esula(euphorbiaceae) crown buds}.
+\newblock \emph{\bibinfo{journal}{Botany}} \textbf{\bibinfo{volume}{87}},
+  \bibinfo{pages}{986--992} (\bibinfo{year}{2009}).
+
+\bibitem{Falusi:1996aa}
+\bibinfo{author}{Falusi, M.} \& \bibinfo{author}{Calamassi, R.}
+\newblock \bibinfo{title}{Geographic variation and bud dormancy in beech
+  seedlings (fagus sylvatica l)}.
+\newblock In \emph{\bibinfo{booktitle}{Annales des Sciences foresti{\`e}res}},
+  vol.~\bibinfo{volume}{53}, \bibinfo{pages}{967--979} (\bibinfo{publisher}{EDP
+  Sciences}, \bibinfo{year}{1996}).
+
+\bibitem{Caffarra:2011aa}
+\bibinfo{author}{Caffarra, A.}, \bibinfo{author}{Donnelly, A.},
+  \bibinfo{author}{Chuine, I.} \& \bibinfo{author}{Jones, M.~B.}
+\newblock \bibinfo{title}{Modelling the timing of betula pubescens bud-burst.
+  i. temperature and photoperiod: A conceptual model}.
+\newblock \emph{\bibinfo{journal}{Climate Research}}
+  \textbf{\bibinfo{volume}{46}}, \bibinfo{pages}{147} (\bibinfo{year}{2011}).
+
+\bibitem{Myking:1995aa}
+\bibinfo{author}{Myking, T.} \& \bibinfo{author}{Heide, O.}
+\newblock \bibinfo{title}{Dormancy release and chilling requirement of buds of
+  latitudinal ecotypes of betula pendula and b. pubescens}.
+\newblock \emph{\bibinfo{journal}{Tree physiology}}
+  \textbf{\bibinfo{volume}{15}}, \bibinfo{pages}{697--704}
+  (\bibinfo{year}{1995}).
+\newblock
+  \urlprefix\url{http://treephys.oxfordjournals.org/content/15/11/697.full.pdf}.
+
+\end{thebibliography}

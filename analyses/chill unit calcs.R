@@ -8,7 +8,7 @@ load(file.path("input", toload))
 # Dynamic Model
 
 library(chillR)
-# Luedeling recommends Dynamic Modle (chill portions)
+# Luedeling recommends Dynamic Model (chill portions)
 
 # HF chilling from Oct 1 2014
 
