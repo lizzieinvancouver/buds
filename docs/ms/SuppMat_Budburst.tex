@@ -2,28 +2,21 @@
 
 \usepackage{textcomp}
 \usepackage{fontenc}
-
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{gensymb} % for \degree
 \usepackage{placeins} % for \images
 \usepackage[margin=1in]{geometry} % to set margins
 
-\bibliographystyle{naturemag}
 
 \renewcommand{\familydefault}{\sfdefault}
 \graphicspath{{images/}}	% Root directory of the figures
 \setlength{\parskip}{2 mm}
 
-%\bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
-%\bibliographystyle{naturemag}
-
-
 \usepackage{Sweave}
 \begin{document}
 
-\input{SuppMat_Budburst-concordance} % set to F?
-
+\input{SuppMat_Budburst-concordance} % 
 
 \flushleft
 
@@ -43,7 +36,7 @@ Flynn, Wolkovich...
 
 
 % latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Mon May  2 08:08:35 2016
+% Fri May  6 16:14:15 2016
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed effect model of budburst day by species.} 
@@ -69,7 +62,7 @@ Temperature & -6.80 & 1.71 & -7.95 & -7.02 & -5.63 & 1.05 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Mon May  2 08:08:35 2016
+% Fri May  6 16:14:15 2016
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed effect model of leafout day by species.} 
@@ -97,12 +90,6 @@ Temperature & -21.91 & 1.72 & -23.05 & -21.90 & -20.75 & 1.01 \\
 %% \clearpage % use if get 'too many unprocessed floats' error
 
 \begin{figure}
-\caption{Summary of relationships between budburst day, leafout day, and plant functional traits.}
-\label{figS1}
-\includegraphics[scale=0.75]{traitpairs}
-\end{figure}
-
-\begin{figure}
 \caption{Model estimates of budburst, including species-level effects.}
 \label{figS2}
 \includegraphics[scale=0.75, page=1]{Fig1_bb_lo+sp}
@@ -121,5 +108,64 @@ Temperature & -21.91 & 1.72 & -23.05 & -21.90 & -20.75 & 1.01 \\
 \label{figS4}
 \includegraphics[scale=0.75]{Sens_vs_day}
 \end{figure}
+
+\clearpage
+
+\begin{figure}
+\caption{Trait sensitivity based on specific leaf area}
+\label{figS5}
+\includegraphics[scale=0.95, page=1]{Traits_vs_sensitivity}
+\end{figure}
+
+\begin{figure}
+\caption{Trait sensitivity based on stem density}
+\label{figS6}
+\includegraphics[scale=0.95, page=2]{Traits_vs_sensitivity}
+\end{figure}
+
+\begin{figure}
+\caption{Trait sensitivity based on \% nitrogen}
+\label{figS7}
+\includegraphics[scale=0.95, page=3]{Traits_vs_sensitivity}
+\end{figure}
+
+
+\begin{figure}
+\caption{Specific leaf area and stem density by trees vs shrubs}
+\label{figS8}
+\includegraphics[scale=0.95, page=1]{Tree_shrub_traits}
+\end{figure}
+
+
+\begin{figure}
+\caption{Specific leaf area and percent nitrogen by trees vs shrubs}
+\label{figS9}
+\includegraphics[scale=0.95, page=2]{Tree_shrub_traits}
+\end{figure}
+
+\begin{figure}
+\caption{Stem density and percent nitrogen by trees vs shrubs}
+\label{figS10}
+\includegraphics[scale=0.95, page=3]{Tree_shrub_traits}
+\end{figure}
+
+\clearpage
+
+
+\begin{figure}
+\caption{Leafout rank order in experimental treatments vs. O'Keefe observations}
+\label{figS11}
+\includegraphics{leafout_exp_obs_corr}
+\end{figure}
+
+\begin{figure}
+\caption{Leafout day of year in experimental treatments vs. O'Keefe observations}
+\label{figS12}
+\includegraphics{leafout_exp_obs_corr_day}
+\end{figure}
+
+
+%\bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
+%\bibliographystyle{naturemag}
 
 \end{document}

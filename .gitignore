@@ -35,3 +35,11 @@ docs/outline/Budburst.aux
 *.gz
 
 *.log
+
+*.aux
+
+*.lot
+
+*.log
+
+docs/ms/Budburst-concordance.tex

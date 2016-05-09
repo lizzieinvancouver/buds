@@ -2,19 +2,17 @@
 ### By Lizzie ###
 
 # okeefe.csv = date of first event for any individual of that species, in that year
-# 
 
 ## housekeeping
-rm(list=ls()) 
+#rm(list=ls()) 
 options(stringsAsFactors=FALSE)
 
 library(ggplot2)
 library(tidyr)
 
-setwd("~/Documents/git/projects/treegarden/okeefe/analyses")
+if(length(grep("danflynn", getwd()))==0){ setwd("~/Documents/git/projects/treegarden/okeefe/analyses") }
 
 if(length(grep("danflynn", getwd()))>0){ setwd("~/Documents/git/buds/analyses/okeefe") }
-#source('../DF General Functions.R')
 
 
 d <- read.csv("../data/hf003-06-mean-spp.csv")
@@ -98,12 +96,12 @@ for(i in unique(d$year)){ # i = '2000'
   yr = c(yr, rep(i, nrow(dxx)))
   }
 
-d1 <- data.frame(year = yr, sp, leafout.order = lo, budburst.order = bb)
+d1 <- data.frame(year = yr, sp, leafout.order = lo, budburst.order = bb, l75 = d$l75.jd)
 
-ggplot(d1, aes(year, leafout.order, group = sp)) + geom_line(aes(color = sp)) 
-ggplot(d1, aes(year, budburst.order, group = sp)) + geom_line(aes(color = sp)) 
-
-ggplot(d1, aes(leafout.order, budburst.order, group = sp)) + geom_point(aes(color = sp)) #  later lo species are also later bb species, but early ones vary a lot
+# ggplot(d1, aes(year, leafout.order, group = sp)) + geom_line(aes(color = sp)) 
+# ggplot(d1, aes(year, budburst.order, group = sp)) + geom_line(aes(color = sp)) 
+# 
+# ggplot(d1, aes(leafout.order, budburst.order, group = sp)) + geom_point(aes(color = sp)) #  later lo species are also later bb species, but early ones vary a lot
 
 
 # match to our experimental species
@@ -136,9 +134,15 @@ bmean.order.3 <- aggregate(budburst.order ~ sp, mean, data = d1)
 bse.order.3 <- aggregate(budburst.order ~ sp, function(x) sd(x,na.rm=T)/sqrt((length(x[!is.na(x)])-1)), data = d1)
 
 
-ok <- data.frame(mean.order.3, hf.d1.order.se = se.order.3$leafout.order, budburst.order = bmean.order.3$budburst.order, hf.b.order.se = bse.order.3$budburst.order)
+mean.lo.3 <- aggregate(l75 ~ sp, mean, data = d1)
+se.lo.3 <- aggregate(l75 ~ sp, function(x) sd(x,na.rm=T)/sqrt((length(x[!is.na(x)])-1)), data = d1)
+
+
+
+ok <- data.frame(mean.order.3, hf.d1.order.se = se.order.3$leafout.order, budburst.order = bmean.order.3$budburst.order, hf.b.order.se = bse.order.3$budburst.order,
+                 hf.lo = mean.lo.3, hf.lo.se = se.lo.3)
 #quartz()
-pdf("leafout exp obs corr.pdf", width = 12, height = 8)
+pdf("leafout_exp_obs_corr.pdf", width = 15, height =12)
 
 par(mfrow = c(3, 4), xpd=T, mar = c(4,4,2,1))
 
@@ -177,4 +181,51 @@ for(i in unique(dx$treats)){ # i = "1 1 0 0"
   counter = counter + 1
 } 
 
-dev.off();system("open 'leafout exp obs corr.pdf' -a /Applications/Preview.app")
+dev.off()#;system("open 'leafout_exp_obs_corr.pdf' -a /Applications/Preview.app")
+
+#### now just by day, not by order
+
+pdf("leafout_exp_obs_corr_day.pdf", width = 15, height =12)
+
+par(mfrow = c(3, 4), xpd=T, mar = c(4,4,2,1))
+
+counter = 1
+for(i in unique(dx$treats)){ # i = "1 1 0 0"
+  dxx <- dx[dx$treats == i,]
+  
+  dxx <- dxx[!is.na(match(dxx$sp, ok$sp)),]
+  ok2 <- ok[!is.na(match(ok$sp, dxx$sp)),]
+  stopifnot(identical(dxx$sp, ok2$sp))
+  
+  plot(ok2$hf.lo.l75, dxx$lday, pch = "+", 
+       xlim = c(145, 158),
+       ylim = c(18, 85),
+       xlab = "Harvard Forest Observed",
+       ylab = "Experimental"
+  )
+  
+  text(ok2$hf.lo.l75, dxx$lday, labels = ok2$sp, cex = 0.8, pos = 3)
+  
+  #do.lm(ok2$leafout.order, dxx$leafout.order)
+  
+  
+  print(summary.aov(lm.result <- lm(dxx$lday ~ ok2$hf.lo.l75)))
+  
+  if(counter < 5)   legend("bottomright",legend = c(unique(dxx$treat),
+                                                    paste("r2 =", round(summary(lm.result)$r.squared, 3))), inset=0)
+  else legend("topleft",legend = c(unique(dxx$treat),
+                                   paste("r2 =", round(summary(lm.result)$r.squared, 3))), inset=0)
+  
+  counter = counter + 1
+} 
+
+dev.off()#;system("open 'leafout_exp_obs_corr_day.pdf' -a /Applications/Preview.app")
+
+
+
+# is ACESAC really that early??
+
+ggplot(d1[d1$year > 2002,], aes(year, leafout.order, group = sp)) + geom_line(aes(color = sp)) 
+
+ggplot(d[d$year > 2002,], aes(year, l75.jd, group = sp)) + geom_line(aes(color = sp)) 
+
