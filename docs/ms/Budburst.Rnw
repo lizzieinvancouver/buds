@@ -15,7 +15,7 @@
 \usepackage{cite}
 
 \doublespacing
-\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\familydefault}{\sfdefault} % for nicer sans serif font
 \graphicspath{{images/}}	% Root directory of the figures
 \setlength{\parskip}{2 mm}
 
@@ -54,25 +54,38 @@ While observational studies of long-term trends are essential for understanding 
 Timing of spring phenology is critical for understanding net ecosystem assimilation at the forest scale, as maximizing the length of the growing season and minimizing risk of tissue loss due to early spring freezing depends on accurate timing of budburst and leafout. 
 \cite{Basler:2014aa}
 
-Here we ask the following questions:
-\begin{itemize}
-\item{For a community of northeastern woody plants, what is the role of photoperiod versus temperature in determining timing of budburst, leaf-out, and flowering? Are species limited by photoperiod requirements in their response to warming temperatures? How consistent are such responses within communities?}
-\item{To what extent do winter chilling requirements act as additional conservative strategy to avoid damage from early spring freezing?}
+
+For a community of northeastern woody plants, what is the role of photoperiod versus temperature in determining timing of budburst, leaf-out, and flowering? Are species limited by photoperiod requirements in their response to warming temperatures? How consistent are such responses within communities?
+
+Chuine I 2010 PhilTransB
+Diez 2012 ecol lett
+Cleland 2007 TREE
+
+To what extent do winter chilling requirements act as additional conservative strategy to avoid damage from early spring freezing?
 % What do you mean by this? 
-\item{Do populations at northern sites, with more severe winters and shorter winter daylength, exhibit more conservative phenological strategies?}
+% points to make: chilling is a strategy to make sure budburst/leafout do not occur too early. This can be a supplemental stragety in addition to photoperiod and temperature cues for breaking endodormancy. [notes to myself: endodormancy: short days in fall. Broken by chilling. Ecodormancy: broken by temperature.
+
+
+Do populations at northern sites, with more severe winters and shorter winter daylength, exhibit more conservative phenological strategies?
 % Need to define "conservative phenological strategies".
-\end{itemize}
+
 
 % I think we probably need to set up the hypotheses for plant strategies here more. I know I suggested the one about risk avoidance across sites that for that we *really need* to show that there is an increased risk of spring frost after leafout (or after some critical climate threshold) at one site versus the other. Otherwise it's unclear to me why one site would actually be 'riskier.' Certainly SH probably has a shorter growing season but I am no longer sure it's a riskier season climatically.
+
+%%% Get freezing risk -- USDA hardiness depends on average annual minimum temperature. Better metrics also include snow cover (low snow cover = less insulation). St. Hipp is zone 4a (-30 -25°F, agr.gc.ca; planthardiness.gc.ca).
+% McKenney 2014 BioSci: update of Canadian hardiness zone maps, show shifts in 62 tree spcies sinzce 1960 map. Greatest change in Western Canada, but increase in easte of ~1 zone. Based on multiple climate variables, not just USDA average annual minimum temp, which shows smaller change.
+
 % On the other hand I think we should definitely set up more about risky or conservative strategies ACROSS the growing season. It would be easy to suggest that early species are 'riskier' and later species more conservative with regards to late frosts. I think we can also tie that into Koerner and Basler (but we should re-read it) and say that later a more photoperiod dominating cue system could be best.  
 % This might also be a way to sneak in the traits possibly ... because I think the strategy could be early, risky but cheaper, less competitively dominant versus later, safer and more competitively dominant. Then the traits work provides a very simple test of this? And we say 'ah, teasing out the traits will be trickier and probably involve understanding which traits really tie to competitive superiority versus which might tie to frost resistance etc.. 
 
-Photoperiod has long been known to be a critical driver of the onset of endormancy, in combination with cooling temperatures \cite{Foley:2009aa}. However, the role of photoperiod in determining the breadking of dormancy has been debated, with various authors finding that the strength of daylength as a driver may depend on phenological stage, species and location (Heide 1993; Kramer 1994; \cite{Falusi:1996aa}. Photoperiod and winter chilling can interact, as long as photoperiod enhances cell growth, compensating for a lack of chilling during the endodormancy phase (Chuine 2013; Wareing 1953; Heide 1993b.. \cite{Caffarra:2011aa} \cite{Myking:1995aa}. In the few experimental studies that have directly manipulated both forcing temperature and photoperiod, photoperiod has been shown to 
+% Raulier and Bernier 2000: Acer saccharaum leafout as a phenology model. Model uses days above 10*C asfor warming, days below 10°C for chilling.
+% False spring index: julian date of last hard frost (mimum daily temp below -2.2) minus date of leaf emergence.
 
-% The below is good but can probably move to the supplement and you can have just a sentence here saying 'A literature review (see Supp) shows that the most species examined for photoperiod and temperature cues in a manipulative study to date is four' or something like that. 
-We conducted a literature review, finding 109 studies which investigated effects of photoperiod, temperature, or their interaction on the timing of bud burst or flowering for woody or semi-woody plants.  No study varied chilling period, photoperiod, and temperature simultaneously across multiple species at multiple sites. Of those studies, eight simultaneously manipulated photoperiod and temperature. Basler \& Koerner 14 found a negative tradeoff between sensitivity to photoperiod and sensitivity to warming for four species, for example with Fagus sylvatica advanced on average in leafout by 12 days in response to experimentally lengthened photoperiod, but only ca. 8 days in response to warmer temperatures, while Acer pseudoplatanus advanced in leafout by 17 days in response to warming but essentially had no change in response to photoperiod. The current study expands on this work by including 28 species, across two sites, with addition manipulations of chilling temperature.
+Photoperiod has long been known to be a critical driver of the onset of endormancy, in combination with cooling temperatures \cite{Foley:2009aa}. However, the role of photoperiod in determining the breadking of dormancy has been debated, with various authors finding that the strength of daylength as a driver may depend on phenological stage, species and location (Heide 1993; Kramer 1994; \cite{Falusi:1996aa}. Photoperiod and winter chilling can interact, as long as photoperiod enhances cell growth, compensating for a lack of chilling during the endodormancy phase (Chuine 2013; Wareing 1953; Heide 1993b.. \cite{Caffarra:2011aa} \cite{Myking:1995aa}. In the few experimental studies that have directly manipulated both forcing temperature and photoperiod, photoperiod has been shown to act in 
 
-Different phenological stages may be driven by different environmental cues. The period between budburst and leafout is critical for leaf development, as this is a period when plants are highly sensitive to damage from early frosts. Thus we carried out our tests for both budburst and leafout. We predicted that budburst would be generally less predictable than leafout. % Because ...
+A literature review (see Supplemental Materials) shows that at most four species have been examined for photoperiod and temperature cues in a manipulative study to date. 
+
+Different phenological stages may be driven by different environmental cues. The period between budburst and leafout is critical for leaf development, as this is a period when plants are highly sensitive to damage from early frosts ADD CITES. Thus we carried out our tests for both budburst and leafout. We predicted that budburst would be generally less predictable than leafout. % Because ...
 
 
 
@@ -100,10 +113,11 @@ While nearly all species showed advances in spring phenology in response to the 
 
 \subsection*{Species-specific responses}
 
-Species traits partly explain variation in warming and photoperiod sensitivities of leafout. 
-Plants with high nitrogen leaves, as well as high SLA (thinner, less dense) leaves, were significantly later in both budburst and leafout. Thus early leafout species tended to be tougher, less N-dense, and have higher carbon investments than later species. Greater wood density had inconsitent effects as a driver, with higher wood density driving later budburst but tending to drive earlier leafout.
+Species traits partly explain variation in warming and photoperiod sensitivities of leafout. Plants with high nitrogen leaves, as well as high SLA (thinner, less dense) leaves, were significantly later in both budburst and leafout. Thus early leafout species tended to be tougher, less N-dense, and have higher carbon investments than later species. Greater wood density had inconsitent effects as a driver, with higher wood density driving later budburst but tending to drive earlier leafout.
 
 Ring-porous species (\emph{Fraxinus sp.}, \emph{Lonicera}, \emph{Myrica}, and \emph{Quercus}; lower values of Pore Anatomy variable) exhibited significantly later budburst and leafout compared to diffuse-porous species, in line with previous work on wood anatomy and freezing risk (Sperrry \& Sullivan 1991 Plant Phys).
+
+Shrubs with low specific leaf area (thick/dense leaves) and high stem density were more likely to leaf out earlier. For trees, with an overall later leafout pattern, 
 
 \subsection*{Nonleafouts}
 
@@ -113,7 +127,9 @@ Species ranged from complete leafout (\emph{Hamamelis}) to only 50\% leafout (\e
 % I think you can cut the below
 % All species show advances in budburst and leafout in response to photoperiod, warming, and chilling treatments. All species showed positive interactions between warming and chilling for leafout. For budburst, interactions between warming and chilling were always positive but not those between photoperiod and chilling (4 and 12 species showing positive interaction for chill1 and chill2, respectively).
 
-Rank order of leafout and budburst was stable across warming and photoperiod treatments. Chilling treatments shifted the order, for example \emph{Fagus grandifolia} was always the 23-28th species to burst bud in chill0, but always the 10-11th species to burst bud in chiill1 and chill2. Within chilling treatments, the standard deviation of the rank order ranged from 2.05 (budburst, chill0) to 0.75 (leafout, chill1). 
+Rank order of leafout and budburst was stable across warming and photoperiod treatments. Chilling treatments shifted the order, for example \emph{Fagus grandifolia} was always the 23-28th species to burst bud in chill0, but always the 10-11th species to burst bud in chiill1 and chill2. Within chilling treatments, the standard deviation of the rank order ranged from 2.05 (budburst, chill0) to 0.75 (leafout, chill1). Compared to field observations, rank order of leafout was generally most related in the cool, short-day treatment with no additional chilling (Fig. S10).
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Discussion}
