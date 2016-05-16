@@ -321,6 +321,65 @@ dev.off();#system(paste("open", file.path(figpath, "Tree_shrub_traits.pdf"), "-a
 #############   More additional plotting        #############   #############
 #############   #############   #############   #############   #############
 
+# BB to LO distance, by treatment, colored by overall leafout
+
+lod <- bbd <- sp <- treat <- vector()
+  treats <- 
+    c("CS0", "WS0", "CL0", "WL0", 
+      "CS1", "WS1", "CL1", "WL1",
+      "CS2", "WS2", "CL2", "WL2")
+  
+  for(i in treats){ # i = "CL2"
+    dxx <- dx[dx$treatcode == i,]
+    md = tapply(dxx$lday, dxx$sp, mean, na.rm=T)
+    mdbb = tapply(dxx$bday, dxx$sp, mean, na.rm=T)
+    
+    lod <- c(lod, md)
+    bbd <- c(bbd, mdbb)
+    sp <- c(sp, as.character(unique(dx$sp)))
+    treat <- c(treat, rep(i, length(unique(dx$sp))))
+    }
+
+  lobbdist <- data.frame(sp, treat, lod, bbd)
+  lobbdist$dist <- lobbdist$lod - lobbdist$bbd
+  lobbdist$overall <- adv[match(lobbdist$sp, adv$sp), "overall"]
+  lobbdist$overallb <- adv[match(lobbdist$sp, adv$sp), "overallb"]
+
+pdf(file.path(figpath, "LOBB_dist.pdf"), width = 12, height = 15)
+  
+ggplot(lobbdist, aes(overall, dist)) + 
+  geom_point(aes(col = lod), cex=3, alpha=0.8) + 
+  facet_wrap(~treat, ncol = 3) + 
+  ylab("Distance between leafout and budburst") +
+  xlab("Overall leafout day") +
+  geom_smooth(method = "lm", se = F) +
+  theme_bw() + scale_color_continuous(low = "dodgerblue3", high = "goldenrod1", name="Overall day \nof leafout") 
+
+dev.off()#;system(paste("open", file.path(figpath, "LOBB_dist.pdf"), "-a/Applications/Preview.app"))
+
+######## ######## ######## ######## ######## ######## ######## ######## 
+######## Intercepts of species by leafout and bb day
+######## ######## ######## ######## ######## ######## ######## ######## 
+
+adv$bb_intercept <-  sumerb[grep("a_sp", rownames(sumerb)), "mean"]
+adv$lo_intercept <-  sumerl[grep("a_sp", rownames(sumerl)), "mean"]
+
+# yes, the intercepts for each model are very closely related to the overall day of event. Not 1:1 though.
+pdf(file.path(figpath, "Intercepts_overall.pdf"), width = 6, height = 6)
+
+ggplot(adv, aes(overall, lo_intercept)) +
+  geom_point(aes(size = n), alpha = 0.8) +
+  geom_smooth(method = "lm", se=F) +
+  theme_bw()
+
+ggplot(adv, aes(overallb, bb_intercept)) + 
+  geom_point(aes(size = n), alpha = 0.8) +
+  geom_smooth(method = "lm", se=F) +
+  theme_bw()
+
+dev.off()#;system(paste("open", file.path(figpath, "Intercepts_overall.pdf"), "-a/Applications/Preview.app"))
+
+
 # Alternative for fig 1 with species means plotted behind 
 
 # count up directionality of effects for species
