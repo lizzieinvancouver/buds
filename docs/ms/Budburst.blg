@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Budburst.aux
+The style file: naturemag.bst
+Database file #1: /Users/danflynn/Dropbox/References/Bibrefs/danlib.bib
+Warning--empty journal in Erez:1988
+You've used 18 entries,
+            2348 wiz_defined-function locations,
+            1123 strings with 12678 characters,
+and the built_in function-call counts, 7491 in all, are:
+= -- 533
+> -- 172
+< -- 1
++ -- 86
+- -- 43
+* -- 927
+:= -- 828
+add.period$ -- 59
+call.type$ -- 18
+change.case$ -- 20
+chr.to.int$ -- 0
+cite$ -- 19
+duplicate$ -- 661
+empty$ -- 695
+format.name$ -- 58
+if$ -- 1529
+int.to.chr$ -- 0
+int.to.str$ -- 18
+missing$ -- 153
+newline$ -- 103
+num.names$ -- 18
+pop$ -- 106
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 121
+stack$ -- 0
+substring$ -- 384
+swap$ -- 662
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 38
+width$ -- 20
+write$ -- 216
+(There was 1 warning)

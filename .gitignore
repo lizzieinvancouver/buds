@@ -43,3 +43,7 @@ docs/outline/Budburst.aux
 *.log
 
 docs/ms/Budburst-concordance.tex
+
+*.lot
+
+*.bbl
