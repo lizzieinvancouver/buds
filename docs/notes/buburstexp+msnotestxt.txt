@@ -1,0 +1,21 @@
+Started 10 September 2015
+Notes on budburst experiment (Jan-April or so? 2015)
+
+
+++++++++++++++++++++++++++++++++++++++++
+Stan work: to get to full model
+	- doymod1: DOY model with complete pooling (no site or species or individual)
+	- fake data to check doymod1, predictive checks?
+	- doymod2: DOY model with site (no species or individual)
+	- doymod3: DOY model with site and species (no individual)
+	- doymod4: DOY model with site, species, individual
+	- fake data to check doymod4, predictive checks?
+Next!
+	- repeat above with ordinal data and do fake data at each stage	
+++++++++++++++++++++++++++++++++++++++++	
+
+%%% Get freezing risk -- USDA hardiness depends on average annual minimum temperature. Better metrics also include snow cover (low snow cover = less insulation). St. Hipp is zone 4a (-30 -25°F, agr.gc.ca; planthardiness.gc.ca).
+% McKenney 2014 BioSci: update of Canadian hardiness zone maps, show shifts in 62 tree spcies sinzce 1960 map. Greatest change in Western Canada, but increase in easte of ~1 zone. Based on multiple climate variables, not just USDA average annual minimum temp, which shows smaller change.
+
+% Raulier and Bernier 2000: Acer saccharaum leafout as a phenology model. Model uses days above 10*C asfor warming, days below 10°C for chilling.
+% False spring index: julian date of last hard frost (mimum daily temp below -2.2) minus date of leaf emergence.

@@ -62,6 +62,11 @@ with(dx, table(chill1, chill2)) # all three levels in here
 dxb <- dx[!is.na(dx$bday),]
 dxl <- dx[!is.na(dx$lday),]
 
+bdaymean <- t(with(dxb, tapply(bday, list(site, sp), mean, na.rm=T)))
+ldaymean <- t(with(dxl, tapply(lday, list(site, sp), mean, na.rm=T)))
+
+leafoutdays <- data.frame(bdaymean, ldaymean)
+
 # with(dxb, table(chill1, chill2)) # reductions due to nonbudburst
 # with(dxl, table(chill1, chill2)) # reductions due to nonleafouts
 

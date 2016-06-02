@@ -7,6 +7,7 @@
 \usepackage{gensymb} % for \degree
 \usepackage{placeins} % for \images
 \usepackage[margin=1in]{geometry} % to set margins
+\usepackage{cite} % for bibtex
 
 
 \renewcommand{\familydefault}{\sfdefault}
@@ -30,13 +31,63 @@ Flynn, Wolkovich...
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 
+\section*{Literature Review}
+
+We conducted a literature review, finding 109 studies which investigated effects of photoperiod, temperature, or their interaction on the timing of bud burst or flowering for woody or semi-woody plants.  No study varied chilling period, photoperiod, and temperature simultaneously across multiple species at multiple sites. Of those studies, eight simultaneously manipulated photoperiod and temperature. Basler \& Koerner \cite{Basler:2014aa} found a negative tradeoff between sensitivity to photoperiod and sensitivity to warming for four species, for example with \emph{Fagus sylvatica} advanced on average in leafout by 12 days in response to experimentally lengthened photoperiod, but only ca. 8 days in response to warmer temperatures, while \emph{Acer pseudoplatanus} advanced in leafout by 17 days in response to warming but essentially had no change in response to photoperiod. The current study expands on this work by including 28 species, across two sites, with addition manipulations of chilling temperature.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{References Cited}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
+\bibliographystyle{naturemag}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplemental Figures and Tables}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 % latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Fri May  6 16:14:15 2016
+% Thu Jun  2 10:39:13 2016
+\begin{table}[ht]
+\centering
+\caption{Mean leafout and budburst days for the 28 species at both Harvard Forest, USA and St. Hippoltye, Canada} 
+\begin{tabular}{lrrrr}
+  \hline
+Species & Budburst.HF & Budburst.SH & Leafout.HF & Leafout.SH \\ 
+  \hline
+\textit{Acer pensylvanicum} & 16.40 & 18.33 & 40.88 & 46.94 \\ 
+  \textit{Acer rubrum} & 22.40 & 25.15 & 40.59 & 44.40 \\ 
+  \textit{Acer saccharum} & 44.96 & 36.48 & 57.07 & 46.88 \\ 
+  \textit{Alnus incana subsp. rugosa} & 32.91 & 25.36 & 45.15 & 44.36 \\ 
+  \textit{Aronia melanocarpa} & 13.62 &  & 29.83 &  \\ 
+  \textit{Betula alleghaniensis} & 19.67 & 20.77 & 33.51 & 34.64 \\ 
+  \textit{Betula lenta} & 29.83 &  & 50.57 &  \\ 
+  \textit{Betula papyrifera} & 16.89 & 18.04 & 28.71 & 35.63 \\ 
+  \textit{Corylus cornuta} & 24.86 & 19.04 & 33.95 & 30.38 \\ 
+  \textit{Fagus grandifolia} & 41.82 & 43.13 & 48.54 & 46.90 \\ 
+  \textit{Fraxinus nigra} & 38.00 & 38.00 & 52.28 & 46.91 \\ 
+  \textit{Hamamelis virginiana} & 43.67 &  & 47.38 &  \\ 
+  \textit{Ilex mucronatus} & 15.80 & 15.49 & 26.97 & 25.15 \\ 
+  \textit{Kalmia angustifolia} & 30.25 & 32.48 & 37.80 & 42.20 \\ 
+  \textit{Lonicera canadensis} & 16.91 & 15.75 & 28.26 & 25.08 \\ 
+  \textit{Lyonia ligustrina} & 30.87 &  & 49.50 &  \\ 
+  \textit{Nyssa sylvatica} & 31.65 &  & 52.87 &  \\ 
+  \textit{Populus grandidentata} & 33.43 & 31.23 & 46.21 & 45.17 \\ 
+  \textit{Prunus pensylvanica} & 17.81 & 16.21 & 32.13 & 29.65 \\ 
+  \textit{Quercus alba} & 45.23 &  & 52.91 &  \\ 
+  \textit{Quercus rubra} & 36.43 & 33.57 & 45.02 & 42.80 \\ 
+  \textit{Quercus velutina} & 52.09 &  & 59.16 &  \\ 
+  \textit{Rhamnus frangula} & 32.38 &  & 37.29 &  \\ 
+  \textit{Rhododendron prinophyllum} & 29.25 &  & 52.14 &  \\ 
+  \textit{Spiraea alba} & 18.00 & 20.21 & 25.94 & 24.62 \\ 
+  \textit{Vaccinium myrtilloides} & 13.12 & 17.27 & 27.00 & 28.95 \\ 
+  \textit{Viburnum cassinoides} & 15.41 & 18.46 & 16.80 & 18.71 \\ 
+  \textit{Viburnum lantanoides} & 31.25 & 27.54 & 32.02 & 26.41 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.2.3 by xtable 1.7-4 package
+% Thu Jun  2 10:39:13 2016
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed effect model of budburst day by species.} 
@@ -62,7 +113,7 @@ Temperature & -6.80 & 1.71 & -7.95 & -7.02 & -5.63 & 1.05 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.2.3 by xtable 1.7-4 package
-% Fri May  6 16:14:15 2016
+% Thu Jun  2 10:39:13 2016
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed effect model of leafout day by species.} 
@@ -88,6 +139,8 @@ Temperature & -21.91 & 1.72 & -23.05 & -21.90 & -20.75 & 1.01 \\
 \end{tabular}
 \end{table}
 %% \clearpage % use if get 'too many unprocessed floats' error
+
+\clearpage 
 
 \begin{figure}
 \caption{Model estimates of budburst, including species-level effects.}

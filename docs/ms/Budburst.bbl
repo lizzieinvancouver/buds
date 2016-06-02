@@ -21,31 +21,11 @@
 
 \bibitem{Polgar:2011aa}
 \bibinfo{author}{Polgar, C.~A.} \& \bibinfo{author}{Primack, R.~B.}
-\newblock \bibinfo{title}{Leaf‐out phenology of temperate woody plants: from
+\newblock \bibinfo{title}{Leaf-out phenology of temperate woody plants: from
   trees to ecosystems}.
 \newblock \emph{\bibinfo{journal}{New Phytologist}}
   \textbf{\bibinfo{volume}{191}}, \bibinfo{pages}{926--941}
   (\bibinfo{year}{2011}).
-\newblock
-  \urlprefix\url{http://onlinelibrary.wiley.com/store/10.1111/j.1469-8137.2011.03803.x/asset/j.1469-8137.2011.03803.x.pdf?v=1&t=icm7hgey&s=3ca10a38b674b1048e0f0906bd4640192d52b7fc}.
-
-\bibitem{Chuine:2000}
-\bibinfo{author}{Chuine, I.}, \bibinfo{author}{Cambon, G.} \&
-  \bibinfo{author}{Comtois, P.}
-\newblock \bibinfo{title}{Scaling phenology from the local to the regional
-  level: advances from species-specific phenological models}.
-\newblock \emph{\bibinfo{journal}{Global Change Biology}}
-  \textbf{\bibinfo{volume}{6}}, \bibinfo{pages}{943--952}
-  (\bibinfo{year}{2000}).
-\newblock \urlprefix\url{http://dx.doi.org/10.1046/j.1365-2486.2000.00368.x}.
-
-\bibitem{Diez:2012}
-\bibinfo{author}{Diez, J.~M.} \emph{et~al.}
-\newblock \bibinfo{title}{Forecasting phenology: from species variability to
-  community patterns}.
-\newblock \emph{\bibinfo{journal}{Ecol Lett}} \textbf{\bibinfo{volume}{15}},
-  \bibinfo{pages}{545--53} (\bibinfo{year}{2012}).
-\newblock \urlprefix\url{http://www.ncbi.nlm.nih.gov/pubmed/22433120}.
 
 \bibitem{Basler:2014aa}
 \bibinfo{author}{Basler, D.} \& \bibinfo{author}{K{\"o}rner, C.}
@@ -54,8 +34,53 @@
 \newblock \emph{\bibinfo{journal}{Tree physiology}}
   \textbf{\bibinfo{volume}{34}}, \bibinfo{pages}{377--388}
   (\bibinfo{year}{2014}).
+
+\bibitem{Menzel:2006}
+\bibinfo{author}{Menzel, A.} \emph{et~al.}
+\newblock \bibinfo{title}{European phenological response to climate change
+  matches the warming pattern}.
+\newblock \emph{\bibinfo{journal}{Global change biology}}
+  \textbf{\bibinfo{volume}{12}}, \bibinfo{pages}{1969--1976}
+  (\bibinfo{year}{2006}).
+
+\bibitem{Wolkovich:2012aa}
+\bibinfo{author}{Wolkovich, E.~M.} \emph{et~al.}
+\newblock \bibinfo{title}{Warming experiments underpredict plant phenological
+  responses to climate change}.
+\newblock \emph{\bibinfo{journal}{Nature}} \textbf{\bibinfo{volume}{485}},
+  \bibinfo{pages}{494--7} (\bibinfo{year}{2012}).
+\newblock \urlprefix\url{http://www.ncbi.nlm.nih.gov/pubmed/22622576}.
+\newblock \bibinfo{note}{Wolkovich, E M Cook, B I Allen, J M Crimmins, T M
+  Betancourt, J L Travers, S E Pau, S Regetz, J Davies, T J Kraft, N J B Ault,
+  T R Bolmgren, K Mazer, S J McCabe, G J McGill, B J Parmesan, C Salamin, N
+  Schwartz, M D Cleland, E E eng England Nature. 2012 May 2;485(7399):494-7.
+  doi: 10.1038/nature11014.}
+
+\bibitem{CaraDonna:2014aa}
+\bibinfo{author}{CaraDonna, P.~J.}, \bibinfo{author}{Iler, A.~M.} \&
+  \bibinfo{author}{Inouye, D.~W.}
+\newblock \bibinfo{title}{Shifts in flowering phenology reshape a subalpine
+  plant community}.
+\newblock \emph{\bibinfo{journal}{Proc Natl Acad Sci U S A}}
+  \textbf{\bibinfo{volume}{111}}, \bibinfo{pages}{4916--21}
+  (\bibinfo{year}{2014}).
+\newblock \urlprefix\url{http://www.ncbi.nlm.nih.gov/pubmed/24639544}.
+\newblock \bibinfo{note}{CaraDonna, Paul J Iler, Amy M Inouye, David W eng
+  Research Support, Non-U.S. Gov't Research Support, U.S. Gov't, Non-P.H.S.
+  2014/03/19 06:00 Proc Natl Acad Sci U S A. 2014 Apr 1;111(13):4916-21. doi:
+  10.1073/pnas.1323073111. Epub 2014 Mar 17.}
+
+\bibitem{Ghelardini:2010aa}
+\bibinfo{author}{Ghelardini, L.}, \bibinfo{author}{Santini, A.},
+  \bibinfo{author}{Black-Samuelsson, S.}, \bibinfo{author}{Myking, T.} \&
+  \bibinfo{author}{Falusi, M.}
+\newblock \bibinfo{title}{Bud dormancy release in elm (ulmus spp.) clones---a
+  case study of photoperiod and temperature responses}.
+\newblock \emph{\bibinfo{journal}{Tree physiology}}
+  \textbf{\bibinfo{volume}{30}}, \bibinfo{pages}{264--274}
+  (\bibinfo{year}{2010}).
 \newblock
-  \urlprefix\url{http://treephys.oxfordjournals.org/content/34/4/377.full.pdf}.
+  \urlprefix\url{http://treephys.oxfordjournals.org/content/30/2/264.full.pdf}.
 
 \bibitem{Chuine:2010}
 \bibinfo{author}{Chuine, I.}
@@ -63,6 +88,17 @@
 \newblock \emph{\bibinfo{journal}{Philosophical Transactions of the Royal
   Society of London B: Biological Sciences}} \textbf{\bibinfo{volume}{365}},
   \bibinfo{pages}{3149--3160} (\bibinfo{year}{2010}).
+
+\bibitem{Zohner:2014aa}
+\bibinfo{author}{Zohner, C.~M.} \& \bibinfo{author}{Renner, S.~S.}
+\newblock \bibinfo{title}{Common garden comparison of the leaf‐out phenology
+  of woody species from different native climates, combined with herbarium
+  records, forecasts long‐term change}.
+\newblock \emph{\bibinfo{journal}{Ecology letters}}
+  \textbf{\bibinfo{volume}{17}}, \bibinfo{pages}{1016--1025}
+  (\bibinfo{year}{2014}).
+\newblock
+  \urlprefix\url{http://onlinelibrary.wiley.com/doi/10.1111/ele.12308/abstract}.
 
 \bibitem{Foley:2009aa}
 \bibinfo{author}{Foley, M.~E.}, \bibinfo{author}{Anderson, J.~V.} \&
@@ -105,22 +141,35 @@
 \newblock \emph{\bibinfo{journal}{Climate Research}}
   \textbf{\bibinfo{volume}{46}}, \bibinfo{pages}{147} (\bibinfo{year}{2011}).
 
-\bibitem{Myking:1995aa}
+\bibitem{Myking:1995}
 \bibinfo{author}{Myking, T.} \& \bibinfo{author}{Heide, O.}
 \newblock \bibinfo{title}{Dormancy release and chilling requirement of buds of
   latitudinal ecotypes of betula pendula and b. pubescens}.
 \newblock \emph{\bibinfo{journal}{Tree physiology}}
   \textbf{\bibinfo{volume}{15}}, \bibinfo{pages}{697--704}
   (\bibinfo{year}{1995}).
-\newblock
-  \urlprefix\url{http://treephys.oxfordjournals.org/content/15/11/697.full.pdf}.
+
+\bibitem{Chuine:2000}
+\bibinfo{author}{Chuine, I.}, \bibinfo{author}{Cambon, G.} \&
+  \bibinfo{author}{Comtois, P.}
+\newblock \bibinfo{title}{Scaling phenology from the local to the regional
+  level: advances from species-specific phenological models}.
+\newblock \emph{\bibinfo{journal}{Global Change Biology}}
+  \textbf{\bibinfo{volume}{6}}, \bibinfo{pages}{943--952}
+  (\bibinfo{year}{2000}).
+
+\bibitem{Diez:2012}
+\bibinfo{author}{Diez, J.~M.} \emph{et~al.}
+\newblock \bibinfo{title}{Forecasting phenology: from species variability to
+  community patterns}.
+\newblock \emph{\bibinfo{journal}{Ecol Lett}} \textbf{\bibinfo{volume}{15}},
+  \bibinfo{pages}{545--53} (\bibinfo{year}{2012}).
 
 \bibitem{Erez:1988}
 \bibinfo{author}{Erez, A.}, \bibinfo{author}{Fishman, S.},
   \bibinfo{author}{Gat, Z.} \& \bibinfo{author}{Couvillon, G.~A.}
 \newblock \bibinfo{title}{Evaluation of winter climate for breaking bud rest
   using the dynamic model} \bibinfo{pages}{76--89} (\bibinfo{year}{1988}).
-\newblock \urlprefix\url{http://dx.doi.org/10.17660/ActaHortic.1988.232.10}.
 
 \bibitem{Luedeling:2009}
 \bibinfo{author}{Luedeling, E.}, \bibinfo{author}{Zhang, M.},

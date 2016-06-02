@@ -57,9 +57,56 @@ source("Pheno Budburst analysis.R")
 #source("Additional Plots and Processing.R")
 @
 
-
 <<label=supptable1, echo=FALSE, results=tex>>=
-# Supp table 1: Stan model effects for bb
+rownames(leafoutdays) = c(
+      "Acer pensylvanicum",
+      "Acer rubrum",
+      "Acer saccharum",
+      "Alnus incana subsp. rugosa",
+      "Aronia melanocarpa",
+      "Betula alleghaniensis",
+      "Betula lenta",
+      "Betula papyrifera",
+      "Corylus cornuta",
+      "Fagus grandifolia",
+      "Fraxinus nigra",
+      "Hamamelis virginiana",
+      "Ilex mucronatus",
+      "Kalmia angustifolia",
+      "Lonicera canadensis",
+      "Lyonia ligustrina",
+      "Nyssa sylvatica",
+      "Populus grandidentata",
+      "Prunus pensylvanica",
+      "Quercus alba",
+      "Quercus rubra",
+      "Quercus velutina",
+      "Rhamnus frangula",
+      "Rhododendron prinophyllum",
+      "Spiraea alba",
+      "Vaccinium myrtilloides",
+      "Viburnum cassinoides",
+      "Viburnum lantanoides"
+  )
+
+colnames(leafoutdays) = c("Budburst HF", "Budburst SH", "Leafout HF", "Leafout SH")
+# add multicolumn later for BB and LO headers above these column names
+
+leafoutdays <- data.frame(Species = rownames(leafoutdays), leafoutdays)
+
+leafoutdays$Species = paste("\\textit{",leafoutdays$Species,"}", sep="")
+
+print(xtable(leafoutdays, 
+             caption = "Mean leafout and budburst days for the 28 species at both Harvard Forest, USA and St. Hippoltye, Canada",
+             align = c("l", "l","r","r","r","r")), #>{\\textit}l
+      include.rownames=F, 
+      caption.placement = "top", 
+      sanitize.text.function = function(x) {x})
+@
+
+<<label=supptable2, echo=FALSE, results=tex>>=
+
+# Supp table 2: Stan model effects for bb
 rownames(meanzb) = c(
                     "Temperature",
                     "Photoperiod",
@@ -83,7 +130,7 @@ print(xtable(meanzb, caption = "Summary of mixed effect model of budburst day by
       sanitize.rownames.function = function(x) {x})
 @ 
 
-<<label=supptable2, echo=FALSE, results=tex>>=
+<<label=supptable3, echo=FALSE, results=tex>>=
 rownames(meanzl) = rownames(meanzb)
 
 print(xtable(meanzl, caption = "Summary of mixed effect model of leafout day by species."), 
@@ -94,6 +141,8 @@ print(xtable(meanzl, caption = "Summary of mixed effect model of leafout day by 
 @
 
 %% \clearpage % use if get 'too many unprocessed floats' error
+
+\clearpage 
 
 \begin{figure}
 \caption{Model estimates of budburst, including species-level effects.}
