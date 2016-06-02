@@ -50,11 +50,28 @@
 \newblock \emph{\bibinfo{journal}{Nature}} \textbf{\bibinfo{volume}{485}},
   \bibinfo{pages}{494--7} (\bibinfo{year}{2012}).
 \newblock \urlprefix\url{http://www.ncbi.nlm.nih.gov/pubmed/22622576}.
-\newblock \bibinfo{note}{Wolkovich, E M Cook, B I Allen, J M Crimmins, T M
-  Betancourt, J L Travers, S E Pau, S Regetz, J Davies, T J Kraft, N J B Ault,
-  T R Bolmgren, K Mazer, S J McCabe, G J McGill, B J Parmesan, C Salamin, N
-  Schwartz, M D Cleland, E E eng England Nature. 2012 May 2;485(7399):494-7.
-  doi: 10.1038/nature11014.}
+
+\bibitem{Augspurger:2013aa}
+\bibinfo{author}{Augspurger, C.~K.}
+\newblock \bibinfo{title}{Reconstructing patterns of temperature, phenology,
+  and frost damage over 124 years: spring damage risk is increasing}.
+\newblock \emph{\bibinfo{journal}{Ecology}} \textbf{\bibinfo{volume}{94}},
+  \bibinfo{pages}{41--50} (\bibinfo{year}{2013}).
+
+\bibitem{Gu:2008aa}
+\bibinfo{author}{Gu, L.} \emph{et~al.}
+\newblock \bibinfo{title}{The 2007 eastern us spring freeze: Increased cold
+  damage in a warming world?}
+\newblock \emph{\bibinfo{journal}{BioScience}} \textbf{\bibinfo{volume}{58}},
+  \bibinfo{pages}{253--262} (\bibinfo{year}{2008}).
+
+\bibitem{Hufkens:2012aa}
+\bibinfo{author}{Hufkens, K.} \emph{et~al.}
+\newblock \bibinfo{title}{Ecological impacts of a widespread frost event
+  following early spring leaf‐out}.
+\newblock \emph{\bibinfo{journal}{Global Change Biology}}
+  \textbf{\bibinfo{volume}{18}}, \bibinfo{pages}{2365--2377}
+  (\bibinfo{year}{2012}).
 
 \bibitem{CaraDonna:2014aa}
 \bibinfo{author}{CaraDonna, P.~J.}, \bibinfo{author}{Iler, A.~M.} \&
@@ -64,23 +81,29 @@
 \newblock \emph{\bibinfo{journal}{Proc Natl Acad Sci U S A}}
   \textbf{\bibinfo{volume}{111}}, \bibinfo{pages}{4916--21}
   (\bibinfo{year}{2014}).
-\newblock \urlprefix\url{http://www.ncbi.nlm.nih.gov/pubmed/24639544}.
-\newblock \bibinfo{note}{CaraDonna, Paul J Iler, Amy M Inouye, David W eng
-  Research Support, Non-U.S. Gov't Research Support, U.S. Gov't, Non-P.H.S.
-  2014/03/19 06:00 Proc Natl Acad Sci U S A. 2014 Apr 1;111(13):4916-21. doi:
-  10.1073/pnas.1323073111. Epub 2014 Mar 17.}
 
-\bibitem{Ghelardini:2010aa}
-\bibinfo{author}{Ghelardini, L.}, \bibinfo{author}{Santini, A.},
-  \bibinfo{author}{Black-Samuelsson, S.}, \bibinfo{author}{Myking, T.} \&
-  \bibinfo{author}{Falusi, M.}
-\newblock \bibinfo{title}{Bud dormancy release in elm (ulmus spp.) clones---a
-  case study of photoperiod and temperature responses}.
-\newblock \emph{\bibinfo{journal}{Tree physiology}}
-  \textbf{\bibinfo{volume}{30}}, \bibinfo{pages}{264--274}
-  (\bibinfo{year}{2010}).
-\newblock
-  \urlprefix\url{http://treephys.oxfordjournals.org/content/30/2/264.full.pdf}.
+\bibitem{Vitasse:2014aa}
+\bibinfo{author}{Vitasse, Y.}, \bibinfo{author}{Lenz, A.},
+  \bibinfo{author}{Hoch, G.} \& \bibinfo{author}{K{\"o}rner, C.}
+\newblock \bibinfo{title}{Earlier leaf‐out rather than difference in freezing
+  resistance puts juvenile trees at greater risk of damage than adult trees}.
+\newblock \emph{\bibinfo{journal}{Journal of Ecology}}
+  \textbf{\bibinfo{volume}{102}}, \bibinfo{pages}{981--988}
+  (\bibinfo{year}{2014}).
+
+\bibitem{Sakai:1987aa}
+\bibinfo{author}{Sakai, A.} \& \bibinfo{author}{Larcher, W.}
+\newblock \emph{\bibinfo{title}{Frost Survival of Plants: Responses and
+  Adaptation to Freezing Stress}} (\bibinfo{publisher}{Springer Berlin
+  Heidelberg}, \bibinfo{year}{1987}).
+\newblock \urlprefix\url{https://books.google.com/books?id=dQzpCAAAQBAJ}.
+
+\bibitem{Larcher:2005aa}
+\bibinfo{author}{Larcher, W.}
+\newblock \bibinfo{title}{Climatic constraints drive the evolution of low
+  temperature resistance in woody plants}.
+\newblock \emph{\bibinfo{journal}{農業気象}} \textbf{\bibinfo{volume}{61}},
+  \bibinfo{pages}{189--202} (\bibinfo{year}{2005}).
 
 \bibitem{Chuine:2010}
 \bibinfo{author}{Chuine, I.}
@@ -97,8 +120,6 @@
 \newblock \emph{\bibinfo{journal}{Ecology letters}}
   \textbf{\bibinfo{volume}{17}}, \bibinfo{pages}{1016--1025}
   (\bibinfo{year}{2014}).
-\newblock
-  \urlprefix\url{http://onlinelibrary.wiley.com/doi/10.1111/ele.12308/abstract}.
 
 \bibitem{Foley:2009aa}
 \bibinfo{author}{Foley, M.~E.}, \bibinfo{author}{Anderson, J.~V.} \&
@@ -149,6 +170,29 @@
   \textbf{\bibinfo{volume}{15}}, \bibinfo{pages}{697--704}
   (\bibinfo{year}{1995}).
 
+\bibitem{Sanz-Perez:2009aa}
+\bibinfo{author}{Sanz-Perez, V.}, \bibinfo{author}{Castro-Diez, P.} \&
+  \bibinfo{author}{Valladares, F.}
+\newblock \bibinfo{title}{Differential and interactive effects of temperature
+  and photoperiod on budburst and carbon reserves in two co-occurring
+  mediterranean oaks}.
+\newblock \emph{\bibinfo{journal}{Plant Biol (Stuttg)}}
+  \textbf{\bibinfo{volume}{11}}, \bibinfo{pages}{142--51}
+  (\bibinfo{year}{2009}).
+\newblock \urlprefix\url{http://www.ncbi.nlm.nih.gov/pubmed/19228321}.
+
+\bibitem{Ghelardini:2010aa}
+\bibinfo{author}{Ghelardini, L.}, \bibinfo{author}{Santini, A.},
+  \bibinfo{author}{Black-Samuelsson, S.}, \bibinfo{author}{Myking, T.} \&
+  \bibinfo{author}{Falusi, M.}
+\newblock \bibinfo{title}{Bud dormancy release in elm (ulmus spp.) clones---a
+  case study of photoperiod and temperature responses}.
+\newblock \emph{\bibinfo{journal}{Tree physiology}}
+  \textbf{\bibinfo{volume}{30}}, \bibinfo{pages}{264--274}
+  (\bibinfo{year}{2010}).
+\newblock
+  \urlprefix\url{http://treephys.oxfordjournals.org/content/30/2/264.full.pdf}.
+
 \bibitem{Chuine:2000}
 \bibinfo{author}{Chuine, I.}, \bibinfo{author}{Cambon, G.} \&
   \bibinfo{author}{Comtois, P.}
@@ -157,6 +201,14 @@
 \newblock \emph{\bibinfo{journal}{Global Change Biology}}
   \textbf{\bibinfo{volume}{6}}, \bibinfo{pages}{943--952}
   (\bibinfo{year}{2000}).
+
+\bibitem{Primack:2009aa}
+\bibinfo{author}{Primack, R.~B.} \emph{et~al.}
+\newblock \bibinfo{title}{Spatial and interspecific variability in phenological
+  responses to warming temperatures}.
+\newblock \emph{\bibinfo{journal}{Biological Conservation}}
+  \textbf{\bibinfo{volume}{142}}, \bibinfo{pages}{2569--2577}
+  (\bibinfo{year}{2009}).
 
 \bibitem{Diez:2012}
 \bibinfo{author}{Diez, J.~M.} \emph{et~al.}
@@ -205,5 +257,13 @@
 \newblock \emph{\bibinfo{journal}{Annals of Applied Biology}}
   \textbf{\bibinfo{volume}{151}}, \bibinfo{pages}{127--131}
   (\bibinfo{year}{2007}).
+
+\bibitem{Perez-Harguindeguy:2013aa}
+\bibinfo{author}{P{\'e}rez-Harguindeguy, N.} \emph{et~al.}
+\newblock \bibinfo{title}{New handbook for standardised measurement of plant
+  functional traits worldwide}.
+\newblock \emph{\bibinfo{journal}{Australian Journal of Botany}}
+  \textbf{\bibinfo{volume}{61}}, \bibinfo{pages}{167--234}
+  (\bibinfo{year}{2013}).
 
 \end{thebibliography}

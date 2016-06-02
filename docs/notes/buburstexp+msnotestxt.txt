@@ -19,3 +19,11 @@ Next!
 
 % Raulier and Bernier 2000: Acer saccharaum leafout as a phenology model. Model uses days above 10*C asfor warming, days below 10°C for chilling.
 % False spring index: julian date of last hard frost (mimum daily temp below -2.2) minus date of leaf emergence.
+
+Larcher 2005: cutoff for mild winters ~ -20C,  above this considered cold winter. St. Hipp definitely in cold winter
+
+Hufaker 2012: Sugar maple opportunistic, yellow birch and beech conservative.
+
+Vitasse 2014 J Ecol
+Earlier leaf-out rather than difference in freezing resistance puts juvenile trees at greater risk of damage than adult trees. 
+Not just young trees dont' differ in freezing resistance, just in timing of when they break bud
