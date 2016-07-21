@@ -51,13 +51,6 @@
   \bibinfo{pages}{494--7} (\bibinfo{year}{2012}).
 \newblock \urlprefix\url{http://www.ncbi.nlm.nih.gov/pubmed/22622576}.
 
-\bibitem{Augspurger:2013aa}
-\bibinfo{author}{Augspurger, C.~K.}
-\newblock \bibinfo{title}{Reconstructing patterns of temperature, phenology,
-  and frost damage over 124 years: spring damage risk is increasing}.
-\newblock \emph{\bibinfo{journal}{Ecology}} \textbf{\bibinfo{volume}{94}},
-  \bibinfo{pages}{41--50} (\bibinfo{year}{2013}).
-
 \bibitem{Gu:2008aa}
 \bibinfo{author}{Gu, L.} \emph{et~al.}
 \newblock \bibinfo{title}{The 2007 eastern us spring freeze: Increased cold
@@ -72,6 +65,13 @@
 \newblock \emph{\bibinfo{journal}{Global Change Biology}}
   \textbf{\bibinfo{volume}{18}}, \bibinfo{pages}{2365--2377}
   (\bibinfo{year}{2012}).
+
+\bibitem{Augspurger:2013aa}
+\bibinfo{author}{Augspurger, C.~K.}
+\newblock \bibinfo{title}{Reconstructing patterns of temperature, phenology,
+  and frost damage over 124 years: spring damage risk is increasing}.
+\newblock \emph{\bibinfo{journal}{Ecology}} \textbf{\bibinfo{volume}{94}},
+  \bibinfo{pages}{41--50} (\bibinfo{year}{2013}).
 
 \bibitem{CaraDonna:2014aa}
 \bibinfo{author}{CaraDonna, P.~J.}, \bibinfo{author}{Iler, A.~M.} \&
@@ -104,6 +104,79 @@
   temperature resistance in woody plants}.
 \newblock \emph{\bibinfo{journal}{農業気象}} \textbf{\bibinfo{volume}{61}},
   \bibinfo{pages}{189--202} (\bibinfo{year}{2005}).
+
+\bibitem{Chave:2009aa}
+\bibinfo{author}{Chave, J.} \emph{et~al.}
+\newblock \bibinfo{title}{Towards a worldwide wood economics spectrum}.
+\newblock \emph{\bibinfo{journal}{Ecology letters}}
+  \textbf{\bibinfo{volume}{12}}, \bibinfo{pages}{351--366}
+  (\bibinfo{year}{2009}).
+
+\bibitem{Basler:2012aa}
+\bibinfo{author}{Basler, D.} \& \bibinfo{author}{K{\"o}rner, C.}
+\newblock \bibinfo{title}{Photoperiod sensitivity of bud burst in 14 temperate
+  forest tree species}.
+\newblock \emph{\bibinfo{journal}{Agricultural and Forest Meteorology}}
+  \textbf{\bibinfo{volume}{165}}, \bibinfo{pages}{73--81}
+  (\bibinfo{year}{2012}).
+
+\bibitem{Caffarra:2011ab}
+\bibinfo{author}{Caffarra, A.} \& \bibinfo{author}{Donnelly, A.}
+\newblock \bibinfo{title}{The ecological significance of phenology in four
+  different tree species: effects of light and temperature on bud burst}.
+\newblock \emph{\bibinfo{journal}{Int J Biometeorol}}
+  \textbf{\bibinfo{volume}{55}}, \bibinfo{pages}{711--21}
+  (\bibinfo{year}{2011}).
+\newblock \urlprefix\url{http://www.ncbi.nlm.nih.gov/pubmed/21113629}.
+
+\bibitem{Lima:2010aa}
+\bibinfo{author}{Lima, A.} \& \bibinfo{author}{Rodal, M.}
+\newblock \bibinfo{title}{Phenology and wood density of plants growing in the
+  semi-arid region of northeastern brazil}.
+\newblock \emph{\bibinfo{journal}{Journal of Arid Environments}}
+  \textbf{\bibinfo{volume}{74}}, \bibinfo{pages}{1363--1373}
+  (\bibinfo{year}{2010}).
+
+\bibitem{XU:2009aa}
+\bibinfo{author}{XU, Z.-F.}, \bibinfo{author}{HU, T.-X.},
+  \bibinfo{author}{WANG, K.-Y.}, \bibinfo{author}{ZHANG, Y.-B.} \&
+  \bibinfo{author}{XIAN, J.-R.}
+\newblock \bibinfo{title}{Short-term responses of phenology, shoot growth and
+  leaf traits of four alpine shrubs in a timberline ecotone to simulated global
+  warming, eastern tibetan plateau, china}.
+\newblock \emph{\bibinfo{journal}{Plant Species Biology}}
+  \textbf{\bibinfo{volume}{24}}, \bibinfo{pages}{27--34}
+  (\bibinfo{year}{2009}).
+
+\bibitem{McKown:2013aa}
+\bibinfo{author}{McKown, A.~D.}, \bibinfo{author}{Guy, R.~D.},
+  \bibinfo{author}{Azam, M.~S.}, \bibinfo{author}{Drewes, E.~C.} \&
+  \bibinfo{author}{Quamme, L.~K.}
+\newblock \bibinfo{title}{Seasonality and phenology alter functional leaf
+  traits}.
+\newblock \emph{\bibinfo{journal}{Oecologia}} \textbf{\bibinfo{volume}{172}},
+  \bibinfo{pages}{653--665} (\bibinfo{year}{2013}).
+
+\bibitem{Mason:2013aa}
+\bibinfo{author}{Mason, N. W.~H.}, \bibinfo{author}{Pipenbaher, N.},
+  \bibinfo{author}{{\v S}kornik, S.} \& \bibinfo{author}{Kaligari{\v c}, M.}
+\newblock \bibinfo{title}{Does complementarity in leaf phenology and
+  inclination promote co-existence in a species-rich meadow? evidence from
+  functional groups}.
+\newblock \emph{\bibinfo{journal}{Journal of Vegetation Science}}
+  \textbf{\bibinfo{volume}{24}}, \bibinfo{pages}{94--100}
+  (\bibinfo{year}{2013}).
+\newblock \urlprefix\url{http://dx.doi.org/10.1111/j.1654-1103.2012.01451.x}.
+
+\bibitem{Sapijanskas:2014aa}
+\bibinfo{author}{Sapijanskas, J.}, \bibinfo{author}{Paquette, A.},
+  \bibinfo{author}{Potvin, C.}, \bibinfo{author}{Kunert, N.} \&
+  \bibinfo{author}{Loreau, M.}
+\newblock \bibinfo{title}{Tropical tree diversity enhances light capture
+  through crown plasticity and spatial and temporal niche differences}.
+\newblock \emph{\bibinfo{journal}{Ecology}} \textbf{\bibinfo{volume}{95}},
+  \bibinfo{pages}{2479--2492} (\bibinfo{year}{2014}).
+\newblock \urlprefix\url{http://dx.doi.org/10.1890/13-1366.1}.
 
 \bibitem{Chuine:2010}
 \bibinfo{author}{Chuine, I.}

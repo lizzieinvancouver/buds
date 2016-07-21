@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 JUN 2016 16:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 JUL 2016 22:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -389,14 +389,14 @@ Package gensymb Info: Using \textmu for \micro on input line 23.
 (./Budburst-concordance.tex)
 LaTeX Font Info:    Font shape `T1/aess/m/it' in size <10.95> not available
 (Font)              Font shape `T1/aess/m/sl' tried instead on input line 33.
-LaTeX Font Info:    Try loading font information for TS1+aess on input line 41.
+LaTeX Font Info:    Try loading font information for TS1+aess on input line 38.
 
-LaTeX Font Info:    No file TS1aess.fd. on input line 41.
+LaTeX Font Info:    No file TS1aess.fd. on input line 38.
 
 
 LaTeX Font Warning: Font shape `TS1/aess/bx/n' undefined
 (Font)              using `TS1/cmr/m/n' instead
-(Font)              for symbol `textdegree' on input line 41.
+(Font)              for symbol `textdegree' on input line 38.
 
 [1
 
@@ -404,56 +404,56 @@ LaTeX Font Warning: Font shape `TS1/aess/bx/n' undefined
 
 LaTeX Font Warning: Font shape `TS1/aess/m/n' undefined
 (Font)              using `TS1/cmr/m/n' instead
-(Font)              for symbol `textdegree' on input line 47.
+(Font)              for symbol `textdegree' on input line 44.
 
-[2] [3] [4] [5] [6] [7] [8] [9] [10]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 173.
+[2] [3] [4] [5] [6] [7] [8] [9] [10] [11]
+LaTeX Font Info:    Try loading font information for T1+aett on input line 168.
 
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 180.
+(Font)              <10.95> on input line 175.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 180.
+(Font)              <8> on input line 175.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 180.
- [11]
-(./Budburst.bbl [12] [13] [14])
-<images/Advplot2.pdf, id=55, 578.16pt x 650.43pt>
+(Font)              <6> on input line 175.
+ [12]
+(./Budburst.bbl [13] [14] [15])
+<images/Advplot2.pdf, id=58, 578.16pt x 650.43pt>
 File: images/Advplot2.pdf Graphic file (type pdf)
  <use images/Advplot2.pdf>
-Package pdftex.def Info: images/Advplot2.pdf used on input line 317.
+Package pdftex.def Info: images/Advplot2.pdf used on input line 312.
 (pdftex.def)             Requested size: 289.07928pt x 325.2142pt.
 
-<images/Fig1_bb_lo.pdf, id=56, 505.89pt x 578.16pt>
+<images/Fig1_bb_lo.pdf, id=59, 505.89pt x 578.16pt>
 File: images/Fig1_bb_lo.pdf Graphic file (type pdf)
 
 <use images/Fig1_bb_lo.pdf>
-Package pdftex.def Info: images/Fig1_bb_lo.pdf used on input line 326.
+Package pdftex.def Info: images/Fig1_bb_lo.pdf used on input line 321.
 (pdftex.def)             Requested size: 404.71254pt x 462.52863pt.
 
-<images/Fig2_4panel.pdf, id=57, 505.89pt x 505.89pt>
+<images/Fig2_4panel.pdf, id=60, 505.89pt x 505.89pt>
 File: images/Fig2_4panel.pdf Graphic file (type pdf)
 
 <use images/Fig2_4panel.pdf>
-Package pdftex.def Info: images/Fig2_4panel.pdf used on input line 335.
+Package pdftex.def Info: images/Fig2_4panel.pdf used on input line 330.
 (pdftex.def)             Requested size: 455.29678pt x 455.29678pt.
- [15] [16 <./images/Advplot2.pdf>] [17 <./images/Fig1_bb_lo.pdf>] [18 <./images
-/Fig2_4panel.pdf>] [19] [20] (./Budburst.aux)
+ [16] [17 <./images/Advplot2.pdf>] [18 <./images/Fig1_bb_lo.pdf>] [19 <./images
+/Fig2_4panel.pdf>] [20] [21] (./Budburst.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 4711 strings out of 493089
- 72398 string characters out of 6134842
- 140978 words of memory out of 5000000
- 8089 multiletter control sequences out of 15000+600000
+ 4719 strings out of 493089
+ 72517 string characters out of 6134842
+ 144010 words of memory out of 5000000
+ 8097 multiletter control sequences out of 15000+600000
  27168 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,7n,38p,3208b,321s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,7n,38p,2895b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb><
@@ -462,10 +462,10 @@ sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></
 usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></
 usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></u
 sr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Budburst.pdf (20 pages, 168863 bytes).
+Output written on Budburst.pdf (21 pages, 172972 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
- 89 compressed objects within 1 object stream
+ 131 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  20 words of extra memory for PDF output out of 10000 (max. 10000000)
 
