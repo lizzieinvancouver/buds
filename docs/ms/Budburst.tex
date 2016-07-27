@@ -13,6 +13,7 @@
 \usepackage{setspace}
 \usepackage{lineno}
 \usepackage{cite}
+\usepackage{amssymb} % for math symbols
 
 \doublespacing
 \renewcommand{\familydefault}{\sfdefault} % for nicer sans serif font
@@ -26,7 +27,8 @@
 \input{Budburst-concordance} 
 
 \flushleft
-\textbf{\large{Photoperiod and temperature interactively drive spring phenology in multiple species}}
+\textbf{\large{Timing of spring phenology and sensitivity to changing environmental drivers across a community of temperate forest plants}}
+% no I don't love this title... need to do more brainstorming!
 
 Flynn, Wolkovich
 
@@ -35,20 +37,22 @@ Flynn, Wolkovich
 % Abstract
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\textbf{Understanding the sensitivity of forest plants to abiotic drivers of plant phenology is critical for developing predictions of community composition, changes in community composition resulting from climate change, and resulting alterations to ecosystem-level properties such as carbon sequestration. Observational studies are limited in the ability to separate plant responses to different climatic factors, with phenological responses known be based on the combination of three environmental cues plants receive: chilling temperatures in fall and winter, photoperiod, and spring forcing temperatures. For a handful of well-studied temperate woody species these cues appear to be interactive, meaning predictions of plant responses to climate change will be complex and non-linear \cite{Chuine:1999aa}. Other work however has suggested many species may be dominated by one of the three possible cues \cite{Korner:2010}, with a tradeoff between photoperiod and forcing temperature sensitivities, making some species responses simple to predict. However, the range of responses across species within a forest community to winter chilling temperatures, photoperiod, and spring forcing temperatures have received relatively limited attention. Given the wide range of budburst and leaf out across temperate woody species \cite{Polgar:2011aa}, these species differences may be crucial in scaling up to ecosystem-level responses. Here we present results from an experimental manipulation of spring forcing temperatures, photoperiod, and intensity of winter chilling with dormant clippings of 28 woody plant species from forest communities at two latitudes (42.5\degree N and 46\degree N). We show photoperiod sensitivity is common across northeastern woody plants and phenological sensitivity to photoperiod and temperature appears largely coordinated across species; namely, species highly sensitive to temperature were also highly sensitive to photoperiod. Budburst and leaf out were more sensityve to temperature than to photoperiod. Winter chilling exerts a large role in driving advances in spring phenology, for both budburst and leaf out stages, yet more intense chilling at 1.5\degree C resulted in less pronounced effects than at 4\degree C. Latitude of origin exerted surprisingly small effects on sensitivity to abiotic factors in driving spring phenology, indicating that local adaptation---at least across 4\degree of latitude---may not necessarily constrain woody plant responses to climate change. Shrub and small tree species were less sensitive to changing temperatures or photoperiod, but consistently earlier in their phenology. These results indicate that under warming conditions, communities could shift to a more canopy-tree dominated system with generally later phenologies, counteracting advances in phenology at the ecosystem scale.}
+
+\textbf{Understanding the abiotic drivers of plant phenology is critical for predicting how communities will shift with climate change, and resulting alterations to ecosystem-level properties such as carbon sequestration. Observational studies have limited ability to separate plant responses to different climatic factors because phenological responses known be based on the combination of three often co-varying environmental cues that plants receive: chilling temperatures in fall and winter, photoperiod, and spring forcing temperatures. Research to date has focused on woody species and suggests that these cues are interactive, meaning predictions of plant responses to climate change will be complex and non-linear \cite{Chuine:1999aa}. Other work, however, has suggested many species may be dominated by one of the three possible cues \cite{Korner:2010}, with a tradeoff between photoperiod and forcing temperature sensitivities, meaning some species' responses would be simple to predict. However, the range of responses across species within a community to winter chilling temperatures, photoperiod, and spring forcing temperatures has received relatively limited attention. Given the wide range of budburst and leaf out across temperate woody species \cite{Polgar:2011aa}, these species differences may be crucial in scaling up to ecosystem-level responses. Here we present results from an experimental manipulation of spring forcing temperatures, photoperiod, and intensity of winter chilling with dormant clippings of 28 woody plant species from forest communities at two latitudes (42.5\degree N and 46\degree N). We show photoperiod sensitivity is common across northeastern woody plants and phenological sensitivity to photoperiod and temperature appears largely coordinated across species; namely, species highly sensitive to temperature were also highly sensitive to photoperiod. Budburst and leaf out were more sensitive to temperature than to photoperiod. Winter chilling exerts a large role in driving advances in spring phenology, for both budburst and leaf out stages, yet more intense chilling at 1.5\degree C resulted in less pronounced effects than at 4\degree C. Latitude of origin exerted surprisingly small effects on sensitivity to abiotic factors in driving spring phenology, indicating that local adaptation---at least across 4\degree of latitude---may not necessarily constrain woody plant responses to climate change. Shrub and small tree species were less sensitive to changing temperatures or photoperiod, but consistently earlier in their phenology. These results indicate that under warming conditions, communities could shift to a more canopy-tree dominated system with generally later phenologies, counteracting advances in phenology at the ecosystem scale.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Introduction 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Woody plant spring phenology drives global carbon cycles and local ecosystem properties, from the length of the growing season to energy balance between land and atmosphere. Timing of spring phenology in temperatue woody plants is critical for understanding net ecosystem assimilation at the forest scale, as maximizing the length of the growing season and minimizing risk of tissue loss due to early spring freezing depends on accurate timing of budburst and leaf out \cite{Basler:2014aa}. The crucial role that phenology plays in these ecosystem processes, and the indications that plant and animal phenology are advancing as rapidly as 2.3\degree C per decade \cite{Menzel:2006} have led to increased attention to tracking the patterns of phenology at large temporal scales. Observational studies of long-term trends are crucial for understanding how climate affects timing of such phenological events, and in combination with field and growth chamber studies, it is clear that spring phenology for woody plants in temperate ecosystems is driven by a combination of increasing spring temperature (forcing), length and intensity of winter temperature (chilling), and changing daylength (photoperiod). Observational studies generally show stronger signs of phenological advance in response to temperature than experimental manipulations \cite{Wolkovich:2012aa}, yet experimental manipulations are necessary for disentangling otherwise covarying environmental factors and directly assess species- and individual-level responses to climate change factors. 
+Woody plant spring phenology drives global carbon cycles and local ecosystem properties, from the length of the growing season to energy balance between land and atmosphere. Timing of spring phenology in temperate woody plants is critical for understanding net ecosystem assimilation at the forest scale, as maximizing the length of the growing season and minimizing risk of tissue loss due to early spring freezing depends on accurate timing of budburst and leaf out \cite{Basler:2014aa}. The crucial role that phenology plays in these ecosystem processes, and the indications that plant and animal phenology are advancing as rapidly as 2.3\degree C per decade \cite{Menzel:2006} have led to increased attention to tracking the patterns of phenology at large temporal scales. Observational studies of long-term trends are crucial for understanding how climate affects timing of such phenological events, and in combination with field and growth chamber studies, it is clear that spring phenology for woody plants in temperate ecosystems is driven by a combination of increasing spring temperature (forcing), length and intensity of winter temperature (chilling), and changing day length (photoperiod). Observational studies generally show stronger signs of phenological advance in response to temperature than experimental manipulations \cite{Wolkovich:2012aa}, yet experimental manipulations are necessary for disentangling otherwise covarying environmental factors and directly assess species- and individual-level responses to climate change factors. 
 
-Adaptive pressues drive temperate woody plants to balance the maximization of carbon gain with minimization of freezing risk in spring phenology \cite{Korner:2010}. Strong selective rpessures should be expected to mitigate damage done by frost events to non-evergreen tree species, given the dramatic consequences of even a single frost event, which if timed after leaf out, can substantial reduce ecosystem productivity \cite{Gu:2008aa} and potentially shift the composition of temperate forests \cite{Hufkens:2012aa}. Spring frost events have been increasing in North America \cite{Augspurger:2013aa}, with greater probability of freezing events occuring after budburst. The ways that species manage such risks can vary in both when on average in the spring they begin their growth, and also how flexible they are around that average timing.
+Adaptive pressures drive temperate woody plants to balance the maximization of carbon gain with minimization of freezing risk in spring phenology \cite{Korner:2010}. Strong selective pressures should be expected to mitigate damage done by frost events to non-evergreen tree species, given the dramatic consequences of even a single frost event, which if timed after leaf out, can substantial reduce ecosystem productivity \cite{Gu:2008aa} and potentially shift the composition of temperate forests \cite{Hufkens:2012aa}. Spring frost events have been increasing in North America \cite{Augspurger:2013aa}, with greater probability of freezing events occurring after budburst. The ways that species manage such risks can vary in both when on average in the spring they begin their growth, and also how flexible they are around that average timing.
 
-Two tradeoffs have been described for spring phenology of woody plants: tolerance versus avoidance of freezing, and opportunistic versus conservative strategies in response to a variable environment. The former describes how early or late in a season species carries out bud burst and leaf out, while the latter describes how flexible a species or individual may be in respose to unusually early warm-up events. While related, these tradeoffs may combine to produce contrasting changes in phenology and may be related to different plant functional traits. 
-For the tolerance-avoidance axis, plants may either tolerate risk of spring freezing by investing in tissue which can withstand freezing, or avoid freezing with later phenology. For perennial plants, it has been found that leaves of species which have later phenologies can be more sensitive to frost damage \cite{CaraDonna:2014aa}\cite{Vitasse:2014aa}, supporting the notion of a tradeoff between tolerance and avoidance of freezing risk. Avoidance should be an adaptive strategy when the risks of freezing damage is high and damage severe enough to make the benefits of early spring phenology not worth the cost of tissue loss \cite{Sakai:1987aa}. Physiologcially, tolerance to freezing is driven by resistance to rupturing of biomembranes, and is related to dehydration stress \cite{Larcher:2005aa}. Plant functional traits related to freezing resistance thus are likely to include high tissue density, both of leaves and stems. In particular, wood density is postively related with leaf longevity and resistance of xylem conduits to freezing-induced cavitation \cite{Chave:2009aa}. Thus high wood density would be advantageous for high-tolerance (early season) plant species. In contrast, avoidance-strategy plants would be expected to express lower tissue densities, with the shorter growing season being made up for by faster growth rates, less investment in structural elements of tissue, and relatively greater percent nitrogen in leaves. 
+Two tradeoffs have been described for spring phenology of woody plants: tolerance versus avoidance of freezing, and opportunistic versus conservative strategies in response to a variable environment. The former describes how early or late in a season species carries out bud burst and leaf out, while the latter describes how flexible a species or individual may be in response to unusually early warm-up events. While related, these tradeoffs may combine to produce contrasting changes in phenology and may be related to different plant functional traits. Importantly, the combinations of these axes can result in non-intuitive responses at the community level: the advantages of a long growing season enjoyed that species which are early (tolerance) but not highly flexible in their timing (conservative) could be eroded in a warming world, as species which are relatively late in (avoidance) and flexible (opportunistic) in phenology close the gap in bud burst and leaf out times. Thus, understanding both the rank order of phenology and the sensitivity of species to environmental cues across a whole community is important in understanding how a changing climate will affect community dynamics.
 
-The other key tradeoff that can be expected is between opportunistic plant strategies, where temperature is the dominant driver of spring phenology, and conservative strategies, where photoperiod and chilling are the key drivers. Opportunistic strategies should benefit species in a non-stationary environment, as in a warming world where mild winters are less an unusual occurance. It has been found for sevearl cases that short-lived, early successional species typically exhibit such opportunistic strategies, and late-successional species are more typically chilling- and photoperiod-controlled in breaking of dormancy \cite{Korner:2010}\cite{Basler:2012aa}\cite{Caffarra:2011ab}. However, opporunisitc and conservative strategies may not be synonymous with tolerance and avoidance strategies. 
+For the tolerance-avoidance axis, plants may either tolerate risk of spring freezing by investing in tissue which can withstand freezing, or avoid freezing with later phenology. For perennial plants, it has been found that leaves of species which have later phenologies can be more sensitive to frost damage \cite{CaraDonna:2014aa}\cite{Vitasse:2014aa}, supporting the notion of a tradeoff between tolerance and avoidance of freezing risk. Avoidance should be an adaptive strategy when the risks of freezing damage is high and damage severe enough to make the benefits of early spring phenology not worth the cost of tissue loss \cite{Sakai:1987aa}. Physiologically, tolerance to freezing is driven by resistance to rupturing of biomembranes, and is related to dehydration stress \cite{Larcher:2005aa}. Plant functional traits related to freezing resistance thus are likely to include high tissue density, both of leaves and stems. In particular, wood density is positively related with leaf longevity and resistance of xylem conduits to freezing-induced cavitation \cite{Chave:2009aa}. Thus high wood density would be advantageous for high-tolerance (early season) plant species. In contrast, avoidance-strategy plants would be expected to express lower tissue densities, with the shorter growing season being made up for by faster growth rates, less investment in structural elements of tissue, and relatively greater percent nitrogen in leaves. 
+
+The other key tradeoff that can be expected is between opportunistic plant strategies, where temperature is the dominant driver of spring phenology, and conservative strategies, where photoperiod and chilling are the key drivers. Opportunistic strategies should benefit species in a non-stationary environment, as in a warming world where mild winters are less an unusual occurrence. It has been found for several cases that short-lived, early successional species typically exhibit such opportunistic strategies, and late-successional species are more typically chilling- and photoperiod-controlled in breaking of dormancy \cite{Korner:2010}\cite{Basler:2012aa}\cite{Caffarra:2011ab}. However, opportunistic and conservative strategies may not be synonymous with tolerance and avoidance strategies. 
 
 Opportunistic species, showing greater ability to respond to early warm temperatures in their timing of spring events, would be predicted to exhibit lower tissue densities, greater leaf nitrogen concentrations, and . Drought-tolerance, which can be related to freezing-tolerance in the ability to resist cavitation, has been show to relate to low wood density in a semi-arid forest, with low-wood density species having increased ability to store water in the dry season and ability to flush leaves in the dry season \cite{Lima:2010aa}. Similarly, for temperate deciduous trees, experimental warming of has been shown to both increase total growing season length for species which have higher specific leaf area \cite{XU:2009aa}. Finally, for deciduous trees, traits can exhibit variation in expression over the growing season, with higher leaf tissue density and allocation of nitrogen following cessation of growth in late summer \cite{McKown:2013aa}.
 
@@ -56,31 +60,29 @@ Opportunistic species, showing greater ability to respond to early warm temperat
 % other timing and traits: earlier phenology, fleshy fruits \cite{Kjell-Bolmgren:2005aa}, even after doing PIC
 % For herbaceous species, two axes: early vs late, and fast vs slow growth. Early-fast, late-slow, late-fast all possible \cite{Sun:2011aa}. Early-fast related to short stature and high relative groth rate
 
-Tests of how these two tradeoff axes drive phenology across a co-occuring community of species have not previously been carried out. As the abiotic environment is not the sole contributor to plant performance, considering a suite of co-occuring species together is key for making progress in understanding the role phenology plays in shifts in community composition and ecosystem functioning. Temporal separation in resource use is an imporant driver of plant species coexistence \cite{Mason:2013aa} and such temporal separation can drive ecosystem properties such as biomass accumulation \cite{Sapijanskas:2014aa}, thus understanding both the current order of phenology for co-occuring species and propensity to change in future climates is an important goal of plant phenology science.
+Tests of how these two tradeoff axes drive phenology across a co-occurring community of species have not previously been carried out. As the abiotic environment is not the sole contributor to plant performance, considering a suite of co-occurring species together is key for making progress in understanding the role phenology plays in shifts in community composition and ecosystem functioning. Temporal separation in resource use is an important driver of plant species coexistence \cite{Mason:2013aa} and such temporal separation can drive ecosystem properties such as biomass accumulation \cite{Sapijanskas:2014aa}, thus understanding both the current order of phenology for co-occurring species and propensity to change in future climates is an important goal of plant phenology science.
 
 % Latitude
-The role of latitude in how abiotic drivers determing spring phenology has largely been investigated in single-species studies across many sites. Given sufficent distance, more pole-ward sites have lower minimum annual temperatures and shorter growing seasons, making accurate timing of spring phenology even more important. Since daylength differences from winter to spring are also greater for higher latutitudes, populations of northern plants may be expected to rely more on photoperiod as a cue for spring phenology.
+Factors driving spring phenology include chilling temeratures, photoperiod, forcing temperatures, and latitude of origin. Of these factors, the role of latitude in determining spring phenology has largely been investigated in single-species studies across many sites. Given sufficient distance, more pole-ward sites have lower minimum annual temperatures and shorter growing seasons, making accurate timing of spring phenology even more important. Since day length differences from winter to spring are also greater for higher latitudes, populations of northern plants may be expected to rely more on photoperiod as a cue for spring phenology.
 
 For temperate trees, species can be limited at their northern range by inability to develop mature fruit in a given growing season, while limited at their southern range by inability to break dormancy due to insufficient chilling \cite{Chuine:2010}. Thus phenology can drive range limits. Common garden studies have shown that southern-adapted species, when translocated to a more northern location, exhibit later leaf out compared to species adapted to northern sites \cite{Zohner:2014aa}. If species remain relatively fixed in their timing of leaf out, then northward migration of such late-phenology species may act to counteract community-wide advances in phenology under a warming climate. 
 
 % photoperiod
-Photoperiod has long been known to be a critical driver of the onset of endormancy, in combination with cooling temperatures \cite{Foley:2009aa}. However, the role of photoperiod in determining the breadking of dormancy has been debated, with various authors finding that the strength of daylength as a driver may depend on phenological stage, species and location \cite{Heide:1993}\cite{Falusi:1996aa}. Photoperiod and winter chilling can interact, as long photoperiod enhances cell growth, compensating for a lack of chilling during the endodormancy phase \cite{Heide:1993b}\cite{Caffarra:2011aa}\cite{Myking:1995}. In the few experimental studies that have directly manipulated both forcing temperature and photoperiod, photoperiod has been shown to act to moderate advances in phenology due to warming, with reduced advances due to temperature when daylength was short \cite{Sanz-Perez:2009aa}\cite{Heide:1993b}. 
+Photoperiod has long been known to be a critical driver of the onset of endodormancy, in combination with cooling temperatures \cite{Foley:2009aa}. However, the role of photoperiod in determining the breaking of dormancy has been debated, with various authors finding that the strength of day length as a driver may depend on phenological stage, species and location \cite{Heide:1993}\cite{Falusi:1996aa}. Photoperiod and winter chilling can interact, as long photoperiod enhances cell growth, compensating for a lack of chilling during the endodormancy phase \cite{Heide:1993b}\cite{Caffarra:2011aa}\cite{Myking:1995}. In the few experimental studies that have directly manipulated both forcing temperature and photoperiod, photoperiod has been shown to act to moderate advances in phenology due to warming, with reduced advances due to temperature when day length was short \cite{Sanz-Perez:2009aa}\cite{Heide:1993b}. 
 % look for additional refs showing non-additive effects (replacability)
 
 % Chilling
 % points to make: chilling is a strategy to make sure budburst/leaf out do not occur too early. This can be a supplemental stragety in addition to photoperiod and temperature cues for breaking endodormancy. [notes to myself: endodormancy: short days in fall. Broken by chilling. Ecodormancy: broken by temperature.
 
-In addition to photoperiod, winter chilling requirements also act as a conservative strategy to avoid damage from early spring freezing, allowing woody plants to avoid breaking bud during unusually early warm spells \cite{Ghelardini:2010aa}. To an extent, these three factors of temperature, photoperiod, and chilling are interchangeable, such that plants experiencing mild winter with insufficient chilling can still break bud given sufficiently long photoperiods and warm temperatures \cite{Heide:1993b}. Chilling requirements are known to vary substantially across species, with some needing relatively little winter chilling to initiate budburst, and others not bursting bud even in long-day, warm envronments unless sufficient chilling has taken place \cite{Korner:2010}. 
+In addition to photoperiod, winter chilling requirements also act as a conservative strategy to avoid damage from early spring freezing, allowing woody plants to avoid breaking bud during unusually early warm spells \cite{Ghelardini:2010aa}. To an extent, these three factors of temperature, photoperiod, and chilling are interchangeable, such that plants experiencing mild winter with insufficient chilling can still break bud given sufficiently long photoperiods and warm temperatures \cite{Heide:1993b}. Chilling requirements are known to vary substantially across species, with some needing relatively little winter chilling to initiate budburst, and others not bursting bud even in long-day, warm environments unless sufficient chilling has taken place \cite{Korner:2010}. 
 
 % Why do cuttings: can manipulate abiotic conditions on same individual, species specific, can detect early events with more precision than larger-scale studies
+Knowing species-specific sensitives of temperate plant phenology to chilling and forcing alone can predict regional-scale phenology \cite{Chuine:2000}. Substantial variation exists at the species level in the magnitude of the temporal advance of spring phenology \cite{Primack:2009aa}, such that the presence of species highly sensitive to temperature change can strongly drive community-level phenology \cite{Diez:2012}.
 
-Knowing species-specific sensitivies of temperate plant phenology to chilling and forcing alone can predict regional-scale phenology \cite{Chuine:2000}. Substantial variation exists at the species level in the magnitude of the temporal advance of spring phenology \cite{Primack:2009aa}, such that the presence of species highly sensitive to temperature change can strongly drive community-level phenology \cite{Diez:2012}.
+Early phenological events, such as initial swelling of buds and budburst (separation of budscales) are challenging to study from remote sensing, with little obvious change in color or reflectance. 
+requiring experimental work at the individual level.Different phenological stages may be driven by different environmental cues. The period between budburst and leaf out is critical for leaf development, as this is a period when plants are highly sensitive to damage from late freezing events, with freezing resistance increasing as leaves expand \cite{Sakai:1987aa}.
 
-Early phenological events, such as initial swelling of buds and budburst (separtion of budscales) are challenging to study from remote sensing, with little obvious change in color or reflectance. 
-requiring experimental work at the individual level. 
-Different phenological stages may be driven by different environmental cues. The period between budburst and leaf out is critical for leaf development, as this is a period when plants are highly sensitive to damage from late freezing events, with freezing resistance increasing as leaves expand \cite{Sakai:1987aa}.
-
-To test the interactive effects of the three controlling drivers of spring phenology, temperature, photoperiod, and chilling across latitudes, we carried out a study of 28 woody plants. We assessed both budburst and leafout to account for the potential different sensitivies of these phenological stages to abiotic drivers, and analyzed responses across all species to examine the support for how well the tolerance-avoidance and opportunistic-conservative tradeoff axes represent temperature plant spring phenology.
+To test the interactive effects of the three controlling drivers of spring phenology, temperature, photoperiod, and chilling across latitudes, we carried out a study of 28 woody plants. We assessed both budburst and leaf out to account for the potential different sensitives of these phenological stages to abiotic drivers, and analyzed responses across all species to examine the support for how well the tolerance-avoidance and opportunistic-conservative tradeoff axes represent temperature plant spring phenology.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Results}
@@ -97,7 +99,6 @@ Warming, photoperiod, and chilling individually and interactively acted to drive
 \subsection*{Effect of chilling}
 The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions (hours below 7.2\degree C and between 0\degree C and 7.2\degree C) and Dynamic Model \cite{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \cite{Luedeling:2009}.
 With both the Utah and Dynamic model, the more severe chilling treatment resulted in fewer calculated chilling portions. 
-% Need to describe each model super briefly! - done
 
 Species varied widely in response to chilling treatments, with some exhibiting strong chilling requirements (\emph{Acer saccharum}, \emph{Fagus grandifolia}), while others exhibited little change in phenological advancement under experimentally manipulated chilling. Overall, budburst and leaf-out advanced by 22.1 or 26.4 days under additional 30 d of vernalization at 4\degree C, and advanced by a reduced amount of 19.7 or 26.1 days under 30 d of vernalization at 1.5\degree C. The reduced chilling effect at the lower temperature chilling is consistent with the Dynamic Model of chilling accumulation. % And also consistent with the Utah model?
 
@@ -119,9 +120,6 @@ Rank order of leaf out and budburst was stable across warming and photoperiod tr
 \subsection*{Nonleaf outs}
 
 Across all treatments, 20.2\% of the cuttings did not break bud or leaf out. Across species, there was no overall predictive effect of temperature, photoperiod, chilling, or site on the propensity to fail to leaf out. Species ranged from complete leaf out (\emph{Hamamaelis}) to only 50\% leaf out (\emph{Fagus grandifolia}, \emph{Acer saccharum}) across all treatments. The percent of nonleaf outs by site was similar, with 20.6\% of Harvard Forest and 19.7\% of St. Hippolyte samples failing to leaf out. Examining individual species,  there was an interaction of temperature by day length for selected species, with greater failure to leaf out in cool, short-day conditions for \emph{Acer pensylvanicum}  and \emph{Acer saccharum}. Site effects were inconsistent, with greater failure to leaf out for cuttings from St. Hippolyte in \emph{Acer rubrum} and \emph{Fagus grandifolia}, and from Harvard Forest in \emph{Acer saccharum}. 
-
-% I think you can cut the below
-% All species show advances in budburst and leaf out in response to photoperiod, warming, and chilling treatments. All species showed positive interactions between warming and chilling for leaf out. For budburst, interactions between warming and chilling were always positive but not those between photoperiod and chilling (4 and 12 species showing positive interaction for chill1 and chill2, respectively).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,10 +163,26 @@ In summer 2015, the same individuals previously tagged in the field were revisit
 
 \textbf{Statistical analysis}
 
-For the two phenology responses measured, we fit mixed effect models separately for day of year, using site, warming, photoperiod, and chilling treatments as predictors and species as a modeled groups (random effects). For each model, two-way interactions for effects of site, warming, and each of the chilling treatments were included. Simplified versions of models were initially fit using the \emph{lme4} package in the statistical programming environment \texttt{R}, then full versions of the model were fit using a Markov Chain Monte Carlo sampling approach in the programming language \texttt{Stan} (\texttt{www.mc-stan.org}).
+For the two phenology responses measured, we fit mixed effect models separately for day of year, using site, warming, photoperiod, and chilling treatments as predictors and species as a modeled groups (random effects). For each model, two-way interactions for effects of site, warming, and each of the chilling treatments were included. Simplified versions of models were initially fit using the \emph{lme4} package in the statistical programming environment \texttt{R}, then full versions of the model were fit using a Markov Chain Monte Carlo sampling approach in the programming language \texttt{Stan} \cite{Carpenter:2016aa}(\texttt{www.mc-stan.org}).
 
-% Add? "fit using a Baeysian approach with weak priors"...
-% add: Bob Carpenter, Andrew Gelman, Matt Hoffman, Daniel Lee, Ben Goodrich, Michael Betancourt, Michael A. Brubaker, Jiqiang Guo, Peter Li, and Allen Riddell. 2016. Stan: A probabilistic programming language. Journal of Statistical Software (in press).
+The model was fit using a Baeysian approach with weak priors with five main effects and each of their two-way interactions. The model was fit as follows:
+
+\begin{align*}
+y_i \thicksim N(\alpha_{sp[i]} +& \beta_{site_{sp[i]}} + \beta_{temperature_{sp[i]}} + \beta_{photoperiod_{sp[i]}} + \beta_{chilling1_{sp[i]}} + \beta_{chilling2_{sp[i]}}  \\
+	+& \beta_{temperature \times photoperiod_{sp[i]}} + \beta_{temperature \times site_{sp[i]}} + \beta_{photoperiod \times site_{sp[i]}} \\
+	+& \beta_{temperature \times chilling1_{sp[i]}} + \beta_{temperature \times chilling2_{sp[i]}} \\
+	+& \beta_{photoperiod \times chilling1_{sp[i]}} + \beta_{photoperiod \times chilling2_{sp[i]}} \\
+	+& \beta_{site \times chilling1_{sp[i]}}  + \beta_{site \times chilling2_{sp[i]}} )
+\end{align*}
+
+Each of the 14 $\beta$ coefficients was modeled at the species level, as follows
+\begin{align*}
+1.& \; \beta_{site_{sp}} \thicksim N(\mu_{site}, \sigma{^2}_{site}) \\
+   &... \\
+14.& \; \beta_{site \times chilling2_{sp}} \thicksim N(\mu_{site \times chilling2}, \sigma{^2}_{site \times chilling2})
+\end{align*}
+
+For the $mu$ and $sigma$ parameters, weakly informative priors were chosen.
 
 \textbf{Phylogenetic methods}
 
@@ -190,8 +204,8 @@ We tested the influenced of phylogenetic relatedness on the relationship between
 
 
 
-% latex table generated in R 3.2.4 by xtable 1.7-4 package
-% Wed Jul 20 22:53:55 2016
+% latex table generated in R 3.2.3 by xtable 1.8-2 package
+% Wed Jul 27 16:23:33 2016
 \begin{table}[ht]
 \centering
 \caption{Chill units in field and field and growth chamber conditions.} 
@@ -208,8 +222,8 @@ Harvard Forest & Field chilling & 892 & 814.50 & 56.62 \\
    \hline
 \end{tabular}
 \end{table}
-% latex table generated in R 3.2.4 by xtable 1.7-4 package
-% Wed Jul 20 22:53:55 2016
+% latex table generated in R 3.2.3 by xtable 1.8-2 package
+% Wed Jul 27 16:23:33 2016
 \begin{table}[ht]
 \centering
 \caption{Phylogenetic signal in timing of budburst and leaf out and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal} 
@@ -225,8 +239,8 @@ SLA - Temperature & 0.000 \\
   Wood Density - Photoperiod & 0.000 \\ 
   Wood Density - Chilling 4 \degree C & 0.000 \\ 
   Wood Density - Chilling 1.5 \degree C & 0.000 \\ 
-  \% N - Temperature & 0.313 \\ 
-  \% N - Photoperiod & 0.228 \\ 
+  \% N - Temperature & 0.285 \\ 
+  \% N - Photoperiod & 0.203 \\ 
   \% N - Chilling 4 \degree C & 0.127 \\ 
   \% N - Chilling 1.5 \degree C & 0.130 \\ 
   Pore anatomy - Temperature & 1.000 \\ 
@@ -238,8 +252,8 @@ SLA - Temperature & 0.000 \\
 \end{table}
 
 % Trait tables
-% latex table generated in R 3.2.4 by xtable 1.7-4 package
-% Wed Jul 20 22:53:55 2016
+% latex table generated in R 3.2.3 by xtable 1.8-2 package
+% Wed Jul 27 16:23:33 2016
 \begin{table}[ht]
 \centering
 \caption{Trees, budburst} 
@@ -254,8 +268,8 @@ Intercept & 29.45 & 0.37 & 78.70 & 0.00 & 28.72 & 30.19 \\
   Pore anatomy & -4.81 & 0.37 & -12.89 & 0.00 & -5.55 & -4.08 \\ 
    \hline
 \end{tabular}
-\end{table}% latex table generated in R 3.2.4 by xtable 1.7-4 package
-% Wed Jul 20 22:53:55 2016
+\end{table}% latex table generated in R 3.2.3 by xtable 1.8-2 package
+% Wed Jul 27 16:23:33 2016
 \begin{table}[ht]
 \centering
 \caption{Trees, leaf out} 
@@ -270,8 +284,8 @@ Intercept & 42.91 & 0.44 & 97.56 & 0.00 & 42.04 & 43.77 \\
   Pore anatomy & -3.52 & 0.42 & -8.35 & 0.00 & -4.35 & -2.70 \\ 
    \hline
 \end{tabular}
-\end{table}% latex table generated in R 3.2.4 by xtable 1.7-4 package
-% Wed Jul 20 22:53:55 2016
+\end{table}% latex table generated in R 3.2.3 by xtable 1.8-2 package
+% Wed Jul 27 16:23:33 2016
 \begin{table}[ht]
 \centering
 \caption{Shrubs, budburst} 
@@ -286,8 +300,8 @@ Intercept & 23.76 & 0.53 & 45.07 & 0.00 & 22.72 & 24.79 \\
   Pore anatomy & 1.58 & 1.27 & 1.25 & 0.21 & -0.91 & 4.07 \\ 
    \hline
 \end{tabular}
-\end{table}% latex table generated in R 3.2.4 by xtable 1.7-4 package
-% Wed Jul 20 22:53:55 2016
+\end{table}% latex table generated in R 3.2.3 by xtable 1.8-2 package
+% Wed Jul 27 16:23:33 2016
 \begin{table}[ht]
 \centering
 \caption{Shrubs, leaf out} 
@@ -308,7 +322,7 @@ Intercept & 27.16 & 0.68 & 39.69 & 0.00 & 25.82 & 28.50 \\
 
 \begin{figure} % alternative for Fig 1
 \begin{center}
-\caption{Coordinated responses of 28 woody plant species to photoperiod and temperature cues for leaf out. Color of circle reflect average leaf out day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments, see Supp X for more details.} % Changed legend, check that I did it correctly please! Also, is this the raw data or model fits or what?
+\caption{Coordinated responses of 28 woody plant species to photoperiod and temperature cues for leaf out. Color of circle reflect unmodeled data on average leaf out day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments, see Supp X for more details.} % Changed legend, check that I did it correctly please! 
 \includegraphics[scale=0.5]{Advplot2}
 \label{fig1}
 \end{center}

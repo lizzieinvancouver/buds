@@ -13,6 +13,7 @@
 \usepackage{setspace}
 \usepackage{lineno}
 \usepackage{cite}
+\usepackage{amssymb} % for math symbols
 
 \doublespacing
 \renewcommand{\familydefault}{\sfdefault} % for nicer sans serif font
@@ -36,9 +37,7 @@ Flynn, Wolkovich
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\textbf{Understanding the abiotic drivers of plant phenology is critical for predicting how communities will shift with climate change, and resulting alterations to ecosystem-level properties such as carbon sequestration. Observational studies have limited ability to separate plant responses to different climatic factors because phenological responses known be based on the combination of three often co-varying environmental cues that plants receive: chilling temperatures in fall and winter, photoperiod, and spring forcing temperatures. Research to date has focused on woody species and suggests that these cues are interactive, meaning predictions of plant responses to climate change will be complex and non-linear \cite{Chuine:1999aa}. Other work, however, has suggested many species may be dominated by one of the three possible cues \cite{Korner:2010}, with a tradeoff between photoperiod and forcing temperature sensitivities, meaning some species' responses would be simple to predict. However, the range of responses across species within a community to winter chilling temperatures, photoperiod, and spring forcing temperatures has received relatively limited attention. Given the wide range of budburst and leaf out across temperate woody species \cite{Polgar:2011aa}, these species differences may be crucial in scaling up to ecosystem-level responses. 
-
-Here we present results from an experimental manipulation of spring forcing temperatures, photoperiod, and intensity of winter chilling with dormant clippings of 28 woody plant species from forest communities at two latitudes (42.5\degree N and 46\degree N). We show photoperiod sensitivity is common across northeastern woody plants and phenological sensitivity to photoperiod and temperature appears largely coordinated across species; namely, species highly sensitive to temperature were also highly sensitive to photoperiod. Budburst and leaf out were more sensitive to temperature than to photoperiod. Winter chilling exerts a large role in driving advances in spring phenology, for both budburst and leaf out stages, yet more intense chilling at 1.5\degree C resulted in less pronounced effects than at 4\degree C. Latitude of origin exerted surprisingly small effects on sensitivity to abiotic factors in driving spring phenology, indicating that local adaptation---at least across 4\degree of latitude---may not necessarily constrain woody plant responses to climate change. Shrub and small tree species were less sensitive to changing temperatures or photoperiod, but consistently earlier in their phenology. These results indicate that under warming conditions, communities could shift to a more canopy-tree dominated system with generally later phenologies, counteracting advances in phenology at the ecosystem scale.}
+\textbf{Understanding the abiotic drivers of plant phenology is critical for predicting how communities will shift with climate change, and resulting alterations to ecosystem-level properties such as carbon sequestration. Observational studies have limited ability to separate plant responses to different climatic factors because phenological responses known be based on the combination of three often co-varying environmental cues that plants receive: chilling temperatures in fall and winter, photoperiod, and spring forcing temperatures. Research to date has focused on woody species and suggests that these cues are interactive, meaning predictions of plant responses to climate change will be complex and non-linear \cite{Chuine:1999aa}. Other work, however, has suggested many species may be dominated by one of the three possible cues \cite{Korner:2010}, with a tradeoff between photoperiod and forcing temperature sensitivities, meaning some species' responses would be simple to predict. However, the range of responses across species within a community to winter chilling temperatures, photoperiod, and spring forcing temperatures has received relatively limited attention. Given the wide range of budburst and leaf out across temperate woody species \cite{Polgar:2011aa}, these species differences may be crucial in scaling up to ecosystem-level responses. Here we present results from an experimental manipulation of spring forcing temperatures, photoperiod, and intensity of winter chilling with dormant clippings of 28 woody plant species from forest communities at two latitudes (42.5\degree N and 46\degree N). We show photoperiod sensitivity is common across northeastern woody plants and phenological sensitivity to photoperiod and temperature appears largely coordinated across species; namely, species highly sensitive to temperature were also highly sensitive to photoperiod. Budburst and leaf out were more sensitive to temperature than to photoperiod. Winter chilling exerts a large role in driving advances in spring phenology, for both budburst and leaf out stages, yet more intense chilling at 1.5\degree C resulted in less pronounced effects than at 4\degree C. Latitude of origin exerted surprisingly small effects on sensitivity to abiotic factors in driving spring phenology, indicating that local adaptation---at least across 4\degree of latitude---may not necessarily constrain woody plant responses to climate change. Shrub and small tree species were less sensitive to changing temperatures or photoperiod, but consistently earlier in their phenology. These results indicate that under warming conditions, communities could shift to a more canopy-tree dominated system with generally later phenologies, counteracting advances in phenology at the ecosystem scale.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Introduction 
@@ -163,10 +162,26 @@ In summer 2015, the same individuals previously tagged in the field were revisit
 
 \textbf{Statistical analysis}
 
-For the two phenology responses measured, we fit mixed effect models separately for day of year, using site, warming, photoperiod, and chilling treatments as predictors and species as a modeled groups (random effects). For each model, two-way interactions for effects of site, warming, and each of the chilling treatments were included. Simplified versions of models were initially fit using the \emph{lme4} package in the statistical programming environment \texttt{R}, then full versions of the model were fit using a Markov Chain Monte Carlo sampling approach in the programming language \texttt{Stan} (\texttt{www.mc-stan.org}).
+For the two phenology responses measured, we fit mixed effect models separately for day of year, using site, warming, photoperiod, and chilling treatments as predictors and species as a modeled groups (random effects). For each model, two-way interactions for effects of site, warming, and each of the chilling treatments were included. Simplified versions of models were initially fit using the \emph{lme4} package in the statistical programming environment \texttt{R}, then full versions of the model were fit using a Markov Chain Monte Carlo sampling approach in the programming language \texttt{Stan} \cite{Carpenter:2016aa}(\texttt{www.mc-stan.org}).
 
-% Add? "fit using a Baeysian approach with weak priors"...
-% add: Bob Carpenter, Andrew Gelman, Matt Hoffman, Daniel Lee, Ben Goodrich, Michael Betancourt, Michael A. Brubaker, Jiqiang Guo, Peter Li, and Allen Riddell. 2016. Stan: A probabilistic programming language. Journal of Statistical Software (in press).
+The model was fit using a Baeysian approach with weak priors with five main effects and each of their two-way interactions. The model was fit as follows:
+
+\begin{align*}
+y_i \thicksim N(\alpha_{sp[i]} +& \beta_{site_{sp[i]}} + \beta_{temperature_{sp[i]}} + \beta_{photoperiod_{sp[i]}} + \beta_{chilling1_{sp[i]}} + \beta_{chilling2_{sp[i]}}  \\
+	+& \beta_{temperature \times photoperiod_{sp[i]}} + \beta_{temperature \times site_{sp[i]}} + \beta_{photoperiod \times site_{sp[i]}} \\
+	+& \beta_{temperature \times chilling1_{sp[i]}} + \beta_{temperature \times chilling2_{sp[i]}} \\
+	+& \beta_{photoperiod \times chilling1_{sp[i]}} + \beta_{photoperiod \times chilling2_{sp[i]}} \\
+	+& \beta_{site \times chilling1_{sp[i]}}  + \beta_{site \times chilling2_{sp[i]}} )
+\end{align*}
+
+Each of the 14 $\beta$ coefficients was modeled at the species level, as follows
+\begin{align*}
+1.& \; \beta_{site_{sp}} \thicksim N(\mu_{site}, \sigma{^2}_{site}) \\
+   &... \\
+14.& \; \beta_{site \times chilling2_{sp}} \thicksim N(\mu_{site \times chilling2}, \sigma{^2}_{site \times chilling2})
+\end{align*}
+
+For the $mu$ and $sigma$ parameters, weakly informative priors were chosen.
 
 \textbf{Phylogenetic methods}
 

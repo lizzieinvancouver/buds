@@ -96,14 +96,14 @@
 \newblock \emph{\bibinfo{title}{Frost Survival of Plants: Responses and
   Adaptation to Freezing Stress}} (\bibinfo{publisher}{Springer Berlin
   Heidelberg}, \bibinfo{year}{1987}).
-\newblock \urlprefix\url{https://books.google.com/books?id=dQzpCAAAQBAJ}.
 
 \bibitem{Larcher:2005aa}
 \bibinfo{author}{Larcher, W.}
 \newblock \bibinfo{title}{Climatic constraints drive the evolution of low
   temperature resistance in woody plants}.
-\newblock \emph{\bibinfo{journal}{農業気象}} \textbf{\bibinfo{volume}{61}},
-  \bibinfo{pages}{189--202} (\bibinfo{year}{2005}).
+\newblock \emph{\bibinfo{journal}{Journal of Agricultural Meteorology}}
+  \textbf{\bibinfo{volume}{61}}, \bibinfo{pages}{189--202}
+  (\bibinfo{year}{2005}).
 
 \bibitem{Chave:2009aa}
 \bibinfo{author}{Chave, J.} \emph{et~al.}
@@ -338,5 +338,11 @@
 \newblock \emph{\bibinfo{journal}{Australian Journal of Botany}}
   \textbf{\bibinfo{volume}{61}}, \bibinfo{pages}{167--234}
   (\bibinfo{year}{2013}).
+
+\bibitem{Carpenter:2016aa}
+\bibinfo{author}{Carpenter, B.} \emph{et~al.}
+\newblock \bibinfo{title}{Stan: A probabilistic programming language}.
+\newblock \emph{\bibinfo{journal}{Journal of Statistical Software}}
+  \textbf{\bibinfo{volume}{(in press)}} (\bibinfo{year}{2016}).
 
 \end{thebibliography}
