@@ -1,7 +1,7 @@
 forlatex = T # set to F if just trying new figures, T if outputting for final
 runstan = F # set to T to actually run stan models. F if loading from previous runs
 
-# Analysis of budburst experiment 2015. 
+# Analysis of bud burst experiment 2015. 
 
 library(memisc) # for getSummary (in trait effect plotting)
 library(xtable)
@@ -67,9 +67,6 @@ ldaymean <- t(with(dxl, tapply(lday, list(site, sp), mean, na.rm=T)))
 
 leafoutdays <- data.frame(bdaymean, ldaymean)
 
-# with(dxb, table(chill1, chill2)) # reductions due to nonbudburst
-# with(dxl, table(chill1, chill2)) # reductions due to nonleafouts
-
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Utility function to plot 'random effects' from stan output - used now mostly in Fig 3.
 plotlet <- function(x, y, xlab=NULL, ylab=NULL, data, groups = NULL, ...){
@@ -132,21 +129,21 @@ treeshrub = as.numeric(treeshrub)
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 # Analyses:
-# 1. Day of budburst by all factors, stan 
+# 1. Day of bud burst by all factors, stan 
 # 2. Day of leaf out by all factors, stan
-# 3. Effects on budburst/leafout day for species: 
+# 3. Effects on bud burst/leaf-out day for species: 
 #  - Traits (wood density, sla, N, stomata when we have it), 
 #  - Phylogeny
 
 # Supplemental analyses
-# Correlate order of leafout/budburst in chambers to each other
-# Correlate order of leafout in chambers to O'Keefe observational data
+# Correlate order of leaf-out/bud burst in chambers to each other
+# Correlate order of leaf-out in chambers to O'Keefe observational data
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
-# 1. Budburst day. 
+# 1. Bud burst day. 
 if(runstan){
-  datalist.b <- list(lday = dxb$bday, # budburst as response 
+  datalist.b <- list(lday = dxb$bday, # bud burst as response 
                      warm = as.numeric(dxb$warm), 
                      site = as.numeric(dxb$site), 
                      sp = as.numeric(dxb$sp), 
@@ -201,7 +198,7 @@ rownames(meanzb) = c("Temperature",
                     )
 
 if(runstan){
-  datalist.l <- list(lday = dxl$lday, # leafout as respose 
+  datalist.l <- list(lday = dxl$lday, # leaf-out as respose 
                      warm = as.numeric(dxl$warm), 
                      site = as.numeric(dxl$site), 
                      sp = as.numeric(dxl$sp), 
@@ -234,7 +231,7 @@ sumerb[!is.na(match(rownames(sumerb), paste("b_chill2[", nochill, "]", sep="")))
 sumerl[!is.na(match(rownames(sumerl), paste("b_chill1[", nochill, "]", sep=""))),] = NA
 sumerl[!is.na(match(rownames(sumerl), paste("b_chill2[", nochill, "]", sep=""))),] = NA
 
-# Figure 1: Stan model effects for budburst and leafout
+# Figure 1: Stan model effects for bud burst and leaf-out
 
 bbpng <- readPNG(file.path(figpath, "Finn_BB.png")) # Illustrations from Finn et al.
 lopng <- readPNG(file.path(figpath, "Finn_LO.png"))
@@ -243,7 +240,7 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
   
   par(mfrow=c(2,1), mar = c(2, 10, 5, 1))
   
-  # Upper panel: budburst
+  # Upper panel: bud burst
   plot(seq(-30, 
            12,
            length.out = nrow(meanzb)), 
@@ -253,7 +250,7 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
        ylab = "",
        yaxt = "n")
   
-  legend(x = -32, y = 6, bty="n", legend = "a. Budburst", text.font = 2)
+  legend(x = -32, y = 6, bty="n", legend = "a. Bud burst", text.font = 2)
   rasterImage(bbpng, -28, 1, -22, 4)
   
   axis(2, at = nrow(meanzb):1, labels = rownames(meanzb), las = 1, cex.axis = 0.8)
@@ -266,7 +263,7 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
   abline(v = 0, lty = 3)
 
   par(mar=c(5, 10, 2, 1))
-  # Lower panel: leafout
+  # Lower panel: leaf-out
   plot(seq(-30, 
            12, 
            length.out = nrow(meanzl)), 
@@ -276,7 +273,7 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
        ylab = "",
        yaxt = "n")
   
-  legend(x = -32, y = 6, bty="n", legend = "b. Leafout", text.font = 2)
+  legend(x = -32, y = 6, bty="n", legend = "b. Leaf-out", text.font = 2)
   rasterImage(lopng, -28, 1, -21, 4)
   
   axis(2, at = nrow(meanzl):1, labels = rownames(meanzl), las = 1, cex.axis = 0.8)
@@ -303,7 +300,7 @@ layout(matrix(c(1, 2, 3, # use layout instead of par(mfrow for more control of w
 plotblank = function(){plot(1:10, type="n",bty="n",xaxt="n",yaxt="n",ylab="",xlab="")}
 
 plotblank() 
-text(5,5, "Budburst \n\n Advance due to 5° warming", font = 2, srt = 90)
+text(5,5, "Bud burst \n\n Advance due to 5° warming", font = 2, srt = 90)
 
 plotlet( "b_photo", "b_warm",
          #  ylab = "Advance due to 5° warming", 
@@ -336,7 +333,7 @@ axis(2, seq(0, -10, by = -5), labels = F)
 legend("topleft", bty = "n", inset = 0.05, legend = "B.", text.font=2)
 
 plotblank()
-text(5,5, "Leafout \n\n Advance due to 5° warming", font = 2, srt = 90)
+text(5,5, "Leaf-out \n\n Advance due to 5° warming", font = 2, srt = 90)
 
 plotlet("b_photo", "b_warm", 
         #    ylab = "Advance due to 5° warming", 
@@ -386,7 +383,8 @@ dxt.agg2 <- aggregate(dxt[aggcol], by = list(dxt$site,dxt$fg), FUN = mean, na.rm
 names(dxt.agg)[1:3] = c("sp","site","fg")
 names(dxt.agg2)[1:2] = c("site","fg")
 
-# Analyze leafout not #effect sizes# vs traits
+# Analyze leaf-out and budburst vs warming and photoperiod. No traits.
+
 dlo <- summary(doym.l)$summary
 dlo[!is.na(match(rownames(dlo), paste("b_chill1[", nochill, "]", sep=""))),] = 99
 dlo[!is.na(match(rownames(dlo), paste("b_chill2[", nochill, "]", sep=""))),] = 99
@@ -428,7 +426,7 @@ ph$node.label = NULL # otherwise give duplicated names error, because of multipl
 
 sig <- comparative.data(ph, dxt2, names.col = "sp")
 
-sla.signal.warm <- pgls(sla ~ warmeff, sig, lambda = 'ML')
+sla.signal.warm <- pgls(sla ~ warm, sig, lambda = 'ML')
 sla.signal.photo <- pgls(sla ~ photoeff, sig, lambda = 'ML')
 sla.signal.chill1 <- pgls(sla ~ chill1eff, sig, lambda = 'ML')
 sla.signal.chill2 <- pgls(sla ~ chill2eff, sig, lambda = 'ML')
@@ -477,10 +475,10 @@ signaldat$var = paste(
   sep = " - ")
 
 phylosigtable <- xtable(data.frame(Relationship = signaldat[,"var"],Lambda = signaldat[,"lambda"]), digits = 3,
-                        caption = "Phylogenetic signal in timing of budburst and leafout and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal")
+                        caption = "Phylogenetic signal in timing of bud burst and leaf-out and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal")
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-# Plot actual change in leafout by species, for Figure 1
+# Plot actual change in leaf-out by species, for Figure 1
 lday.agg <- aggregate(dx$lday, by=list(sp=dx$sp,
                                        warm=dx$warm, photo=dx$photo
                                        #,chill=dx$chill, site=dx$site,  treatcode=dx$treatcode, 
@@ -554,8 +552,8 @@ pdf(file.path(figpath, "Advplot2.pdf"), width = 8, height = 9) # Adv plot is wit
 plot(adv$photo, adv$warm, 
      ylim = c(-30, -2),
      xlim=c(-20,-2),
-     xlab = "Advance in leafout due to 4h longer photoperiod",
-     ylab = "Advance in leafout due to 5 °C warmer temperature",
+     xlab = "Advance in leaf-out due to 4h longer photoperiod",
+     ylab = "Advance in leaf-out due to 5 °C warmer temperature",
      pch = 16, 
      col = oa.col,
      cex = adv$n/12#log(adv$n)
@@ -565,12 +563,12 @@ text(adv$photo, adv$warm,
      labels = adv$sp, cex = 0.7, adj = 0.5, #pos = 3,
      col = alpha('grey20', 0.9))
 
-legend(x = -20, y = -3, bty = "n", legend = c("Early", "Intermediate", "Late"), title = "Leafout period", col = oc, pch = 16, 
+legend(x = -20, y = -3, bty = "n", legend = c("Early", "Intermediate", "Late"), title = "Leaf-out period", col = oc, pch = 16, 
        pt.cex = 2,
        y.intersp = 1.5,
        x.intersp = 1.5)
 legend(x = -16, y = -3, bty = "n", legend = c(25, 75), 
-       title = "N leafout samples", col = "black", pch = 1, pt.cex = c(25, 75)/12,
+       title = "N leaf-out samples", col = "black", pch = 1, pt.cex = c(25, 75)/12,
        y.intersp = 2,
        x.intersp = 2
 )
@@ -592,17 +590,17 @@ lchill1 <- sumerl[grep(paste("b_chill1","\\[",sep=""), rownames(sumerl)),1]
 pdf(file.path(figpath, "Sens_vs_day.pdf"), width = 9, height = 7)
 
 par(mfrow=c(2,3))
-plot(adv$overallb, bwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
-legend("top", legend="Budburst", text.font=2, inset = 0.05, bty ="n", cex = 2)
-plot(adv$overallb, bphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
+plot(adv$overallb, bwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of bud burst")
+legend("top", legend="Bud burst", text.font=2, inset = 0.05, bty ="n", cex = 2)
+plot(adv$overallb, bphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of bud burst")
 plot(adv$overallb, bchill1, #ylim = c(-30, -10), 
-     ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
+     ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of bud burst")
 
-plot(adv$overall, lwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
-legend("top", legend="Leafout", text.font=2, inset = 0.05, bty ="n", cex = 2)
-plot(adv$overall, lphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
+plot(adv$overall, lwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leaf-out")
+legend("top", legend="Leaf-out", text.font=2, inset = 0.05, bty ="n", cex = 2)
+plot(adv$overall, lphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leaf-out")
 plot(adv$overall, lchill1, #  ylim = c(-30, -10), 
-     ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
+     ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leaf-out")
 
 dev.off();#system(paste("open", file.path(figpath, "Sens_vs_day.pdf"), "-a /Applications/Preview.app"))
 
@@ -634,7 +632,7 @@ pdf(file.path(figpath, "traitpairs.pdf"), width = 6, height = 6)
 pairs(dxt[c("bday","lday","wd","sla","X.N","Pore.anatomy")],
       diag.panel = panel.hist, lower.panel = panel.cor,
       col = hsv(0.7,0.2,0.1,alpha = 0.1), pch = 16,
-      labels = c("Budburst day","Leafout day","Stem density", "SLA", "Leaf N","Pore anatomy"),
+      labels = c("Bud burst day","Leaf-out day","Stem density", "SLA", "Leaf N","Pore anatomy"),
       cex = 1.5,
       cex.labels = 1, oma = rep(2,4),
       font.labels = 2,

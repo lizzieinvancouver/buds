@@ -27,3 +27,21 @@ Hufaker 2012: Sugar maple opportunistic, yellow birch and beech conservative.
 Vitasse 2014 J Ecol
 Earlier leaf-out rather than difference in freezing resistance puts juvenile trees at greater risk of damage than adult trees. 
 Not just young trees dont' differ in freezing resistance, just in timing of when they break bud
+
+Richardson 2006 - 
+Of Ace sac, Fag bra, and Bet all, maple the first to leaf out; beech last to drop leaves. Onset of spring delayed 2.7 d per 100 m elevation. Accumulated degree days predicts spring canopy development well. 
+
+Argue that chilling requirements are not that important, usually met easily. 
+
+Hannifin 1995 Need to do experiments to separate out effects of chilling, photoperiod, and heating.
+
+Ibanez et al. 2010 - forsythia, ginkgo, mulberry: All 207 days earlier per degree C between 1953-2005. 
+
+Polger & Primack Arnold: Earliest leaf out shrubs: introduced lilac, honeysuckle, bayberry, apple. Natives: spiraea, pop tre,pro see, bet pop.
+Last to leaf out: Fra ame, nays syl, poison sumac and buttonbush last of all. 
+Species specific cues because of tradeoff. Stem anatomy: larger vessel elements for later species. 
+Photoperiod req: Fra ame, oaks, hackberry (celtic occidentalis)
+Claim without cites that opportunistic species are early successional and have no photoperiod requriemtn: birch, corals, poplar. 
+
+Hunter and Lechowicz 1992 number of chilling units for leaflet depends on both species and weather of preceding growing season
+

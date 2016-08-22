@@ -34,27 +34,30 @@ Flynn, Wolkovich...
 
 We conducted a literature review, finding 109 studies which investigated effects of photoperiod, temperature, or their interaction on the timing of bud burst or flowering for woody or semi-woody plants.  No study varied chilling period, photoperiod, and temperature simultaneously across multiple species at multiple sites. Of those studies, eight simultaneously manipulated photoperiod and temperature. Basler \& Koerner \cite{Basler:2014aa} found a negative tradeoff between sensitivity to photoperiod and sensitivity to warming for four species, for example with \emph{Fagus sylvatica} advanced on average in leafout by 12 days in response to experimentally lengthened photoperiod, but only ca. 8 days in response to warmer temperatures, while \emph{Acer pseudoplatanus} advanced in leafout by 17 days in response to warming but essentially had no change in response to photoperiod. The current study expands on this work by including 28 species, across two sites, with addition manipulations of chilling temperature.
 
+\section*{Chilling calculations}
+The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions (hours below 7.2\degree C and between 0\degree C and 7.2\degree C) and Dynamic Model \cite{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \cite{Luedeling:2009}.
+With both the Utah and Dynamic model, the more severe chilling treatment resulted in fewer calculated chilling portions. 
+
+\subsection*{Nonleaf outs}
+Across all treatments, 20.2\% of the cuttings did not break bud or leaf out. Across species, there was no overall predictive effect of temperature, photoperiod, chilling, or site on the propensity to fail to leaf out. Species ranged from complete leaf out (\emph{Hamamaelis}) to only 50\% leaf out (\emph{Fagus grandifolia}, \emph{Acer saccharum}) across all treatments. The percent of nonleaf outs by site was similar, with 20.6\% of Harvard Forest and 19.7\% of St. Hippolyte samples failing to leaf out. Examining individual species,  there was an interaction of temperature by day length for selected species, with greater failure to leaf out in cool, short-day conditions for \emph{Acer pensylvanicum}  and \emph{Acer saccharum}. Site effects were inconsistent, with greater failure to leaf out for cuttings from St. Hippolyte in \emph{Acer rubrum} and \emph{Fagus grandifolia}, and from Harvard Forest in \emph{Acer saccharum}. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{References Cited}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
+\bibliography{danlib}
 \bibliographystyle{naturemag}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplemental Figures and Tables}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<echo=FALSE>>=
+
 setwd("~/Documents/git/buds/analyses")
-#source("okeefe/order_harv.R")
-setwd("~/Documents/git/buds/analyses")
+source("chill unit calcs.R")
 
 source("Pheno Budburst analysis.R")
 
-
-
-#setwd("~/Documents/git/buds/analyses")
-#source("Additional Plots and Processing.R")
 @
 
 <<label=supptable1, echo=FALSE, results=tex>>=
@@ -140,12 +143,57 @@ print(xtable(meanzl, caption = "Summary of mixed effect model of leafout day by 
 
 @
 
+
+<<label=supptable4chillcalc, echo=FALSE, results = tex>>=
+library(xtable)
+allcalc$Treatment <- rep(c("Field chilling", "4.0 \\degree C x 30 d", "1.5 \\degree C x 30 d"),2)
+colnames(allcalc) <- sub("_", " ", colnames(allcalc))
+chilltable <- xtable(allcalc, 
+                     digits = c(0, 0, 0, 0, 2, 2),
+                     caption = "Chill units in field and field and growth chamber conditions.")
+
+print(chilltable,
+      include.rownames = FALSE,
+      caption.placement = "top",
+      sanitize.text.function = function(x) {x})
+      
+@
+
+<<label=subbtable5phylotable, echo=FALSE, results=tex>>=
+
+# TODO replace with lo and bb as responses to warm/photo/chill
+# signaldat$var = paste(
+#   rep(c("SLA","Wood Density","\\% N","Pore anatomy"), each = 4), 
+#   rep(c("Temperature", "Photoperiod", "Chilling 4 \\degree C","Chilling 1.5 \\degree C"), 4), 
+#   sep = " - ")
+# 
+# phylosigtable <- xtable(data.frame(Relationship = signaldat[,"var"],Lambda = signaldat[,"lambda"]), digits = 3,
+#                         caption = "Phylogenetic signal in timing of bud burst and leaf out, as estimated in the caper package with simultaneous fitting of lambda.")
+#                    
+# 
+# print(phylosigtable, 
+#       include.rownames = FALSE,
+#       caption.placement = "top",
+#       sanitize.text.function = function(x) {x})
+@
+
 %% \clearpage % use if get 'too many unprocessed floats' error
 
 \clearpage 
 
+% Fig S1: Raw data plot
+
+\begin{figure} 
+\begin{center}
+\caption{Coordinated responses of 28 woody plant species to photoperiod and temperature cues for leaf out. Color of circle reflect unmodeled data on average leaf out day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments. } % Changed legend, check that I did it correctly please! Yes, ok.
+\includegraphics[scale=0.5]{Advplot2}
+\label{fig1}
+\end{center}
+\end{figure}
+
+
 \begin{figure}
-\caption{Model estimates of budburst, including species-level effects.}
+\caption{Model estimates of effects of each predictors on bud burst, including species-level effects.}
 \label{figS2}
 \includegraphics[scale=0.75, page=1]{Fig1_bb_lo+sp}
 \end{figure}

@@ -11,20 +11,22 @@ library(chillR)
 # Luedeling recommends Dynamic Model (chill portions)
 
 # HF chilling from Oct 1 2014
+# 
+# htemp <- read.csv("~/Documents/git/buds/analyses/data/hf001-10-15min-m.csv")
+# 
+# htemp$datetime <- as.POSIXlt(htemp$datetime, format = "%Y-%m-%dT%H:%M")
+# 
+# # select years. There are 44 na's
+# 
+# htemp1 <- htemp[htemp$datetime > "2014-09-30" & htemp$datetime < "2015-01-22" & !is.na(htemp$datetime),]
+# 
+# htemp2 <- htemp[htemp$datetime > "2015-11-01" & !is.na(htemp$datetime),]
+# 
+# # aggregate to hourly averages 
+# ht <- aggregate(airt ~ format(htemp1$datetime, "%Y-%m-%d %H"), mean, data = htemp1)
+# names(ht)[1] = 'datetime'
 
-htemp <- read.csv("~/Documents/git/buds/analyses/data/hf001-10-15min-m.csv")
-
-htemp$datetime <- as.POSIXlt(htemp$datetime, format = "%Y-%m-%dT%H:%M")
-
-# select years. There are 44 na's
-
-htemp1 <- htemp[htemp$datetime > "2014-09-30" & htemp$datetime < "2015-01-22" & !is.na(htemp$datetime),]
-
-htemp2 <- htemp[htemp$datetime > "2015-11-01" & !is.na(htemp$datetime),]
-
-# aggregate to hourly averages 
-ht <- aggregate(airt ~ format(htemp1$datetime, "%Y-%m-%d %H"), mean, data = htemp1)
-names(ht)[1] = 'datetime'
+load("HF Temp Data.Rdata")
 
 ht$Year <- as.numeric(substr(ht$datetime, 1, 4))
 ht$JDay <- as.numeric(format(strptime(substr(ht$datetime, 1, 10), "%Y-%m-%d"), "%j"))
