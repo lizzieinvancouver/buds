@@ -25,6 +25,7 @@ library(chillR)
 # # aggregate to hourly averages 
 # ht <- aggregate(airt ~ format(htemp1$datetime, "%Y-%m-%d %H"), mean, data = htemp1)
 # names(ht)[1] = 'datetime'
+# save(file = "HF Temp Data.Rdata", list=c("ht", "htemp1", "htemp2")) # to save a lot of time in Sweaving
 
 load("HF Temp Data.Rdata")
 

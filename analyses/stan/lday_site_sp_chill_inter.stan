@@ -29,15 +29,15 @@ transformed data { 			// 9 interaction terms
   vector[N] inter_sc1;           
   vector[N] inter_sc2;           
 
-  inter_wp    <- warm .* photo;  
-  inter_ws    <- warm .* site;  
-  inter_ps    <- photo .* site;  
-  inter_wc1    <- warm .* chill1;  
-  inter_wc2    <- warm .* chill2;  
-  inter_pc1    <- photo .* chill1;  
-  inter_pc2    <- photo .* chill2;  
-  inter_sc1    <- site .* chill1;  
-  inter_sc2    <- site .* chill2;  
+  inter_wp    = warm .* photo;  
+  inter_ws    = warm .* site;  
+  inter_ps    = photo .* site;  
+  inter_wc1    = warm .* chill1;  
+  inter_wc2    = warm .* chill2;  
+  inter_pc1    = photo .* chill1;  
+  inter_pc2    = photo .* chill2;  
+  inter_sc1    = site .* chill1;  
+  inter_sc2    = site .* chill2;  
 
 }
 
@@ -99,7 +99,7 @@ transformed parameters {
 	vector[N] y_hat;
 		
 	for(i in 1:N){
-		y_hat[i] <- a_sp[sp[i]] + 
+		y_hat[i] = a_sp[sp[i]] + 
 		b_site[sp[i]] * site[i] + 
 		b_warm[sp[i]] * warm[i] + 
 		b_photo[sp[i]] * photo[i] + 

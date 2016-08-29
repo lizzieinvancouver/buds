@@ -1,19 +1,15 @@
 forlatex = T # set to F if just trying new figures, T if outputting for final
-runstan = F # set to T to actually run stan models. F if loading from previous runs
+runstan = T # set to T to actually run stan models. F if loading from previous runs
 
 # Analysis of bud burst experiment 2015. 
 
-library(memisc) # for getSummary (in trait effect plotting)
+library(memisc) # for getSummary 
 library(xtable)
-
 library(scales) # for alpha
 library(ggplot2)
 
 library(caper) # for pgls
 library(png) # readPNG for Fig 1
-
-# library(picante) # previous versions used phylosignal()
-# library(sjPlot) # for sjp.lmer and sjt.lmer in prev versions
 
 setwd("~/Documents/git/buds/analyses")
 
@@ -24,8 +20,7 @@ if(!runstan) {
 
   realout <- dir()[grep("Stan Output", dir())[is.na(match(grep("Stan Output", dir()), grep("Fake", dir())))]]
   if(!exists("doym.b")) load(sort(realout, T)[1]) # only run if stan output file is not yet in working memory.
-  ls() 
-  #launch_shinystan(doym.l)
+  # launch_shinystan(doym.l)
 }
 
 if(runstan){ # things needed only if running the stan models
@@ -141,7 +136,7 @@ treeshrub = as.numeric(treeshrub)
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
-# 1. Bud burst day. 
+# 1. Budburst day. 
 if(runstan){
   datalist.b <- list(lday = dxb$bday, # bud burst as response 
                      warm = as.numeric(dxb$warm), 
@@ -156,7 +151,7 @@ if(runstan){
   )
   
     doym.b <- stan('stan/lday_site_sp_chill_inter.stan', 
-                 data = datalist.b, iter = 5005, chains = 4,
+                 data = datalist.b, iter = 6006, chains = 4,
                  control = list(adapt_delta = 0.9,
                                 max_treedepth = 15)) 
   
@@ -211,7 +206,7 @@ if(runstan){
   )
   
     doym.l <- stan('stan/lday_site_sp_chill_inter.stan',
-                data = datalist.l, iter = 4000, chains = 4,
+                data = datalist.l, iter = 6006, chains = 4,
                 control = list(adapt_delta = 0.9,
                                max_treedepth = 15)) 
 }
@@ -366,116 +361,58 @@ dev.off();#system(paste("open", file.path(figpath, "Fig2_4panel.pdf"), "-a /Appl
 if(runstan) { savestan("Inter") }
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-# 2. Species-specific responses
-# use trait data
-
-dxt <- merge(dx, tr, by.x = "sp", by.y = "code")
-aggcol = c("wd","sla","X.N","Pore.anatomy","lday","bday")
-dxt$fg = "shrub"
-dxt$fg[!is.na(match(dxt$sp, trees))] = "tree"
-
-dxt$site <- factor(dxt$site, labels = c("HF","SH"))
-
-dxt.agg <- aggregate(dxt[aggcol], by = list(dxt$sp,dxt$site,dxt$fg), FUN = mean, na.rm=T)
-
-dxt.agg2 <- aggregate(dxt[aggcol], by = list(dxt$site,dxt$fg), FUN = mean, na.rm=T)
-
-names(dxt.agg)[1:3] = c("sp","site","fg")
-names(dxt.agg2)[1:2] = c("site","fg")
-
-# Analyze leaf-out and budburst vs warming and photoperiod. No traits.
+# 2. Species-specific responses. Not using trait data here, just leaf-out and budburst vs warming and photoperiod. 
 
 dlo <- summary(doym.l)$summary
 dlo[!is.na(match(rownames(dlo), paste("b_chill1[", nochill, "]", sep=""))),] = 99
 dlo[!is.na(match(rownames(dlo), paste("b_chill2[", nochill, "]", sep=""))),] = 99
 
-dxt.agg <- dxt.agg[order(dxt.agg$site, dxt.agg$sp),]
-
-warmeff <- dlo[grep("b_warm\\[",rownames(dlo)),"mean"]
-photoeff <- dlo[grep("b_photo\\[",rownames(dlo)),"mean"]
-chill1eff <- dlo[grep("b_chill1\\[",rownames(dlo)),"mean"]
-chill2eff <- dlo[grep("b_chill2\\[",rownames(dlo)),"mean"]
-
-effs <- data.frame(sp = levels(dxt$sp), warmeff, photoeff, chill1eff, chill2eff)
-dxt2 <- merge(dxt.agg, effs, by = "sp", keep.x = T)
-
-dxt2 <- dxt2[!duplicated(dxt2$sp),]
-dxt2 <- dxt2[!is.na(match(dxt2$sp, unique(dx$sp))),]
-
-# use unscaled version for plotting
-dxt[c("wd","sla","X.N","Pore.anatomy")] = scale(dxt[c("wd","sla","X.N","Pore.anatomy")])
-
-rowz <- c("Intercept", "Stem density", "SLA", "% N","Pore anatomy")
-traitlm.t <- getSummary(lm(lday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "tree",]))$coef
-traitlmb.t <- getSummary(lm(bday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "tree",]))$coef
-traitlm.s <- getSummary(lm(lday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "shrub",]))$coef
-traitlmb.s <- getSummary(lm(bday ~ wd + sla + X.N + Pore.anatomy, data = dxt[dxt$fg == "shrub",]))$coef
-rownames(traitlm.t) = rownames(traitlm.s) = rownames(traitlmb.t) = rownames(traitlmb.s) = rowz
 
 
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # Phylogeny
-
-phsp <- ph$tip.label
-phspcode <- unlist(lapply(strsplit(phsp, "_"), function(x) toupper(paste(substr(x[[1]],1,3), substr(x[[2]],1,3), sep=""))))
-
-ph$tip.label = phspcode
-
-ph$node.label = NULL # otherwise give duplicated names error, because of multiple "" in node labels.
-
-sig <- comparative.data(ph, dxt2, names.col = "sp")
-
-sla.signal.warm <- pgls(sla ~ warm, sig, lambda = 'ML')
-sla.signal.photo <- pgls(sla ~ photoeff, sig, lambda = 'ML')
-sla.signal.chill1 <- pgls(sla ~ chill1eff, sig, lambda = 'ML')
-sla.signal.chill2 <- pgls(sla ~ chill2eff, sig, lambda = 'ML')
-
-n.signal.warm <- pgls(X.N ~ warmeff, sig, lambda = 'ML')
-n.signal.photo <- pgls(X.N ~ photoeff, sig, lambda = 'ML')
-n.signal.chill1 <- pgls(X.N ~ chill1eff, sig, lambda = 'ML')
-n.signal.chill2 <- pgls(X.N ~ chill2eff, sig, lambda = 'ML')
-
-wd.signal.warm <- pgls(wd ~ warmeff, sig, lambda = 'ML')
-wd.signal.photo <- pgls(wd ~ photoeff, sig, lambda = 'ML')
-wd.signal.chill1 <- pgls(wd ~ chill1eff, sig, lambda = 'ML')
-wd.signal.chill2 <- pgls(wd ~ chill2eff, sig, lambda = 'ML')
-
-pa.signal.warm <- pgls(Pore.anatomy ~ warmeff, sig, lambda = 'ML')
-pa.signal.photo <- pgls(Pore.anatomy ~ photoeff, sig, lambda = 'ML')
-pa.signal.chill1 <- pgls(Pore.anatomy ~ chill1eff, sig, lambda = 'ML')
-pa.signal.chill2 <- pgls(Pore.anatomy ~ chill2eff, sig, lambda = 'ML')
-
-signaldat <- data.frame(
-  rbind(summary(sla.signal.warm)$param["lambda"], 
-        summary(sla.signal.photo)$param["lambda"],
-        summary(sla.signal.chill1)$param["lambda"],
-        summary(sla.signal.chill2)$param["lambda"],
-        
-        summary(wd.signal.warm)$param["lambda"], 
-        summary(wd.signal.photo)$param["lambda"],
-        summary(wd.signal.chill1)$param["lambda"],
-        summary(wd.signal.chill2)$param["lambda"],
-        
-        summary(n.signal.warm)$param["lambda"], 
-        summary(n.signal.photo)$param["lambda"],
-        summary(n.signal.chill1)$param["lambda"],
-        summary(n.signal.chill2)$param["lambda"],
-        
-        summary(pa.signal.warm)$param["lambda"], 
-        summary(pa.signal.photo)$param["lambda"],
-        summary(pa.signal.chill1)$param["lambda"],
-        summary(pa.signal.chill2)$param["lambda"]
-        )
-)
-        
-signaldat$var = paste(
-  rep(c("SLA","Wood Density","% N","Pore anatomy"), each = 4), 
-  rep(c("Temperature", "Photoperiod", "Chilling 4°", "Chilling 1.5°"), 4), 
-  sep = " - ")
-
-phylosigtable <- xtable(data.frame(Relationship = signaldat[,"var"],Lambda = signaldat[,"lambda"]), digits = 3,
-                        caption = "Phylogenetic signal in timing of bud burst and leaf-out and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal")
+# 
+# phsp <- ph$tip.label
+# phspcode <- unlist(lapply(strsplit(phsp, "_"), function(x) toupper(paste(substr(x[[1]],1,3), substr(x[[2]],1,3), sep=""))))
+# 
+# ph$tip.label = phspcode
+# 
+# ph$node.label = NULL # otherwise give duplicated names error, because of multiple "" in node labels.
+# 
+# sig <- comparative.data(ph, dxt2, names.col = "sp")
+# 
+# lo.signal.warm <- pgls(lo ~ warm, sig, lambda = 'ML')
+# lo.signal.photo <- pgls(lo ~ photoeff, sig, lambda = 'ML')
+# lo.signal.chill1 <- pgls(lo ~ chill1eff, sig, lambda = 'ML')
+# lo.signal.chill2 <- pgls(lo ~ chill2eff, sig, lambda = 'ML')
+# 
+# bb.signal.warm <- pgls(bb ~ warmeff, sig, lambda = 'ML')
+# bb.signal.photo <- pgls(bb ~ photoeff, sig, lambda = 'ML')
+# bb.signal.chill1 <- pgls(bb ~ chill1eff, sig, lambda = 'ML')
+# bb.signal.chill2 <- pgls(bb ~ chill2eff, sig, lambda = 'ML')
+# 
+# 
+# signaldat <- data.frame(
+#   rbind(summary(bb.signal.warm)$param["lambda"], 
+#         summary(bb.signal.photo)$param["lambda"],
+#         summary(bb.signal.chill1)$param["lambda"],
+#         summary(bb.signal.chill2)$param["lambda"],
+#         
+#         summary(lo.signal.warm)$param["lambda"], 
+#         summary(lo.signal.photo)$param["lambda"],
+#         summary(lo.signal.chill1)$param["lambda"],
+#         summary(lo.signal.chill2)$param["lambda"]
+# ))
+#         
+# signaldat$var = paste(
+#   rep(c("Bud burst","Leaf-out"), each = 4), 
+#   rep(c("Temperature", "Photoperiod", "Chilling 4°", "Chilling 1.5°"), 4), 
+#   sep = " - ")
+# 
+# 
+# phylosigtable <- xtable(data.frame(Relationship = signaldat[,"var"],Lambda = signaldat[,"lambda"]), digits = 3,
+#                         caption = "Phylogenetic signal in timing of bud burst and leaf-out and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal")
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Plot actual change in leaf-out by species, for Figure 1
@@ -604,40 +541,5 @@ plot(adv$overall, lchill1, #  ylim = c(-30, -10),
 
 dev.off();#system(paste("open", file.path(figpath, "Sens_vs_day.pdf"), "-a /Applications/Preview.app"))
 
-####### Trait pairs plot
-
-panel.hist <- function(x, ...) {
-  usr <- par("usr"); on.exit(par(usr))
-  par(usr = c(usr[1:2], 0, 1.5) )
-  h <- hist(x, plot = FALSE)
-  breaks <- h$breaks; nB <- length(breaks)
-  y <- h$counts; y <- y/max(y)
-  rect(breaks[-nB], 0, breaks[-1], y, #col="darkblue",
-       ...) }
-
-panel.cor <- function(x, y, digits=2, prefix="", cex.cor, ...){
-  usr <- par("usr"); on.exit(par(usr))
-  par(usr = c(0, 1, 0, 1))
-  r <- cor(x, y, use = "complete.obs")
-  txt <- format(c(r, 0.123456789), digits=digits)[1]
-  txt <- paste(prefix, txt, sep="")
-  rsig <- cor.test(x, y, use = "complete.obs")$p.value 
-  
-  if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
-  if(rsig <= 0.05) {    text(0.5, 0.5, txt, cex = 1, font=2)}
-  else text(0.5, 0.5, txt, cex = 1, font=1)
-}
-
-pdf(file.path(figpath, "traitpairs.pdf"), width = 6, height = 6)
-pairs(dxt[c("bday","lday","wd","sla","X.N","Pore.anatomy")],
-      diag.panel = panel.hist, lower.panel = panel.cor,
-      col = hsv(0.7,0.2,0.1,alpha = 0.1), pch = 16,
-      labels = c("Bud burst day","Leaf-out day","Stem density", "SLA", "Leaf N","Pore anatomy"),
-      cex = 1.5,
-      cex.labels = 1, oma = rep(2,4),
-      font.labels = 2,
-      gap = 0.5
-)
-dev.off() #; system(paste("open", file.path(figpath, "traitpairs.pdf"), "-a /Applications/Preview.app"))
 
 on.exit(setwd("~/Documents/git/buds/docs/ms/"))
