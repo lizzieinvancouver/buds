@@ -11,7 +11,7 @@ library(ggplot2)
 library(caper) # for pgls
 library(png) # readPNG for Fig 1
 
-setwd("~/Documents/git/buds/analyses")
+setwd("~/Documents/git/treegarden/budexperiments/analyses")
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # get latest .Rdata file
