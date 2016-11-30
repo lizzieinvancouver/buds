@@ -130,6 +130,9 @@ setwd("~/Documents/git/buds/analyses")
 timeline<-read.csv("input/Budburst.csv",header=TRUE)
 attach(timeline)
 
+# Convert to Julian day
+
+
 phases<-c("Budburst","Leaves")
 
 pheno<-timeline%>%
