@@ -154,10 +154,14 @@ setwd("~/Documents/git/buds/analyses")
 dxx <- dx[dx$treatcode == "WL0",]
 
 lday.agg <- aggregate(lday ~ sp, data = dxx, FUN = mean)
-
-hist(lday.agg$lday)
+#do we have data for flowers too? (DB)
+fday.agg <- aggregate(fday ~ sp, data = dxx, FUN = mean)
+hist(fday.agg$fday)
+#this seemed to work (DB)
 
 lday.agg <- lday.agg[order(lday.agg$lday),]
+#Repeat for flower
+fday.agg <- fday.agg[order(fday.agg$fday),]
 
 plot(lday.agg$lday,
      type = "n",
@@ -166,4 +170,14 @@ plot(lday.agg$lday,
 text(1:nrow(lday.agg), lday.agg$lday, 
      labels = lday.agg$sp,
      cex = 0.5, col = "midnightblue")
+#try for flowering
+plot(fday.agg$fday,
+     type = "n",
+     main = "Typical Flowering Day in WL0",
+     ylab = "Day")
+text(1:nrow(fday.agg), fday.agg$fday, 
+     labels = fday.agg$sp,
+     cex = 0.5, col = "midnightblue")
+
+#It seems that Dan F did recourd fday as first flowering day per indivudual, so maybe this is useful. This is where I stopped on 12/1/16
 dev.print(device = pdf, file = "./graphs/Typical Leafout WL0.pdf", width = 10, height = 8)
