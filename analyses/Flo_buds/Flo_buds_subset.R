@@ -16,12 +16,17 @@ library(ggplot2)
 
 
 setwd("~/Documents/git/buds/analyses/input")
-fb<-read.csv("Budburst By Day.csv",header = TRUE)
+fb<-read.csv("Budburst By Day.csv", header = TRUE)
 nrow(fb)
 head(fb)
 #subset data to include only entries with flowering, budburst and leaf out observations
 reduced<-filter(fb,nl==1 & !is.na(fday))
-nrow(reduced)
+
+##is there a different nrow if nl==1 or 0?
+reduced1<-filter(fb, !is.na(fday))
+
+nrow(reduced1)
 View(reduced)
 
 write.csv(reduced, "Flo_bud_ds.csv", row.names=FALSE)
+write.csv(reduced1, "Flo_bud_ds_allflo.csv", row.names=FALSE)
