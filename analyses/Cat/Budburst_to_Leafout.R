@@ -150,11 +150,12 @@ sh<-bind_rows(warm.sh,cold.sh)
 ## from other script...
 #basic$Risk<- basic$Leaves - basic$Budburst
 
-ggplot((hf), aes(x=Budburst, y=sp)) + geom_point(aes(x= hf$Budburst)) + 
+hf.plot<-ggplot((hf), aes(x=Budburst, y=sp)) + geom_point(aes(x= hf$Budburst)) + 
   geom_segment(aes(y = sp, yend = sp, x = Budburst, xend = Leaves)) + 
   geom_point(aes(x=hf$Leaves)) + geom_point(aes(col=tx)) +
   xlab("Budburst to Leaf Out") +
   ylab("Species")
+plot(hf.plot)
 
 ggplot((sh), aes(x=Budburst, y=sp)) + geom_point(aes(x= sh$Budburst)) + 
   geom_segment(aes(y = sp, yend = sp, x = Budburst, xend = Leaves)) + 
