@@ -3,7 +3,7 @@
 #original data is Budburst Datasheet 2015-05-15.xlsx
 
 # Setup: load packages, set working directory, read in the data.
-
+rm(list=ls())
 library(gdata)
 library(nlme)
 library(scales)
