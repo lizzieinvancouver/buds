@@ -13,17 +13,19 @@ Within individual woody plants are flower and leaf phenophases initiated by the 
 
 \begin{figure}[h!]
 
-\includegraphics[width=15cm, height=12cm]{shrubs_sidebyside.pdf}\\
+\includegraphics[width=15cm, height=12cm]{better_shrubs.pdf}\\
 \caption{Mean first flower and mean leafout plotted by cue treatments for three deciduous shrubs}
 \end{figure}
-Of particular interest, the we see that under when exposed to short photoperiod, \textit{Corylus coranuta} switches between seranthy and proteranthy
+Of particular interest, the we see that when exposed to short photoperiod, \textit{Corylus coranuta} switches between seranthy and proteranthy. However the data might be deceiving. Under WS0 3/4 flowerers flowered on the same day as their leafout, and 1 that flowered after 12 days (leafed at 34) is driving this trend. For CS0, 4 out of 5 are indeed proteranthous, with the 5th emerging on the same day. For WL0, the trend is consistantly seranthous, but 9/10 plants that leafed out also flowered (which is double the other treatments). CORCOR is reported to be proteranthous in the field.
+\begin{center}
 \begin{figure}[h!]
-\includegraphics[width=14cm, height=12cm]{shrub_spread_graphs.pdf}
+\includegraphics[width=10cm, height=8cm]{shrub_spread_graphs.pdf}
 \caption[width=10cm]{The temporal offset between mean first flower and mean leafout by cue treatment for 3 deciduous species. The solid points 
 $\bullet$
 show mean leafout and the open ends of lines
 $\mid$ 
 mean first flower}
-\end{figure}
 
+\end{figure}
+\end{center}
 \end{document}

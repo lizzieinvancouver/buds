@@ -54,9 +54,31 @@ try4+geom_point(aes(sp,meanf,color="flowering"))+geom_pointrange(aes(ymin=meanf-
 ##I used this to count how many flowers/leaf/species/treatment. manually changed the names and data sheets (should probaly learn how to make this a function)
 call<-filter(mag7_CL0, sp=="VIBLAN")
 View(call)
-### not alot of data would including cold treatments help
-mag7_WL2<-filter(mag7,treatcode=="WL2")
+### not alot of data, would including cold treatments help?
+mag7_WL2<-filter(mag7,treatcode=="WS2" & sp=="POPGRA")
 View(mag7_WL2)
-##no
-###now to sweave out a report
-setwd("~/Documents/git/buds/analyses/Flo_buds")
+##not really, unless we were looking to do % flowered of total, but it seems that in general there wouldnt be significant differences and energy stored is probably the constraint
+
+
+#### In other news lets see if we can look flowering in a more survivial anaysis idea basically what are the % that flowered undewr each condition per species and does that change?
+fullgroup<-group_by(mag7,sp,treatcode)
+fpercent<-filter(fullgroup,!is.na(fday))
+counted<-count(fpercent,sp,treatcode)
+View(counted)
+### doesn't seem like the treatments change any of the flowering significantly-confirm statistically
+AnovaModel.1 <- aov(n~treatcode, data = counted)
+TukeyHSD(AnovaModel.1)
+summary(mod1)
+##for kicks lets see for leaf out
+fpercent2<-filter(fullgroup,!is.na(lday))
+counted2<-count(fpercent2,sp,treatcode)
+View(counted2)
+AnovaModel.2 <- aov(n~treatcode, data = counted2)
+TukeyHSD(AnovaModel.2)
+###n isnt signifcantly differenty
+## lets make a back up table 
+colnames(counted2)[colnames(counted2)=="n"] <- "nleafout"
+colnames(counted)[colnames(counted)=="n"] <- "nflower"
+tab<-merge(counted, counted2, by=c("sp","treatcode"))
+print(tab)
+write.csv(table, "flo_v_leaf.csv", row.names=FALSE, na="")

@@ -35,7 +35,7 @@ These graphs are somewhat interesting. It does seem like in some of the species,
 \hline
 ACEPEN	&1&	9&	1&	11&	1&	11&	1&	12\\
 ACERUB	&2&	9&	4&	10&	2&	8&	2&	9\\
-CORCOR	&9&	10&	5&	11&	3&	12&	5&	11\\
+CORCOR	&9&	10&	5&	11&	4&	12&	5&	11\\
 ILEMUC	&5&	12&	6&	12&	7&	12&	6&	12\\
 POPGRA	&2&	11&	3&	9&	2&	11&	2&	11\\
 PRUPEN	&7	&12	&9	&12	&5	&11	&7	&12\\
