@@ -72,5 +72,10 @@ redo<-filter(redo, treatcode %in% c( "CL0","CS0", "WL0","WS0"))
 q<-ggplot(redo, aes(x=treatcode, y=eventday, color=phenophase)) +
   stat_summary()+labs(title="First flower and leaf out by treatment per species", x="Treatment", y="Days since initiation")
 q+facet_wrap(~sp)
-install.packages("knitr")
-install.packages("xtable")
+####Look at just Ilex because there is chilling
+ILEMUC<-filter(redo, sp=="ILEMUC")
+View(ILEMUC)
+IM<-ggplot(ILEMUC, aes(x=treatcode, y=eventday, color=phenophase)) +
+  stat_summary()+labs(title=" Ilex mucronata first flower and leaf out by treatment per species", x="Treatment", y="Days since initiation")
+IM
+
