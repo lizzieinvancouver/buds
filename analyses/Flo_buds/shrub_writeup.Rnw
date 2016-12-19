@@ -16,7 +16,9 @@ Within individual woody plants are flower and leaf phenophases initiated by the 
 \includegraphics[width=15cm, height=12cm]{better_shrubs.pdf}\\
 \caption{Mean first flower and mean leafout plotted by cue treatments for three deciduous shrubs}
 \end{figure}
-Of particular interest, the we see that when exposed to short photoperiod, \textit{Corylus coranuta} switches between seranthy and proteranthy. However the data might be deceiving. Under WS0 3/4 flowerers flowered on the same day as their leafout, and 1 that flowered after 12 days (leafed at 34) is driving this trend. For CS0, 4 out of 5 are indeed proteranthous, with the 5th emerging on the same day. For WL0, the trend is consistantly seranthous, but 9/10 plants that leafed out also flowered (which is double the other treatments). CORCOR is reported to be proteranthous in the field.
+Of particular interest, the we see that when exposed to short photoperiod, \textit{Corylus cornuta} switches between seranthy and proteranthy. However the data might be deceiving. Under WS0 3/4 flowerers flowered on the same day as their leafout, and 1 that flowered after 12 days (leafed at 34) is driving this trend. For CS0, 4 out of 5 are indeed proteranthous, with the 5th emerging on the same day. For WL0, the trend is consistantly seranthous, but 9/10 plants that leafed out also flowered (which is double the other treatments). CORCOR is reported to be proteranthous in the field.
+I also do not know if the flowers describes in our experiement are female or male flowers. I am pretty sure that the female flowers of \textit{C. cornuta}could be conpound floral-vegetative buds like in the European Hazelnut. There is a good paper in my zotero by Shawn Mehlenbacher that addresses the chilling requirements. Which leads me to the next quesition,. if we think chilling is so very important from Dan's work, is it silly not use species(2 or of the 3) that we dont have chilling data for?
+
 \begin{center}
 \begin{figure}[h!]
 \includegraphics[width=10cm, height=8cm]{shrub_spread_graphs.pdf}
