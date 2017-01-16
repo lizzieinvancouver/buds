@@ -39,11 +39,12 @@ goodshrubs$photo<-as.character(goodshrubs$photo)
 ###main anova
 anovaflower = aov(fday~warm*photo*sp,data=goodshrubs)
 summary(anovaflower)
+par(mfrow=c(1,2)) 
+plot(anovaflower,which=c(1,2),"Flo")
+par(mfrow=c(1,2)) 
 anovaleaf = aov(lday~warm*photo*sp,data=goodshrubs)
 summary(anovaleaf)
-par(mfrow=c(1,2)) 
-plot(anovaflower,which=c(1,2),"Flo") 
-plot(anovaleaf,which=c(1,2),"Leaf") 
+ plot(anovaleaf,which=c(1,2),"Leaf") 
 
 ####now with species
 CORCOR<-filter(goodshrubs, sp=="CORCOR")
@@ -67,10 +68,11 @@ ILEleaf = aov(lday~warm*photo,data=ILEMUC2)
 summary(ILEleaf)
 ### if interactions are non-significant, do you run them again without interactions
 
-par(mfrow=c(1,2)) 
+par(mfrow=c(3,2)) 
 plot(CORflo,which=c(1,2),"CORflo") 
 plot(CORleaf,which=c(1,2),"CORleaf") 
 plot(PRUflo,which=c(1,2),"PRUflo") 
 plot(PRUleaf,which=c(1,2),"PRUleaf") 
 plot(ILEflo,which=c(1,2),"ILEflo") 
 plot(ILEleaf,which=c(1,2),"ILEleaf") 
+

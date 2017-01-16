@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{Sweave}
+\usepackage{graphicx}
+\usepackage[margin=0.5in]{geometry}
+\begin{document}
+\begin{figure}[height=4cm, width=7cm]
+\caption{All Species: Flower output preceeds leafout outpit for each of the followering results}
+<<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+setwd("~/Documents/git/buds/analyses/input")
+fb<-read.csv("Budburst By Day.csv", header = TRUE)
+#make subset for the good shurbs leftover from Mag 7
+goodshrubs<-filter(fb, sp %in% c( "CORCOR","ILEMUC", "PRUPEN"))
+goodshrubs$warm<-as.character(goodshrubs$warm) 
+goodshrubs$photo<-as.character(goodshrubs$photo) 
+anovaflower = aov(fday~warm*photo*sp,data=goodshrubs)
+summary(anovaflower)
+anovaleaf = aov(lday~warm*photo*sp,data=goodshrubs)
+summary(anovaleaf)
+ @
+\end{figure}
+
+\begin{figure}[h]
+\caption{Individual species: Corcor}
+ <<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+ CORCOR<-filter(goodshrubs, sp=="CORCOR")
+ CORflo = aov(fday~warm*photo,data=CORCOR)
+summary(CORflo)
+CORleaf = aov(lday~warm*photo,data=CORCOR)
+summary(CORleaf)
+@
+\end{figure}
+
+\begin{figure}
+\caption{Individual species: Prupen}
+ <<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+PRUPEN<-filter(goodshrubs, sp=="PRUPEN")
+PRUflo = aov(fday~warm*photo,data=PRUPEN)
+summary(PRUflo)
+PRUleaf = aov(lday~warm*photo,data=PRUPEN)
+summary(PRUleaf)
+@
+\end{figure}
+
+\begin{figure}
+\caption{Individual species: Ilemuc}
+<<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+ILEMUC<-filter(goodshrubs, sp=="ILEMUC")
+ILEMUC2<-filter(ILEMUC, treatcode %in% c( "CL0","CS0", "WL0","WS0"))
+ILEflo = aov(fday~warm*photo,data=ILEMUC2)
+summary(ILEflo)
+ILEleaf = aov(lday~warm*photo,data=ILEMUC2)
+summary(ILEleaf)
+@
+\end{figure}
+
+\begin{figure}[height=3 cm, width=10cm]
+\caption{Diagnostic plots}
+<<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+par(mfrow=c(2,2)) 
+plot(anovaflower,which=c(1,2),"Flo")
+plot(anovaleaf,which=c(1,2),"Leaf") 
+@
+\end{figure}
+\begin{figure}[height=3 cm, width=10cm]
+<<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+par(mfrow=c(2,2)) 
+plot(CORflo,which=c(1,2),"CORflo") 
+plot(CORleaf,which=c(1,2),"CORleaf")
+@
+\end{figure}
+\begin{figure}[height=3 cm, width=10cm]
+<<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+par(mfrow=c(2,2)) 
+plot(PRUflo,which=c(1,2),"PRUflo") 
+plot(PRUleaf,which=c(1,2),"PRUleaf")
+@
+\end{figure}
+
+\begin{figure}[height=3 cm, width=10cm]
+<<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+par(mfrow=c(2,2)) 
+plot(ILEflo,which=c(1,2),"ILEflo") 
+plot(ILEleaf,which=c(1,2),"ILEleaf") 
+@
+\end{figure}
+
+
+\end{document}

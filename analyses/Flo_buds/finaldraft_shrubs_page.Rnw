@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{Sweave}
+\begin{document}
+\SweaveOpts{concordance=FALSE}
+
+\section*{Introduction}
+Shifts in phenology, or the annual timinbg of life cycle events, is a well doccumented organisimic response to anthropogenically induced global change. As the effects of global change become more pronouced in the coming decades, it is likely that many of the temporal patterns of ecolologial communites, long considered to be relatively fixed in order, will become uncoupled. Take for example, the phenophases of early spring, budburst, leaf expansion, and flowering. We understand that individal species in a given plant community occupy their own temporal niche, and while the absoluted timing of phenophases with relation to the gregorian calendar may shift depending on seasonal conditions, the relatively timing of phenophases between species tend to follow fixed patterns-- for example, the leaves of maple trees (\textit{Acer spp.}) consistantly emerging before the walnuts (\textit{Juglans spp.}). However, recent studies has established that the phenology of indivudual species is dictated by different combinations of envornmental cues, most significantly winter chilling temperatures, spring warming temperatures, and photoperiod. As winter and spring temperatures rise in the comming decades, is is likely that the reliable patterns of spring may be altered, resulting in a loss of many species interaction and the genesis of other, novel ones.
+
+Pattern shifts are not only likely at the community level, but it is also conceivable that climate change may effect the internal temporal patterns of indviduals as well.  The flowering and leafout phenophases of temperate woody plants show relatively fixed order, with some species consistantly flowering before leafout, and orders producing leaves before flowers. While floral and foliate phenophases may apppear to be disperate, and have long been treated as such in the study of phenology, the temporal ordering and offset between them, may confer a unqiue fitness advantage upon the species. For example, it is widely believed that many canopy trees in temperate regions flower before leafing out to maximize the effcienvy of anemphilous pollination due increased windflow and minimal obstructions to pollen transfer associated with open canopy condidtions. The floral-leaf ordering of plants species are describe by life history trait classifications of proteranthy (flowers before leaves), synanthy (leaves and flowers together), and seranthy (flowers after leaves). Will these traits remain fixed as climate conditions change? These internal relationships between floral and foliate phenophases, have been poorly studied, but must be better understood to better understand and predict the demographics and composition of forest communities in an era of climate change.
+
+At its core, the afore mentioned question hinged on another one: are indviduals responding to the same environmental cues to initiate their floral and foliate phenophases? The following section breifly describes a preliminary study addressing this questions, and highlights the importance of continuing this work.
+
+\section*{Pilot Study}
+Using data generated in the Wolkovich lab (experimental methods will be explained in a later doccument), I compared the leafout and flowering phenology for cuttings of three temperate, woody shrubs in a growth chamber experiment, where cutting were exposed to combinations of warm and cool forcing temperatures and short and long photoperiod. 
+
+As can be seen in the following figure, it appears that the floral and foliate phenophases were indeed dependent on differing environmental cues.
+
+\begin{figure}[h]
+<<figs.only=TRUE,echo=FALSE,message=FALSE,warning=FALSE,>>=
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+setwd("~/Documents/git/buds/analyses/input")
+fb<-read.csv("Budburst By Day.csv", header = TRUE)
+#make subset for the good shurbs leftover from Mag 7
+goodshrubs<-filter(fb, sp %in% c( "CORCOR","ILEMUC", "PRUPEN"))
+shrubgroup<-group_by(goodshrubs,sp,treatcode)
+
+#plot the next to each other
+redo<-gather(shrubgroup,phenophase,eventday,fday:lday)
+redo<-filter(redo, treatcode %in% c( "CL0","CS0", "WL0","WS0"))
+q<-ggplot(redo, aes(x=treatcode, y=eventday, color=phenophase)) +
+  stat_summary()+labs(title="First flower and leaf out by treatment per species", x="Treatment", y="Days since initiation")
+q+facet_wrap(~sp)
+@
+\end{figure}
+Here is the analysis in ANOVA
+\begin{figure}[height=4cm, width=6cm]
+\caption{Flowering Response}
+<<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+anovaflower = aov(fday~warm*photo*sp,data=goodshrubs)
+summary(anovaflower)
+par(mfrow=c(1,2)) 
+plot(anovaflower,which=c(1,2),"Flo") 
+@
+\end{figure}
+\begin{figure}[height=4cm, width=6]
+\caption{Leafout Response}
+<<fig=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+anovaleaf = aov(lday~warm*photo*sp,data=goodshrubs)
+summary(anovaleaf)
+par(mfrow=c(1,2)) 
+plot(anovaleaf,which=c(1,2),"Leaf") 
+@
+\end{figure}
+
+\end{document}
