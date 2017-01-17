@@ -1,0 +1,36 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\begin{figure}
+\begin{tabular}{| c | c | c | c | c |}
+\caption{advances (more negative) are calculated with increase of 5 degrees celcius and increase in 4 hours of day light.}
+Species & Flower advance Warm & Flower advance Photo & Leaf advance Warm & Leaf advance Photo \\
+\hline
+CORCOR & -3.055 & 6.328 & -15.819*** &-14.021***\\
+\hline
+PRUPEN & -21.106***&-10.271*& -13.935***&-6.731**\\
+\hline
+ILEMUC& -11.230***&-4.761**&-14.458***&-7.542***\\
+\hline
+\end{tabular}
+\end{figure}
+
+\begin{figure}
+\begin{tabular}{| c | c | c | c | c |}
+Species & Flower advance Warm & Flower advance Photo & Leaf advance Warm & Leaf advance Photo \\
+\hline
+CORCOR & -0.611 & 1.582 & -3.1638 &-3.50525\\
+\hline
+PRUPEN & -4.2212 &-2.56775 & -2.787 &-1.68275\\
+\hline
+ILEMUC& -2.246&-1.19025&-2.8916&-1.8855\\
+\hline
+\caption{Flower and leafout sensativities}
+\end{tabular}
+\end{figure}
+\end{center}
+
+\end{document}
