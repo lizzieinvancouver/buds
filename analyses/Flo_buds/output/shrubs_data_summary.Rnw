@@ -31,6 +31,6 @@ ILEMUC& -2.246&-1.19025&-2.8916&-1.8855\\
 \caption{Flower and leafout sensativities}
 \end{tabular}
 \end{figure}
-\end{center}
+
 
 \end{document}
