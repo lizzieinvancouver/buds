@@ -47,3 +47,5 @@ docs/ms/Budburst-concordance.tex
 *.lot
 
 *.bbl
+
+analyses/Flo_buds/output/shrubs_data_summary.pdf
