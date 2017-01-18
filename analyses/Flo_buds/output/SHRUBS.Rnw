@@ -1,8 +1,8 @@
 \documentclass{article}
 \usepackage{Sweave}
-\begin{document}
-\SweaveOpts{concordance=FALSE}
 
+\begin{document}
+\SweaveOpts{concordance=TRUE}
 \section*{Introduction}
 Shifts in phenology, or the annual timinbg of life cycle events, is a well doccumented organisimic response to anthropogenically induced global change. As the effects of global change become more pronouced in the coming decades, it is likely that many of the temporal patterns of ecolologial communites, long considered to be relatively fixed in order, will become uncoupled. Take for example, the phenophases of early spring, budburst, leaf expansion, and flowering. We understand that individal species in a given plant community occupy their own temporal niche, and while the absoluted timing of phenophases with relation to the gregorian calendar may shift depending on seasonal conditions, the relatively timing of phenophases between species tend to follow fixed patterns-- for example, the leaves of maple trees (\textit{Acer spp.}) consistantly emerging before the walnuts (\textit{Juglans spp.}). However, recent studies has established that the phenology of indivudual species is dictated by different combinations of envornmental cues, most significantly winter chilling temperatures, spring warming temperatures, and photoperiod. As winter and spring temperatures rise in the comming decades, is is likely that the reliable patterns of spring may be altered, resulting in a loss of many species interaction and the genesis of other, novel ones.
 
@@ -21,8 +21,7 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-setwd("~/Documents/git/buds/analyses/input")
-fb<-read.csv("Budburst By Day.csv", header = TRUE)
+fb<-read.csv("..//input/Budburst By Day.csv", header = TRUE)
 #make subset for the good shurbs leftover from Mag 7
 goodshrubs<-filter(fb, sp %in% c( "CORCOR","ILEMUC", "PRUPEN"))
 shrubgroup<-group_by(goodshrubs,sp,treatcode)
@@ -65,6 +64,10 @@ ILEMUC& -2.246&-1.19025&-2.8916&-1.8855\\
 \caption{Flower and leafout sensativities}
 \end{tabular}
 \end{figure}
+
+
+\end{document}
+
 
 
 \end{document}

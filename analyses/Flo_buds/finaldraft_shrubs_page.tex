@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{Sweave}
 \begin{document}
-\SweaveOpts{concordance=FALSE}
+
 
 \section*{Introduction}
 Shifts in phenology, or the annual timinbg of life cycle events, is a well doccumented organisimic response to anthropogenically induced global change. As the effects of global change become more pronouced in the coming decades, it is likely that many of the temporal patterns of ecolologial communites, long considered to be relatively fixed in order, will become uncoupled. Take for example, the phenophases of early spring, budburst, leaf expansion, and flowering. We understand that individal species in a given plant community occupy their own temporal niche, and while the absoluted timing of phenophases with relation to the gregorian calendar may shift depending on seasonal conditions, the relatively timing of phenophases between species tend to follow fixed patterns-- for example, the leaves of maple trees (\textit{Acer spp.}) consistantly emerging before the walnuts (\textit{Juglans spp.}). However, recent studies has established that the phenology of indivudual species is dictated by different combinations of envornmental cues, most significantly winter chilling temperatures, spring warming temperatures, and photoperiod. As winter and spring temperatures rise in the comming decades, is is likely that the reliable patterns of spring may be altered, resulting in a loss of many species interaction and the genesis of other, novel ones.
@@ -16,24 +16,6 @@ Using data generated in the Wolkovich lab (experimental methods will be explaine
 As can be seen in the following figure, it appears that the floral and foliate phenophases were indeed dependent on differing environmental cues.
 
 \begin{figure}[h]
-<<figs.only=TRUE,echo=FALSE,message=FALSE,warning=FALSE,>>=
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
-setwd("~/Documents/git/buds/analyses/input")
-fb<-read.csv("Budburst By Day.csv", header = TRUE)
-#make subset for the good shurbs leftover from Mag 7
-goodshrubs<-filter(fb, sp %in% c( "CORCOR","ILEMUC", "PRUPEN"))
-shrubgroup<-group_by(goodshrubs,sp,treatcode)
-
-#plot the next to each other
-redo<-gather(shrubgroup,phenophase,eventday,fday:lday)
-redo<-filter(redo, treatcode %in% c( "CL0","CS0", "WL0","WS0"))
-q<-ggplot(redo, aes(x=treatcode, y=eventday, color=phenophase)) +
-  stat_summary()+labs(title="First flower and leaf out by treatment per species", x="Treatment", y="Days since initiation")
-q+facet_wrap(~sp)
-@
 \end{figure}
 
 Using multiway ANOVA, I determined the photoperiod and forcing temperature treatment effects on flowering and leafout for each species. I then determined the temperature and photoperiod sensitivities of each species, by dividing the effect size by the number of hours or degrees celcius between each treatment level (4 hours and 5 degrees respectively.) The results can be found in table 1.
