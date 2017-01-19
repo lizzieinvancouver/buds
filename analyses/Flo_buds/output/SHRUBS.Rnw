@@ -1,8 +1,15 @@
 \documentclass{article}
 \usepackage{Sweave}
+\usepackage{tabularx}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumerate}
+\usepackage[demo]{graphicx}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 \section*{Introduction}
 Shifts in phenology, or the annual timinbg of life cycle events, is a well doccumented organisimic response to anthropogenically induced global change. As the effects of global change become more pronouced in the coming decades, it is likely that many of the temporal patterns of ecolologial communites, long considered to be relatively fixed in order, will become uncoupled. Take for example, the phenophases of early spring, budburst, leaf expansion, and flowering. We understand that individal species in a given plant community occupy their own temporal niche, and while the absoluted timing of phenophases with relation to the gregorian calendar may shift depending on seasonal conditions, the relatively timing of phenophases between species tend to follow fixed patterns-- for example, the leaves of maple trees (\textit{Acer spp.}) consistantly emerging before the walnuts (\textit{Juglans spp.}). However, recent studies has established that the phenology of indivudual species is dictated by different combinations of envornmental cues, most significantly winter chilling temperatures, spring warming temperatures, and photoperiod. As winter and spring temperatures rise in the comming decades, is is likely that the reliable patterns of spring may be altered, resulting in a loss of many species interaction and the genesis of other, novel ones.
 
@@ -16,7 +23,8 @@ Using data generated in the Wolkovich lab (experimental methods will be explaine
 As can be seen in the following figure, it appears that the floral and foliate phenophases were indeed dependent on differing environmental cues.
 
 \begin{figure}[h]
-<<figs.only=TRUE,echo=FALSE,message=FALSE,warning=FALSE,>>=
+
+<<figs.only=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -33,41 +41,81 @@ q<-ggplot(redo, aes(x=treatcode, y=eventday, color=phenophase)) +
   stat_summary()+labs(title="First flower and leaf out by treatment per species", x="Treatment", y="Days since initiation")
 q+facet_wrap(~sp)
 @
+\caption{Mean flowering and leafout date for forcing and photoperiod treatments for three temperate shrubs}
 \end{figure}
 
-Using multiway ANOVA, I determined the photoperiod and forcing temperature treatment effects on flowering and leafout for each species. I then determined the temperature and photoperiod sensitivities of each species, by dividing the effect size by the number of hours or degrees celcius between each treatment level (4 hours and 5 degrees respectively.) The results can be found in table 1.
+Using multiway ANOVA, I determined the photoperiod and forcing temperature treatment effects on flowering and leafout for each species. I then determined the temperature and photoperiod sensitivities of each species, by dividing the effect size by the number of hours or degrees celcius between each treatment level (4 hours and 5 degrees respectively.) The results can be found in Figure 2.\\
 
-\begin{figure}
-\begin{tabular}{| c | c | c | c | c |}
-\caption{advances (more negative) are calculated with increase of 5 degrees celcius and increase in 4 hours of day light.}
-Species & Flower advance Warm & Flower advance Photo & Leaf advance Warm & Leaf advance Photo \\
+\newpage
+\begin{figure} [h!]
+\begin{tabularx}{1.1\textwidth}{|l|X|X|X|X|}
 \hline
-CORCOR & -3.055 & 6.328 & -15.819*** &-14.021***\\
+Species & Flower forcing sensativity & Flower photo. sensativity & Leaf forcing sensativity & Leaf photo sensativity\\
 \hline
-PRUPEN & -21.106***&-10.271*& -13.935***&-6.731**\\
+CORCOR & -0.6111 & 1.5821 & -3.1638 &-3.5052\\
 \hline
-ILEMUC& -11.230***&-4.761**&-14.458***&-7.542***\\
+PRUPEN & -4.2213&-2.5676&-2.7870& -1.6829\\
 \hline
-\end{tabular}
+ILEMUC& -2.2460 &-1.1901 &-2.8917&-1.8854\\
+\hline
+\end{tabularx}
+\caption{Sensativity to photoperiod and forcing temperature on flowering and leafout of three temperate shrub species}
 \end{figure}
 
-\begin{figure}
-\begin{tabular}{| c | c | c | c | c |}
-Species & Flower advance Warm & Flower advance Photo & Leaf advance Warm & Leaf advance Photo \\
-\hline
-CORCOR & -0.611 & 1.582 & -3.1638 &-3.50525\\
-\hline
-PRUPEN & -4.2212 &-2.56775 & -2.787 &-1.68275\\
-\hline
-ILEMUC& -2.246&-1.19025&-2.8916&-1.8855\\
-\hline
-\caption{Flower and leafout sensativities}
-\end{tabular}
+\section*{Analysis}
+From these data, it appears that each of the observed species have differing responses. In \textit{Corylus cornuta}, flowering is more strongly controled by photoperod, though neither variable was shown to have a statistically significant effect. \textit{C. cornuta} is typically proteranthous under field conditions, with shorter photoperiods accelerating flowering, but to a significantly less degree than the acceleration of leafout due to increased forcing temperature. This relationship indicates that as spring warming accelerates, it is possible that leafout could over take flowering, and the species may lose is proteranthous character, which would have detrimental demographic consiquences due to a decrease in pollination effecience.\\
+In \textit{Prunus pensylvanica} we see a different trend. Both flowering and leaf out seem to be most strongly influenced by forcing temperature but with different effect size. Flowering time appears to be ~2x more sensative than leafout. \textit{P. pensylcanica} is classified as synathous in the USFS Silvics manual and appears seranthous in our data set. Perhaps under warmer conditions this species will shift toward proteranthy.\\
+In \textit{Ilex mucronata}, forcing temperature also seems to be the dominant cue for both flowering and leaf out. In this species, both phenophases show relatively equal sensativities, indicating it is likely the seranthous character of the species will be maintained.\\
+\section*{Conclusion and Future Directions}
+It appears from this pilot study that the cue coordination between floral and foliate phenophases differs in different species. These differences, indicate that the internal sequence and patterns of phenology we ascribe to individual species may not be as fixed as once believed as climate change continues to alter the abiotic environment in the coming decades. While it is difficult to draw conclusions based on a limited examination of just three species, the results of this study lend merit to the question, and the experiement should be repeated on a more broad scale.
+Futhermore, it would be useful (for me), to evaluate the average lag time between these phenophases under field conditions. Then, using my sensativity calculations planted into model climate projection, determine whether proteranthous switches are indeed plausible under different climate change scenarios.\\
+There are many other questions related to proteranthy that must be addressed.
+\begin{enumerate}
+\item How common is proterany? Is there a phylogenetic signal for it? Is is associated with other traints?
+\item Does proteranthy truly facilitate pollination under open canopy conditions?
+\item what are the fitness benefits associated with this life history trait?
+\end{enumerate}
+
+\newpage
+\begin{figure}[h!]
+\caption{Appendix with ANOVA outputs for all species}
+<<figs.only=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+fb<-read.csv("..//input/Budburst By Day.csv", header = TRUE)
+#make subset for the good shurbs leftover from Mag 7
+goodshrubs<-filter(fb, sp %in% c( "CORCOR","ILEMUC", "PRUPEN"))
+shrubgroup<-group_by(goodshrubs,sp,treatcode)
+CORCOR<-filter(goodshrubs, sp=="CORCOR")
+PRUPEN<-filter(goodshrubs, sp=="PRUPEN")
+ILEMUC<-filter(goodshrubs, sp=="ILEMUC")
+ILEMUC2<-filter(ILEMUC, treatcode %in% c( "CL0","CS0", "WL0","WS0"))
+
+CORflo2<-aov(fday~warm+photo,data=CORCOR)
+summary.lm(CORflo2)
+CORleaf2<- aov(lday~warm+photo,data=CORCOR)
+summary.lm(CORleaf2)
+@
 \end{figure}
-
-
-\end{document}
-
-
+\newpage
+\begin{figure}[h!]
+<<figs.only=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+PRUflo2<-aov(fday~warm+photo,data=PRUPEN)
+summary.lm(PRUflo2)
+PRUleaf2<-aov(lday~warm+photo,data=PRUPEN)
+summary.lm(PRUleaf2)
+@
+\end{figure}
+\newpage
+\begin{figure}[h!]
+<<figs.only=TRUE,echo=FALSE,message=FALSE,warning=FALSE>>=
+ILEflo2<-aov(fday~warm+photo,data=ILEMUC2)
+summary.lm(ILEflo2)
+ILEleaf2<- aov(lday~warm+photo,data=ILEMUC2)
+summary.lm(ILEleaf2)
+@
+\end{figure}
 
 \end{document}
