@@ -1,5 +1,6 @@
 #metrics for flowering
 #########################
+fb<-read.csv("Budburst By Day.csv", header = TRUE)
 nrow(fb)
 # total rows= 2136
 factor(fb$sp)
@@ -13,6 +14,7 @@ nrow(reduced1)
 ##How many species
 factor(reduced1$sp)
 flosp<-table(reduced1$sp)
+flosp
 ##15 species flowered so, 15/28 species flowers
 ##of those entries how many species had >10 individuals flower?
 cnt<-count(reduced1, sp)
