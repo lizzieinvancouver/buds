@@ -82,3 +82,4 @@ colnames(counted)[colnames(counted)=="n"] <- "nflower"
 tab<-merge(counted, counted2, by=c("sp","treatcode"))
 print(tab)
 write.csv(table, "flo_v_leaf.csv", row.names=FALSE, na="")
+
