@@ -1,5 +1,9 @@
 #metrics for flowering
 #########################
+rm(list=ls()) # remove everything currently held in the R memory
+options(stringsAsFactors=FALSE)
+graphics.off()
+
 fb<-read.csv("Budburst By Day.csv", header = TRUE)
 nrow(fb)
 # total rows= 2136
