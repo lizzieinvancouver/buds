@@ -17,14 +17,14 @@
 \usepackage{amsmath} % for aligning equations
 
 \doublespacing
-\renewcommand{\familydefault}{\sfdefault} % for nicer sans serif font
+% \renewcommand{\familydefault}{\sfdefault} % for nicer sans serif font
 \graphicspath{{images/}}	% Root directory of the figures
 \setlength{\parskip}{2 mm}
 
 \begin{document}
 
 \linenumbers
-\SweaveOpts{concordance=T} 
+\SweaveOpts{concordance=TRUE} 
   
 \flushleft
 \textbf{\large{Coordinated responses to changing environmental cues across a community of temperate forest plants}} % another take
@@ -181,7 +181,7 @@ We tested the influenced of phylogenetic relatedness on the relationship between
 \section*{References Cited}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliography{danlib}
+%\bibliography{danlib}
 \bibliographystyle{naturemag}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -192,7 +192,7 @@ We tested the influenced of phylogenetic relatedness on the relationship between
 %\listoffigures
 
 <<echo=FALSE>>=
-setwd("~/Documents/git/buds/analyses")
+setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
 
 source("Pheno Budburst analysis.R")
 @

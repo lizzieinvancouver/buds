@@ -1,5 +1,5 @@
-forlatex = T # set to F if just trying new figures, T if outputting for final
-runstan = T # set to T to actually run stan models. F if loading from previous runs
+forlatex = TRUE # set to FALSE if just trying new figures, TRUE if outputting for final
+runstan = TRUE # set to TRUE to actually run stan models. FALSE if loading from previous runs
 
 # Analysis of bud burst experiment 2015. 
 
@@ -11,7 +11,7 @@ library(ggplot2)
 library(caper) # for pgls
 library(png) # readPNG for Fig 1
 
-setwd("~/Documents/git/treegarden/budexperiments/analyses")
+setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # get latest .Rdata file
@@ -542,4 +542,4 @@ plot(adv$overall, lchill1, #  ylim = c(-30, -10),
 dev.off();#system(paste("open", file.path(figpath, "Sens_vs_day.pdf"), "-a /Applications/Preview.app"))
 
 
-on.exit(setwd("~/Documents/git/buds/docs/ms/"))
+on.exit(setwd("~/Documents/git/projects/treegarden/budexperiments/docs/ms"))
