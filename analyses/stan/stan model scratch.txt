@@ -1,4 +1,0 @@
-  vector[1] b_interc;
-  vector[1] b_warm;
-  vector[1] b_photo;
-  vector[1] b_warmxphoto;
