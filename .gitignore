@@ -42,6 +42,8 @@ docs/outline/Budburst.aux
 
 *.log
 
+*.blg
+
 docs/ms/Budburst-concordance.tex
 
 *.lot

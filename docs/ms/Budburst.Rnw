@@ -24,7 +24,7 @@
 \begin{document}
 
 \linenumbers
-\SweaveOpts{concordance=TRUE} 
+\SweaveOpts{concordance=FALSE} 
   
 \flushleft
 \textbf{\large{Coordinated responses to changing environmental cues across a community of temperate forest plants}} % another take
@@ -181,8 +181,10 @@ We tested the influenced of phylogenetic relatedness on the relationship between
 \section*{References Cited}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\bibliography{danlib}
+\bibliography{danlib}
 \bibliographystyle{naturemag}
+
+\end{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Figures and Tables}
