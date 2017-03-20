@@ -61,6 +61,7 @@ parameters {
   vector[n_sp] b_inter_sc1;
   vector[n_sp] b_inter_sc2;
 
+  real mu_a; 
   real mu_b_warm; 
   real mu_b_chill1;
   real mu_b_chill2;
@@ -82,6 +83,8 @@ parameters {
   real<lower=0> sigma_b_chill1;
   real<lower=0> sigma_b_chill2;
   real<lower=0> sigma_b_site;
+
+  real<lower=0> sigma_a;
 
   real<lower=0> sigma_b_inter_wp;
   real<lower=0> sigma_b_inter_ws;
@@ -154,7 +157,9 @@ model {
 	sigma_b_inter_pc1 ~ normal(0, 10);	
 	sigma_b_inter_pc2 ~ normal(0, 10);	
 	sigma_b_inter_sc1 ~ normal(0, 10);	
-	sigma_b_inter_sc2 ~ normal(0, 10);	
+	sigma_b_inter_sc2 ~ normal(0, 10);
+
+	a_sp ~ normal(mu_a, sigma_a);  // SHOULD ADD PRIORS!
 	
 	b_warm ~ normal(mu_b_warm, sigma_b_warm);
 	b_photo ~ normal(mu_b_photo, sigma_b_photo);
