@@ -174,3 +174,4 @@ model {
 	
 	lday ~ normal(y_hat, sigma_y);
 }
+

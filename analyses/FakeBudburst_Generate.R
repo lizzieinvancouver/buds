@@ -1,5 +1,10 @@
-# Fake data for buburst stan work
+# Started in April 2016 #
+# Fake data creation by Dan Flynn, updates by Lizzie #
+
+# Fake data for buburst stan work #
 library(dplyr)
+
+setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Set up: same as experiment, with two sites, 28 species, two levels each of warming and photoperiod, and three levels of chilling. 2016-04-01 adding interactions. This ends up generating expected differences, but variation in effect sizes across species is minimal currently.
@@ -28,7 +33,7 @@ chill2 = ifelse(chill == 3, 1, 0)
 
 treatcombo = paste(warm, photo, chill1, chill2, sep = "_")
 
-(d <- data_frame(site, warm, photo, chill1, chill2, treatcombo))
+(d <- data.frame(site, warm, photo, chill1, chill2, treatcombo)) # critical coding error here!
 
 ###### Set up differences for each level
 sitediff = 2 

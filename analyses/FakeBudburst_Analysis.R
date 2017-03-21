@@ -41,9 +41,9 @@ datalist.f <- list(lday = fake$bb, # budburst as respose
                   )
 
 doym.f <- stan('stan/lday_site_sp_chill_inter.stan', data = datalist.f, 
-               iter = 4004, 
-               control = list(adapt_delta = 0.9,
-                              max_treedepth = 15))
+               iter = 2004) 
+             #  control = list(adapt_delta = 0.9,
+             #                 max_treedepth = 15))
 
 # To Stan! Pooled intercepts!
 doym.fpoola <- stan('stan/lday_site_sp_chill_inter_poola.stan', data = datalist.f, 

@@ -1,3 +1,9 @@
+## Started in April 2016 ##
+## By Dan Flynn ##
+## Edits by Lizzie in 2017 ##
+
+
+
 # Eliminating diverging errors
 # 1. scale data
 
@@ -35,7 +41,7 @@ datalist.nosite <- list(lday = dx$lday, # leafout as respose
                    n_sp = length(unique(dx$sp))
 )
 
-doym.nosite <- stan('stan/lday_nosite.stan', data = datalist.nosite, iter = 4000, chains = 4) 
+doym.nosite <- stan('stan/models_archive_altmodels/lday_nosite.stan', data = datalist.nosite, iter = 4000, chains = 4) 
 
 sumnosite <- summary(doym.nosite)$summary
 
@@ -55,7 +61,7 @@ datalist.spint <- list(lday = dx$lday, # leafout as respose
                         n_sp = length(unique(dx$sp))
 )
 
-doym.spint <- stan('stan/lday_spint_plusspint.stan', data = datalist.spint, iter = 4000, chains = 4) 
+doym.spint <- stan('stan/models_archive_altmodels/lday_spint_plusspint.stan', data = datalist.spint, iter = 4000, chains = 4) 
 
 sumspint <- summary(doym.nosite)$summary
 
