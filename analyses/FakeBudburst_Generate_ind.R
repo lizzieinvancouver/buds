@@ -1,4 +1,11 @@
+# Started in 2016 #
+# Fake data creation by Dan Flynn, updates by Lizzie #
 # Fake data for buburst stan work
+
+# Basic housekeeping
+rm(list=ls()) 
+options(stringsAsFactors=FALSE)
+
 library(dplyr)
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
@@ -26,7 +33,7 @@ photo = gl(nphoto, rep*nsite*nwarm, length = ntot)
 
 treatcombo = paste(warm, photo, sep = "_")
 
-(d <- data_frame(site, warm, photo, treatcombo))
+d <- data.frame(site, warm, photo, treatcombo)
 
 ###### Set up differences for each level
 sitediff = 2 
@@ -83,11 +90,27 @@ for(i in 1:nsp){ # loop over species, as these are the random effect modeled
   fake <- rbind(fake, fakex)  
   }
 
+# now fix the levels to 0/1 (not 1/2) as R does
+fake$site <- as.numeric(fake$site)
+fake$site[fake$site==1] <- 0
+fake$site[fake$site==2] <- 1
+
+fake$warm <- as.numeric(fake$warm)
+fake$warm[fake$warm==1] <- 0
+fake$warm[fake$warm==2] <- 1
+
+fake$photo <- as.numeric(fake$photo)
+fake$photo[fake$photo==1] <- 0
+fake$photo[fake$photo==2] <- 1
+
 summary(lm(bb ~ (site+warm+photo)^2, data = fake)) # sanity check 
 
 #summary(lmer(bb ~ (site|sp) + (warm|sp) + (photo|sp) + (chill1|sp) + (chill2|sp), data = fake)) # too hard for lmer.
 
 
+####################################
+## Code below not fixed by Lizzie ##
+####################################
 
 # and again, with individuals
 

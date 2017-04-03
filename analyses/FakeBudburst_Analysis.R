@@ -26,6 +26,7 @@ load("Fake Budburst.RData")
 # load(sort(realout, T)[1])
 # ls() 
 
+# <><><><><> Unpooled intercepts (Dan's original model) <><><><> #
 
 # To Stan!
 datalist.f <- list(lday = fake$bb, # budburst as respose 
@@ -40,22 +41,6 @@ datalist.f <- list(lday = fake$bb, # budburst as respose
                    n_sp = length(unique(fake$sp))
                   )
 
-doym.f <- stan('stan/lday_site_sp_chill_inter.stan', data = datalist.f, 
-               iter = 2004) 
-             #  control = list(adapt_delta = 0.9,
-             #                 max_treedepth = 15))
-
-# To Stan! Pooled intercepts!
-doym.fpoola <- stan('stan/lday_site_sp_chill_inter_poola.stan', data = datalist.f, 
-               iter = 4000)
-              # control = list(adapt_delta = 0.9,
-              #                max_treedepth = 15))
-
-sf.poola <- summary(doym.fpoola)$summary
-sf.poola[grep("mu_b", rownames(sf.poola)),]
-
-# savestan("Fake Interax poola")
-
 # lday_site_chill: < 120 seconds per chain, very fast
 # lday_site_sp_chill: much slower.   
 # doym.f <- stan('stan/lday0.stan', data = datalist.f, iter = 4000, chains = 4) 
@@ -63,14 +48,65 @@ sf.poola[grep("mu_b", rownames(sf.poola)),]
 sumer <- summary(doym.f)$summary
 sumer[grep("mu_", rownames(sumer)),] # effects are perfectly captured now.
 
-pairs(doym.f, pars = names(doym.f)[grep("mu_", names(doym.f))])
+# patience for the below, it's giant
+# pairs(doym.f, pars = names(doym.f)[grep("mu_", names(doym.f))])
 
 ssm.f <- as.shinystan(doym.f)
 launch_shinystan(ssm.f) 
 
-#setwd("~/Dropbox")
+save(doym.f, file="stan/lday_site_sp_chill_inter.Rda")
 
-savestan("Fake Interax")
+# <><><><><><><><><> #
+
+
+
+# <><><><><> Pooled intercepts <><><><> #
+doym.f <- stan('stan/lday_site_sp_chill_inter.stan', data = datalist.f, 
+               iter = 2004) 
+             #  control = list(adapt_delta = 0.9,
+             #                 max_treedepth = 15))
+
+# To Stan! Pooled intercepts!
+doym.fpoola <- stan('stan/lday_site_sp_chill_inter_poola.stan', data = datalist.f, 
+               iter = 3000)
+              # control = list(adapt_delta = 0.9,
+              #                max_treedepth = 15))
+
+sf.poola <- summary(doym.fpoola)$summary
+sf.poola[grep("mu_", rownames(sf.poola)),]
+
+# sanity checks
+summary(lm(bb ~ (site+warm+photo+chill1+chill2)^2, data = fake))
+# library(lme4)
+# summary(lmer(bb ~ (site+warm+photo+chill1+chill2)^2 + (1|sp), data = fake))
+
+
+
+save(sf.poola, file="stan/lday_site_sp_chill_inter_poola.Rda")
+# savestan("Fake Interax poola") # Not working! Saves a corrupted file. 
+# <><><><><> End pooled intercepts <><><><> #
+
+
+##
+library(rethinking)
+goober <- map2stan(
+     alist(
+         lday ~ dnorm(yhat, sigma_y),
+         yhat ~ a[sp] + b_site*sitis b_warm*warm + b_photo*photo + b_chill1*chill1 + b_chill2*chill2 + b_interwc*warm*photo,
+         a[sp] ~ dnorm(mu_a_sp, sigma_a_sp),
+         sigma_y ~ dnorm(0, 30),
+         mu_a_sp ~ dnorm(0, 50),
+         sigma_a_sp ~ dnorm(0, 30),
+         b_site~ dnorm(0, 30),
+         b_warm~ dnorm(0, 30),
+         b_photo~ dnorm(0, 30),
+         b_chill1~ dnorm(0, 30),
+         b_chill2~ dnorm(0, 30),
+         b_interwc ~ dnorm(0, 30)
+     ) ,
+     data=datalist.f, iter=2000)
+##
+stop("Lizzie has not worked with the below code .... ")
 
 #setwd("~/Documents/git/buds/analyses")
 

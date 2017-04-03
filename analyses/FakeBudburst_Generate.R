@@ -1,6 +1,10 @@
 # Started in April 2016 #
 # Fake data creation by Dan Flynn, updates by Lizzie #
 
+# Basic housekeeping
+rm(list=ls()) 
+options(stringsAsFactors=FALSE)
+
 # Fake data for buburst stan work #
 library(dplyr)
 
@@ -126,6 +130,21 @@ for(i in 1:nsp){ # loop over species, as these are the random effect modeled
   }
 
 summary(lm(bb ~ (site+warm+photo+chill1+chill2)^2, data = fake)) # sanity check 
+
+# now fix the levels to 0/1 (not 1/2) as R does
+fake$site <- as.numeric(fake$site)
+fake$site[fake$site==1] <- 0
+fake$site[fake$site==2] <- 1
+
+fake$warm <- as.numeric(fake$warm)
+fake$warm[fake$warm==1] <- 0
+fake$warm[fake$warm==2] <- 1
+
+fake$photo <- as.numeric(fake$photo)
+fake$photo[fake$photo==1] <- 0
+fake$photo[fake$photo==2] <- 1
+
+summary(lm(bb ~ (site+warm+photo+chill1+chill2)^2, data = fake)) # double sanity check 
 
 #summary(lmer(bb ~ (site|sp) + (warm|sp) + (photo|sp) + (chill1|sp) + (chill2|sp), data = fake)) # too hard for lmer.
 

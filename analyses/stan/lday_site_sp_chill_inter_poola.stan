@@ -5,7 +5,7 @@
 // If also include species intercept, total failure; model cannot decide which intercept to use..
 // Leafout day as a function of species and site of origin as modeled group level factors, and temperature, photoperiod, and chilling as unmodeled factors (experimental manipulation)
 
-// Note by Lizzie: This model includes unpooled intercepts
+// Note by Lizzie: This model includes pooled intercepts
 
 data {
   int<lower=0> N;
@@ -21,7 +21,7 @@ data {
 }
 
 transformed data { 			// 9 interaction terms
-  vector[N] inter_wp;           
+  vector[N] inter_wp;         // vector[N] inter_wp  = warm .* photo;
   vector[N] inter_ws;           
   vector[N] inter_ps;           
   vector[N] inter_wc1;           
@@ -31,7 +31,7 @@ transformed data { 			// 9 interaction terms
   vector[N] inter_sc1;           
   vector[N] inter_sc2;           
 
-  inter_wp    = warm .* photo;  
+  inter_wp    = warm .* photo; 
   inter_ws    = warm .* site;  
   inter_ps    = photo .* site;  
   inter_wc1    = warm .* chill1;  
@@ -100,7 +100,7 @@ parameters {
   }
 
 
-transformed parameters {
+transformed parameters { // Vectorize: Won't save time probably here (no scalar x vector)
 	vector[N] y_hat;
 		
 	for(i in 1:N){
