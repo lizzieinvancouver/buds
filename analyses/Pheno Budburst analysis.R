@@ -1,4 +1,4 @@
-forlatex = TRUE # set to FALSE if just trying new figures, TRUE if outputting for final
+forlatex = FALSE # set to FALSE if just trying new figures, TRUE if outputting for final
 runstan = TRUE # set to TRUE to actually run stan models. FALSE if loading from previous runs
 
 # Analysis of bud burst experiment 2015. 
@@ -12,6 +12,7 @@ library(caper) # for pgls
 library(png) # readPNG for Fig 1
 
 setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
+source('source/plotletfx.R')
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # get latest .Rdata file
@@ -30,7 +31,6 @@ if(runstan){ # things needed only if running the stan models
   options(mc.cores = parallel::detectCores())
   source('stan/savestan.R')
 }
-
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> 
 
 (toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
@@ -62,54 +62,6 @@ ldaymean <- t(with(dxl, tapply(lday, list(site, sp), mean, na.rm=T)))
 
 leafoutdays <- data.frame(bdaymean, ldaymean)
 
-# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-# Utility function to plot 'random effects' from stan output - used now mostly in Fig 3.
-plotlet <- function(x, y, xlab=NULL, ylab=NULL, data, groups = NULL, ...){
-  if(is.null(xlab)) xlab = x; if(is.null(ylab)) ylab = y
-  if(is.null(groups)) { col.pch = "black"; col.lines = "grey50" }
-    else {
-      colz = c("brown", "blue3")
-      ccolz = rep(colz[1], length(groups))
-      ccolz[groups == 2] = colz[2]
-      col.pch = ccolz
-      col.lines = alpha(ccolz, 0.4)
-    }
-  
-  plot(
-  data[grep(paste(x,"\\[",sep=""), rownames(data)),1],
-  data[grep(paste(y,"\\[",sep=""), rownames(data)),1],
-  pch = "+",
-  ylab = ylab,
-  xlab = xlab,
-  col = col.pch,
-  ...
-  )
-
-  abline(h=0, lty = 3, col = "grey60")
-  abline(v=0, lty = 3, col = "grey60")
-  
-  arrows(
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"]-data[grep(paste(y,"\\[",sep=""), rownames(data)),"se_mean"],
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"]+data[grep(paste(y,"\\[",sep=""), rownames(data)),"se_mean"],
-    length = 0, col = col.lines)
-  
-  arrows(
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"]-data[grep(paste(x,"\\[",sep=""), rownames(data)),"se_mean"],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"],
-    data[grep(paste(x,"\\[",sep=""), rownames(data)),"mean"]+data[grep(paste(x,"\\[",sep=""), rownames(data)),"se_mean"],
-    data[grep(paste(y,"\\[",sep=""), rownames(data)),"mean"],
-    length = 0, col = col.lines)
-  
-  # match with species names
-  text( data[grep(paste(x,"\\[",sep=""), rownames(data)),1],
-        data[grep(paste(y,"\\[",sep=""), rownames(data)),1],
-        sort(unique(dx$sp)),
-        cex = 0.5, 
-        pos = 3,
-        col = col.pch)
-}
 
 # Groups
 colz = c("brown", "blue3")
@@ -135,6 +87,20 @@ treeshrub = as.numeric(treeshrub)
 # Correlate order of leaf-out in chambers to O'Keefe observational data
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+# ALERT: Should do the below elsewhere but for now fixing the 1/2 issue to 0/1 here
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
+unique(dxb$site)
+dxb$site[dxb$site==1] <- 0
+dxb$site[dxb$site==2] <- 1
+
+unique(dxb$warm)
+dxb$warm[dxb$warm==1] <- 0
+dxb$warm[dxb$warm==2] <- 1
+
+unique(dxb$photo)
+dxb$photo[dxb$photo==1] <- 0
+dxb$photo[dxb$photo==2] <- 1
 
 # 1. Budburst day. 
 if(runstan){
@@ -150,18 +116,35 @@ if(runstan){
                      n_sp = length(unique(dxb$sp))
   )
   
-    doym.b <- stan('stan/lday_site_sp_chill_inter.stan', 
-                 data = datalist.b, iter = 6006, chains = 4,
-                 control = list(adapt_delta = 0.9,
-                                max_treedepth = 15)) 
+    doym.b <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan', 
+                 data = datalist.b, iter = 4006, chains = 4)
+                 # control = list(adapt_delta = 0.9), 
+                 #               max_treedepth = 15)) 
   
 }
   sumerb <- summary(doym.b)$summary
   sumerb[grep("mu_", rownames(sumerb)),]
   
   #ssm.b <- as.shinystan(doym.b)
-  # launch_shinystan(ssm.b) 
+  # launch_shinystan(doym.b) 
   #yb = dxb$bday # for shinystan posterior checks
+
+# Below is really slow 
+# pairs(doym.b, pars = c(names(doym.b)[grep("mu_b_inter", names(doym.b))],
+#     names(doym.b)[grep("sigma_b_inter", names(doym.b))]))
+
+# save(doym.b, file="stan/lday_site_sp_chill_inter_poola_doymb.Rda")
+# load('stan/lday_site_sp_chill_inter_poola_doymb.Rda')
+
+pairs(doym.b, pars = c("mu_b_warm", "sigma_b_warm", "lp__"))
+pairs(doym.b, pars = c("mu_b_photo", "sigma_b_photo", "lp__"))
+pairs(doym.b, pars = c("mu_b_chill1", "sigma_b_chill1", "mu_b_chill2", "sigma_b_chill2",  "lp__"))
+pairs(doym.b, pars = c(names(doym.b)[grep("mu_b_inter", names(doym.b))], "lp__"))
+pairs(doym.b, pars = c(names(doym.b)[grep("sigma_b_inter", names(doym.b))], "lp__"))
+
+# pairs(doym.b, pars = c("mu_a", "mu_b_warm", "mu_b_photo", "mu_b_site", "mu_b_chill1",
+#    "mu_b_chill2", "sigma_a", "sigma_b_warm", "sigma_b_photo", "sigma_b_site",
+#    "sigma_b_chill1", "sigma_b_chill2"))
 
 # plot effects
 col4table <- c("mean","sd","25%","50%","75%","Rhat")
@@ -205,10 +188,10 @@ if(runstan){
                      n_sp = length(unique(dxl$sp))
   )
   
-    doym.l <- stan('stan/lday_site_sp_chill_inter.stan',
-                data = datalist.l, iter = 6006, chains = 4,
-                control = list(adapt_delta = 0.9,
-                               max_treedepth = 15)) 
+    doym.l <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan',
+                data = datalist.l, iter = 3006, chains = 4)
+               # control = list(adapt_delta = 0.9,
+                #               max_treedepth = 15)) 
 }
 sumerl <- summary(doym.l)$summary
 

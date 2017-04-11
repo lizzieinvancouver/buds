@@ -72,6 +72,9 @@ doym.fpoola <- stan('stan/lday_site_sp_chill_inter_poola.stan', data = datalist.
               # control = list(adapt_delta = 0.9,
               #                max_treedepth = 15))
 
+doym.fpoola_ncp <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan', data = datalist.f, 
+               iter = 1000)
+
 sf.poola <- summary(doym.fpoola)$summary
 sf.poola[grep("mu_", rownames(sf.poola)),]
 
@@ -83,7 +86,19 @@ summary(lm(bb ~ (site+warm+photo+chill1+chill2)^2, data = fake))
 
 
 save(sf.poola, file="stan/lday_site_sp_chill_inter_poola.Rda")
-# savestan("Fake Interax poola") # Not working! Saves a corrupted file. 
+# savestan("Fake Interax poola") # Not working! Saves a corrupted file.
+
+# <> R stanarm <> #
+library(rstanarm)
+
+arm.doym.f <- stan_lmer(lday ~ warm + photo + chill1 + chill2 + site +
+       warm*photo + warm*chill1 + warm*chill2 + warm*site + 
+       photo*chill1 + photo*chill2 + photo*site + site*chill1 + site*chill2
+       + (1|sp) +
+       (sp|warm) + (sp|photo) + (sp|chill1) + (sp|chill2) + (sp|site), 
+       data=datalist.f, 
+       prior=normal(), prior_intercept=normal(0,30), prior_aux=cauchy(0,10))
+
 # <><><><><> End pooled intercepts <><><><> #
 
 
