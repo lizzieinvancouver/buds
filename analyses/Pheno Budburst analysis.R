@@ -175,6 +175,22 @@ rownames(meanzb) = c("Temperature",
                     "Site x Chilling 1.5°C"
                     )
 
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+# ALERT: Should do the below elsewhere but for now fixing the 1/2 issue to 0/1 here
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
+unique(dxl$site)
+dxl$site[dxl$site==1] <- 0
+dxl$site[dxl$site==2] <- 1
+
+unique(dxl$warm)
+dxl$warm[dxl$warm==1] <- 0
+dxl$warm[dxl$warm==2] <- 1
+
+unique(dxl$photo)
+dxl$photo[dxl$photo==1] <- 0
+dxl$photo[dxl$photo==2] <- 1
+
 if(runstan){
   datalist.l <- list(lday = dxl$lday, # leaf-out as respose 
                      warm = as.numeric(dxl$warm), 
@@ -194,6 +210,8 @@ if(runstan){
                 #               max_treedepth = 15)) 
 }
 sumerl <- summary(doym.l)$summary
+sumerl[grep("mu_", rownames(sumerl)),]
+
 
 # ssm.l <- as.shinystan(doym.l)
 # yl = dxl$lday # for shinystan posterior checks
