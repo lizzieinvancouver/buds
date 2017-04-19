@@ -72,7 +72,10 @@ doym.fpoola <- stan('stan/lday_site_sp_chill_inter_poola.stan', data = datalist.
               # control = list(adapt_delta = 0.9,
               #                max_treedepth = 15))
 
-doym.fpoola_ncp <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan', data = datalist.f, 
+doym.fpoola.ncp <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan', data = datalist.f, 
+               iter = 1000)
+
+doym.fpoola.ncp <- stan('stan/lday_site_sp_chill_inter_poola_ncpfull.stan', data = datalist.f, 
                iter = 1000)
 
 sf.poola <- summary(doym.fpoola)$summary
@@ -86,6 +89,8 @@ summary(lm(bb ~ (site+warm+photo+chill1+chill2)^2, data = fake))
 
 
 save(sf.poola, file="stan/lday_site_sp_chill_inter_poola.Rda")
+
+save(doym.fpoola.ncp, file="stan/lday_site_sp_chill_inter_poola_ncpfull.Rda")
 # savestan("Fake Interax poola") # Not working! Saves a corrupted file.
 
 # <> R stanarm <> #

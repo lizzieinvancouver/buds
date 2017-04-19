@@ -205,13 +205,16 @@ if(runstan){
   )
   
     doym.l <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan',
-                data = datalist.l, iter = 3006, chains = 4)
+                data = datalist.l, iter = 4006, chains = 4)
                # control = list(adapt_delta = 0.9,
                 #               max_treedepth = 15)) 
 }
 sumerl <- summary(doym.l)$summary
 sumerl[grep("mu_", rownames(sumerl)),]
 
+# save(doym.l, file="stan/lday_site_sp_chill_inter_poola_ncp_doyl.Rda")
+
+# launch_shinystan(doym.l)
 
 # ssm.l <- as.shinystan(doym.l)
 # yl = dxl$lday # for shinystan posterior checks

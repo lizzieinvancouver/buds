@@ -15,6 +15,11 @@ Still in main folder:
 
 lday_site_sp_chill_inter.stan —  similar to lday_site_chill.stan but with ALL 2-way interactions and tried to include species nested within site, which does not run! y ~ (warm * photo * chill)^2
 
+
+OUTPUT:
+lday_site_sp_chill_inter.Rda is the fake data run on lday_site_sp_chill_inter.stan
+lday_site_sp_chill_inter_poola_doymb.Rda is the real bud burst data run on lday_site_sp_chill_inter_poola.stan (with diverging transitions)
+  
 <><><><><><><><><><><><><>
 In models_archive_simple:
 <><><><><><><><><><><><><>
