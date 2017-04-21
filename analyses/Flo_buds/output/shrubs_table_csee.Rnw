@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{Sweave}
+\usepackage{tabularx}
+\usepackage{geometry}
+\geometry{margin=.8in}
+\usepackage{enumerate}
+\usepackage[demo]{graphicx}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+\begin{document}
+
+\begin{figure} [h!]
+\begin{tabularx}{1.1\textwidth}{|l|X|X|X|X|}
+\hline
+Species & Forcing sensitivity (F) & Photo sensitivity (F) & Forcing sensitivity (L) & Photo sensitivity (L)\\
+\hline
+\textit{C. cornuta} & -0.6111 & 1.5821 & -3.1638 &-3.5052\\
+\hline
+\textit{P. pensylvanica} & -4.2213&-2.5676&-2.7870& -1.6829\\
+\hline
+\textit{I. mucronata}& -2.2460 &-1.1901 &-2.8917&-1.8854\\
+\hline
+\end{tabularx}
+\end{figure}
+
+\end{document}
