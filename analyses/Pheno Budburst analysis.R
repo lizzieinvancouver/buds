@@ -1,5 +1,5 @@
-forlatex = FALSE # set to FALSE if just trying new figures, TRUE if outputting for final
-runstan = TRUE # set to TRUE to actually run stan models. FALSE if loading from previous runs
+forlatex = TRUE # set to FALSE if just trying new figures, TRUE if outputting for final
+runstan = FALSE # set to TRUE to actually run stan models. FALSE if loading from previous runs
 
 # Analysis of bud burst experiment 2015. 
 
@@ -87,7 +87,7 @@ treeshrub = as.numeric(treeshrub)
 # Correlate order of leaf-out in chambers to O'Keefe observational data
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-# ALERT: Should do the below elsewhere but for now fixing the 1/2 issue to 0/1 here
+# Important: Fixing the 1/2 issue to 0/1 here
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 unique(dxb$site)
@@ -117,34 +117,31 @@ if(runstan){
   )
   
     doym.b <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan', 
-                 data = datalist.b, iter = 4006, chains = 4)
-                 # control = list(adapt_delta = 0.9), 
-                 #               max_treedepth = 15)) 
+                 data = datalist.b, iter = 4606, chains = 4, 
+                 control = list(adapt_delta = 0.9))
+                 #               , max_treedepth = 15)) 
   
 }
-  sumerb <- summary(doym.b)$summary
-  sumerb[grep("mu_", rownames(sumerb)),]
-  
-  #ssm.b <- as.shinystan(doym.b)
-  # launch_shinystan(doym.b) 
-  #yb = dxb$bday # for shinystan posterior checks
 
-# Below is really slow 
+
+# yb = dxb$bday # for shinystan posterior checks
+# launch_shinystan(doym.b) 
+
+sumerb <- summary(doym.b)$summary
+sumerb[grep("mu_", rownames(sumerb)),]
+
+
+# Below: Some pairs plots to check out
+# pairs(doym.b, pars = c("mu_b_warm", "sigma_b_warm", "lp__"))
+# These are very slow!
 # pairs(doym.b, pars = c(names(doym.b)[grep("mu_b_inter", names(doym.b))],
 #     names(doym.b)[grep("sigma_b_inter", names(doym.b))]))
+# pairs(doym.b, pars = c(names(doym.b)[grep("mu_b_inter", names(doym.b))], "lp__"))
+# pairs(doym.b, pars = c(names(doym.b)[grep("sigma_b_inter", names(doym.b))], "lp__"))
 
-# save(doym.b, file="stan/lday_site_sp_chill_inter_poola_doymb.Rda")
-# load('stan/lday_site_sp_chill_inter_poola_doymb.Rda')
 
-pairs(doym.b, pars = c("mu_b_warm", "sigma_b_warm", "lp__"))
-pairs(doym.b, pars = c("mu_b_photo", "sigma_b_photo", "lp__"))
-pairs(doym.b, pars = c("mu_b_chill1", "sigma_b_chill1", "mu_b_chill2", "sigma_b_chill2",  "lp__"))
-pairs(doym.b, pars = c(names(doym.b)[grep("mu_b_inter", names(doym.b))], "lp__"))
-pairs(doym.b, pars = c(names(doym.b)[grep("sigma_b_inter", names(doym.b))], "lp__"))
-
-# pairs(doym.b, pars = c("mu_a", "mu_b_warm", "mu_b_photo", "mu_b_site", "mu_b_chill1",
-#    "mu_b_chill2", "sigma_a", "sigma_b_warm", "sigma_b_photo", "sigma_b_site",
-#    "sigma_b_chill1", "sigma_b_chill2"))
+# save(doym.b, file="stan/lday_site_sp_chill_inter_poola_ncp_doymb.Rda")
+# load('stan/lday_site_sp_chill_inter_poola_ncp_doymb.Rda')
 
 # plot effects
 col4table <- c("mean","sd","25%","50%","75%","Rhat")
@@ -176,7 +173,7 @@ rownames(meanzb) = c("Temperature",
                     )
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
-# ALERT: Should do the below elsewhere but for now fixing the 1/2 issue to 0/1 here
+# ALERT: Fixing the 1/2 issue to 0/1 here
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 
 unique(dxl$site)
@@ -205,20 +202,18 @@ if(runstan){
   )
   
     doym.l <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan',
-                data = datalist.l, iter = 4006, chains = 4)
-               # control = list(adapt_delta = 0.9,
-                #               max_treedepth = 15)) 
+                data = datalist.l, iter = 6606, chains = 4,
+                control = list(adapt_delta = 0.95))
+                #               ,max_treedepth = 15)) 
 }
+
+#yl = dxl$lday # for shinystan posterior checks
+# launch_shinystan(doym.l)
+
 sumerl <- summary(doym.l)$summary
 sumerl[grep("mu_", rownames(sumerl)),]
 
 # save(doym.l, file="stan/lday_site_sp_chill_inter_poola_ncp_doyl.Rda")
-
-# launch_shinystan(doym.l)
-
-# ssm.l <- as.shinystan(doym.l)
-# yl = dxl$lday # for shinystan posterior checks
-# launch_shinystan(ssm.l) 
 
 meanzl <- sumerl[mu_params,col4table]
 rownames(meanzl) = rownames(meanzb)
@@ -230,7 +225,10 @@ sumerb[!is.na(match(rownames(sumerb), paste("b_chill2[", nochill, "]", sep="")))
 sumerl[!is.na(match(rownames(sumerl), paste("b_chill1[", nochill, "]", sep=""))),] = NA
 sumerl[!is.na(match(rownames(sumerl), paste("b_chill2[", nochill, "]", sep=""))),] = NA
 
-# Figure 1: Stan model effects for bud burst and leaf-out
+################
+# Figure 1:
+# Stan model effects for bud burst and leaf-out
+################
 
 bbpng <- readPNG(file.path(figpath, "Finn_BB.png")) # Illustrations from Finn et al.
 lopng <- readPNG(file.path(figpath, "Finn_LO.png"))
@@ -240,7 +238,7 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
   par(mfrow=c(2,1), mar = c(2, 10, 5, 1))
   
   # Upper panel: bud burst
-  plot(seq(-30, 
+  plot(seq(-22, 
            12,
            length.out = nrow(meanzb)), 
        1:nrow(meanzb),
@@ -249,8 +247,8 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
        ylab = "",
        yaxt = "n")
   
-  legend(x = -32, y = 6, bty="n", legend = "a. Bud burst", text.font = 2)
-  rasterImage(bbpng, -28, 1, -22, 4)
+  legend(x = -24, y = 6, bty="n", legend = "a. Bud burst", text.font = 2)
+  rasterImage(bbpng, -20, 1, -14, 4)
   
   axis(2, at = nrow(meanzb):1, labels = rownames(meanzb), las = 1, cex.axis = 0.8)
   points(meanzb[,'mean'],
@@ -263,7 +261,7 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
 
   par(mar=c(5, 10, 2, 1))
   # Lower panel: leaf-out
-  plot(seq(-30, 
+  plot(seq(-22, 
            12, 
            length.out = nrow(meanzl)), 
        1:nrow(meanzl),
@@ -272,8 +270,8 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
        ylab = "",
        yaxt = "n")
   
-  legend(x = -32, y = 6, bty="n", legend = "b. Leaf-out", text.font = 2)
-  rasterImage(lopng, -28, 1, -21, 4)
+  legend(x = -24, y = 6, bty="n", legend = "b. Leaf-out", text.font = 2)
+  rasterImage(lopng, -20, 1, -13, 4)
   
   axis(2, at = nrow(meanzl):1, labels = rownames(meanzl), las = 1, cex.axis = 0.8)
   points(meanzl[,'mean'],
@@ -285,8 +283,15 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
   abline(v = 0, lty = 3)
   
 dev.off();#system(paste("open", file.path(figpath, "Fig1_bb_lo.pdf"), "-a /Applications/Preview.app"))
-  
-# Figure 2: random effects. Photo x warm and chill1 x warm for bb and lo as 4 panels
+
+###############
+# Figure 2: random effects.
+# Photo x warm and chill1 x warm for bb and lo as 4 panels
+###############
+
+# Tip for checking figure range needs:
+# range(sumerb[grep(paste("b_chill1","\\[",sep=""), rownames(sumerb)),1], na.rm=TRUE)
+# Adjust sumerb -> sumerl and b_chill1 to other effects
 
 pdf(file.path(figpath, "Fig2_4panel.pdf"), width = 7, height = 7)
 
@@ -299,12 +304,12 @@ layout(matrix(c(1, 2, 3, # use layout instead of par(mfrow for more control of w
 plotblank = function(){plot(1:10, type="n",bty="n",xaxt="n",yaxt="n",ylab="",xlab="")}
 
 plotblank() 
-text(5,5, "Bud burst \n\n Advance due to 5° warming", font = 2, srt = 90)
+text(5,5, "Budburst \n\n Advance due to 5° warming", font = 2, srt = 90)
 
 plotlet( "b_photo", "b_warm",
          #  ylab = "Advance due to 5° warming", 
          # xlab = "Advance due to 4 hr longer photoperiod", 
-         ylim = c(-14, 0.5),
+         ylim = c(-16, 0.5),
          xlim = c(-11, 0.5),
          #  xaxt="n", 
          group = treeshrub,
@@ -322,35 +327,35 @@ legend("bottomright",
 plotlet("b_chill1", "b_warm", 
         # ylab = "Advance due to 5° warming", 
         #  xlab = "Advance due to 30d 4° chilling", 
-        ylim = c(-14, 0.5),
-        xlim = c(-33, -13),
+        ylim = c(-16, 0.5),
+        xlim = c(-27, -8),
         yaxt="n",
         # xaxt="n", 
         group = treeshrub,
         data = sumerb)
-axis(2, seq(0, -10, by = -5), labels = F)
+axis(2, seq(0, -10, by = -5), labels = FALSE)
 legend("topleft", bty = "n", inset = 0.05, legend = "B.", text.font=2)
 
 plotblank()
-text(5,5, "Leaf-out \n\n Advance due to 5° warming", font = 2, srt = 90)
+text(5,5, "Leafout \n\n Advance due to 5° warming", font = 2, srt = 90)
 
 plotlet("b_photo", "b_warm", 
         #    ylab = "Advance due to 5° warming", 
         #     xlab = "Advance due to 4 hr longer photoperiod", 
-        ylim = c(-28, -16),
-        xlim = c(-16, -11),
+        ylim = c(-27, -10),
+        xlim = c(-14, -6),
         group = treeshrub,
         data = sumerl)
 legend("topleft", bty = "n", inset = 0.05, legend = "C.", text.font=2)
 plotlet("b_chill1", "b_warm", 
         #   ylab = "Advance due to 5° warming", 
         #   xlab = "Advance due to 30d 4° chilling", 
-        ylim = c(-28, -16),
-        xlim = c(-33, -20),
+        ylim = c(-27, -10),
+        xlim = c(-27, -10),
         yaxt="n",
         group = treeshrub,
         data = sumerl)
-axis(2, seq(-16, -28, by = -2), labels = F)
+axis(2, seq(-16, -28, by = -2), labels = FALSE)
 legend("topleft", bty = "n", inset = 0.05, legend = "D.", text.font=2)
 plotblank()
 
@@ -417,7 +422,7 @@ dlo[!is.na(match(rownames(dlo), paste("b_chill2[", nochill, "]", sep=""))),] = 9
 # 
 # phylosigtable <- xtable(data.frame(Relationship = signaldat[,"var"],Lambda = signaldat[,"lambda"]), digits = 3,
 #                         caption = "Phylogenetic signal in timing of bud burst and leaf-out and species specific traits, as estimated in the caper package with simultaneous fitting of lambda.  Pore anatomy (ring- versus diffuse-porous species) was highly clustered phylogenetically, but no other trait examined demonstrated significant phylogenetic signal")
-
+# 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # Plot actual change in leaf-out by species, for Figure 1
 lday.agg <- aggregate(dx$lday, by=list(sp=dx$sp,

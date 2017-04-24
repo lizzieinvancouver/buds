@@ -17,6 +17,12 @@ lday_site_sp_chill_inter_poola_ncp.stan —  built off lday_site_sp_chill_inter_
 
 *This models runs well on the fake data and on the real data! Whoop, whoop!* 
 
+lday_site_sp_chill_inter_poola_ncp_doymb.Rda - above Stan code on real bud burst data with no divergent transitions
+
+lday_site_sp_chill_inter_poola_ncp_doyl.Rda - above Stan code on real leafout data with 3 divergent transitions
+
+* Remember: Increasing warmup iterations can also help with divergent transitions. *
+
 <><><><>
 Output:
 <><><><>

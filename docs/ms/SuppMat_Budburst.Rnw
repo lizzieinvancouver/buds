@@ -16,7 +16,7 @@
 
 \begin{document}
 
-\SweaveOpts{concordance=T} % 
+\SweaveOpts{concordance=FALSE} % 
 
 \flushleft
 
@@ -53,7 +53,7 @@ Across all treatments, 20.2\% of the cuttings did not break bud or leaf out. Acr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<echo=FALSE>>=
 
-setwd("~/Documents/git/buds/analyses")
+setwd("/Users/Lizzie/Documents/git/projects/treegarden/budexperiments/analyses")
 source("chill unit calcs.R")
 
 source("Pheno Budburst analysis.R")

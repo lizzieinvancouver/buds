@@ -1,3 +1,8 @@
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+# Utility function to plot 'random effects' from stan output
+# Taken from FakeBudburst_Analysis.R
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
 plotlet <- function(x, y, xlab=NULL, ylab=NULL, dat, groups = NULL){
   
   if(is.null(xlab)) xlab = x

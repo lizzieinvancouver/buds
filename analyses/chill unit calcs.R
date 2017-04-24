@@ -1,6 +1,6 @@
 # Calculating chill units
 
-setwd("~/Documents/git/buds/analyses")
+setwd("/Users/Lizzie/Documents/git/projects/treegarden/budexperiments/analyses")
 toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]
 load(file.path("input", toload))
 
@@ -12,7 +12,7 @@ library(chillR)
 
 # HF chilling from Oct 1 2014
 # 
-# htemp <- read.csv("~/Documents/git/buds/analyses/data/hf001-10-15min-m.csv")
+# htemp <- read.csv("..//data/hf001-10-15min-m.csv")
 # 
 # htemp$datetime <- as.POSIXlt(htemp$datetime, format = "%Y-%m-%dT%H:%M")
 # 
@@ -76,7 +76,7 @@ rownames(hfallcalc)=NULL
 
 ## St. Hipp data 
 
-stemp <- read.csv("~/Documents/git/buds/analyses/data/St. Hip Weather Data.csv")
+stemp <- read.csv("..//data/St. Hip Weather Data.csv")
 
 stemp$datetime <- as.POSIXlt(stemp$Date, format = "%Y-%m-%d")
 
