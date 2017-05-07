@@ -109,7 +109,7 @@ print(xtable(leafoutdays,
 
 <<label=supptable2, echo=FALSE, results=tex>>=
 
-# Supp table 2: Stan model effects for bb
+# Supp table 2: Stan model effects for bb  
 rownames(meanzb) = c(
                     "Temperature",
                     "Photoperiod",
@@ -117,15 +117,16 @@ rownames(meanzb) = c(
                     "Chilling 1.5 \\degree C",
                     "Site",
                     "Temperature $\\times$ Photoperiod",
-                    "Temperature $\\times$ Site",
-                    "Photoperiod $\\times$ Site",
                     "Temperature $\\times$ Chilling 4 \\degree C",
                     "Temperature $\\times$ Chilling 1.5 \\degree C",
                     "Photoperiod $\\times$ Chilling 4 \\degree C",
                     "Photoperiod $\\times$ Chilling 1.5 \\degree C",
+                    "Temperature $\\times$ Site",
+                    "Photoperiod $\\times$ Site",
                     "Site $\\times$ Chilling 4 \\degree C",
                     "Site $\\times$ Chilling 1.5 \\degree C"
                     )
+
 
 print(xtable(meanzb, caption = "Summary of mixed effect model of budburst day by species."), 
       include.rownames=TRUE, 

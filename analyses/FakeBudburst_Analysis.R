@@ -72,11 +72,14 @@ doym.fpoola <- stan('stan/lday_site_sp_chill_inter_poola.stan', data = datalist.
               # control = list(adapt_delta = 0.9,
               #                max_treedepth = 15))
 
+# Below runs!
 doym.fpoola.ncp <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan', data = datalist.f, 
-               iter = 1000)
+               iter = 3000)
 
-doym.fpoola.ncp <- stan('stan/lday_site_sp_chill_inter_poola_ncpfull.stan', data = datalist.f, 
-               iter = 1000)
+# The below runs deadly slowly and never converges
+# doym.fpoola.ncpfull  <- stan('stan/lday_site_sp_chill_inter_poola_ncpfull.stan', data = datalist.f, 
+#               iter = 3000)
+# Ditto for lday_site_sp_chill_inter_poola_ncpmore.stan, which I waited on for hours and gave up at 300 iter. 
 
 sf.poola <- summary(doym.fpoola)$summary
 sf.poola[grep("mu_", rownames(sf.poola)),]

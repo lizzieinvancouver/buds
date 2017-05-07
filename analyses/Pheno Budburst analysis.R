@@ -1,4 +1,4 @@
-forlatex = TRUE # set to FALSE if just trying new figures, TRUE if outputting for final
+forlatex = FALSE # set to FALSE if just trying new figures, TRUE if outputting for final
 runstan = FALSE # set to TRUE to actually run stan models. FALSE if loading from previous runs
 
 # Analysis of bud burst experiment 2015. 
@@ -102,6 +102,9 @@ unique(dxb$photo)
 dxb$photo[dxb$photo==1] <- 0
 dxb$photo[dxb$photo==2] <- 1
 
+unique(dxb$chill1)
+unique(dxb$chill2)
+
 # 1. Budburst day. 
 if(runstan){
   datalist.b <- list(lday = dxb$bday, # bud burst as response 
@@ -117,7 +120,7 @@ if(runstan){
   )
   
     doym.b <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan', 
-                 data = datalist.b, iter = 4606, chains = 4, 
+                 data = datalist.b, warmup=4000, iter = 7997, chains = 4,
                  control = list(adapt_delta = 0.9))
                  #               , max_treedepth = 15)) 
   
@@ -140,7 +143,7 @@ sumerb[grep("mu_", rownames(sumerb)),]
 # pairs(doym.b, pars = c(names(doym.b)[grep("sigma_b_inter", names(doym.b))], "lp__"))
 
 
-# save(doym.b, file="stan/lday_site_sp_chill_inter_poola_ncp_doymb.Rda")
+# save(doym.b, file="stan/output/lday_site_sp_chill_inter_poola_ncp_doymb.Rda")
 # load('stan/lday_site_sp_chill_inter_poola_ncp_doymb.Rda')
 
 # plot effects
@@ -188,6 +191,9 @@ unique(dxl$photo)
 dxl$photo[dxl$photo==1] <- 0
 dxl$photo[dxl$photo==2] <- 1
 
+unique(dxl$chill1)
+unique(dxl$chill2)
+
 if(runstan){
   datalist.l <- list(lday = dxl$lday, # leaf-out as respose 
                      warm = as.numeric(dxl$warm), 
@@ -202,9 +208,9 @@ if(runstan){
   )
   
     doym.l <- stan('stan/lday_site_sp_chill_inter_poola_ncp.stan',
-                data = datalist.l, iter = 6606, chains = 4,
+                data = datalist.l, warmup=4000, iter = 7997, chains = 4,
                 control = list(adapt_delta = 0.95))
-                #               ,max_treedepth = 15)) 
+                #               ,max_treedepth = 15))
 }
 
 #yl = dxl$lday # for shinystan posterior checks
@@ -213,7 +219,7 @@ if(runstan){
 sumerl <- summary(doym.l)$summary
 sumerl[grep("mu_", rownames(sumerl)),]
 
-# save(doym.l, file="stan/lday_site_sp_chill_inter_poola_ncp_doyl.Rda")
+# save(doym.l, file="stan/output/lday_site_sp_chill_inter_poola_ncp_doyl.Rda")
 
 meanzl <- sumerl[mu_params,col4table]
 rownames(meanzl) = rownames(meanzb)
