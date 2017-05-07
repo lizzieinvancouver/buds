@@ -1,5 +1,5 @@
 ### Started 14 April 2016 ###
-### By Lizzie ###
+### By Lizzie and Dan Flynn ###
 
 # okeefe.csv = date of first event for any individual of that species, in that year
 
@@ -10,12 +10,12 @@ options(stringsAsFactors=FALSE)
 library(ggplot2)
 library(tidyr)
 
-if(length(grep("danflynn", getwd()))==0){ setwd("~/Documents/git/projects/treegarden/okeefe/analyses") }
+if(length(grep("danflynn", getwd()))==0){ setwd("~/Documents/git/projects/treegarden/budexperiments/analyses/okeefe") }
 
-if(length(grep("danflynn", getwd()))>0){ setwd("~/Documents/git/buds/analyses/okeefe") }
+# if(length(grep("danflynn", getwd()))>0){ setwd("~/Documents/git/buds/analyses/okeefe") }
 
 
-d <- read.csv("../data/hf003-06-mean-spp.csv")
+d <- read.csv("../../data/hf003-06-mean-spp.csv")
 splist <- read.csv("input/specieslist_bylizzie.csv")
 d$latbi <- splist[match(d$sp, splist$code), "genusspecies"]
 
