@@ -61,7 +61,11 @@ nrow(ace_rubtotal)
 cortotal<-filter(fb, sp=="CORCOR")
 nrow(cortotal)
 iltotal<-filter(fb, sp=="ILEMUC")
-nrow(iltotal)
+###exclude chilling in ilex
+itotal<-filter(iltotal,chill=="chill0")
+itotal<-filter(itotal, !is.na(fday))
+nrow(itotal)
+
 poptotal<-filter(fb, sp=="POPGRA")
 nrow(poptotal)
 prutotal<-filter(fb, sp=="PRUPEN")
