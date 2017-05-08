@@ -1,4 +1,4 @@
-forlatex = FALSE # set to FALSE if just trying new figures, TRUE if outputting for final
+forlatex = TRUE # set to FALSE if just trying new figures, TRUE if outputting for final
 runstan = FALSE # set to TRUE to actually run stan models. FALSE if loading from previous runs
 
 # Analysis of bud burst experiment 2015. 
@@ -12,7 +12,7 @@ library(caper) # for pgls
 library(png) # readPNG for Fig 1
 
 setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
-source('source/plotletfx.R')
+source('source/plotletfx_emw.R')
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # get latest .Rdata file
@@ -231,10 +231,19 @@ sumerb[!is.na(match(rownames(sumerb), paste("b_chill2[", nochill, "]", sep="")))
 sumerl[!is.na(match(rownames(sumerl), paste("b_chill1[", nochill, "]", sep=""))),] = NA
 sumerl[!is.na(match(rownames(sumerl), paste("b_chill2[", nochill, "]", sep=""))),] = NA
 
+
+## Look at posteriors of some ranefs (just one chain, that's the [[1]])
+# hist(doym.b@sim$samples[[1]]$`b_photo[13]`, breaks=1000)
+# hist(doym.l@sim$samples[[1]]$`b_photo[13]`, breaks=1000)
+
 ################
 # Figure 1:
 # Stan model effects for bud burst and leaf-out
 ################
+
+## Want to flip the axes?
+## Try source("source/figureflipping.R")
+## It does the work for Fig. 1 .... would need more work to do for other figures 
 
 bbpng <- readPNG(file.path(figpath, "Finn_BB.png")) # Illustrations from Finn et al.
 lopng <- readPNG(file.path(figpath, "Finn_LO.png"))
@@ -261,7 +270,7 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
          nrow(meanzb):1,
          pch = 16,
          col = "midnightblue")
-  arrows(meanzb[,"mean"]-meanzb[,"sd"], nrow(meanzb):1, meanzb[,"mean"]+meanzb[,"sd"], nrow(meanzb):1,
+  arrows(meanzb[,"75%"], nrow(meanzb):1, meanzb[,"25%"], nrow(meanzb):1,
          len = 0, col = "black")
   abline(v = 0, lty = 3)
 
@@ -284,7 +293,7 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
          nrow(meanzl):1,
          pch = 16,
          col = "midnightblue")
-  arrows(meanzl[,"mean"]-meanzl[,"sd"], nrow(meanzl):1, meanzl[,"mean"]+meanzl[,"sd"], nrow(meanzl):1,
+  arrows(meanzl[,"75%"], nrow(meanzl):1, meanzl[,"25%"], nrow(meanzl):1,
          len = 0, col = "black")
   abline(v = 0, lty = 3)
   

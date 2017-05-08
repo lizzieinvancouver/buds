@@ -1,7 +1,9 @@
 # Additional plotting for lizzie 2016-04-04
 # also bunch of extra stuff in general
 #library(plotrix)#for draw.ellipse
-# From loaded data 
+# From loaded data (run lines 0-250 in Pheno Budburst analysis.R as of 7 May 2017)
+# Updates from Lizzie to fix ordering and switch to credible intervals
+
 groups = treeshrub
   
 #exclude non-chill sp from chill parameter plotting. easiest to give a big number (otherwise have to also subset other parameters when plotting pairwise). Also non-site sp from site plotting
@@ -386,9 +388,10 @@ dev.off()#;system(paste("open", file.path(figpath, "Intercepts_overall.pdf"), "-
 
 speff.bb <- speff.lo <- vector()
 params <- c("b_warm","b_photo","b_chill1","b_chill2","b_site",
-            "b_inter_wp","b_inter_ws","b_inter_ps",
+            "b_inter_wp",
             "b_inter_wc1","b_inter_wc2",
             "b_inter_pc1","b_inter_pc2",
+            "b_inter_ws","b_inter_ps",
             "b_inter_sc1","b_inter_sc2")
 
 pdf(file.path(figpath, "Fig1_bb_lo+sp.pdf"), width = 7, height = 8)
@@ -412,10 +415,11 @@ axis(2, at = 5*(nrow(meanzb):1), labels = rownames(meanzb), las = 1, cex.axis = 
 # Plot species levels for each predictor
 for(i in 1:length(unique(dx$sp))){
   sp.est <- sumerb[!is.na(match(rownames(sumerb), paste(params, "[", i, "]", sep=""))),col4table]
+  sp.est <- sp.est[paste(params, "[", i, "]", sep=""),]
   
-  jt <- jitter(0, factor = 50)
+  jt <- jitter(0, factor = 40)
 
-  arrows(sp.est[,"mean"]-sp.est[,"sd"],  jt+(5*(nrow(meanzb):1)-1), sp.est[,"mean"]+sp.est[,"sd"],  jt+(5*(nrow(meanzb):1)-1),
+  arrows(sp.est[,"75%"],  jt+(5*(nrow(meanzb):1)-1), sp.est[,"25%"],  jt+(5*(nrow(meanzb):1)-1),
          len = 0, col = alpha("firebrick", 0.2)) 
   
   points(sp.est[,'mean'],
@@ -426,13 +430,13 @@ for(i in 1:length(unique(dx$sp))){
   speff.bb = rbind(speff.bb, t(sp.est[,1]))
     }
 
-arrows(meanzb[,"mean"]-meanzb[,"sd"], (5*(nrow(meanzb):1))+1, meanzb[,"mean"]+meanzb[,"sd"], (5*(nrow(meanzb):1))+1,
+arrows(meanzb[,"75%"], (5*(nrow(meanzb):1))+1, meanzb[,"25%"], (5*(nrow(meanzb):1))+1,
        len = 0, col = "black", lwd = 3)
 
 points(meanzb[,'mean'],
        (5*(nrow(meanzb):1))+1,
        pch = 16,
-       cex = 2,
+       cex = 1,
        col = "midnightblue")
 abline(v = 0, lty = 2)
 
@@ -458,10 +462,11 @@ axis(2, at = 5*(nrow(meanzl):1), labels = rownames(meanzl), las = 1, cex.axis = 
 # Plot species levels for each predictor
 for(i in 1:length(unique(dx$sp))){
   sp.est <- sumerl[!is.na(match(rownames(sumerl), paste(params, "[", i, "]", sep=""))),col4table]
+  sp.est <- sp.est[paste(params, "[", i, "]", sep=""),]
   
-  jt <- jitter(0, factor = 50)
+  jt <- jitter(0, factor = 40)
   
-  arrows(sp.est[,"mean"]-sp.est[,"sd"],  jt+(5*(nrow(meanzl):1)-1), sp.est[,"mean"]+sp.est[,"sd"],  jt+(5*(nrow(meanzl):1)-1),
+  arrows(sp.est[,"75%"],  jt+(5*(nrow(meanzl):1)-1), sp.est[,"25%"],  jt+(5*(nrow(meanzl):1)-1),
          len = 0, col = alpha("firebrick", 0.2)) 
   
   points(sp.est[,'mean'],
@@ -473,13 +478,13 @@ for(i in 1:length(unique(dx$sp))){
   
 }
 
-arrows(meanzl[,"mean"]-meanzl[,"sd"], (5*(nrow(meanzl):1))+1, meanzl[,"mean"]+meanzl[,"sd"], (5*(nrow(meanzl):1))+1,
+arrows(meanzl[,"75%"], (5*(nrow(meanzl):1))+1, meanzl[,"25%"], (5*(nrow(meanzl):1))+1,
        len = 0, col = "black", lwd = 3)
 
 points(meanzl[,'mean'],
        (5*(nrow(meanzl):1))+1,
        pch = 16,
-       cex = 2,
+       cex = 1,
        col = "midnightblue")
 abline(v = 0, lty = 2)
 

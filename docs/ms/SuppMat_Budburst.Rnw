@@ -196,7 +196,7 @@ print(chilltable,
 \begin{figure}
 \caption{Model estimates of effects of each predictors on bud burst, including species-level effects.}
 \label{figS2}
-\includegraphics[scale=0.75, page=1]{Fig1_bb_lo+sp}
+\includegraphics[scale=0.75, page=1]{Fig1_bb_lo+sp} % built in Additional Plots and Processing.R
 \end{figure}
 
 \clearpage
