@@ -150,7 +150,8 @@ transformed parameters { // Vectorize: Won't save time probably here (no scalar 
 		b_inter_pc1[sp[i]] * inter_pc1[i] +
 		b_inter_pc2[sp[i]] * inter_pc2[i] +
 		b_inter_sc1[sp[i]] * inter_sc1[i] +
-		b_inter_sc2[sp[i]] * inter_sc2[i] 
+		b_inter_sc2[sp[i]] * inter_sc2[i] +
+                b_inter_wpc1[sp[i]] * inter_wpc1[i] 
 		;
 				
 		}

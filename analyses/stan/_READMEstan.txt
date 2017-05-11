@@ -120,5 +120,5 @@ lday_site_sp_chill_inter3X_poola_ncp.stan - as in lday_site_sp_chill_inter_poola
                  data = datalist.b, warmup=4000, iter = 7997, chains = 4,
                  control = list(adapt_delta = 0.9))
 
-…led to 14897 divergent transitions (I think every transition was divergent!) and a crazy value for mu_b_inter_wpc1 (somewhere between about 0 and 20,000,000 … it never converged).
+…led to 15541 divergent transitions (I think every transition was divergent!) and a crazy value for mu_b_inter_wpc1 (somewhere between about -1^7 and 3^6 … it never converged). Runs quickly though!
 
