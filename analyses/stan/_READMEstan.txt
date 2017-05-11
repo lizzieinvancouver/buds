@@ -114,3 +114,11 @@ In models_archive_ncp: (non-centered parameterization)
 
 lday_site_sp_chill_inter_poola_ncpfull.stan — as in lday_site_sp_chill_inter_poola.stan but WITH all possible non-centered parameterizations (i.e., in addition to NCP on the interactions, I tried adding it to the main effects too). This model actually rain painfully slow on the fake data thought and NEVER converged. So I did not use it. (On Lizzie’s computer I save the output in output/doym.fpoola.ncpBAD.Rdata)
 
+lday_site_sp_chill_inter3X_poola_ncp.stan - as in lday_site_sp_chill_inter_poola_ncp.stan but attempted to add a 3X interaction (warm*photo*chill1). This model ran with this code:
+
+    doym.b <- stan('stan/lday_site_sp_chill_inter3X_poola_ncp.stan', 
+                 data = datalist.b, warmup=4000, iter = 7997, chains = 4,
+                 control = list(adapt_delta = 0.9))
+
+…led to 14897 divergent transitions (I think every transition was divergent!) and a crazy value for mu_b_inter_wpc1 (somewhere between about 0 and 20,000,000 … it never converged).
+
