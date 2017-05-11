@@ -398,7 +398,7 @@ pdf(file.path(figpath, "Fig1_bb_lo+sp.pdf"), width = 7, height = 8)
 
 par(mfrow=c(1,1), mar = c(2, 10, 2, 1))
 # Upper panel: budburst
-plot(seq(-33, #min(meanz[,'mean']*1.1),
+plot(seq(-29, #min(meanz[,'mean']*1.1),
          13, #max(meanz[,'mean']*1.1),
          length.out = nrow(meanzb)), 
      seq(1, 5*nrow(meanzb), length.out = nrow(meanzb)),
@@ -407,7 +407,7 @@ plot(seq(-33, #min(meanz[,'mean']*1.1),
      ylab = "",
      yaxt = "n")
 
-legend(x = -32, y = 12, bty="n", legend = "a. Budburst", text.font = 2)
+legend(x = -29, y = 12, bty="n", legend = "a. Budburst", text.font = 2)
 rasterImage(bbpng, -28, 1, -20, 8)
 
 axis(2, at = 5*(nrow(meanzb):1), labels = rownames(meanzb), las = 1, cex.axis = 0.8)
@@ -445,7 +445,7 @@ abline(v = 0, lty = 2)
 
 par(mfrow=c(1,1), mar = c(2, 10, 2, 1))
 
-plot(seq(-33, #min(meanz[,'mean']*1.1),
+plot(seq(-29, #min(meanz[,'mean']*1.1),
          13, #max(meanz[,'mean']*1.1),
          length.out = nrow(meanzl)), 
      seq(1, 5*nrow(meanzl), length.out = nrow(meanzl)),
@@ -454,8 +454,8 @@ plot(seq(-33, #min(meanz[,'mean']*1.1),
      ylab = "",
      yaxt = "n")
 
-legend(x = -32, y = 12, bty="n", legend = "b. Leafout", text.font = 2)
-rasterImage(lopng, -29, 1, -20, 8)
+legend(x = -29, y = 12, bty="n", legend = "b. Leafout", text.font = 2)
+rasterImage(lopng, -28, 1, -19, 8)
 
 axis(2, at = 5*(nrow(meanzl):1), labels = rownames(meanzl), las = 1, cex.axis = 0.8)
 

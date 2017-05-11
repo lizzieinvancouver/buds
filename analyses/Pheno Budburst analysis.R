@@ -12,7 +12,7 @@ library(caper) # for pgls
 library(png) # readPNG for Fig 1
 
 setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
-source('source/plotletfx_emw.R')
+source('source/plotletfx.R') # this one shows 50% credible intervals for the bars
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # get latest .Rdata file
@@ -319,21 +319,21 @@ layout(matrix(c(1, 2, 3, # use layout instead of par(mfrow for more control of w
 plotblank = function(){plot(1:10, type="n",bty="n",xaxt="n",yaxt="n",ylab="",xlab="")}
 
 plotblank() 
-text(5,5, "Budburst \n\n Advance due to 5° warming", font = 2, srt = 90)
+text(5,5, "Budburst \n Change (days) due to 5° warming", font = 2, srt = 90) # \n\n add two line breaks
 
 plotlet( "b_photo", "b_warm",
          #  ylab = "Advance due to 5° warming", 
          # xlab = "Advance due to 4 hr longer photoperiod", 
-         ylim = c(-16, 0.5),
-         xlim = c(-11, 0.5),
+         ylim = c(-27, 0.5),
+         xlim = c(-16, 0.5),
          #  xaxt="n", 
          group = treeshrub,
          data = sumerb)
 
-legend("topleft", bty = "n", inset = 0.05, legend = "A.", text.font=2)
+legend("topleft", bty = "n", inset = 0.035, legend = "A.", text.font=2)
 
 legend("bottomright",
-       pch = 16,
+       pch = "+",
        col = colz,
        legend = c("Shrubs","Trees"),
        inset = 0.02, 
@@ -342,45 +342,127 @@ legend("bottomright",
 plotlet("b_chill1", "b_warm", 
         # ylab = "Advance due to 5° warming", 
         #  xlab = "Advance due to 30d 4° chilling", 
-        ylim = c(-16, 0.5),
-        xlim = c(-27, -8),
+        ylim = c(-27, 0.5),
+        xlim = c(-28, -8),
         yaxt="n",
         # xaxt="n", 
         group = treeshrub,
         data = sumerb)
-axis(2, seq(0, -10, by = -5), labels = FALSE)
-legend("topleft", bty = "n", inset = 0.05, legend = "B.", text.font=2)
+axis(2, seq(0, -25, by = -5), labels = FALSE)
+legend("topleft", bty = "n", inset = 0.035, legend = "B.", text.font=2)
 
 plotblank()
-text(5,5, "Leafout \n\n Advance due to 5° warming", font = 2, srt = 90)
+text(5,5, "Leafout \n Change (days) due to 5° warming", font = 2, srt = 90)
 
 plotlet("b_photo", "b_warm", 
         #    ylab = "Advance due to 5° warming", 
         #     xlab = "Advance due to 4 hr longer photoperiod", 
-        ylim = c(-27, -10),
-        xlim = c(-14, -6),
+        ylim = c(-27, 0.5),
+        xlim = c(-16, 0.5),
         group = treeshrub,
         data = sumerl)
-legend("topleft", bty = "n", inset = 0.05, legend = "C.", text.font=2)
+legend("topleft", bty = "n", inset = 0.035, legend = "C.", text.font=2)
 plotlet("b_chill1", "b_warm", 
         #   ylab = "Advance due to 5° warming", 
         #   xlab = "Advance due to 30d 4° chilling", 
-        ylim = c(-27, -10),
-        xlim = c(-27, -10),
+        ylim = c(-27, 0.5),
+        xlim = c(-28, -8),
         yaxt="n",
         group = treeshrub,
         data = sumerl)
-axis(2, seq(-16, -28, by = -2), labels = FALSE)
-legend("topleft", bty = "n", inset = 0.05, legend = "D.", text.font=2)
+axis(2, seq(0, -25, by = -5), labels = FALSE)
+legend("topleft", bty = "n", inset = 0.035, legend = "D.", text.font=2)
 plotblank()
 
 plotblank()
-text(6,5, "Advance due to 4 hr longer photoperiod", font = 2, pos = 3)
+text(5.5, 5, "Change (days) due to 4 hr longer photoperiod", font = 2, pos = 3)
 
 plotblank()
-text(6,5, "Advance due to 30d 4° chilling", font = 2, pos = 3)
+text(5.5, 5, "Change (days) due to 30d 4° chilling", font = 2, pos = 3)
 
 dev.off();#system(paste("open", file.path(figpath, "Fig2_4panel.pdf"), "-a /Applications/Preview.app"))
+
+
+###############
+# Figure 2* Supp version: random effects.
+# Photo x warm and chill1 x warm for bb and lo as 4 panels
+# Zoomed in and without the 50% credible intervals so you can see the species names
+###############
+
+pdf(file.path(figpath, "Fig2_4panel_ZoomSupp.pdf"), width = 7, height = 7)
+
+par(mar=rep(1.25,4))
+layout(matrix(c(1, 2, 3, # use layout instead of par(mfrow for more control of where labels end up
+                4, 5, 6,
+                7, 8, 9),ncol = 3, byrow = TRUE),
+       widths = c(1, 4, 4),
+       heights = c(4, 4, 1))
+plotblank = function(){plot(1:10, type="n", bty="n", xaxt="n", yaxt="n", ylab="", xlab="")}
+
+plotblank() 
+text(5,5, "Budburst \n Change (days) due to 5° warming", font = 2, srt = 90)
+
+plotlet.old( "b_photo", "b_warm",
+         #  ylab = "Advance due to 5° warming", 
+         # xlab = "Advance due to 4 hr longer photoperiod", 
+         ylim = c(-16, 0.5),
+         xlim = c(-12, 0.5),
+         #  xaxt="n", 
+         group = treeshrub,
+         data = sumerb)
+
+legend("topleft", bty = "n", inset = 0.035, legend = "A.", text.font=2)
+
+legend("bottomright",
+       pch = "+",
+       col = colz,
+       legend = c("Shrubs","Trees"),
+       inset = 0.02, 
+       bg = 'white')
+
+plotlet.old("b_chill1", "b_warm", 
+        # ylab = "Advance due to 5° warming", 
+        #  xlab = "Advance due to 30d 4° chilling", 
+        ylim = c(-16, 0.5),
+        xlim = c(-28, -8),
+        yaxt="n",
+        # xaxt="n", 
+        group = treeshrub,
+        data = sumerb)
+axis(2, seq(0, -25, by = -5), labels = TRUE)
+legend("topleft", bty = "n", inset = 0.035, legend = "B.", text.font=2)
+
+plotblank()
+text(5,5, "Leafout \n Change (days) due to 5° warming", font = 2, srt = 90) 
+
+plotlet.old("b_photo", "b_warm", 
+        #    ylab = "Advance due to 5° warming", 
+        #     xlab = "Advance due to 4 hr longer photoperiod", 
+        ylim = c(-27, -12),
+        xlim = c(-14, -7),
+        group = treeshrub,
+        data = sumerl)
+legend("topleft", bty = "n", inset = 0.035, legend = "C.", text.font=2)
+plotlet.old("b_chill1", "b_warm", 
+        #   ylab = "Advance due to 5° warming", 
+        #   xlab = "Advance due to 30d 4° chilling", 
+        ylim = c(-27, -12),
+        xlim = c(-28, -8),
+        yaxt="n",
+        group = treeshrub,
+        data = sumerl)
+axis(2, seq(0, -25, by = -5), labels = TRUE)
+legend("topleft", bty = "n", inset = 0.035, legend = "D.", text.font=2)
+plotblank()
+
+plotblank()
+text(5.5, 5, "Change (days) due to 4 hr longer photoperiod", font = 2, pos = 3)
+
+plotblank()
+text(5.5, 5, "Change (days) due to 30d 4° chilling", font = 2, pos = 3)
+
+dev.off();
+
 
 if(runstan) { savestan("Inter") }
 
