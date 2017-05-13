@@ -27,7 +27,7 @@
 \SweaveOpts{concordance=FALSE} 
   
 \flushleft
-\textbf{\large{Coordinated responses to changing environmental cues across a community of temperate forest plants}} % another take
+\textbf{\large{Coordinated phenological responses to changing environmental cues across a community of temperate forest plants}} % another take
 
 
 Flynn, Wolkovich
@@ -48,19 +48,37 @@ Flynn, Wolkovich
 
 Plant phenology---the timing of recurring life history events, such as leafout and flowering---is critical to the structure and function of ecosystems. Plant phenology determines the timing of the basal resource in most systems, and thus shapes food webs and pollinator networks (CITE). Additionally, spring plant phenology drives local ecosystem properties, from the length of the growing season to energy balance between land and atmosphere, and scales up to impact global carbon cycles \cite{Richardson:2009aa}. This is especially true in temperate forests, which make up XX\% of the total carbon budget or such. \\
 
-Phenology is also one of the major biological indicators of climate change, with plant phenology shifting across the globe 4-6 days/C with warming (CITE). While this average response is strikingly consistent across species, space and time (CITE), it masks tremendous variation. Variation is extreme when examined across species (CITE), but additional variation can be seen within species across time (CITEFU). Understanding this variation has been the goal of much recent work (CITES), with researchers focuses on two major linked areas: (1) identifying and quantifying the environmental cues that drive spring phenology (i.e., leafout and budburst), and (2) identifying what drives variation in cues between different species. \\
+Phenology is also one of the major biological indicators of climate change, with plant phenology shifting across the globe 4-6 days/C with warming (CITE). While this average response is strikingly consistent when considered across diverse datasets (CITE), it masks tremendous variation. Variation is extreme when examined across species (CITE), but additional variation can be seen within species across time (CITEFU). Understanding this variation has been the goal of much recent work (CITES), with research focusing on two major linked aims: (1) identifying and quantifying the environmental cues that drive spring phenology (i.e., leafout and budburst), and (2) identifying what drives variation in cues between different species. [Say here something about focusing on woody plant phenology?]\\
 
-Para here on cues. \\
+Researchers have long recognized three major environmental cues that drive spring phenology: forcing (warm temperatures, occurring predominantly in the spring), chilling (cooler temperatures, occurring predominantly in the fall-winter and possibly spring) and photoperiod (CITE). These cues are known to interact and possibly modify one another in some species. For example, insufficient amount of chilling may be offset by additional forcing (CITE); photoperiod and forcing are known to interact in driving spring phenology in woody species---especially through their complex impacts on dormancy release (CITE CHUINE). Yet, while these complexities have been identified in some species, a growing body of hypotheses and experimental studies, focused on woody species, has suggested many species are dominated by one cue and may lack any response to other cues (CITES). If this is true it has critical implications for predicting responses to climate change, as a species dominated by a forcing cue could march forever earlier in their leafout with continued warming, while species with strong photoperiod cues could stop advancing at some threshold point (CITES). \\
 
-Para here on species variation. \\
+% START HERE! Read all of this, then try to decide how to tackle this paragraph
+Alongside this growing interest in how cues co-vary within species is an aim to understand and predict variation in cues across species. Research here has focused on attributes of species: origin of species on shorter and longer timescales (CITEZOHNER?), (CITES) the successional stage (pioneer or climax communities) to which species traditionally belong (CITES) and a variety of possibly related traits (CITES). Most of these studies hinge on an assumption that phenology, by helping define the temporal niche of a species, is a critical axis of plant species assemble within one community. LINK NOW TO INVASIONS.... 
 
 
+ Multiple studies have now documented that non-native and invasive species appear to have stronger temperature cues, compared to chilling or photoperiod cues, than native species (CITES); while results on the relationship between cues and the successional stage have been more equivocal (CITES). 
+% Maybe just say: People have focused on invasions and succession, but this all boils down to assuming phenology is critical to plant coexistence? Or flip it around like this outline: 
+(1) Temporal niche baby
+(2) invasions
+(3) succession? (Do we even want to mention this?! Or save for conclusions)
+(4) Crazy shit about STV or such .... 
+
+ \\
+
+
+\item Accurate predictions clearly require a fuller understanding of the interacting environmental cues that drive phenology within a community. We list out the cues (and say temporal niche again).
+\item We somewhere say that we expected a trade-off between cues!
+\item Here we study these cues in some forests.
+We have two predictions:\\
+(1) Species would show staggered cues (driving staggered leafout across the season).
+(2) Within species cues would trade-off, such that some species would be dominated by one or another cue, while other would show a mix of cues. 
+\end{itemize}
 
 
 %% Below is original from Dan: 
 Woody plant  The crucial role that phenology plays in ecosystem processes, and the wealth of observational data highlighting how rapidly plant and animal phenology are advancing \cite{Menzel:2006} has led to increased interest in better understanding and prediction of how plant phenology will shift with continued climate change.
 
-Decades of study on wild species spring phenology---mainly focused on temperate woody species---show that three major cues drive bud burst and leaf-out: spring temperatures (forcing), length and intensity of winter temperature (chilling), and changing day length (photoperiod). Across studies increasing temperatures in the spring appear to be a dominant factor that controls spring phenology, yet many of these studies have been observational---making it nearly impossible to tease out the generally co-varying effects of longer days and reduced cold temperatures, which generally reduce chilling. In contrast studies from controlled environments (e.g., growth chambers or greenhouses) have highlighted the additional importance of photoperiod and chilling \cite{Heide:1993b,Falusi:1996aa,Foley:2009aa,Ghelardini:2010aa,Caffarra:2011aa}, with longer days and increased chilling leading to more rapid leaf-out \cite{Caffarra:2011ab}. Further, photoperiod and chilling often appear to interact, as long photoperiod enhances cell growth, compensating for a lack of chilling during plants' winter dormacy \cite{Heide:1993b,Myking:1995,Caffarra:2011aa}. To an extent, all three factors---temperature, photoperiod, and chilling may be interchangeable in some species---such that a plant experiencing a mild winter with insufficient chilling can still break bud given sufficiently long photoperiods and warm temperatures \cite{Heide:1993b}. 
+Decades of study on wild species spring phenology---mainly focused on temperate woody species---show that three major cues drive bud burst and leaf-out: spring temperatures (forcing), length and intensity of winter temperature (chilling), and changing day length (photoperiod). Across studies increasing temperatures in the spring appear to be a dominant factor that controls spring phenology, yet many of these studies have been observational---making it nearly impossible to tease out the generally co-varying effects of longer days and reduced cold temperatures, which generally reduce chilling. In contrast studies from controlled environments (e.g., growth chambers or greenhouses) have highlighted the additional importance of photoperiod and chilling \cite{Heide:1993b,Falusi:1996aa,Foley:2009aa,Ghelardini:2010aa,Caffarra:2011aa}, with longer days and increased chilling leading to more rapid leaf-out \cite{Caffarra:2011ab}. Further, photoperiod and chilling often appear to interact, as long photoperiod enhances cell growth, compensating for a lack of chilling during plants' winter dormancy \cite{Heide:1993b,Myking:1995,Caffarra:2011aa}. To an extent, all three factors---temperature, photoperiod, and chilling may be interchangeable in some species---such that a plant experiencing a mild winter with insufficient chilling can still break bud given sufficiently long photoperiods and warm temperatures \cite{Heide:1993b}. 
 
 % Caffarra & Donnolley 2011: Tilia and Fagus conservative, late successional and photoperiod-cued; Betula and Salix less conservative and forcing-cued
 
