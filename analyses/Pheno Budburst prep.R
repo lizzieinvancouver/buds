@@ -10,13 +10,14 @@ library(arm)
 library(picante)
 library(ade4)
 
-setwd("~/Documents/git/buds/analyses")
+# setwd("~/Documents/git/buds/analyses")
+setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
 
 #d <- read.csv("Budburst.csv")
 
-d1 <- read.xls("data/Budburst Datasheet 2015-05-15.xlsx") # read.xls function from gdata. Slow, but no intermediate step of saving as csv. 
+d1 <- read.xls("..//data/Budburst Datasheet 2015-05-15.xlsx") # read.xls function from gdata. Slow, but no intermediate step of saving as csv. 
 
-d2 <- read.xls("data/Budburst Datasheet 2015-05-15.xlsx", sheet = 2) # long format for consolidated treatments and chilling
+d2 <- read.xls("..//data/Budburst Datasheet 2015-05-15.xlsx", sheet = 2) # long format for consolidated treatments and chilling
 
 
 
