@@ -17,14 +17,11 @@
 \begin{document}
 
 \SweaveOpts{concordance=FALSE} % 
+\noindent \textbf{\large{Supplemental Materials: Photoperiod and temperature interactively drive spring phenology in multiple species}}
 
-\flushleft
+\noindent Flynn, Wolkovich...
 
-\textbf{\large{Supplemental Materials: Photoperiod and temperature interactively drive spring phenology in multiple species}}
-
-Flynn, Wolkovich...
-
-\textit{The Arnold Arboretum of Harvard University}
+\noindent \textit{The Arnold Arboretum of Harvard University}
 
 %% Add S prefix for tables and figures in Supplemental Materials
 \renewcommand{\thetable}{S\arabic{table}}
@@ -38,7 +35,7 @@ We conducted a literature review, finding 109 studies which investigated effects
 The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions (hours below 7.2\degree C and between 0\degree C and 7.2\degree C) and Dynamic Model \cite{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \cite{Luedeling:2009}.
 With both the Utah and Dynamic model, the more severe chilling treatment resulted in fewer calculated chilling portions. 
 
-\subsection*{Nonleaf outs}
+\subsection*{Non-leafouts}
 Across all treatments, 20.2\% of the cuttings did not break bud or leaf out. Across species, there was no overall predictive effect of temperature, photoperiod, chilling, or site on the propensity to fail to leaf out. Species ranged from complete leaf out (\emph{Hamamaelis}) to only 50\% leaf out (\emph{Fagus grandifolia}, \emph{Acer saccharum}) across all treatments. The percent of nonleaf outs by site was similar, with 20.6\% of Harvard Forest and 19.7\% of St. Hippolyte samples failing to leaf out. Examining individual species,  there was an interaction of temperature by day length for selected species, with greater failure to leaf out in cool, short-day conditions for \emph{Acer pensylvanicum}  and \emph{Acer saccharum}. Site effects were inconsistent, with greater failure to leaf out for cuttings from St. Hippolyte in \emph{Acer rubrum} and \emph{Fagus grandifolia}, and from Harvard Forest in \emph{Acer saccharum}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,6 +45,7 @@ Across all treatments, 20.2\% of the cuttings did not break bud or leaf out. Acr
 \bibliography{danlib}
 \bibliographystyle{naturemag}
 
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplemental Figures and Tables}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -100,50 +98,52 @@ leafoutdays <- data.frame(Species = rownames(leafoutdays), leafoutdays)
 leafoutdays$Species = paste("\\textit{",leafoutdays$Species,"}", sep="")
 
 print(xtable(leafoutdays, 
-             caption = "Mean leafout and budburst days for the 28 species at both Harvard Forest, USA and St. Hippoltye, Canada",
+             caption = "Mean leafout and budburst days for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada",
              align = c("l", "l","r","r","r","r")), #>{\\textit}l
       include.rownames=F, 
       caption.placement = "top", 
       sanitize.text.function = function(x) {x})
 @
 
+\newpage
+
 <<label=supptable2, echo=FALSE, results=tex>>=
 
 # Supp table 2: Stan model effects for bb  
-rownames(meanzb) = c(
-                    "Temperature",
+rownames(meanzb.table) = c(
+                    "Forcing Temperature",
                     "Photoperiod",
                     "Chilling 4 \\degree C",
                     "Chilling 1.5 \\degree C",
                     "Site",
-                    "Temperature $\\times$ Photoperiod",
-                    "Temperature $\\times$ Chilling 4 \\degree C",
-                    "Temperature $\\times$ Chilling 1.5 \\degree C",
+                    "Forcing Temperature $\\times$ Photoperiod",
+                    "Forcing Temperature $\\times$ Chilling 4 \\degree C",
+                    "Forcing Temperature $\\times$ Chilling 1.5 \\degree C",
                     "Photoperiod $\\times$ Chilling 4 \\degree C",
                     "Photoperiod $\\times$ Chilling 1.5 \\degree C",
-                    "Temperature $\\times$ Site",
+                    "Forcing Temperature $\\times$ Site",
                     "Photoperiod $\\times$ Site",
                     "Site $\\times$ Chilling 4 \\degree C",
                     "Site $\\times$ Chilling 1.5 \\degree C"
                     )
 
 
-print(xtable(meanzb, caption = "Summary of mixed effect model of budburst day by species."), 
+print(xtable(meanzb.table, caption = "Summary of mixed effect model of budburst day by species. See also Figure S2."), 
       include.rownames=TRUE, 
       caption.placement = "top",
       sanitize.rownames.function = function(x) {x})
 @ 
 
 <<label=supptable3, echo=FALSE, results=tex>>=
-rownames(meanzl) = rownames(meanzb)
+rownames(meanzl.table) = rownames(meanzb.table)
 
-print(xtable(meanzl, caption = "Summary of mixed effect model of leafout day by species."), 
+print(xtable(meanzl.table, caption = "Summary of mixed effect model of leafout day by species. See also Figure S3."), 
       include.rownames=TRUE, 
       caption.placement = "top",
       sanitize.rownames.function = function(x) {x})
-
 @
 
+\newpage
 
 <<label=supptable4chillcalc, echo=FALSE, results = tex>>=
 library(xtable)
@@ -169,7 +169,7 @@ print(chilltable,
 #   sep = " - ")
 # 
 # phylosigtable <- xtable(data.frame(Relationship = signaldat[,"var"],Lambda = signaldat[,"lambda"]), digits = 3,
-#                         caption = "Phylogenetic signal in timing of bud burst and leaf out, as estimated in the caper package with simultaneous fitting of lambda.")
+#                         caption = "Phylogenetic signal in timing of bud burst and leafout, as estimated in the caper package with simultaneous fitting of lambda.")
 #                    
 # 
 # print(phylosigtable, 
@@ -186,7 +186,7 @@ print(chilltable,
 
 \begin{figure} 
 \begin{center}
-\caption{Coordinated responses of 28 woody plant species to photoperiod and temperature cues for leaf out. Color of circle reflect unmodeled data on average leaf out day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments. } % Changed legend, check that I did it correctly please! Yes, ok.
+\caption{Coordinated responses of 28 woody plant species to photoperiod and temperature cues for leafout. Color of circle reflect unmodeled data on average leaf out day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments. } % Changed legend, check that I did it correctly please! Yes, ok.
 \includegraphics[scale=0.5]{Advplot2}
 \label{fig1}
 \end{center}
@@ -213,6 +213,11 @@ print(chilltable,
 \includegraphics[scale=0.75]{Sens_vs_day}
 \end{figure}
 
+\end{document}
+
+
+%% Trait and HF (O'Keefe) plots
+% Used to go before end{document} 
 \clearpage
 
 \begin{figure}
@@ -268,8 +273,4 @@ print(chilltable,
 \includegraphics{leafout_exp_obs_corr_day}
 \end{figure}
 
-
-%\bibliography{/Users/danflynn/Dropbox/References/Bibrefs/danlib}
-%\bibliographystyle{naturemag}
-
-\end{document}
+ 

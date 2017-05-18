@@ -147,7 +147,8 @@ sumerb[grep("mu_", rownames(sumerb)),]
 # load('stan/lday_site_sp_chill_inter_poola_ncp_doymb.Rda')
 
 # plot effects
-col4table <- c("mean","sd","25%","50%","75%","Rhat")
+col4fig <- c("mean","sd","25%","50%","75%","Rhat")
+col4table <- c("mean","sd","2.5%","50%","97.5%","Rhat")
 
 # manually to get right order
 mu_params <- c("mu_b_warm","mu_b_photo","mu_b_chill1","mu_b_chill2","mu_b_site",
@@ -157,7 +158,7 @@ mu_params <- c("mu_b_warm","mu_b_photo","mu_b_chill1","mu_b_chill2","mu_b_site",
                "mu_b_inter_ws","mu_b_inter_ps",
                "mu_b_inter_sc1","mu_b_inter_sc2")
 
-meanzb <- sumerb[mu_params,col4table]
+meanzb <- sumerb[mu_params,col4fig]
 
 rownames(meanzb) = c("Temperature",
                     "Photoperiod",
@@ -174,6 +175,9 @@ rownames(meanzb) = c("Temperature",
                     "Site x Chilling 4°C",
                     "Site x Chilling 1.5°C"
                     )
+
+meanzb.table <- sumerb[mu_params,col4table]
+row.names(meanzb.table) <- row.names(meanzb)
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # ALERT: Fixing the 1/2 issue to 0/1 here
@@ -221,8 +225,12 @@ sumerl[grep("mu_", rownames(sumerl)),]
 
 # save(doym.l, file="stan/output/lday_site_sp_chill_inter_poola_ncp_doyl.Rda")
 
-meanzl <- sumerl[mu_params,col4table]
+meanzl <- sumerl[mu_params,col4fig]
+meanzl.table <- sumerl[mu_params,col4table]
+
 rownames(meanzl) = rownames(meanzb)
+rownames(meanzl.table) = rownames(meanzb.table)
+
 
 gotchill <- tapply(dx$spn, dx$chill2, unique)$'1'
 nochill <- unique(dx$spn)[is.na(match(unique(dx$spn), gotchill))]
