@@ -1,7 +1,7 @@
 # Additional plotting for lizzie 2016-04-04
 # also bunch of extra stuff in general
 #library(plotrix)#for draw.ellipse
-# From loaded data (run lines 0-250 in Pheno Budburst analysis.R as of 7 May 2017)
+# From loaded data (run lines 0-250 or just all lines in Pheno Budburst analysis.R as of 18 May 2017)
 # Updates from Lizzie to fix ordering and switch to credible intervals
 
 groups = treeshrub
@@ -408,13 +408,13 @@ plot(seq(-29, #min(meanz[,'mean']*1.1),
      yaxt = "n")
 
 legend(x = -29, y = 12, bty="n", legend = "a. Budburst", text.font = 2)
-rasterImage(bbpng, -28, 1, -20, 8)
+rasterImage(bbpng, -28, 1, -21, 8)
 
 axis(2, at = 5*(nrow(meanzb):1), labels = rownames(meanzb), las = 1, cex.axis = 0.8)
 
 # Plot species levels for each predictor
 for(i in 1:length(unique(dx$sp))){
-  sp.est <- sumerb[!is.na(match(rownames(sumerb), paste(params, "[", i, "]", sep=""))),col4table]
+  sp.est <- sumerb[!is.na(match(rownames(sumerb), paste(params, "[", i, "]", sep=""))),col4fig]
   sp.est <- sp.est[paste(params, "[", i, "]", sep=""),]
   
   jt <- jitter(0, factor = 40)
@@ -461,7 +461,7 @@ axis(2, at = 5*(nrow(meanzl):1), labels = rownames(meanzl), las = 1, cex.axis = 
 
 # Plot species levels for each predictor
 for(i in 1:length(unique(dx$sp))){
-  sp.est <- sumerl[!is.na(match(rownames(sumerl), paste(params, "[", i, "]", sep=""))),col4table]
+  sp.est <- sumerl[!is.na(match(rownames(sumerl), paste(params, "[", i, "]", sep=""))),col4fig]
   sp.est <- sp.est[paste(params, "[", i, "]", sep=""),]
   
   jt <- jitter(0, factor = 40)

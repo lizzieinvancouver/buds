@@ -160,7 +160,7 @@ mu_params <- c("mu_b_warm","mu_b_photo","mu_b_chill1","mu_b_chill2","mu_b_site",
 
 meanzb <- sumerb[mu_params,col4fig]
 
-rownames(meanzb) = c("Temperature",
+rownames(meanzb) = c("Forcing Temperature",
                     "Photoperiod",
                     "Chilling 4°",
                     "Chilling 1.5°C",
@@ -270,8 +270,8 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
        ylab = "",
        yaxt = "n")
   
-  legend(x = -24, y = 6, bty="n", legend = "a. Bud burst", text.font = 2)
-  rasterImage(bbpng, -20, 1, -14, 4)
+  legend(x = -24, y = 6, bty="n", legend = "a. Budburst", text.font = 2)
+  rasterImage(bbpng, -20, 1, -16, 4)
   
   axis(2, at = nrow(meanzb):1, labels = rownames(meanzb), las = 1, cex.axis = 0.8)
   points(meanzb[,'mean'],
@@ -293,8 +293,8 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
        ylab = "",
        yaxt = "n")
   
-  legend(x = -24, y = 6, bty="n", legend = "b. Leaf-out", text.font = 2)
-  rasterImage(lopng, -20, 1, -13, 4)
+  legend(x = -24, y = 6, bty="n", legend = "b. Leafout", text.font = 2)
+  rasterImage(lopng, -20, 1, -14, 4)
   
   axis(2, at = nrow(meanzl):1, labels = rownames(meanzl), las = 1, cex.axis = 0.8)
   points(meanzl[,'mean'],
@@ -603,8 +603,8 @@ pdf(file.path(figpath, "Advplot2.pdf"), width = 8, height = 9) # Adv plot is wit
 plot(adv$photo, adv$warm, 
      ylim = c(-30, -2),
      xlim=c(-20,-2),
-     xlab = "Advance in leaf-out due to 4h longer photoperiod",
-     ylab = "Advance in leaf-out due to 5 °C warmer temperature",
+     xlab = "Advance in leafout due to 4h longer photoperiod",
+     ylab = "Advance in leafout due to 5C warmer temperature",
      pch = 16, 
      col = oa.col,
      cex = adv$n/12#log(adv$n)
@@ -641,17 +641,17 @@ lchill1 <- sumerl[grep(paste("b_chill1","\\[",sep=""), rownames(sumerl)),1]
 pdf(file.path(figpath, "Sens_vs_day.pdf"), width = 9, height = 7)
 
 par(mfrow=c(2,3))
-plot(adv$overallb, bwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of bud burst")
-legend("top", legend="Bud burst", text.font=2, inset = 0.05, bty ="n", cex = 2)
-plot(adv$overallb, bphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of bud burst")
+plot(adv$overallb, bwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
+legend("top", legend="Budburst", text.font=2, inset = 0.05, bty ="n", cex = 2)
+plot(adv$overallb, bphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
 plot(adv$overallb, bchill1, #ylim = c(-30, -10), 
-     ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of bud burst")
+     ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
 
-plot(adv$overall, lwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leaf-out")
-legend("top", legend="Leaf-out", text.font=2, inset = 0.05, bty ="n", cex = 2)
-plot(adv$overall, lphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leaf-out")
+plot(adv$overall, lwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
+legend("top", legend="Leafout", text.font=2, inset = 0.05, bty ="n", cex = 2)
+plot(adv$overall, lphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
 plot(adv$overall, lchill1, #  ylim = c(-30, -10), 
-     ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leaf-out")
+     ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
 
 dev.off();#system(paste("open", file.path(figpath, "Sens_vs_day.pdf"), "-a /Applications/Preview.app"))
 

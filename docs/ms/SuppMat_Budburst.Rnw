@@ -1,5 +1,4 @@
 \documentclass{article}
-
 \usepackage{textcomp}
 \usepackage{fontenc}
 \usepackage{graphicx}
@@ -10,7 +9,7 @@
 \usepackage{cite} % for bibtex
 
 
-\renewcommand{\familydefault}{\sfdefault}
+% \renewcommand{\familydefault}{\sfdefault}
 \graphicspath{{images/}}	% Root directory of the figures
 \setlength{\parskip}{2 mm}
 
@@ -19,9 +18,7 @@
 \SweaveOpts{concordance=FALSE} % 
 \noindent \textbf{\large{Supplemental Materials: Photoperiod and temperature interactively drive spring phenology in multiple species}}
 
-\noindent Flynn, Wolkovich...
-
-\noindent \textit{The Arnold Arboretum of Harvard University}
+\noindent Flynn \& Wolkovich
 
 %% Add S prefix for tables and figures in Supplemental Materials
 \renewcommand{\thetable}{S\arabic{table}}
@@ -45,7 +42,6 @@ Across all treatments, 20.2\% of the cuttings did not break bud or leaf out. Acr
 \bibliography{danlib}
 \bibliographystyle{naturemag}
 
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplemental Figures and Tables}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -196,7 +192,7 @@ print(chilltable,
 \begin{figure}
 \caption{Model estimates of effects of each predictors on bud burst, including species-level effects.}
 \label{figS2}
-\includegraphics[scale=0.75, page=1]{Fig1_bb_lo+sp} % built in Additional Plots and Processing.R
+\includegraphics[width=1\textwidth]{Fig1_bb_lo+sp} % built in Additional Plots and Processing.R
 \end{figure}
 
 \clearpage
@@ -204,16 +200,25 @@ print(chilltable,
 \begin{figure}
 \caption{Model estimates of leafout, including species-level effects.}
 \label{figS3}
-\includegraphics[scale=0.75, page=2]{Fig1_bb_lo+sp}
+\includegraphics[width=1\textwidth]{Fig1_bb_lo+sp}
 \end{figure}
 
 \begin{figure}
 \caption{Model estimates of sensitivity to warming, photoperiod, and chilling, compared to day of budburst (upper panels) or leafout (lower panels) across all experimental conditions.}
 \label{figS4}
-\includegraphics[scale=0.75]{Sens_vs_day}
+\includegraphics[width=1\textwidth]{Sens_vs_day}
+\end{figure}
+
+\begin{figure}
+\caption{Coordinated effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }
+\label{figS5}
+\includegraphics[width=1\textwidth]{Fig2_4panel_ZoomSupp}
 \end{figure}
 
 \end{document}
+
+
+
 
 
 %% Trait and HF (O'Keefe) plots
