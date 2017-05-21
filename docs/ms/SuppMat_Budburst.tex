@@ -6,14 +6,14 @@
 \usepackage{gensymb} % for \degree
 \usepackage{placeins} % for \images
 \usepackage[margin=1in]{geometry} % to set margins
-\usepackage{cite} % for bibtex
+%\usepackage{cite} % for bibtex
 \usepackage{natbib}
 
 % \renewcommand{\familydefault}{\sfdefault}
 \graphicspath{{images/}}	% Root directory of the figures
 \setlength{\parskip}{2 mm}
 
-% See IMPT NOTE re PNG figures! Below
+% See IMPT NOTE re PNG figures! Below.
 
 \usepackage{Sweave}
 \begin{document}
@@ -22,22 +22,20 @@
 \noindent \textbf{\large{Supplemental Materials: Photoperiod and temperature interactively drive spring phenology in multiple species}}
 
 \noindent Flynn \& Wolkovich
-
 %% Add S prefix for tables and figures in Supplemental Materials
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Additional Methods}
+\section*{Supplemental Methods}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \noindent\emph{Literature Review} (Note: I am not sure we need this anymore.)
 
-\noindent We conducted a literature review, finding 109 studies which investigated effects of photoperiod, temperature, or their interaction on the timing of bud burst or flowering for woody or semi-woody plants.  No study varied chilling period, photoperiod, and temperature simultaneously across multiple species at multiple sites. Of those studies, eight simultaneously manipulated photoperiod and temperature. Basler \& Koerner \cite{Basler:2014aa} found a negative tradeoff between sensitivity to photoperiod and sensitivity to warming for four species, for example with \emph{Fagus sylvatica} advanced on average in leafout by 12 days in response to experimentally lengthened photoperiod, but only ca. 8 days in response to warmer temperatures, while \emph{Acer pseudoplatanus} advanced in leafout by 17 days in response to warming but essentially had no change in response to photoperiod. The current study expands on this work by including 28 species, across two sites, with addition manipulations of chilling temperature.
+\noindent We conducted a literature review, finding 109 studies which investigated effects of photoperiod, temperature, or their interaction on the timing of bud burst or flowering for woody or semi-woody plants.  No study varied chilling period, photoperiod, and temperature simultaneously across multiple species at multiple sites. Of those studies, eight simultaneously manipulated photoperiod and temperature. \citet{Basler:2014aa} found a negative tradeoff between sensitivity to photoperiod and sensitivity to warming for four species, for example with \emph{Fagus sylvatica} advanced on average in leafout by 12 days in response to experimentally lengthened photoperiod, but only ca. 8 days in response to warmer temperatures, while \emph{Acer pseudoplatanus} advanced in leafout by 17 days in response to warming but essentially had no change in response to photoperiod. The current study expands on this work by including 28 species, across two sites, with addition manipulations of chilling temperature.
 
 \noindent\emph{Chilling calculations}
 
-\noindent The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions (hours below 7.2\degree C and between 0\degree C and 7.2\degree C) and Dynamic Model \cite{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \cite{Luedeling:2009}.
+\noindent The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions (hours below 7.2\degree C and between 0\degree C and 7.2\degree C) and Dynamic Model \citep{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \citep{Luedeling:2009}.
 With both the Utah and Dynamic model, the more severe chilling treatment resulted in fewer calculated chilling portions. 
 
 \noindent\emph{Non-leafouts}
@@ -56,7 +54,7 @@ With both the Utah and Dynamic model, the more severe chilling treatment resulte
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Sun May 21 16:29:43 2017
+% Sun May 21 16:52:40 2017
 \begin{table}[ht]
 \centering
 \caption{Mean leafout and budburst days for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada} 
@@ -98,7 +96,7 @@ Species & Budburst.HF & Budburst.SH & Leafout.HF & Leafout.SH \\
 \newpage
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Sun May 21 16:29:43 2017
+% Sun May 21 16:52:40 2017
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of budburst day by species. See also Figure S2.} 
@@ -124,7 +122,7 @@ Forcing Temperature & -8.82 & 1.05 & -10.87 & -8.82 & -6.73 & 1.00 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Sun May 21 16:29:43 2017
+% Sun May 21 16:52:40 2017
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of leafout day by species. See also Figure S3.} 
@@ -152,7 +150,7 @@ Forcing Temperature & -19.06 & 1.04 & -21.10 & -19.05 & -17.05 & 1.00 \\
 \newpage
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Sun May 21 16:29:43 2017
+% Sun May 21 16:52:40 2017
 \begin{table}[ht]
 \centering
 \caption{Chill units in field and field and growth chamber conditions.} 
@@ -173,7 +171,7 @@ Harvard Forest & Field chilling & 892 & 814.50 & 56.62 \\
 %% \clearpage % use if get 'too many unprocessed floats' error
 
 \clearpage 
-% IMPT NOTE re PNG figures: Annoyingly, Sweave seems to delete the degree marks from the Advplot2 and 4 panel figs. They run fine if output from Pheno Budburst Analysis.R ... I could fix this I am sure, but for cheap sake, I just changed them to PNG. 
+% IMPT NOTE re PNG figures: Annoyingly, Sweave seems to delete the degree marks from the Advplot2 and 4 panel figs. They run fine if output from Pheno Budburst Analysis.R ... I could fix this I am sure, but for cheap sake, I just changed them to PNG. This is important to remember if the data or analysis ever changes!!
 
 % Fig S1: Raw data plot
 
