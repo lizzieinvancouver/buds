@@ -604,7 +604,7 @@ plot(adv$photo, adv$warm,
      ylim = c(-30, -2),
      xlim=c(-20,-2),
      xlab = "Advance in leafout due to 4h longer photoperiod",
-     ylab = "Advance in leafout due to 5C warmer temperature",
+     ylab = "Advance in leafout due to 5°C warmer temperature",
      pch = 16, 
      col = oa.col,
      cex = adv$n/12#log(adv$n)
@@ -614,12 +614,12 @@ text(adv$photo, adv$warm,
      labels = adv$sp, cex = 0.7, adj = 0.5, #pos = 3,
      col = alpha('grey20', 0.9))
 
-legend(x = -20, y = -3, bty = "n", legend = c("Early", "Intermediate", "Late"), title = "Leaf-out period", col = oc, pch = 16, 
+legend(x = -20, y = -3, bty = "n", legend = c("Early", "Intermediate", "Late"), title = "Leafout period", col = oc, pch = 16, 
        pt.cex = 2,
        y.intersp = 1.5,
        x.intersp = 1.5)
 legend(x = -16, y = -3, bty = "n", legend = c(25, 75), 
-       title = "N leaf-out samples", col = "black", pch = 1, pt.cex = c(25, 75)/12,
+       title = "N leafout samples", col = "black", pch = 1, pt.cex = c(25, 75)/12,
        y.intersp = 2,
        x.intersp = 2
 )
@@ -642,13 +642,13 @@ pdf(file.path(figpath, "Sens_vs_day.pdf"), width = 9, height = 7)
 
 par(mfrow=c(2,3))
 plot(adv$overallb, bwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
-legend("top", legend="Budburst", text.font=2, inset = 0.05, bty ="n", cex = 2)
+# legend("top", legend="Budburst", text.font=2, inset = 0.05, bty ="n", cex = 2)
 plot(adv$overallb, bphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
 plot(adv$overallb, bchill1, #ylim = c(-30, -10), 
      ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of budburst")
 
 plot(adv$overall, lwarm, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
-legend("top", legend="Leafout", text.font=2, inset = 0.05, bty ="n", cex = 2)
+#legend("top", legend="Leafout", text.font=2, inset = 0.05, bty ="n", cex = 2)
 plot(adv$overall, lphoto, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")
 plot(adv$overall, lchill1, #  ylim = c(-30, -10), 
      ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("grey20", 0.6), xlab = "Day of leafout")

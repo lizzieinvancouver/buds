@@ -56,7 +56,7 @@ pdf(file.path(figpath, "stanbb_1.pdf"), width = 8, height = 8)
 
 plotlet("b_warm","b_photo",
         group = treeshrub,
-        xlab = "Advance due to 5° warming",
+        xlab = "Advance due to 5°C warming",
         ylab = "Advance due to 4 hr longer photoperiod",
         data = sumerb,
         xlim = c(-14, 0.5),
