@@ -1,0 +1,129 @@
+23 May 2017
+Notes by Lizzie about changing the priors in Dan Flynn’s 2015 bud burst experiment 
+
+All I did was adjust the stan code so that the priors were tripled: 10->30 and 35->105
+
+See:
+stan/lday_site_sp_chill_inter_poola_ncp_adjpriors.stan
+
+
+Budburst day. 
+
+> if(runstan){
++   datalist.b <- list(lday = dxb$bday, # bud burst as response 
++                      warm = as.numeric(dxb$warm), 
++                      site = as.numeric(dxb$site), 
++                      sp = as.numeric(dxb$sp), 
++                      photo = as.numeric(dxb$photo), 
++                      chill1 = as.numeric(dxb$chill1),
++                      chill2 = as.numeric(dxb$chill2),
++                      N = nrow(dxb), 
++                      n_site = length(unique(dxb$site)), 
++                      n_sp = length(unique(dxb$sp))
++   )
++   
++     doym.b <- stan('stan/lday_site_sp_chill_inter_poola_ncp_adjpriors.stan', 
++                  data = datalist.b, warmup=4000, iter = 7997, chains = 4,
++                  control = list(adapt_delta = 0.9))
++                  #               , max_treedepth = 15)) 
++   
++ }
+
+* 1 divergent transitions and 4-7 numerical issues (e.g., normal_lpdf: Location parameter[1] is nan, but must be finite!) on each chain*  
+
+> sumerb <- summary(doym.b)$summary
+sumerb[grep("mu_", rownames(sumerb)),]
+> sumerb[grep("mu_", rownames(sumerb)),]
+                      mean     se_mean        sd        2.5%         25%
+mu_a            37.7762361 0.022792037 2.8819086  32.0468078  35.8918068
+mu_b_warm       -8.8162002 0.010177315 1.0534817 -10.8825419  -9.5090714
+mu_b_chill1    -15.8102633 0.024232159 2.2335421 -20.2434777 -17.2095935
+mu_b_chill2    -13.1237956 0.021685976 2.0609936 -17.2100522 -14.4164642
+mu_b_photo      -4.5194510 0.010097596 0.9138340  -6.3214389  -5.1285480
+mu_b_site        1.3199985 0.011952328 1.0984549  -0.8569676   0.5997076
+mu_b_inter_wp   -0.6331961 0.007380186 0.7872587  -2.1673079  -1.1624644
+mu_b_inter_ws   -1.5130459 0.006726667 0.8505444  -3.1659989  -2.0745600
+mu_b_inter_ps   -0.0952162 0.006500446 0.8219402  -1.7020873  -0.6420011
+mu_b_inter_wc1   9.0708351 0.008742356 1.1054155   6.9037573   8.3342666
+mu_b_inter_wc2   9.7886747 0.009340172 1.1810055   7.4740997   9.0108615
+mu_b_inter_pc1  -0.2620654 0.008823167 1.1156336  -2.4418443  -0.9883899
+mu_b_inter_pc2  -0.1339415 0.009717212 1.2286799  -2.5703474  -0.9173406
+mu_b_inter_sc1  -2.2833955 0.011204800 1.2196121  -4.7011651  -3.0667494
+mu_b_inter_sc2  -3.4988986 0.012198099 1.3386897  -6.1441935  -4.3574261
+                        50%         75%       97.5%     n_eff      Rhat
+mu_a            37.77301517  39.6432393  43.5041899 15988.000 0.9998397
+mu_b_warm       -8.81356039  -8.1101521  -6.7366569 10714.886 1.0002292
+mu_b_chill1    -15.82627649 -14.4223675 -11.3775688  8495.796 1.0002907
+mu_b_chill2    -13.12915702 -11.8192273  -8.9898348  9032.238 0.9999863
+mu_b_photo      -4.52318775  -3.9144032  -2.7307024  8190.278 1.0000195
+mu_b_site        1.33327779   2.0536076   3.4454739  8446.163 1.0001590
+mu_b_inter_wp   -0.63632687  -0.1166491   0.9353641 11378.901 1.0000386
+mu_b_inter_ws   -1.52048801  -0.9514344   0.1596238 15988.000 0.9998822
+mu_b_inter_ps   -0.08539032   0.4541180   1.4696038 15988.000 1.0003258
+mu_b_inter_wc1   9.07282847   9.8084313  11.2220948 15988.000 1.0000115
+mu_b_inter_wc2   9.78199288  10.5824508  12.0889589 15988.000 1.0000195
+mu_b_inter_pc1  -0.27166698   0.4465954   1.9724291 15988.000 1.0000096
+mu_b_inter_pc2  -0.12514374   0.6573232   2.2860355 15988.000 0.9999583
+mu_b_inter_sc1  -2.28599842  -1.4906114   0.1069914 11847.731 1.0001519
+mu_b_inter_sc2  -3.49339292  -2.6554264  -0.8388887 12044.133 1.0001611
+
+
+Leafout day.
+
+> if(runstan){
++   datalist.l <- list(lday = dxl$lday, # leaf-out as respose 
++                      warm = as.numeric(dxl$warm), 
++                      site = as.numeric(dxl$site), 
++                      sp = as.numeric(dxl$sp), 
++                      photo = as.numeric(dxl$photo), 
++                      chill1 = as.numeric(dxl$chill1),
++                      chill2 = as.numeric(dxl$chill2),
++                      N = nrow(dxl), 
++                      n_site = length(unique(dxl$site)), 
++                      n_sp = length(unique(dxl$sp))
++   )
++   
++     doym.l <- stan('stan/lday_site_sp_chill_inter_poola_ncp_adjpriors.stan',
++                 data = datalist.l, warmup=4000, iter = 7997, chains = 4,
++                 control = list(adapt_delta = 0.95))
++                 #               ,max_treedepth = 15))
++ }
+
+* 2 divergent transitions and 1-5 numerical issues (e.g., normal_lpdf: Location parameter[1] is nan, but must be finite!) on each chain *  
+
+
+> sumerl <- summary(doym.l)$summary
+sumerl[grep("mu_", rownames(sumerl)),]
+> sumerl[grep("mu_", rownames(sumerl)),]
+                      mean     se_mean        sd        2.5%           25%
+mu_a            57.3961609 0.022099158 2.7942985  51.8339068  55.578017423
+mu_b_warm      -19.0492709 0.011764490 1.0252463 -21.0872047 -19.723872711
+mu_b_chill1    -17.4156081 0.028319649 2.1332991 -21.6516030 -18.777876774
+mu_b_chill2    -15.8244946 0.027640452 2.0626758 -19.9214546 -17.137656461
+mu_b_photo     -11.1950505 0.012374946 0.8451803 -12.8636265 -11.764657726
+mu_b_site        1.3385367 0.016194705 1.2197276  -1.0643747   0.532230383
+mu_b_inter_wp    3.6732974 0.009688282 0.8342407   2.0646041   3.112436020
+mu_b_inter_ws   -0.5201358 0.008423979 0.8392097  -2.1436973  -1.083442735
+mu_b_inter_ps   -0.8545709 0.009414379 0.8433082  -2.5438690  -1.415624119
+mu_b_inter_wc1  10.2821198 0.011904742 1.1775959   7.9589627   9.507736324
+mu_b_inter_wc2  11.2138762 0.013604812 1.3175496   8.5974731  10.362600612
+mu_b_inter_pc1   0.7792840 0.012519759 1.1840833  -1.5022631   0.008362449
+mu_b_inter_pc2   2.3577710 0.014270385 1.3283287  -0.3413762   1.517543490
+mu_b_inter_sc1  -1.7319923 0.013312828 1.3047251  -4.3115442  -2.575460819
+mu_b_inter_sc2  -3.3214956 0.015094945 1.4874800  -6.3022809  -4.267141615
+                       50%         75%       97.5%     n_eff      Rhat
+mu_a            57.4046449  59.2380701  62.8851452 15988.000 0.9999666
+mu_b_warm      -19.0421085 -18.3614814 -17.0431383  7594.692 0.9999364
+mu_b_chill1    -17.4224329 -16.0867590 -13.1266379  5674.502 1.0003318
+mu_b_chill2    -15.8164797 -14.4930267 -11.7551540  5568.929 1.0000027
+mu_b_photo     -11.1894168 -10.6308661  -9.5654471  4664.576 1.0005116
+mu_b_site        1.3339691   2.1456877   3.7393093  5672.567 1.0004227
+mu_b_inter_wp    3.6669621   4.2318022   5.3357187  7414.625 1.0002600
+mu_b_inter_ws   -0.5215903   0.0413843   1.1079816  9924.448 0.9999750
+mu_b_inter_ps   -0.8579569  -0.2904479   0.7879005  8023.971 1.0008105
+mu_b_inter_wc1  10.2776691  11.0492335  12.6062068  9784.814 1.0001400
+mu_b_inter_wc2  11.2299107  12.0573177  13.7902725  9378.835 1.0001217
+mu_b_inter_pc1   0.7633402   1.5464720   3.1021120  8944.840 1.0002395
+mu_b_inter_pc2   2.3790570   3.2221909   4.8943435  8664.424 0.9999098
+mu_b_inter_sc1  -1.7370842  -0.8934567   0.8239984  9605.001 1.0005235
+mu_b_inter_sc2  -3.3118474  -2.3536600  -0.3652661  9710.446 1.0002044

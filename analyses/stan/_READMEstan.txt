@@ -13,13 +13,12 @@ Since it’s by Lizzie and not Dan, these are educated guesses!
 Still in main folder:
 <><><><><><><><><><><><><>
 
-lday_site_sp_chill_inter_poola_ncpmore.stan - same as lday_site_sp_chill_inter_poola_ncp.stan (see below) but with CP on the intercept (a). You could also say this model is lday_site_sp_chill_inter_poola_ncpfull.stan with NCP turned off on the intercepts. 
-
-*This model runs well on the real data (lday_site_sp_chill_inter_poola_ncpmore.stan) but I never got it to run on the fake data. See output/ncpmore_vs_ncpfull for some comparisons of output and more info.* 
-
 lday_site_sp_chill_inter_poola_ncp.stan —  built off lday_site_sp_chill_inter_poola.stan -  y ~ (warm * photo * chill * site)^2 …. It is a linear model with all interactions, with chilling levels as dummy variables, with hierarchical effect of species on slopes and intercepts. This model has non-centered parameterization the interaction terms, which showed funneling issues in lday_site_sp_chill_inter_poola.stan. 
 
 This model (lday_site_sp_chill_inter_poola_ncp.stan) did run well on the fake data and on the real data. It is the model I am currently using! Whoop! Whoop!
+
+lday_site_sp_chill_inter_poola_ncp_adjpriors.stan - same as lday_site_sp_chill_inter_poola_ncp.stan,but with adjusted code so that the priors were tripled: 10->30 and 35->105. Answer is the same. See lday_site_sp_chill_inter_poola_ncp_adjpriors_INFO.txt
+
 
 * Remember: Increasing warmup iterations can also help with divergent transitions. *
 
@@ -60,6 +59,11 @@ doy_model3.stan	- linear model with two hierarchical effects — site on the int
 <><><><><><><><><><><><><>
 In models_archive_lesssimple:
 <><><><><><><><><><><><><>
+
+lday_site_sp_chill_inter_poola_ncpmore.stan - same as lday_site_sp_chill_inter_poola_ncp.stan (see below) but with CP on the intercept (a). You could also say this model is lday_site_sp_chill_inter_poola_ncpfull.stan with NCP turned off on the intercepts. 
+
+*This model runs well on the real data (lday_site_sp_chill_inter_poola_ncpmore.stan) but I never got it to run on the fake data. See output/ncpmore_vs_ncpfull for some comparisons of output and more info.* 
+
 
 doy_model4.stan	- linear model with some sort of crossed hierarchical effects — site and species (mentions latin square design, shudder!): I think…. y ~ warm * photo + chill (alert! not coded as dummy variable)
 
