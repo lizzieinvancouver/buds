@@ -61,7 +61,8 @@ bdaymean <- t(with(dxb, tapply(bday, list(site, sp), mean, na.rm=T)))
 ldaymean <- t(with(dxl, tapply(lday, list(site, sp), mean, na.rm=T)))
 
 leafoutdays <- data.frame(bdaymean, ldaymean)
-
+colnames(leafoutdays) <- c("BB.HF", "BB.SH", "LO.HF", "LO.SH")
+# write.csv(leafoutdays, "output/leafoutdays.csv", row.names=TRUE)
 
 # Groups
 colz = c("brown", "blue3")
@@ -165,12 +166,12 @@ rownames(meanzb) = c("Forcing Temperature",
                     "Chilling 4°",
                     "Chilling 1.5°C",
                     "Site",
-                    "Temperature x Photoperiod",
-                    "Temperature x Chilling 4°C",
-                    "Temperature x Chilling 1.5°C",
+                    "Forcing x Photoperiod",
+                    "Forcing x Chilling 4°C",
+                    "Forcing x Chilling 1.5°C",
                     "Photoperiod x Chilling 4°C",
                     "Photoperiod x Chilling 1.5°C",
-                    "Temperature x Site",
+                    "Forcing x Site",
                     "Photoperiod x Site",
                     "Site x Chilling 4°C",
                     "Site x Chilling 1.5°C"
@@ -521,7 +522,7 @@ dlo[!is.na(match(rownames(dlo), paste("b_chill2[", nochill, "]", sep=""))),] = 9
 #         
 # signaldat$var = paste(
 #   rep(c("Bud burst","Leaf-out"), each = 4), 
-#   rep(c("Temperature", "Photoperiod", "Chilling 4°", "Chilling 1.5°"), 4), 
+#   rep(c("Forcing", "Photoperiod", "Chilling 4°", "Chilling 1.5°"), 4), 
 #   sep = " - ")
 # 
 # 

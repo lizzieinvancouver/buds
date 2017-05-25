@@ -2,7 +2,7 @@
 # also bunch of extra stuff in general
 #library(plotrix)#for draw.ellipse
 # From loaded data (run lines 0-250 or just all lines in Pheno Budburst analysis.R as of 18 May 2017)
-# Updates from Lizzie to fix ordering and switch to credible intervals
+# Updates from Lizzie to fix table ordering and switch to credible intervals (and to add in leafout days for warm-long-chill1)
 
 groups = treeshrub
   
@@ -14,6 +14,43 @@ nochill <- unique(dx$spn)[is.na(match(unique(dx$spn), gotchill))]
 gotsite <- tapply(dx$spn, dx$site, unique)$'2' # 19 species at St. hipp
 nosite <- unique(dx$spn)[is.na(match(unique(dx$spn), gotsite))]
 #unique(dx$sp)[is.na(match(unique(dx$spn), gotsite))] # just checking: these are indeed the sp only at HF.
+
+# for Lizze: warm/long/chill1
+if(FALSE){
+wlc1 <- subset(dx, treatcode=="WL1")
+
+wlc1.b <- wlc1[!is.na(wlc1$bday),]
+wlc1.l <- wlc1[!is.na(wlc1$lday),]
+
+wlc1.bdaymean <- t(with(wlc1.b, tapply(bday, list(site, sp), mean, na.rm=TRUE)))
+wlc1.ldaymean <- t(with(wlc1.b, tapply(lday, list(site, sp), mean, na.rm=TRUE)))
+
+wlc.days <- data.frame(wlc1.bdaymean, wlc1.ldaymean)
+colnames(wlc.days) <- c("BB.WLC1.HF", "BB.WLC1.SH", "LO.WLC1.HF", "LO.WLC1.SH")
+# write.csv(wlc.days, "output/leafoutdays.wlc1.csv", row.names=TRUE)
+
+clc1 <- subset(dx, treatcode=="CL1")
+
+clc1.b <- clc1[!is.na(clc1$bday),]
+clc1.l <- clc1[!is.na(clc1$lday),]
+
+clc1.bdaymean <- t(with(clc1.b, tapply(bday, list(site, sp), mean, na.rm=TRUE)))
+clc1.ldaymean <- t(with(clc1.b, tapply(lday, list(site, sp), mean, na.rm=TRUE)))
+
+clc.days <- data.frame(clc1.bdaymean, clc1.ldaymean)
+colnames(clc.days) <- c("BB.CLC1.HF", "BB.CLC1.SH", "LO.CLC1.HF", "LO.CLC1.SH")
+
+comp.trt <- cbind(leafoutdays, wlc.days, clc.days)
+
+par(mfrow=c(2,3))
+plot(BB.WLC1.HF~BB.HF, data=comp.trt)
+plot(BB.WLC1.SH~BB.SH, data=comp.trt)
+plot(BB.CLC1.SH~BB.SH, data=comp.trt)
+plot(LO.WLC1.HF~LO.HF, data=comp.trt)
+plot(LO.WLC1.SH~LO.SH, data=comp.trt)
+plot(LO.CLC1.SH~LO.SH, data=comp.trt)
+}
+# end warm/long/chill stuff
 
 sumerb <- summary(doym.b)$summary
 
@@ -266,7 +303,7 @@ tr2 <- rbind(tr[c(1:3,19:ncol(tr))],
              tr[c(1:3,19:ncol(tr))],
              tr[c(1:3,19:ncol(tr))],
              tr[c(1:3,19:ncol(tr))])
-tr2$effect = gl(4, nrow(tr), labels = c("Temperature","Photoperiod","Chilling 4°","Chilling 1.5°"))
+tr2$effect = gl(4, nrow(tr), labels = c("Forcing","Photoperiod","Chilling 4°","Chilling 1.5°"))
 tr2$sensitivity = c(warmeff, photoeff, chill1eff, chill2eff)
 
 pdf(file.path(figpath, "Traits_vs_sensitivity.pdf"), width = 12, height = 5)  
