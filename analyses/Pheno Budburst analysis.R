@@ -134,6 +134,8 @@ if(runstan){
 sumerb <- summary(doym.b)$summary
 sumerb[grep("mu_", rownames(sumerb)),]
 
+# For Simon Joly:
+# range(sumerb[,"n_eff"])
 
 # Below: Some pairs plots to check out
 # pairs(doym.b, pars = c("mu_b_warm", "sigma_b_warm", "lp__"))
