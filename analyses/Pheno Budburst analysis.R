@@ -135,7 +135,13 @@ sumerb <- summary(doym.b)$summary
 sumerb[grep("mu_", rownames(sumerb)),]
 
 # For Simon Joly:
-# range(sumerb[,"n_eff"])
+range(sumerb[,"n_eff"])
+summary(sumerb[,"n_eff"])
+length(sumerb[(sumerb[,"n_eff"])<15988,"n_eff"])
+length(sumerb[,"n_eff"])
+
+# Also, I think AROMEL and ALNINC (Zohner spp) are 4-5 (double-check photoperiod effect)
+# sumerb[grep("b_photo", rownames(sumerb)),]
 
 # Below: Some pairs plots to check out
 # pairs(doym.b, pars = c("mu_b_warm", "sigma_b_warm", "lp__"))
@@ -225,6 +231,12 @@ if(runstan){
 
 sumerl <- summary(doym.l)$summary
 sumerl[grep("mu_", rownames(sumerl)),]
+
+# For Simon:
+range(sumerl[,"n_eff"])
+summary(sumerl[,"n_eff"])
+length(sumerl[(sumerl[,"n_eff"])<15988,"n_eff"])
+length(sumerl[,"n_eff"])
 
 # save(doym.l, file="stan/output/lday_site_sp_chill_inter_poola_ncp_doyl.Rda")
 
