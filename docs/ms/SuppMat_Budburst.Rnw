@@ -18,9 +18,13 @@
 \begin{document}
 
 \SweaveOpts{concordance=FALSE} % 
-\noindent \textbf{\large{Supplemental Materials: Photoperiod and temperature interactively drive spring phenology in multiple species}}
 
-\noindent Flynn \& Wolkovich
+\begin{center}
+\textbf{\Large{Supplemental Materials \vspace{1ex}\\Temperature and photoperiod interactively drive spring phenology across all species in a temperate forest community}}
+
+Flynn \& Wolkovich
+\end{center}
+
 %% Add S prefix for tables and figures in Supplemental Materials
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
@@ -28,9 +32,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplemental Methods}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\noindent\emph{Literature Review} (Note: I am not sure we need this anymore.)
-
-\noindent We conducted a literature review, finding 109 studies which investigated effects of photoperiod, temperature, or their interaction on the timing of bud burst or flowering for woody or semi-woody plants.  No study varied chilling period, photoperiod, and temperature simultaneously across multiple species at multiple sites. Of those studies, eight simultaneously manipulated photoperiod and temperature. \citet{Basler:2014aa} found a negative tradeoff between sensitivity to photoperiod and sensitivity to warming for four species, for example with \emph{Fagus sylvatica} advanced on average in leafout by 12 days in response to experimentally lengthened photoperiod, but only ca. 8 days in response to warmer temperatures, while \emph{Acer pseudoplatanus} advanced in leafout by 17 days in response to warming but essentially had no change in response to photoperiod. The current study expands on this work by including 28 species, across two sites, with addition manipulations of chilling temperature.
 
 \noindent\emph{Chilling calculations}
 
@@ -41,6 +42,11 @@ With both the Utah and Dynamic model, the more severe chilling treatment resulte
 
 \noindent Across all treatments, 20.2\% of the cuttings did not break bud or leaf out. Across species, there was no overall predictive effect of temperature, photoperiod, chilling, or site on the propensity to fail to leaf out. Species ranged from complete leaf out (\emph{Hamamaelis}) to only 50\% leaf out (\emph{Fagus grandifolia}, \emph{Acer saccharum}) across all treatments. The percent of nonleaf outs by site was similar, with 20.6\% of Harvard Forest and 19.7\% of St. Hippolyte samples failing to leaf out. Examining individual species,  there was an interaction of temperature by day length for selected species, with greater failure to leaf out in cool, short-day conditions for \emph{Acer pensylvanicum}  and \emph{Acer saccharum}. Site effects were inconsistent, with greater failure to leaf out for cuttings from St. Hippolyte in \emph{Acer rubrum} and \emph{Fagus grandifolia}, and from Harvard Forest in \emph{Acer saccharum}. 
 
+\noindent\emph{Additional method details}
+
+\noindent In our figures we show 50\% credible intervals because our interest is in the most likely value for the parameter and because 50\% intervals are computational stable. For those interested in a more traditional significance-testing approach, we provide 95\% credible intervals in Table S2-S3. 
+% http://andrewgelman.com/2016/11/05/why-i-prefer-50-to-95-intervals/
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \subsection*{References Cited}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,6 +54,7 @@ With both the Utah and Dynamic model, the more severe chilling treatment resulte
 \bibliography{danlib}
 \bibliographystyle{amnat}
 
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplemental Figures and Tables}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -100,13 +107,14 @@ leafoutdays <- data.frame(Species = rownames(leafoutdays), leafoutdays)
 leafoutdays$Species = paste("\\textit{",leafoutdays$Species,"}", sep="")
 
 print(xtable(leafoutdays, 
-             caption = "Mean leafout and budburst days for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada",
+             caption = "Mean leafout and budburst days (across all treatments, based on raw data) for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada",
              align = c("l", "l","r","r","r","r")), #>{\\textit}l
       include.rownames=F, 
       caption.placement = "top", 
       sanitize.text.function = function(x) {x})
 @
 
+\clearpage
 \newpage
 
 <<label=supptable2, echo=FALSE, results=tex>>=
@@ -130,7 +138,7 @@ rownames(meanzb.table) = c(
                     )
 
 
-print(xtable(meanzb.table, caption = "Summary of mixed-effects model of budburst day by species. See also Figure S2."), 
+print(xtable(meanzb.table, caption = "Summary of mixed-effects model of budburst day. See also Figure S2."), 
       include.rownames=TRUE, 
       caption.placement = "top",
       sanitize.rownames.function = function(x) {x})
@@ -139,7 +147,7 @@ print(xtable(meanzb.table, caption = "Summary of mixed-effects model of budburst
 <<label=supptable3, echo=FALSE, results=tex>>=
 rownames(meanzl.table) = rownames(meanzb.table)
 
-print(xtable(meanzl.table, caption = "Summary of mixed-effects model of leafout day by species. See also Figure S3."), 
+print(xtable(meanzl.table, caption = "Summary of mixed-effects model of leafout day. See also Figure S3."), 
       include.rownames=TRUE, 
       caption.placement = "top",
       sanitize.rownames.function = function(x) {x})
@@ -190,7 +198,7 @@ print(chilltable,
 \begin{figure} 
 \begin{center}
 \includegraphics[scale=0.5]{Advplot2.png}
-\caption{Coordinated responses of 28 woody plant species to photoperiod and temperature cues for leafout. Color of circle reflect unmodeled data on average leaf out day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments. } % Changed legend, check that I did it correctly please! Yes, ok.
+\caption{Responses of 28 woody plant species to photoperiod and temperature cues for leafout. Color of circle reflect unmodeled data on average leaf out day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments. } % Changed legend, check that I did it correctly please! Yes, ok.
 \label{fig1}
 \end{center}
 \end{figure}
@@ -198,7 +206,7 @@ print(chilltable,
 \begin{figure}
 \label{figS2}
 \includegraphics[width=1\textwidth, page=1]{Fig1_bb_lo+sp} % built in Additional Plots and Processing.R
-\caption{Model estimates of effects of each predictors on bud burst, including species-level effects.}
+\caption{Model estimates of effects of each predictor on budburst, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \clearpage
@@ -206,7 +214,7 @@ print(chilltable,
 \begin{figure}
 \label{figS3}
 \includegraphics[width=1\textwidth, page=2]{Fig1_bb_lo+sp}
-\caption{Model estimates of leafout, including species-level effects.}
+\caption{Model estimates of leafout, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \begin{figure}
@@ -218,13 +226,22 @@ print(chilltable,
 \begin{figure}
 \label{figS5}
 \includegraphics[width=1\textwidth]{Fig2_4panel_ZoomSupp.png}
-\caption{Coordinated effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }
+\caption{Effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }
+\end{figure}
+
+
+\begin{figure}
+\label{figS6}
+\includegraphics[width=1\textwidth]{FigChill2_4panel.png}
+\caption{Effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but showing results with 1.5\degree C chilling treatment, and including relationship between chilling and photoperiod. Crosses and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \end{document}
 
 
+\noindent\emph{Literature Review} (Note: I am not sure we need this anymore.)
 
+\noindent We conducted a literature review, finding 109 studies which investigated effects of photoperiod, temperature, or their interaction on the timing of bud burst or flowering for woody or semi-woody plants.  No study varied chilling period, photoperiod, and temperature simultaneously across multiple species at multiple sites. Of those studies, eight simultaneously manipulated photoperiod and temperature. \citet{Basler:2014aa} found a negative tradeoff between sensitivity to photoperiod and sensitivity to warming for four species, for example with \emph{Fagus sylvatica} advanced on average in leafout by 12 days in response to experimentally lengthened photoperiod, but only ca. 8 days in response to warmer temperatures, while \emph{Acer pseudoplatanus} advanced in leafout by 17 days in response to warming but essentially had no change in response to photoperiod. The current study expands on this work by including 28 species, across two sites, with addition manipulations of chilling temperature.
 
 
 %% Trait and HF (O'Keefe) plots

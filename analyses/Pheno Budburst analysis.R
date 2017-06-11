@@ -185,6 +185,8 @@ rownames(meanzb) = c("Forcing Temperature",
                     "Site x Chilling 1.5°C"
                     )
 
+
+
 meanzb.table <- sumerb[mu_params,col4table]
 row.names(meanzb.table) <- row.names(meanzb)
 
@@ -486,6 +488,176 @@ text(5.5, 5, "Change (days) due to 30d 4° chilling", font = 2, pos = 3)
 
 dev.off();
 
+
+###############
+# Figure CHILL2 for Supp (similar to Figure 2): random effects.
+# photo x chill2 and chill2 x warm for bb and lo 
+# Ailene wanted this (Ailene also wanted chill1 x photo, see below)
+###############
+
+pdf(file.path(figpath, "FigChill2_4panel.pdf"), width = 7, height = 7)
+
+par(mar=rep(1,4))
+layout(matrix(c(1, 2, 3, # use layout instead of par(mfrow for more control of where labels end up
+                4, 5, 6,
+                7, 8, 9),ncol = 3, byrow = TRUE),
+       widths = c(1, 4, 4),
+       heights = c(4, 4, 1))
+plotblank = function(){plot(1:10, type="n",bty="n",xaxt="n",yaxt="n",ylab="",xlab="")}
+
+plotblank() 
+text(5,5, "Budburst \n Change (days) due to 5° warming", font = 2, srt = 90) # \n\n add two line breaks
+
+plotlet("b_chill2", "b_warm",
+         #  ylab = "Advance due to  chilling", 
+         # xlab = "Advance due to 4 hr longer photoperiod", 
+         ylim = c(-27, 0.5),
+         xlim = c(-28, -4),
+         #  xaxt="n", 
+         group = treeshrub,
+         data = sumerb)
+
+legend("topleft", bty = "n", inset = 0.035, legend = "A.", text.font=2)
+
+legend("bottomright",
+       pch = "+",
+       col = colz,
+       legend = c("Shrubs","Trees"),
+       inset = 0.02, 
+       bg = 'white')
+
+plotlet("b_chill2", "b_warm", 
+        # ylab = "Advance due to 5° warming", 
+        #  xlab = "Advance due to 30d 4° chilling", 
+        ylim = c(-27, 0.5),
+        xlim = c(-28, -4),
+        yaxt="n",
+        # xaxt="n", 
+        group = treeshrub,
+        data = sumerb)
+axis(2, seq(0, -25, by = -5), labels = FALSE)
+legend("topleft", bty = "n", inset = 0.035, legend = "B.", text.font=2)
+
+plotblank()
+text(5,5, "Leafout \n Change (days) due 4 hr longer photoperiod", font = 2, srt = 90)
+
+plotlet("b_chill2", "b_photo", 
+        #    ylab = "Advance due to 5° warming", 
+        #     xlab = "Advance due to 4 hr longer photoperiod", 
+        ylim = c(-16, 0.5),
+        xlim = c(-28, -4),
+        group = treeshrub,
+        data = sumerl)
+legend("topleft", bty = "n", inset = 0.035, legend = "C.", text.font=2)
+
+plotlet("b_chill2", "b_photo", 
+        #   ylab = "Advance due to 5° warming", 
+        #   xlab = "Advance due to 30d 4° chilling", 
+        ylim = c(-16, 0.5),
+        xlim = c(-28, -4),
+        yaxt="n",
+        group = treeshrub,
+        data = sumerl)
+axis(2, seq(0, -25, by = -5), labels = FALSE)
+legend("topleft", bty = "n", inset = 0.035, legend = "D.", text.font=2)
+
+plotblank()
+
+plotblank()
+text(5.5, 5, "Change (days) due to 30d 1.5° chilling", font = 2, pos = 3)
+
+plotblank()
+text(5.5, 5, "Change (days) due to 30d 1.5° chilling", font = 2, pos = 3)
+
+dev.off();
+
+
+
+###############
+# Figure CHILLxPHOTO for Supp (similar to Figure 2): random effects.
+# photo x chill2 and photo x chill1 for bb and lo 
+# Ailene wanted this also, but I am not including it in Supp until someone else wants it
+###############
+
+pdf(file.path(figpath, "FigChillPhoto_4panel.pdf"), width = 7, height = 7)
+
+par(mar=rep(1,4))
+layout(matrix(c(1, 2, 3, # use layout instead of par(mfrow for more control of where labels end up
+                4, 5, 6,
+                7, 8, 9),ncol = 3, byrow = TRUE),
+       widths = c(1, 4, 4),
+       heights = c(4, 4, 1))
+plotblank = function(){plot(1:10, type="n",bty="n",xaxt="n",yaxt="n",ylab="",xlab="")}
+
+plotblank() 
+text(5,5, "Leafout \n Change (days) due 4 hr longer photoperiod", font = 2, srt = 90) # \n\n add two line breaks
+
+plotlet("b_chill1", "b_photo",
+         #  ylab = "Advance due to  chilling", 
+         # xlab = "Advance due to 4 hr longer photoperiod", 
+         ylim = c(-16, 0.5),
+         xlim = c(-28, -4),
+         #  xaxt="n", 
+         group = treeshrub,
+         data = sumerb)
+
+legend("topleft", bty = "n", inset = 0.035, legend = "A.", text.font=2)
+
+legend("bottomright",
+       pch = "+",
+       col = colz,
+       legend = c("Shrubs","Trees"),
+       inset = 0.02, 
+       bg = 'white')
+
+plotlet("b_chill2", "b_photo", 
+        # ylab = "Advance due to 5° warming", 
+        #  xlab = "Advance due to 30d 4° chilling", 
+        ylim = c(-16, 0.5),
+        xlim = c(-28, -4),
+        yaxt="n",
+        # xaxt="n", 
+        group = treeshrub,
+        data = sumerb)
+axis(2, seq(0, -25, by = -5), labels = FALSE)
+legend("topleft", bty = "n", inset = 0.035, legend = "B.", text.font=2)
+
+plotblank()
+text(5,5, "Leafout \n Change (days) due 4 hr longer photoperiod", font = 2, srt = 90)
+
+plotlet("b_chill1", "b_photo", 
+        #    ylab = "Advance due to 5° warming", 
+        #     xlab = "Advance due to 4 hr longer photoperiod", 
+        ylim = c(-16, 0.5),
+        xlim = c(-28, -4),
+        group = treeshrub,
+        data = sumerl)
+legend("topleft", bty = "n", inset = 0.035, legend = "C.", text.font=2)
+
+plotlet("b_chill2", "b_photo", 
+        #   ylab = "Advance due to 5° warming", 
+        #   xlab = "Advance due to 30d 4° chilling", 
+        ylim = c(-16, 0.5),
+        xlim = c(-28, -4),
+        yaxt="n",
+        group = treeshrub,
+        data = sumerl)
+axis(2, seq(0, -25, by = -5), labels = FALSE)
+legend("topleft", bty = "n", inset = 0.035, legend = "D.", text.font=2)
+
+plotblank()
+
+plotblank()
+text(5.5, 5, "Change (days) due to 30d 4° chilling", font = 2, pos = 3)
+
+plotblank()
+text(5.5, 5, "Change (days) due to 30d 1.5° chilling", font = 2, pos = 3)
+
+dev.off();
+
+
+
+# <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
 if(runstan) { savestan("Inter") }
 
