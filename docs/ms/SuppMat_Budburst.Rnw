@@ -20,7 +20,7 @@
 \SweaveOpts{concordance=FALSE} % 
 
 \begin{center}
-\textbf{\Large{Supplemental Materials \vspace{1ex}\\Temperature and photoperiod interactively drive spring phenology across all species in a temperate forest community}}
+\textbf{\Large{Supplemental Materials \vspace{1ex}\\Temperature and photoperiod drive spring phenology across all species in a temperate forest community}}
 
 Flynn \& Wolkovich
 \end{center}
@@ -44,7 +44,7 @@ With both the Utah and Dynamic model, the more severe chilling treatment resulte
 
 \noindent\emph{Additional method details}
 
-\noindent In our figures we show 50\% credible intervals because our interest is in the most likely value for the parameter and because 50\% intervals are computational stable. For those interested in a more traditional significance-testing approach, we provide 95\% credible intervals in Table S2-S3. 
+\noindent In our figures we show 50\% credible intervals because of our interest in the most likely value for the parameter, and their computational stability. For those interested in a more traditional significance-testing approach, we provide 95\% credible intervals in Table S2-S3. 
 % http://andrewgelman.com/2016/11/05/why-i-prefer-50-to-95-intervals/
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,7 +198,7 @@ print(chilltable,
 \begin{figure} 
 \begin{center}
 \includegraphics[scale=0.5]{Advplot2.png}
-\caption{Responses of 28 woody plant species to photoperiod and temperature cues for leafout. Color of circle reflect unmodeled data on average leaf out day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments. } % Changed legend, check that I did it correctly please! Yes, ok.
+\caption{Responses of 28 woody plant species to photoperiod and temperature cues for leafout. Color of circle reflect unmodeled data on average leafout day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments. } % Changed legend, check that I did it correctly please! Yes, ok.
 \label{fig1}
 \end{center}
 \end{figure}
