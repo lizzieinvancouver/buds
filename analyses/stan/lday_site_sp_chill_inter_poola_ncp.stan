@@ -1,17 +1,11 @@
-
 // Stan model following Meetup 2016-03-28
 // Now with chilling levels as dummy variables for each level, two levels
-// Including site as intercept
-// If also include species intercept, total failure; model cannot decide which intercept to use..
-// Leafout day as a function of species and site of origin as modeled group level factors, and temperature, photoperiod, and chilling as unmodeled factors (experimental manipulation)
+// Including species as intercept
+// Leafout day as a function of species and site of origin as modeled group level factors, and site, temperature, photoperiod, and chilling as unmodeled factors (experimental manipulation)
 
 // Note by Lizzie: This model includes pooled intercepts
-
 // Adding non-centered parameterization (NCP or ncp) on b_inter_sp to start 
-// Question! can you ever do NCP on mu_b_inter or sigma_b_inter ...?
-// Question: Exception thrown at line 212: normal_log: Location parameter[1] is nan, but must be finite!
-// Question: How many of the priors to toss out with the NCP?
-// Question: How often does NCP fix divergent transitions but after all the NCPing you still get the same answer? 
+
 
 data {
   int<lower=0> N;
@@ -26,7 +20,7 @@ data {
   vector[N] site;
 }
 
-transformed data { 			// 9 interaction terms
+transformed data { 	      // 9 interaction terms
   vector[N] inter_wp;         // vector[N] inter_wp  = warm .* photo;
   vector[N] inter_ws;           
   vector[N] inter_ps;           
@@ -151,7 +145,7 @@ transformed parameters { // Vectorize: Won't save time probably here (no scalar 
 }
 
 model {
-	// Priors. Make them flat
+	// Priors //
 	mu_b_warm ~ normal(0, 35); // 100 = 3 months on either side. Narrow down to 35
 	mu_b_photo ~ normal(0, 35);
 	mu_b_chill1 ~ normal(0, 35);
@@ -184,7 +178,7 @@ model {
 	sigma_b_inter_sc1 ~ normal(0, 10);	
 	sigma_b_inter_sc2 ~ normal(0, 10);
 
-	a_sp ~ normal(mu_a, sigma_a);  // SHOULD ADD PRIORS!
+	a_sp ~ normal(mu_a, sigma_a);  
 	
 	b_warm ~ normal(mu_b_warm, sigma_b_warm);
 	b_photo ~ normal(mu_b_photo, sigma_b_photo);
