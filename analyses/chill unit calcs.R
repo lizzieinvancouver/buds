@@ -1,4 +1,6 @@
-# Calculating chill units
+# Started in 2016 by Dan Flynn #
+# Calculating chill units for 2015 budburst experiment #
+# Updated 2017 by Lizzie to my filepath # 
 
 setwd("/Users/Lizzie/Documents/git/projects/treegarden/budexperiments/analyses")
 toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1]
