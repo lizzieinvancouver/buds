@@ -90,8 +90,8 @@ clim.summ.janmar.overall <-
       mean.min.tmin = mean(min.tmax, na.rm=TRUE),
       mean.max.tmax = mean(max.tmax, na.rm=TRUE))
 
-ggplot(clim.summ, aes(mean.tmin, fill = site)) + geom_density(alpha = 0.2)
-ggplot(clim.summ, aes(mean.tmax, fill = site)) + geom_density(alpha = 0.2)
+ggplot(clim.summ.janmar, aes(mean.tmin, fill = site)) + geom_density(alpha = 0.2)
+ggplot(clim.summ.janmar, aes(mean.tmax, fill = site)) + geom_density(alpha = 0.2)
 
 # March to May
 clim.summ.aprmay <-
