@@ -10,7 +10,21 @@ Lizzie put many of these models in models_archive folders to make things easier.
 Since it’s by Lizzie and not Dan, these are educated guesses!
 
 <><><><><><><><><><><><><>
-Still in main folder:
+Supp materials
+<><><><><><><><><><><><><>
+NOTE: As of 2 July 2017 analyses/supp contains copies of these three files:
+
+Main Stan model used:
+lday_site_sp_chill_inter_poola_ncp.stan - but with comments updated or deleted if not important
+
+Model output:
+lday_site_sp_chill_inter_poola_ncp_doyl.Rda - on real leafout data with 3 divergent transitions (model run from 2 May 2017)
+
+lday_site_sp_chill_inter_poola_ncp_doymb.Rda - on real budburst data with no divergent transitions (model run on 2 May 2017)
+
+
+<><><><><><><><><><><><><>
+In main folder:
 <><><><><><><><><><><><><>
 
 lday_site_sp_chill_inter_poola_ncp.stan —  built off lday_site_sp_chill_inter_poola.stan -  y ~ (warm * photo * chill * site)^2 …. It is a linear model with all interactions, with chilling levels as dummy variables, with hierarchical effect of species on slopes and intercepts. This model has non-centered parameterization the interaction terms, which showed funneling issues in lday_site_sp_chill_inter_poola.stan. 
@@ -32,7 +46,7 @@ lday_site_sp_chill_inter_poola.stan (with diverging transitions)
 
 lday_site_sp_chill_inter_poola_ncp_doyl.Rda - on real leafout data with 3 divergent transitions (model run from 2 May 2017)
 
-lday_site_sp_chill_inter_poola_ncp_doymb.Rda - on real bud burst data with no divergent transitions (model run on 2 May 2017)
+lday_site_sp_chill_inter_poola_ncp_doymb.Rda - on real budburst data with no divergent transitions (model run on 2 May 2017)
 
 lday_site_sp_chill_inter_poola_ncpfull_doyl.Rda - on real leafout data — ran fine. 
 

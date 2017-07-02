@@ -20,6 +20,8 @@ Additional Plots and Processing.R
 
 chill unit calcs.R — is used in the Supp file
 
+climatesummary.R — results of this are referenced in supp file (Lizzie built this file in late June 2017 in response to queries by Yann Vitasse)
+
 <><><><><><><>><><><><>><><>
 Other files I suspect are important:
 <><><><><><><>><><><><>><><>
@@ -43,3 +45,8 @@ Files I hypothesize are not that useful:
 <><><><><><><>><><><><>><><>
 
 eliminatingdivergingerrors.R - I don’t think this does what the name says, see my notes in the stan folder. 
+
+<><><><><><><>><><><><>><><>
+supp folder
+<><><><><><><>><><><><>><><>
+Copied files (from elsewhere in analyses folder) that will be submitted with manuscript as supplemental materials. See also notes in _READMEstan.txt in the Stan folder. 
