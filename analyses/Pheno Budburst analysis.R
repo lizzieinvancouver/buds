@@ -853,17 +853,17 @@ df.lsens <- data.frame(sp=adv$sp, lwarm=lwarm, lphoto=lphoto, lchill1=lchill1, g
 pdf(file.path(figpath, "Sens_vs_day_treeshrub.pdf"), width = 9, height = 3.5)
 
 par(mfrow=c(1,3))
-plot(lwarm~overall, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("red", 0.6), xlab = "Day of leafout",
+plot(lwarm~overall, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-28,-11), xlim=c(20,90))
 points(lwarm~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-28,-11), xlim=c(20,90))
 
-plot(lphoto~overall, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("red", 0.6), xlab = "Day of leafout",
+plot(lphoto~overall, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-14,-7), xlim=c(20,90))
 points(lphoto~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-14,-7), xlim=c(20,90))
 
-plot(lchill1~overall, ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("red", 0.6), xlab = "Day of leafout",
+plot(lchill1~overall, ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-28,-11), xlim=c(20,90))
 points(lchill1~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-28,-11), xlim=c(20,90))
