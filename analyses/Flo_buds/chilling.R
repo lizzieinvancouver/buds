@@ -17,7 +17,7 @@ fb<-read.csv("Budburst By Day.csv", header = TRUE)
 mag11<-filter(fb, sp %in% c("ACEPEN", "ACERUB","ALNINC","CORCOR","ILEMUC","LONCAN", "POPGRA", "PRUPEN", "VIBLAN","RHOPRI","VIBCAS"))
 group<-group_by(mag11,sp)
 groupo<-gather(group,phenophase,eventday,fday:lday)
-View(groupo)
+
 
 p1<-ggplot(groupo, aes(x=treatcode, y=eventday, color=phenophase)) +
   stat_summary()+labs(title="First flower and leaf out by treatment per species", x="Treatment", y="Days since initiation")
