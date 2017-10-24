@@ -877,13 +877,17 @@ df.bsens <- data.frame(sp=adv$sp, bwarm=bwarm, bphoto=bphoto, bchill1=bchill1, g
 
 pdf(file.path(figpath, "Sens_vs_day_treeshrub.pdf"), width = 9, height = 7)
 
+# params
+cex.pch <- 1.25
+cex.text <- 0.5
+
 par(mfrow=c(2,3))
 ## budburst
 xlimbb <- c(12,75)
-plot(bwarm~overallb, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6),
+plot(bwarm~overallb, ylab = "Warming sensitivity", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6),
     xlab = "Day of budburst", data=subset(df.bsens, group==1), 
     ylim=c(-16,-1), xlim=xlimbb)
-points(bwarm~overallb, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
+points(bwarm~overallb, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
     ylim=c(-16,-1), xlim=xlimbb)
 
 df.bsens.gr1 <- subset(df.bsens, group==1)
@@ -891,56 +895,63 @@ df.bsens.gr2 <- subset(df.bsens, group==2)
 
 text(df.bsens.gr1$overallb, df.bsens.gr1$bwarm, 
     df.bsens.gr1$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "firebrick3")
 
 text(df.bsens.gr2$overallb, df.bsens.gr2$bwarm, 
     df.bsens.gr2$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "blue3")
 
-plot(bphoto~overallb, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
+legend("topright",
+       pch = 16,
+       col = alpha(c("firebrick3", "blue3"), 0.6),
+       legend = c("Shrubs","Trees"),
+       inset = 0.02, 
+       bg = 'white') # bty="n" removes the box
+
+plot(bphoto~overallb, ylab = "Photoperiod sensitivity", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
     data=subset(df.bsens, group==1), ylim=c(-12,-1), xlim=xlimbb)
-points(bphoto~overallb, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
+points(bphoto~overallb, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
     ylim=c(-12,-1), xlim=xlimbb)
 
 text(df.bsens.gr1$overallb, df.bsens.gr1$bphoto, 
     df.bsens.gr1$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "firebrick3")
 
 text(df.bsens.gr2$overallb, df.bsens.gr2$bphoto, 
     df.bsens.gr2$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "blue3")
 
-plot(bchill1~overallb, ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
+plot(bchill1~overallb, ylab = "Chilling sensitivity", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
     data=subset(df.bsens, group==1), ylim=c(-28,-8), xlim=xlimbb)
-points(bchill1~overallb, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
+points(bchill1~overallb, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
     ylim=c(-28,-8), xlim=xlimbb)
 
 
 text(df.bsens.gr1$overallb, df.bsens.gr1$bchill1, 
     df.bsens.gr1$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "firebrick3")
 
 text(df.bsens.gr2$overallb, df.bsens.gr2$bchill1, 
     df.bsens.gr2$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "blue3")
 
 ## leafout
-plot(lwarm~overall, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6),
+plot(lwarm~overall, ylab = "Warming sensitivity", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6),
     xlab = "Day of leafout", data=subset(df.lsens, group==1), 
     ylim=c(-28,-11), xlim=c(20,90))
-points(lwarm~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
+points(lwarm~overall, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-28,-11), xlim=c(20,90))
 
 df.lsens.gr1 <- subset(df.lsens, group==1)
@@ -948,48 +959,48 @@ df.lsens.gr2 <- subset(df.lsens, group==2)
 
 text(df.lsens.gr1$overall, df.lsens.gr1$lwarm, 
     df.lsens.gr1$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "firebrick3")
 
 text(df.lsens.gr2$overall, df.lsens.gr2$lwarm, 
     df.lsens.gr2$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "blue3")
 
-plot(lphoto~overall, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
+plot(lphoto~overall, ylab = "Photoperiod sensitivity", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-14,-7), xlim=c(20,90))
-points(lphoto~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
+points(lphoto~overall, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-14,-7), xlim=c(20,90))
 
 text(df.lsens.gr1$overall, df.lsens.gr1$lphoto, 
     df.lsens.gr1$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "firebrick3")
 
 text(df.lsens.gr2$overall, df.lsens.gr2$lphoto, 
     df.lsens.gr2$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "blue3")
 
-plot(lchill1~overall, ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
+plot(lchill1~overall, ylab = "Chilling sensitivity", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-28,-9), xlim=c(20,90))
-points(lchill1~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
+points(lchill1~overall, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-28,-11), xlim=c(20,90))
 
 
 text(df.lsens.gr1$overall, df.lsens.gr1$lchill1, 
     df.lsens.gr1$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "firebrick3")
 
 text(df.lsens.gr2$overall, df.lsens.gr2$lchill1, 
     df.lsens.gr2$sp,
-    cex = 0.5, 
+    cex = cex.text, 
     pos = 3,
     col = "blue3")
 

@@ -222,7 +222,7 @@ print(chilltable,
 
 \begin{figure}
 \label{figS4}
-\includegraphics[width=1\textwidth]{Sens_vs_day}
+\includegraphics[width=1\textwidth]{Sens_vs_day_treeshrub}
 \caption{Model estimates of sensitivity to warming, photoperiod, and chilling, compared to day of budburst (upper panels) or leafout (lower panels) across all experimental conditions.}
 \end{figure}
 
