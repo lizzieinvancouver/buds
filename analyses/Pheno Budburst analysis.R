@@ -261,6 +261,27 @@ sumerl[!is.na(match(rownames(sumerl), paste("b_chill2[", nochill, "]", sep="")))
 # hist(doym.b@sim$samples[[1]]$`b_photo[13]`, breaks=1000)
 # hist(doym.l@sim$samples[[1]]$`b_photo[13]`, breaks=1000)
 
+
+################
+# What cue is biggest?
+################
+df.meaneffs <- data.frame(bb.warm=sumerb[grep("b_warm", rownames(sumerl)),1],
+    bb.photo=sumerb[grep("b_photo", rownames(sumerl)),1],
+    bb.chill1=sumerb[grep("b_chill1", rownames(sumerl)),1],
+    bb.chill2=sumerb[grep("b_chill2", rownames(sumerl)),1],
+    lo.warm=sumerl[grep("b_warm", rownames(sumerl)),1],
+    lo.photo=sumerl[grep("b_photo", rownames(sumerl)),1],
+    lo.chill1=sumerl[grep("b_chill1", rownames(sumerl)),1],
+    lo.chill2=sumerl[grep("b_chill2", rownames(sumerl)),1])
+
+df.meaneffs[which(df.meaneffs$bb.warm > df.meaneffs$bb.photo),] # species 19
+unique(dxb$sp)[19] # PRUPEN
+df.meaneffs[which(df.meaneffs$lo.warm > df.meaneffs$lo.photo),] # none
+df.meaneffs[which(df.meaneffs$bb.chill1 > df.meaneffs$bb.warm),] # none
+df.meaneffs[which(df.meaneffs$lo.chill1 > df.meaneffs$lo.warm),] # 7 diff species: ACEPEN, ACERUB, BETALL, BETPAP, FAGGRA, ILEMUC, VIBCAS
+
+
+
 ################
 # Figure 1:
 # Stan model effects for bud burst and leaf-out
@@ -844,29 +865,133 @@ dev.off();#system(paste("open", file.path(figpath, "Sens_vs_day.pdf"), "-a /Appl
 
 ##
 ## Added by Lizzie on 30 July 2017 for ESA talk
-## Just doing leafout for now
+## Then updated on 24 October 2017 for paper resubmission
+## Correlations between main effects and lo/bb
+## But with some bells and whistles (it's a long, ugly bit of code, sorry!)
 ##
 
 df.lsens <- data.frame(sp=adv$sp, lwarm=lwarm, lphoto=lphoto, lchill1=lchill1, group=treeshrub,
     overall=adv$overall)
+df.bsens <- data.frame(sp=adv$sp, bwarm=bwarm, bphoto=bphoto, bchill1=bchill1, group=treeshrub,
+    overallb=adv$overallb)
 
-pdf(file.path(figpath, "Sens_vs_day_treeshrub.pdf"), width = 9, height = 3.5)
+pdf(file.path(figpath, "Sens_vs_day_treeshrub.pdf"), width = 9, height = 7)
 
-par(mfrow=c(1,3))
-plot(lwarm~overall, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
-    data=subset(df.lsens, group==1), ylim=c(-28,-11), xlim=c(20,90))
+par(mfrow=c(2,3))
+## budburst
+xlimbb <- c(12,75)
+plot(bwarm~overallb, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6),
+    xlab = "Day of budburst", data=subset(df.bsens, group==1), 
+    ylim=c(-16,-1), xlim=xlimbb)
+points(bwarm~overallb, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
+    ylim=c(-16,-1), xlim=xlimbb)
+
+df.bsens.gr1 <- subset(df.bsens, group==1)
+df.bsens.gr2 <- subset(df.bsens, group==2)
+
+text(df.bsens.gr1$overallb, df.bsens.gr1$bwarm, 
+    df.bsens.gr1$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "firebrick3")
+
+text(df.bsens.gr2$overallb, df.bsens.gr2$bwarm, 
+    df.bsens.gr2$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "blue3")
+
+plot(bphoto~overallb, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
+    data=subset(df.bsens, group==1), ylim=c(-12,-1), xlim=xlimbb)
+points(bphoto~overallb, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
+    ylim=c(-12,-1), xlim=xlimbb)
+
+text(df.bsens.gr1$overallb, df.bsens.gr1$bphoto, 
+    df.bsens.gr1$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "firebrick3")
+
+text(df.bsens.gr2$overallb, df.bsens.gr2$bphoto, 
+    df.bsens.gr2$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "blue3")
+
+plot(bchill1~overallb, ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
+    data=subset(df.bsens, group==1), ylim=c(-28,-8), xlim=xlimbb)
+points(bchill1~overallb, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
+    ylim=c(-28,-8), xlim=xlimbb)
+
+
+text(df.bsens.gr1$overallb, df.bsens.gr1$bchill1, 
+    df.bsens.gr1$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "firebrick3")
+
+text(df.bsens.gr2$overallb, df.bsens.gr2$bchill1, 
+    df.bsens.gr2$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "blue3")
+
+## leafout
+plot(lwarm~overall, ylab = "Warming sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6),
+    xlab = "Day of leafout", data=subset(df.lsens, group==1), 
+    ylim=c(-28,-11), xlim=c(20,90))
 points(lwarm~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-28,-11), xlim=c(20,90))
+
+df.lsens.gr1 <- subset(df.lsens, group==1)
+df.lsens.gr2 <- subset(df.lsens, group==2)
+
+text(df.lsens.gr1$overall, df.lsens.gr1$lwarm, 
+    df.lsens.gr1$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "firebrick3")
+
+text(df.lsens.gr2$overall, df.lsens.gr2$lwarm, 
+    df.lsens.gr2$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "blue3")
 
 plot(lphoto~overall, ylab = "Photoperiod sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-14,-7), xlim=c(20,90))
 points(lphoto~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-14,-7), xlim=c(20,90))
 
+text(df.lsens.gr1$overall, df.lsens.gr1$lphoto, 
+    df.lsens.gr1$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "firebrick3")
+
+text(df.lsens.gr2$overall, df.lsens.gr2$lphoto, 
+    df.lsens.gr2$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "blue3")
+
 plot(lchill1~overall, ylab = "Chilling sensitivity", pch = 16, cex = 2, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
-    data=subset(df.lsens, group==1), ylim=c(-28,-11), xlim=c(20,90))
+    data=subset(df.lsens, group==1), ylim=c(-28,-9), xlim=c(20,90))
 points(lchill1~overall, pch = 16, cex = 2, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-28,-11), xlim=c(20,90))
+
+
+text(df.lsens.gr1$overall, df.lsens.gr1$lchill1, 
+    df.lsens.gr1$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "firebrick3")
+
+text(df.lsens.gr2$overall, df.lsens.gr2$lchill1, 
+    df.lsens.gr2$sp,
+    cex = 0.5, 
+    pos = 3,
+    col = "blue3")
 
 dev.off();#system(paste("open", file.path(figpath, "Sens_vs_day.pdf"), "-a /Applications/Preview.app"))
 

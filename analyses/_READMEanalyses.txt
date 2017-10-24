@@ -14,7 +14,7 @@ Main files I have been using:
 
 Pheno Budburst prep.R - preps the data, good use for methods and I used it to figure out who to acknowledge
 
-Pheno Budburst analysis.R — this is the MAIN analysis file and is sourced in the main text and supp
+Pheno Budburst analysis.R — this is the MAIN analysis file and is sourced in the main text and supp (incl. figures: Sens_vs_day)
 
 Additional Plots and Processing.R 
 
