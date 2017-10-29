@@ -221,12 +221,6 @@ print(chilltable,
 \end{figure}
 
 \begin{figure}
-\label{figS4}
-\includegraphics[width=1\textwidth]{Sens_vs_day_treeshrub}
-\caption{Model estimates of sensitivity to warming, photoperiod, and chilling, compared to day of budburst (upper panels) or leafout (lower panels) across all experimental conditions.}
-\end{figure}
-
-\begin{figure}
 \label{figS5}
 \includegraphics[width=1\textwidth]{Fig2_4panel_ZoomSupp.png}
 \caption{Effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }

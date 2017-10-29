@@ -95,7 +95,7 @@ Species were chosen based on the dominant forest vegetation at each site, aiming
 \vspace{1ex}\\
 \noindent \textbf{Growth Chamber Study}
 
-\noindent Cuttings were placed in growth chambers at the Arnold Arboretum in Erlenmeyer flasks with distilled water; water was changed every 7-10 days. The bases of cuttings were re-cut at each water change under water to prevent callusing. For 11 of the 28 species, sufficient cuttings were obtained from each individual tree to apply the full set of 12 experimental treatments: 2 temperature (20\degree C / 10\degree C warm vs. 15\degree C / 5\degree C cool) x 2 photoperiod (12 vs. 8 h) x 3 chilling (no additional chilling,  additional 33 d at 4\degree C, or 33 d at 1.5\degree C) treatments. For the remaining 17 species, only sufficient cuttings were obtained to apply the temperature and photoperiod treatments, without the additional chilling levels. The total number of cuttings for a given species thus ranged from 24 to 144, depending on presence at each site and application of the chilling treatment (Fig. S1). Lighting was a combination of halogen incandescent bulbs and T5HO fluorescent lamps with the lamploft adjusted to provide roughly 400 $\mu mol/m^{2}/s$ as measured by Apogee QSO-A5E quantum PAR light sensors in each chamber (sensor set to the height of the cuttings). Treatments were rotated across chambers every two weeks, as was flask position within chamber, to remove any possible bias of chamber or flask position.
+\noindent Cuttings were placed in growth chambers at the Arnold Arboretum in Erlenmeyer flasks with distilled water; water was changed every 7-10 days. The bases of cuttings were re-cut at each water change under water to prevent callusing. For 11 of the 28 species, sufficient cuttings were obtained from each individual tree to apply the full set of 12 experimental treatments: 2 temperature (20\degree C / 10\degree C warm vs. 15\degree C / 5\degree C cool) x 2 photoperiod (12 vs. 8 h) x 3 chilling (no additional chilling, additional 33 d at 4\degree C, or 33 d at 1.5\degree C) treatments. For the remaining 17 species, only sufficient cuttings were obtained to apply the temperature and photoperiod treatments, without the additional chilling levels. The total number of cuttings for a given species thus ranged from 24 to 144, depending on presence at each site and application of the chilling treatment (Fig. S1). Lighting was a combination of halogen incandescent bulbs and T5HO fluorescent lamps with the lamploft adjusted to provide roughly 400 $\mu mol/m^{2}/s$ as measured by Apogee QSO-A5E quantum PAR light sensors in each chamber (sensor set to the height of the cuttings). Treatments were rotated across chambers every two weeks, as was flask position within chamber, to remove any possible bias of chamber or flask position.
 
 Phenology of the cuttings was assessed using a modified BBCH scale \citep{Finn:2007}, with observations on each of the 2,136 cuttings made every 2-3 days for the course of the 82-day experiment, a total of 48 observation days. The phenological stages assessed in the present study are budburst, defined as beginning of sprouting or bud breaking or shoot emergence \citep[Code 07 in][]{Finn:2007} and leafout, defined as first leaves unfolded \citep[Code 11 in][]{Finn:2007}. Additional stages up to flowering and stem elongation were also recorded and we provide a photographic guide to help visualize stages across species \citep{bbchguide}. In total, we made over 19,320 phenological observations at the cutting level.
 %
@@ -147,7 +147,7 @@ In total we monitored 2,136 clippings and took over 19,320 observations of pheno
 
 The two forest sites showed similar responses, with only a very minor possible delay in overall timing for the northern site, and a more pronounced effect of site through its interaction with chilling (Fig. \ref{fig:maineff}, Tables S2-S3). The full effect of chilling depended on site, with a larger impact of site on the lower chilling temperature (1.5\degree C). Effects of forcing temperatures and photoperiod were not clearly impacted by site. 
 
-At the community level we found that all species were responsive to all cues (forcing temperatures, photoperiod and chilling, Fig. S2-3), with each species having slightly different cues such that each species would budburst and leafout at a distinct time compared to other species (Fig. S4). 
+At the community level we found that all species were responsive to all cues (forcing temperatures, photoperiod and chilling, Fig. S2-3), with each species having slightly different cues such that each species would budburst and leafout at a distinct time compared to other species (Fig. \ref{fig:commsens}). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vspace{2ex}\\
@@ -234,6 +234,14 @@ We thank T. Savas for technical and field assistance as well as countless observ
 \caption{Effects of photoperiod, temperature and chilling across species: Crosses and bars show mean and 50\% credible intervals from a Bayesian hierarchical model (see Tables S2-S3; Figs. 1, S2-S3). For visualization purposes, species names are represented by the first three letters of the genus and first three letters of the species epithet (see Table S1 for full species names and Fig. S5-S6 for additional versions of figure).}
 \label{fig:sppeff}
 \end{figure}
+
+\newpage
+\begin{figure}
+\includegraphics[width=1\textwidth]{Sens_vs_day_treeshrub}
+\caption{Model estimates of sensitivity to warming, photoperiod, and chilling, compared to day of budburst (upper panels) or leafout (lower panels).}
+\label{fig:commsens}
+\end{figure}
+
 
 \end{document}
 
