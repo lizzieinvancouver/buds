@@ -319,6 +319,14 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
   arrows(meanzb[,"75%"], nrow(meanzb):1, meanzb[,"25%"], nrow(meanzb):1,
          len = 0, col = "black")
   abline(v = 0, lty = 3)
+  # add advance/delay arrows
+  par(xpd=NA)
+  arrows(1, 15.5, 6, 15.5, len=0.1, col = "black")
+  legend(5, 16.5, legend="delay", bty="n", text.font = 1, cex=0.75)
+  arrows(-1, 15.5, -6, 15.5, len=0.1, col = "black")
+  legend(-12, 16.5, legend="advance", bty="n", text.font = 1, cex=0.75)
+  legend(-2, 16.5, legend="0", bty="n", text.font = 1, cex=0.75)
+  par(xpd=FALSE)
 
   par(mar=c(5, 10, 2, 1))
   # Lower panel: leaf-out
@@ -342,6 +350,15 @@ pdf(file.path(figpath, "Fig1_bb_lo.pdf"), width = 7, height = 8)
   arrows(meanzl[,"75%"], nrow(meanzl):1, meanzl[,"25%"], nrow(meanzl):1,
          len = 0, col = "black")
   abline(v = 0, lty = 3)
+
+  # add advance/delay arrows
+  par(xpd=NA)
+  arrows(1, 15.5, 6, 15.5, len=0.1, col = "black")
+  legend(5, 16.5, legend="delay", bty="n", text.font = 1, cex=0.75)
+  arrows(-1, 15.5, -6, 15.5, len=0.1, col = "black")
+  legend(-12, 16.5, legend="advance", bty="n", text.font = 1, cex=0.75)
+  legend(-2, 16.5, legend="0", bty="n", text.font = 1, cex=0.75)
+  par(xpd=FALSE)
   
 dev.off();#system(paste("open", file.path(figpath, "Fig1_bb_lo.pdf"), "-a /Applications/Preview.app"))
 
@@ -882,6 +899,7 @@ cex.pch <- 1.25
 cex.text <- 0.5
 
 par(mfrow=c(2,3))
+par(xpd=NA)
 ## budburst
 xlimbb <- c(12,75)
 plot(bwarm~overallb, ylab = "Change (days) due to 5° warming", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6),
@@ -912,7 +930,7 @@ legend("topright",
        inset = 0.02, 
        bg = 'white') # bty="n" removes the box
 
-plot(bphoto~overallb, ylab = "Change (days) due to 4 hour longer photoperiod", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
+plot(bphoto~overallb, ylab = "Change (days) \n due to 4 hour longer photoperiod", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
     data=subset(df.bsens, group==1), ylim=c(-12,-1), xlim=xlimbb)
 points(bphoto~overallb, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
     ylim=c(-12,-1), xlim=xlimbb)
@@ -929,7 +947,7 @@ text(df.bsens.gr2$overallb, df.bsens.gr2$bphoto,
     pos = 3,
     col = "blue3")
 
-plot(bchill1~overallb, ylab = "Advance due to 33d 4° chilling", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
+plot(bchill1~overallb, ylab = "Change (days) due to 33d 4° chilling", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
     data=subset(df.bsens, group==1), ylim=c(-28,-8), xlim=xlimbb)
 points(bchill1~overallb, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
     ylim=c(-28,-8), xlim=xlimbb)
@@ -969,7 +987,7 @@ text(df.lsens.gr2$overall, df.lsens.gr2$lwarm,
     pos = 3,
     col = "blue3")
 
-plot(lphoto~overall, ylab = "Change (days) due to 4 hour longer photoperiod", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
+plot(lphoto~overall, ylab = "Change (days) \n due to 4 hour longer photoperiod", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-14,-7), xlim=c(20,90))
 points(lphoto~overall, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-14,-7), xlim=c(20,90))
@@ -986,7 +1004,7 @@ text(df.lsens.gr2$overall, df.lsens.gr2$lphoto,
     pos = 3,
     col = "blue3")
 
-plot(lchill1~overall, ylab = "Advance due to 33d 4° chilling", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
+plot(lchill1~overall, ylab = "Change (days) due to 33d 4° chilling", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-28,-9), xlim=c(20,90))
 points(lchill1~overall, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-28,-11), xlim=c(20,90))
