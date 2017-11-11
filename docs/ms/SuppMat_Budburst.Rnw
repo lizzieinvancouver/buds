@@ -20,7 +20,7 @@
 \SweaveOpts{concordance=FALSE} % 
 
 \begin{center}
-\textbf{\Large{Supplemental Materials \vspace{1ex}\\Temperature and photoperiod drive spring phenology across all species in a temperate forest community}}
+\textbf{\Large{Supporting Information \vspace{1ex}\\Temperature and photoperiod drive spring phenology across all species in a temperate forest community}}
 
 Flynn \& Wolkovich
 \end{center}
@@ -41,7 +41,7 @@ Flynn \& Wolkovich
 
 \noindent\emph{Chilling calculations}
 
-\noindent The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions (hours below 7.2\degree C and between 0\degree C and 7.2\degree C) and Dynamic Model \citep{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \citep{Luedeling:2009}.
+\noindent The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions \citep{utahmodel}, and Dynamic Model \citep{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \citep{Luedeling:2009}.
 With both the Utah and Dynamic model, the more severe chilling treatment resulted in fewer calculated chilling portions. 
 
 \noindent\emph{Non-leafouts}
@@ -55,7 +55,7 @@ With both the Utah and Dynamic model, the more severe chilling treatment resulte
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{danlib}
-\bibliographystyle{amnat}
+\bibliographystyle{gcb}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -110,7 +110,7 @@ leafoutdays <- data.frame(Species = rownames(leafoutdays), leafoutdays)
 leafoutdays$Species = paste("\\textit{",leafoutdays$Species,"}", sep="")
 
 print(xtable(leafoutdays, 
-             caption = "Mean leafout and budburst days (across all treatments, based on raw data) for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada",
+             caption = "Mean leafout and budburst days after exposure to controlled environment forcing conditions (across all treatments, based on raw data) for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada",
              align = c("l", "l","r","r","r","r")), #>{\\textit}l
       include.rownames=F, 
       caption.placement = "top", 
@@ -164,7 +164,7 @@ allcalc$Treatment <- rep(c("Field chilling", "4.0 \\degree C x 30 d", "1.5 \\deg
 colnames(allcalc) <- sub("_", " ", colnames(allcalc))
 chilltable <- xtable(allcalc, 
                      digits = c(0, 0, 0, 0, 2, 2),
-                     caption = "Chill units in field and field and growth chamber conditions.")
+                     caption = "Chill units in field before harvest and in growth chamber conditions.")
 
 print(chilltable,
       include.rownames = FALSE,
