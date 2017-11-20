@@ -55,7 +55,7 @@ With both the Utah and Dynamic model, the more severe chilling treatment resulte
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{danlib}
-\bibliographystyle{gcb}
+\bibliographystyle{newphyto}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

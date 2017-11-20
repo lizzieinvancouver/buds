@@ -404,7 +404,7 @@ legend("bottomright",
 
 plotlet("b_chill1", "b_warm", 
         # ylab = "Advance due to 5° warming", 
-        #  xlab = "Advance due to 33d 4° chilling", 
+        #  xlab = "Advance due to 30d 4° chilling", 
         ylim = c(-27, 0.5),
         xlim = c(-28, -8),
         yaxt="n",
@@ -427,7 +427,7 @@ plotlet("b_photo", "b_warm",
 legend("topleft", bty = "n", inset = 0.035, legend = "C.", text.font=2)
 plotlet("b_chill1", "b_warm", 
         #   ylab = "Advance due to 5° warming", 
-        #   xlab = "Advance due to 33d 4° chilling", 
+        #   xlab = "Advance due to 30d 4° chilling", 
         ylim = c(-27, 0.5),
         xlim = c(-28, -8),
         yaxt="n",
@@ -441,7 +441,7 @@ plotblank()
 text(5.5, 5, "Change (days) due to 4 hr longer photoperiod", font = 2, pos = 3)
 
 plotblank()
-text(5.5, 5, "Change (days) due to 33d 4° chilling", font = 2, pos = 3)
+text(5.5, 5, "Change (days) due to 30d 4° chilling", font = 2, pos = 3)
 
 dev.off();#system(paste("open", file.path(figpath, "Fig2_4panel.pdf"), "-a /Applications/Preview.app"))
 
@@ -485,7 +485,7 @@ legend("bottomright",
 
 plotlet.old("b_chill1", "b_warm", 
         # ylab = "Advance due to 5° warming", 
-        #  xlab = "Advance due to 33d 4° chilling", 
+        #  xlab = "Advance due to 30d 4° chilling", 
         ylim = c(-16, 0.5),
         xlim = c(-28, -8),
         yaxt="n",
@@ -508,7 +508,7 @@ plotlet.old("b_photo", "b_warm",
 legend("topleft", bty = "n", inset = 0.035, legend = "C.", text.font=2)
 plotlet.old("b_chill1", "b_warm", 
         #   ylab = "Advance due to 5° warming", 
-        #   xlab = "Advance due to 33d 4° chilling", 
+        #   xlab = "Advance due to 30d 4° chilling", 
         ylim = c(-27, -12),
         xlim = c(-28, -8),
         yaxt="n",
@@ -522,7 +522,7 @@ plotblank()
 text(5.5, 5, "Change (days) due to 4 hr longer photoperiod", font = 2, pos = 3)
 
 plotblank()
-text(5.5, 5, "Change (days) due to 33d 4° chilling", font = 2, pos = 3)
+text(5.5, 5, "Change (days) due to 30d 4° chilling", font = 2, pos = 3)
 
 dev.off();
 
@@ -566,7 +566,7 @@ legend("bottomright",
 
 plotlet("b_chill2", "b_warm", 
         # ylab = "Advance due to 5° warming", 
-        #  xlab = "Advance due to 33d 4° chilling", 
+        #  xlab = "Advance due to 30d 4° chilling", 
         ylim = c(-27, 0.5),
         xlim = c(-28, -4),
         yaxt="n",
@@ -590,7 +590,7 @@ legend("topleft", bty = "n", inset = 0.035, legend = "C.", text.font=2)
 
 plotlet("b_chill2", "b_photo", 
         #   ylab = "Advance due to 5° warming", 
-        #   xlab = "Advance due to 33d 4° chilling", 
+        #   xlab = "Advance due to 30d 4° chilling", 
         ylim = c(-16, 0.5),
         xlim = c(-28, -4),
         yaxt="n",
@@ -602,10 +602,10 @@ legend("topleft", bty = "n", inset = 0.035, legend = "D.", text.font=2)
 plotblank()
 
 plotblank()
-text(5.5, 5, "Change (days) due to 33d 1.5° chilling", font = 2, pos = 3)
+text(5.5, 5, "Change (days) due to 30d 1.5° chilling", font = 2, pos = 3)
 
 plotblank()
-text(5.5, 5, "Change (days) due to 33d 1.5° chilling", font = 2, pos = 3)
+text(5.5, 5, "Change (days) due to 30d 1.5° chilling", font = 2, pos = 3)
 
 dev.off();
 
@@ -650,7 +650,7 @@ legend("bottomright",
 
 plotlet("b_chill2", "b_photo", 
         # ylab = "Advance due to 5° warming", 
-        #  xlab = "Advance due to 33d 4° chilling", 
+        #  xlab = "Advance due to 30d 4° chilling", 
         ylim = c(-16, 0.5),
         xlim = c(-28, -4),
         yaxt="n",
@@ -674,7 +674,7 @@ legend("topleft", bty = "n", inset = 0.035, legend = "C.", text.font=2)
 
 plotlet("b_chill2", "b_photo", 
         #   ylab = "Advance due to 5° warming", 
-        #   xlab = "Advance due to 33d 4° chilling", 
+        #   xlab = "Advance due to 30d 4° chilling", 
         ylim = c(-16, 0.5),
         xlim = c(-28, -4),
         yaxt="n",
@@ -686,10 +686,10 @@ legend("topleft", bty = "n", inset = 0.035, legend = "D.", text.font=2)
 plotblank()
 
 plotblank()
-text(5.5, 5, "Change (days) due to 33d 4° chilling", font = 2, pos = 3)
+text(5.5, 5, "Change (days) due to 30d 4° chilling", font = 2, pos = 3)
 
 plotblank()
-text(5.5, 5, "Change (days) due to 33d 1.5° chilling", font = 2, pos = 3)
+text(5.5, 5, "Change (days) due to 30d 1.5° chilling", font = 2, pos = 3)
 
 dev.off();
 
@@ -947,7 +947,7 @@ text(df.bsens.gr2$overallb, df.bsens.gr2$bphoto,
     pos = 3,
     col = "blue3")
 
-plot(bchill1~overallb, ylab = "Change (days) due to 33d 4° chilling", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
+plot(bchill1~overallb, ylab = "Change (days) due to 30d 4° chilling", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of budburst",
     data=subset(df.bsens, group==1), ylim=c(-28,-8), xlim=xlimbb)
 points(bchill1~overallb, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.bsens, group==2),
     ylim=c(-28,-8), xlim=xlimbb)
@@ -1004,7 +1004,7 @@ text(df.lsens.gr2$overall, df.lsens.gr2$lphoto,
     pos = 3,
     col = "blue3")
 
-plot(lchill1~overall, ylab = "Change (days) due to 33d 4° chilling", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
+plot(lchill1~overall, ylab = "Change (days) due to 30d 4° chilling", pch = 16, cex = cex.pch, col = alpha("firebrick3", 0.6), xlab = "Day of leafout",
     data=subset(df.lsens, group==1), ylim=c(-28,-9), xlim=c(20,90))
 points(lchill1~overall, pch = 16, cex = cex.pch, col = alpha("blue3", 0.6), data=subset(df.lsens, group==2),
     ylim=c(-28,-11), xlim=c(20,90))
