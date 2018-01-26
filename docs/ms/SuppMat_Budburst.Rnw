@@ -230,7 +230,14 @@ print(chilltable,
 \begin{figure}
 \label{figS6}
 \includegraphics[width=1\textwidth]{FigChill2_4panel.png}
-\caption{Effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but showing results with 1.5\degree C chilling treatment, and including relationship between chilling and photoperiod. Crosses and bars show mean and 50\% credible intervals.}
+\caption{Effects of temperature and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to forcing temperature responses (for photoperiod see S7). Crosses and bars show mean and 50\% credible intervals.}
+\end{figure}
+
+
+\begin{figure}
+\label{figS7}
+\includegraphics[width=1\textwidth]{FigChillPhoto_4panel.png}
+\caption{Effects of photoperiod and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to photoperiod responses (for forcing temperature see S6). Crosses and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \end{document}
