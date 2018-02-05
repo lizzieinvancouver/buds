@@ -2,7 +2,8 @@
 library(scales)
 library(gplots) # for textplot()
 
-setwd("~/Documents/git/buds/analyses") # setwd("~/Documents/git/projects/treegarden/budburstexp2015/analyses")
+# setwd("~/Documents/git/buds/analyses")
+setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
 
 # get latest data
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
@@ -12,6 +13,22 @@ load(file.path("input", toload))
 source("source/simpleplot.R")
 
 dx <- dx[!is.na(dx$site),] # one Betpap entry has no site, need to check
+
+# Add non-budburst
+dx$no <- dx$bday
+dx$no[dx$no>0] <- 1
+dx$no[is.na(dx$no)==TRUE] <- 0
+# Overall non-budburst versus non-leafout rates:
+sum(dx$no)
+sum(dx$nl)
+
+library(rstanarm)
+# START HERE  ... 
+
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+# <> Dan's analyses  ... 
+# <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
+
 
 # Analysis of where the non-leafout cuttings were
 nlx <- dx[dx$nl == 0,]

@@ -263,7 +263,7 @@ sumerl[!is.na(match(rownames(sumerl), paste("b_chill2[", nochill, "]", sep="")))
 
 
 ################
-# What cue is biggest?
+# What cue is biggest? And are they correlated?
 ################
 df.meaneffs <- data.frame(bb.warm=sumerb[grep("b_warm", rownames(sumerl)),1],
     bb.photo=sumerb[grep("b_photo", rownames(sumerl)),1],
@@ -280,7 +280,11 @@ df.meaneffs[which(df.meaneffs$lo.warm > df.meaneffs$lo.photo),] # none
 df.meaneffs[which(df.meaneffs$bb.chill1 > df.meaneffs$bb.warm),] # none
 df.meaneffs[which(df.meaneffs$lo.chill1 > df.meaneffs$lo.warm),] # 7 diff species: ACEPEN, ACERUB, BETALL, BETPAP, FAGGRA, ILEMUC, VIBCAS
 
-
+# all correlated
+summary(lm(bb.warm~bb.photo, data=df.meaneffs))
+summary(lm(bb.warm~bb.chill1, data=df.meaneffs))
+summary(lm(lo.warm~lo.photo, data=df.meaneffs))
+summary(lm(lo.warm~lo.chill1, data=df.meaneffs))
 
 ################
 # Figure 1:

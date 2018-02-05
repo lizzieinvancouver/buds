@@ -16,3 +16,4 @@ This repo contains three related projects:
 
 
 <><><><><><><><><><><>
+Also, note on the BBCH scale we used: We used a numeric form that is converted in this file: Budburst Datasheet 2015-05-15.xlsx/BBCHscale tab.
