@@ -3,8 +3,11 @@
 
 # Where were the non-leafout cuttings, by species, site, and treatement?
 
+# Impt NOTE: Lizzie did not update all of Dan's code...
+# should remove or go through it at some point #
+
 useshinystan <- FALSE
-runstan <- TRUE
+runstan <- FALSE
 
 library(scales)
 library(gplots) # for textplot()
@@ -224,7 +227,7 @@ sp.params <- c("(Intercept)", "chillchill1","chillchill2","siteSH",
 params.wsp <- c(1, 4:6, 14:15)
 params.nosp <- c(1:15)[-params.wsp]
 
-pdf(file.path(figpath, "NonBB_sp.pdf"), width = 7, height = 8)
+pdf(file.path(figpath, "NonBBLO_sp.pdf"), width = 7, height = 8)
 
 par(mfrow=c(1,1), mar = c(2, 10, 2, 1))
 # Upper panel: budburst
