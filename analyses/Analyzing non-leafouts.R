@@ -1,7 +1,19 @@
+## Started back when by Dan Flynn ##
+## Updates by Lizzie starting in early 2018 ##
+
 # Where were the non-leafout cuttings, by species, site, and treatement?
+
+useshinystan <- FALSE
+runstan <- TRUE
+
 library(scales)
 library(gplots) # for textplot()
-
+library(png)
+library(arm) # for invlogit
+library(rstanarm)
+if(useshinystan){
+library(shinystan)
+}
 # setwd("~/Documents/git/buds/analyses")
 setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
 
@@ -9,6 +21,7 @@ setwd("~/Documents/git/projects/treegarden/budexperiments/analyses")
 print(toload <- sort(dir("./input")[grep("Budburst Data", dir('./input'))], T)[1])
 
 load(file.path("input", toload))
+figpath = "../docs/ms/images"
 
 source("source/simpleplot.R")
 
@@ -21,9 +34,318 @@ dx$no[is.na(dx$no)==TRUE] <- 0
 # Overall non-budburst versus non-leafout rates:
 sum(dx$no)
 sum(dx$nl)
+dim(dx)
 
-library(rstanarm)
-# START HERE  ... 
+## A few notes learned while using rstanarm ...
+# (1) The hierarchical effects are given as deviations from the global parameters (called the b parameters) so you have to correct those  http://discourse.mc-stan.org/t/question-about-hierarchical-effects/3226
+# (2) Watch out of factors versus integers! I was posting the dx data (e.g., write.csv(dx, "output/dx.nonleafouts.csv", row.names=TRUE) then dx <- read.csv("output/dx.nonleafouts.csv", header=TRUE)) which reads in warm and photo as INTEGERS and thus you get different answers from the model with those (otherwise identical data) then you get here. 
+
+if(runstan){
+# models
+m1.no <- stan_glmer(no ~ (warm + photo + chill + site + 
+    warm*photo + warm*chill + photo*chill + warm*site + photo*site + chill*site) +
+    (chill + chill*site|sp), family = binomial(link = "logit"), data = dx)
+
+# Understanding models: m1.no
+# invlogit(3.007 + -0.96*1) # warm is -0.096; photo is -0.007; chill1 is -0.693, chill2 is -1.506, site is +0.542; QUEALB on intercept: -1.798
+# xhere <- -1.506
+# invlogit(3.007 +  xhere*1)-invlogit(3.007 +  xhere*0) # so chill2 increases leafout by 13.5%
+
+m1.nl <- stan_glmer(nl ~ (warm + photo + chill + site + 
+    warm*photo + warm*chill + photo*chill + warm*site + photo*site + chill*site) +
+    (chill + chill*site|sp), family = binomial(link = "logit"), data = dx)
+ 
+#m3.no <- stan_glmer(no ~ (warm + photo + chill + site + 
+#    warm*photo + warm*chill + photo*chill + warm*site + photo*site + chill*site) +
+#    ((warm + photo + chill + site + warm*photo + warm*chill + photo*chill +
+#    warm*site + photo*site + chill*site)|sp), family = binomial(link = "logit"), data = dx)
+# error occurred during calling the sampler; sampling not done
+# Error in check_stanfit(stanfit) : 
+#  Invalid stanfit object produced please report bug
+
+save(m1.no, file="stan/models_nonleafout/m1.no.Rdata")
+save(m1.nl, file="stan/models_nonleafout/m1.nl.Rdata")
+}
+
+if(!runstan){
+load("stan/models_nonleafout/m1.no.Rdata")
+load("stan/models_nonleafout/m1.nl.Rdata")
+}
+
+if(useshinystan){
+launch_shinystan(m1.no)
+launch_shinystan(m1.nl)
+}
+
+## Plotting
+## Below gives the main text figure
+bbpng <- readPNG(file.path(figpath, "Finn_BB.png")) # Illustrations from Finn et al.
+lopng <- readPNG(file.path(figpath, "Finn_LO.png"))
+col4fig <- c("mean","sd","25%","50%","75%","Rhat")
+
+sumer.m1no <- summary(m1.no)
+
+# manually to get right order
+mu_params <- c("warm20","photo12","chillchill1","chillchill2","siteSH",
+               "warm20:photo12",
+               "warm20:chillchill1","warm20:chillchill2",
+               "photo12:chillchill1","photo12:chillchill2",
+               "warm20:siteSH", "photo12:siteSH",
+               "chillchill1:siteSH","chillchill2:siteSH")
+
+meanzb <- sumer.m1no[mu_params,col4fig]
+
+rownames(meanzb) = c("Forcing Temperature",
+                    "Photoperiod",
+                    "Chilling 4°",
+                    "Chilling 1.5°C",
+                    "Site",
+                    "Forcing x Photoperiod",
+                    "Forcing x Chilling 4°C",
+                    "Forcing x Chilling 1.5°C",
+                    "Photoperiod x Chilling 4°C",
+                    "Photoperiod x Chilling 1.5°C",
+                    "Forcing x Site",
+                    "Photoperiod x Site",
+                    "Site x Chilling 4°C",
+                    "Site x Chilling 1.5°C"
+                    )
+
+sumer.m1nl <- summary(m1.nl)
+meanzl <- sumer.m1nl[mu_params,col4fig]
+rownames(meanzl) <- rownames(meanzb)
+
+pdf(file.path(figpath, "NonBBLO.pdf"), width = 7, height = 8)
+par(mfrow=c(2,1), mar = c(2, 10, 5, 1))
+  
+  # Upper panel: bud burst
+  plot(seq(-2.5, 
+           2,
+           length.out = nrow(meanzb)), 
+       1:nrow(meanzb),
+       type="n",
+       xlab = "",
+       ylab = "",
+       yaxt = "n")
+  
+  legend(x =-2.8, y = 3, bty="n", legend = "a. Budburst", text.font = 2)
+  # rasterImage(bbpng, -4, 1, -2, 1)
+  
+  axis(2, at = nrow(meanzb):1, labels = rownames(meanzb), las = 1, cex.axis = 0.8)
+  points(meanzb[,'mean'],
+         nrow(meanzb):1,
+         pch = 16,
+         col = "midnightblue")
+  arrows(meanzb[,"75%"], nrow(meanzb):1, meanzb[,"25%"], nrow(meanzb):1,
+         len = 0, col = "black")
+  abline(v = 0, lty = 3)
+  # add advance/delay arrows
+  par(xpd=NA)
+  arrows(-0.1, 15.5, -2.5, 15.5, len=0.1, col = "black")
+  legend(-1, 17, legend="delay", bty="n", text.font = 1, cex=0.75)
+  arrows(0.1, 15.5, 2, 15.5, len=0.1, col = "black")
+  legend(0.2, 17, legend="advance", bty="n", text.font = 1, cex=0.75)
+  legend(-0.25, 16.25, legend="0", bty="n", text.font = 1, cex=0.75)
+  par(xpd=FALSE)
+
+  par(mar=c(5, 10, 2, 1))
+  # Lower panel: leaf-out
+  plot(seq(-2.5, 
+           2, 
+           length.out = nrow(meanzl)), 
+       1:nrow(meanzl),
+       type="n",
+       xlab = "Model estimate change in budburst or leafout success",
+       ylab = "",
+       yaxt = "n")
+  
+  legend(x = -2.8, y = 3, bty="n", legend = "b. Leafout", text.font = 2)
+  # rasterImage(lopng, -20, 1, -14, 4)
+  
+  axis(2, at = nrow(meanzl):1, labels = rownames(meanzl), las = 1, cex.axis = 0.8)
+  points(meanzl[,'mean'],
+         nrow(meanzl):1,
+         pch = 16,
+         col = "midnightblue")
+  arrows(meanzl[,"75%"], nrow(meanzl):1, meanzl[,"25%"], nrow(meanzl):1,
+         len = 0, col = "black")
+  abline(v = 0, lty = 3)
+
+dev.off()
+
+
+
+### Supplemental figure -- with species-level estimates shown!
+
+iter.m1no <- as.data.frame(m1.no)
+iter.m1nl <- as.data.frame(m1.nl)
+
+# manually to get right order, with intercept
+mu_params.wi <- c("(Intercept)", "warm20","photo12","chillchill1","chillchill2",
+               "siteSH","warm20:photo12",
+               "warm20:chillchill1","warm20:chillchill2",
+               "photo12:chillchill1","photo12:chillchill2",
+               "warm20:siteSH", "photo12:siteSH",
+               "chillchill1:siteSH","chillchill2:siteSH")
+
+meanzb.wi <- sumer.m1no[mu_params.wi,col4fig]
+
+rownames(meanzb.wi) = c("Intercept",
+                    "Forcing Temperature",
+                    "Photoperiod",
+                    "Chilling 4°",
+                    "Chilling 1.5°C",
+                    "Site",
+                    "Forcing x Photoperiod",
+                    "Forcing x Chilling 4°C",
+                    "Forcing x Chilling 1.5°C",
+                    "Photoperiod x Chilling 4°C",
+                    "Photoperiod x Chilling 1.5°C",
+                    "Forcing x Site",
+                    "Photoperiod x Site",
+                    "Site x Chilling 4°C",
+                    "Site x Chilling 1.5°C"
+                    )
+
+meanzl.wi <- sumer.m1nl[mu_params.wi,col4fig]
+rownames(meanzl.wi) <- rownames(meanzb.wi)
+
+speff.bb <- speff.lo <- vector()
+params <- c("(Intercept)", "warm20","photo12","chillchill1",
+               "chillchill2","siteSH", "warm20:photo12",
+               "warm20:chillchill1","warm20:chillchill2",
+               "photo12:chillchill1","photo12:chillchill2",
+               "warm20:siteSH", "photo12:siteSH",
+               "chillchill1:siteSH","chillchill2:siteSH")
+
+sp.params <- c("(Intercept)", "chillchill1","chillchill2","siteSH",
+               "chillchill1:siteSH","chillchill2:siteSH")
+
+params.wsp <- c(1, 4:6, 14:15)
+params.nosp <- c(1:15)[-params.wsp]
+
+pdf(file.path(figpath, "NonBB_sp.pdf"), width = 7, height = 8)
+
+par(mfrow=c(1,1), mar = c(2, 10, 2, 1))
+# Upper panel: budburst
+plot(seq(-4, #min(meanz[,'mean']*1.1),
+         5, #max(meanz[,'mean']*1.1),
+         length.out = nrow(meanzb.wi)), 
+     seq(1, 5*nrow(meanzb.wi), length.out = nrow(meanzb.wi)),
+     type="n",
+     xlab = "",
+     ylab = "",
+     yaxt = "n")
+
+legend(x =-4.5, y = 6, bty="n", legend = "a. Budburst", text.font = 2)
+# rasterImage(bbpng, -0.25, 1, 0, 4)
+
+axis(2, at = 5*(nrow(meanzb.wi):1), labels = rownames(meanzb.wi), las = 1, cex.axis = 0.8)
+
+
+# Plot species levels for each predictor
+for(i in 1:length(unique(dx$sp))){
+  b.params <- iter.m1no[!is.na(match(colnames(iter.m1no), c(paste("b", "[", sp.params, " sp:",
+      unique(dx$sp)[i], "]", sep=""))))]
+
+  main.params <- iter.m1no[!is.na(match(colnames(iter.m1no), sp.params))]
+
+  bplusmain <- b.params
+  for(c in 1:ncol(main.params)){
+      bplusmain[c] <- b.params[c]+main.params[c]
+      }
+
+  bplusmain.quant <- sapply(bplusmain, FUN = quantile, probs = c(0.25, 0.50, 0.75))
+  
+  sp.est <- t(bplusmain.quant)
+  
+  jt <- jitter(0, factor = 40)
+
+  arrows(sp.est[,"75%"],  jt+(5*(nrow(meanzb.wi):1)-1)[params.wsp], sp.est[,"25%"],  jt+(5*(nrow(meanzb.wi):1)-1)[params.wsp],
+         len = 0, col = alpha("firebrick", 0.2)) 
+  
+  points(sp.est[,'50%'],
+         jt+(5*(nrow(meanzb.wi):1)-1)[params.wsp], #[c(3:5,11:12)], # ADJUSTED for just the ranef here
+         pch = 16,
+         col = alpha("firebrick", 0.5))
+
+  speff.bb = rbind(speff.bb, t(sp.est[,1]))
+    }
+
+arrows(meanzb.wi[,"75%"], (5*(nrow(meanzb.wi):1))+1, meanzb.wi[,"25%"], (5*(nrow(meanzb.wi):1))+1,
+       len = 0, col = "black", lwd = 3)
+
+points(meanzb.wi[,'mean'],
+       (5*(nrow(meanzb.wi):1))+1,
+       pch = 16,
+       cex = 1,
+       col = "midnightblue")
+abline(v = 0, lty = 2)
+
+
+# Lower panel: leafout
+
+par(mfrow=c(1,1), mar = c(2, 10, 2, 1))
+
+plot(seq(-4, #min(meanz[,'mean']*1.1),
+         5, #max(meanz[,'mean']*1.1),
+         length.out = nrow(meanzl.wi)), 
+     seq(1, 5*nrow(meanzl.wi), length.out = nrow(meanzl.wi)),
+     type="n",
+     xlab = "",
+     ylab = "",
+     yaxt = "n")
+
+legend(x =-4.5, y = 6, bty="n", legend = "b. Leafout", text.font = 2)
+
+axis(2, at = 5*(nrow(meanzl.wi):1), labels = rownames(meanzl.wi), las = 1, cex.axis = 0.8)
+
+
+# Plot species levels for each predictor
+for(i in 1:length(unique(dx$sp))){
+  b.params <- iter.m1nl[!is.na(match(colnames(iter.m1nl), c(paste("b", "[", sp.params, " sp:",
+      unique(dx$sp)[i], "]", sep=""))))]
+
+  main.params <- iter.m1nl[!is.na(match(colnames(iter.m1nl), sp.params))]
+
+  bplusmain <- b.params
+  for(c in 1:ncol(main.params)){
+      bplusmain[c] <- b.params[c]+main.params[c]
+      }
+
+  bplusmain.quant <- sapply(bplusmain, FUN = quantile, probs = c(0.25, 0.50, 0.75))
+  
+  sp.est <- t(bplusmain.quant)
+  
+  jt <- jitter(0, factor = 40)
+
+  arrows(sp.est[,"75%"],  jt+(5*(nrow(meanzl.wi):1)-1)[params.wsp], sp.est[,"25%"],  jt+(5*(nrow(meanzl.wi):1)-1)[params.wsp],
+         len = 0, col = alpha("firebrick", 0.2)) 
+  
+  points(sp.est[,'50%'],
+         jt+(5*(nrow(meanzl.wi):1)-1)[params.wsp], #[c(3:5,11:12)], # ADJUSTED for just the ranef here
+         pch = 16,
+         col = alpha("firebrick", 0.5))
+
+  speff.lo = rbind(speff.lo, t(sp.est[,1]))
+    }
+
+arrows(meanzl.wi[,"75%"], (5*(nrow(meanzl.wi):1))+1, meanzl.wi[,"25%"], (5*(nrow(meanzl.wi):1))+1,
+       len = 0, col = "black", lwd = 3)
+
+points(meanzl.wi[,'mean'],
+       (5*(nrow(meanzl.wi):1))+1,
+       pch = 16,
+       cex = 1,
+       col = "midnightblue")
+abline(v = 0, lty = 2)
+
+
+dev.off();#system(paste("open", file.path(figpath, "Fig1_bb_lo+sp.pdf"), "-a /Applications/Preview.app"))
+
+
+
+stop(print("stopping here, below code is original code by Dan Flynn ..."))
 
 # <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <> <>
 # <> Dan's analyses  ... 

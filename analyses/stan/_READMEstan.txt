@@ -140,3 +140,9 @@ lday_site_sp_chill_inter3X_poola_ncp.stan - as in lday_site_sp_chill_inter_poola
 
 …led to 15541 divergent transitions (I think every transition was divergent!) and a crazy value for mu_b_inter_wpc1 (somewhere between about -1^7 and 3^6 … it never converged). Runs quickly though!
 
+
+<><><><><><><><><><><><><>
+models_nonleafout
+<><><><><><><><><><><><><>
+
+This is where I put output from the rstanarm models fit in “Analyzing non-leafouts.R” See also extras/Pheno Budburst analysis bernoulli.R
