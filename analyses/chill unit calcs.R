@@ -12,23 +12,25 @@ load(file.path("input", toload))
 library(chillR)
 # Luedeling recommends Dynamic Model (chill portions)
 
+if(FALSE){ # Dan had this commented out but I believe it to be where he builds the HF data ... 
 # HF chilling from Oct 1 2014
-# 
-# htemp <- read.csv("..//data/hf001-10-15min-m.csv")
-# 
-# htemp$datetime <- as.POSIXlt(htemp$datetime, format = "%Y-%m-%dT%H:%M")
-# 
-# # select years. There are 44 na's
-# 
-# htemp1 <- htemp[htemp$datetime > "2014-09-30" & htemp$datetime < "2015-01-22" & !is.na(htemp$datetime),]
-# 
-# htemp2 <- htemp[htemp$datetime > "2015-11-01" & !is.na(htemp$datetime),]
-# 
-# # aggregate to hourly averages 
-# ht <- aggregate(airt ~ format(htemp1$datetime, "%Y-%m-%d %H"), mean, data = htemp1)
-# names(ht)[1] = 'datetime'
-# save(file = "HF Temp Data.Rdata", list=c("ht", "htemp1", "htemp2")) # to save a lot of time in Sweaving
+ 
+htemp <- read.csv("..//data/hf001-10-15min-m.csv")
 
+htemp$datetime <- as.POSIXlt(htemp$datetime, format = "%Y-%m-%dT%H:%M")
+
+# select years. There are 44 na's
+ 
+htemp1 <- htemp[htemp$datetime > "2014-09-30" & htemp$datetime < "2015-03-30" & !is.na(htemp$datetime),]
+ 
+htemp2 <- htemp[htemp$datetime > "2015-11-01" & !is.na(htemp$datetime),]
+
+# aggregate to hourly averages 
+ht <- aggregate(airt ~ format(htemp1$datetime, "%Y-%m-%d %H"), mean, data = htemp1)
+names(ht)[1] = 'datetime'
+# save(file = "HF Temp Data.Rdata", list=c("ht", "htemp1", "htemp2")) # to save a lot of time in Sweaving
+}
+    
 load("HF Temp Data.Rdata")
 
 ht$Year <- as.numeric(substr(ht$datetime, 1, 4))
@@ -46,6 +48,16 @@ ht2$Hour <- as.numeric(substr(ht2$datetime, 12, 13))
 names(ht2)[2] = "Temp"
 
 chill0calc <- chilling(ht2, 273, 21) # 56 chill portions by Jan 21 last year.
+
+# What about by March 1?
+chill1Mar <- chilling(ht2, 273, 60) # 57 chill portions by 1 March.
+chill130 <- chilling(ht2, 273, 130) # 77.5 chill portions by 10 May (see Richardonson et al. 2009, Tree Phys)
+
+jtomod <- as.Date("130", format = "%j")
+format(jtomod, "%d-%b")
+
+modtoj <- as.Date("Mar-01", format = "%b-%d")
+format(modtoj, "%j")
 
 # Chilling in experimental setting. From Jan 22 - Feb 12 at 4, then to either 4 or 1.5 for additional 30 d. total: 22 d at 4, then 30 d extra.
 # diff(as.POSIXlt(c("2015-01-22", "2015-02-12", "2015-03-14"), "%Y-%m-%d"))
@@ -125,9 +137,14 @@ for(i in 1:nrow(stemp)){
   }
 
 st <- hrly
-st <- st[st$date > "2014-08-30" & st$date < "2015-03-01",] 
+st <- st[st$date > "2014-08-30" & st$date < "2015-03-01",]
+
+stmay <- st[st$date > "2014-08-30" & st$date < "2015-05-31",]
 
 chill0calc.SH <- chilling(st, 273, 21) # 39 chill portions by Jan 20 last year.
+mar1calc.SH <- chilling(stmay, 273, 60) # 
+may10calc.SH <- chilling(stmay, 273, 130)
+
 
 colz = c("Chilling_Hours","Utah_Model","Chill_portions")
 
