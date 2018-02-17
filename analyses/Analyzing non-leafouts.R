@@ -132,7 +132,7 @@ par(mfrow=c(2,1), mar = c(2, 10, 5, 1))
        yaxt = "n")
   
   legend(x =-2.8, y = 3, bty="n", legend = "a. Budburst", text.font = 2)
-  # rasterImage(bbpng, -4, 1, -2, 1)
+  # rasterImage(bbpng, -3, 1, -2, 4)
   
   axis(2, at = nrow(meanzb):1, labels = rownames(meanzb), las = 1, cex.axis = 0.8)
   points(meanzb[,'mean'],
@@ -240,8 +240,8 @@ plot(seq(-4, #min(meanz[,'mean']*1.1),
      ylab = "",
      yaxt = "n")
 
-legend(x =-4.5, y = 6, bty="n", legend = "a. Budburst", text.font = 2)
-# rasterImage(bbpng, -0.25, 1, 0, 4)
+legend(x =-4.75, y = 11, bty="n", legend = "a. Budburst", text.font = 2)
+rasterImage(bbpng, -4, 0, -2, 7)
 
 axis(2, at = 5*(nrow(meanzb.wi):1), labels = rownames(meanzb.wi), las = 1, cex.axis = 0.8)
 
@@ -299,7 +299,8 @@ plot(seq(-4, #min(meanz[,'mean']*1.1),
      ylab = "",
      yaxt = "n")
 
-legend(x =-4.5, y = 6, bty="n", legend = "b. Leafout", text.font = 2)
+legend(x =-4.75, y = 11, bty="n", legend = "b. Leafout", text.font = 2)
+rasterImage(lopng, -4, 0, -2, 7)
 
 axis(2, at = 5*(nrow(meanzl.wi):1), labels = rownames(meanzl.wi), las = 1, cex.axis = 0.8)
 

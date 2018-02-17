@@ -120,6 +120,7 @@ print(xtable(leafoutdays,
 \clearpage
 \newpage
 
+
 <<label=supptable2, echo=FALSE, results=tex>>=
 
 # Supp table 2: Stan model effects for bb  
@@ -141,7 +142,7 @@ rownames(meanzb.table) = c(
                     )
 
 
-print(xtable(meanzb.table, caption = "Summary of mixed-effects model of budburst day. See also Figure S2."), 
+print(xtable(meanzb.table, caption = "Summary of mixed-effects model of budburst day. See also Figure S4"), 
       include.rownames=TRUE, 
       caption.placement = "top",
       sanitize.rownames.function = function(x) {x})
@@ -150,7 +151,8 @@ print(xtable(meanzb.table, caption = "Summary of mixed-effects model of budburst
 <<label=supptable3, echo=FALSE, results=tex>>=
 rownames(meanzl.table) = rownames(meanzb.table)
 
-print(xtable(meanzl.table, caption = "Summary of mixed-effects model of leafout day. See also Figure S3."), 
+# \ref{fig:figS3}
+print(xtable(meanzl.table, caption = "Summary of mixed-effects model of leafout day. See also Figure S5."), 
       include.rownames=TRUE, 
       caption.placement = "top",
       sanitize.rownames.function = function(x) {x})
@@ -202,52 +204,52 @@ print(chilltable,
 \begin{center}
 \includegraphics[scale=0.5]{Advplot2.png}
 \caption{Responses of 28 woody plant species to photoperiod and temperature cues for leafout. Color of circle reflect unmodeled data on average leafout day across treatments, across sites of origin, while size of circle represents the total number of clippings in the experiment---this varies mainly based on whether the species was found at both sites and whether it was exposed to all three chilling treatments. } % Changed legend, check that I did it correctly please! Yes, ok.
-\label{fig1}
+\label{fig:fig1}
 \end{center}
 \end{figure}
 
 \begin{figure}
-\label{figS8}
+\label{fig:figS8}
 \includegraphics[width=1\textwidth, page=1]{NonBBLO_sp} % built in Analyzing non-leafouts.R 
 \caption{Model estimates of budburst success, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \begin{figure}
-\label{figS8}
+\label{fig:figS9}
 \includegraphics[width=1\textwidth, page=2]{NonBBLO_sp}
 \caption{Model estimates of leafout success, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \begin{figure}
-\label{figS2}
 \includegraphics[width=1\textwidth, page=1]{Fig1_bb_lo+sp} % built in Additional Plots and Processing.R
-\caption{Model estimates of effects of each predictor on days to budburst, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\caption{Model estimates of effects of each predictor on budburst day, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\label{fig:figS2}
 \end{figure}
 
 \clearpage
 
 \begin{figure}
-\label{figS3}
 \includegraphics[width=1\textwidth, page=2]{Fig1_bb_lo+sp}
-\caption{Model estimates of days to leafout leafout, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\caption{Model estimates of leafout day, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\label{fig:figS3}
 \end{figure}
 
 \begin{figure}
-\label{figS5}
+\label{fig:figS5}
 \includegraphics[width=1\textwidth]{Fig2_4panel_ZoomSupp.png}
 \caption{Effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }
 \end{figure}
 
 
 \begin{figure}
-\label{figS6}
+\label{fig:figS6}
 \includegraphics[width=1\textwidth]{FigChill2_4panel.png}
 \caption{Effects of temperature and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to forcing temperature responses (for photoperiod see S7). Crosses and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 
 \begin{figure}
-\label{figS7}
+\label{fig:figS7}
 \includegraphics[width=1\textwidth]{FigChillPhoto_4panel.png}
 \caption{Effects of photoperiod and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to photoperiod responses (for forcing temperature see S6). Crosses and bars show mean and 50\% credible intervals.}
 \end{figure}
