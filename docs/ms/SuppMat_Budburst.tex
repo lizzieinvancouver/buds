@@ -64,7 +64,7 @@ With both the Utah and Dynamic model, the more severe chilling treatment resulte
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Fri Jan 26 11:43:38 2018
+% Fri Feb 16 16:06:06 2018
 \begin{table}[ht]
 \centering
 \caption{Mean leafout and budburst days after exposure to controlled environment forcing conditions (across all treatments, based on raw data) for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada} 
@@ -107,7 +107,7 @@ Species & Budburst.HF & Budburst.SH & Leafout.HF & Leafout.SH \\
 \newpage
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Fri Jan 26 11:43:39 2018
+% Fri Feb 16 16:06:06 2018
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of budburst day. See also Figure S2.} 
@@ -133,7 +133,7 @@ Forcing Temperature & -8.82 & 1.05 & -10.87 & -8.82 & -6.73 & 1.00 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Fri Jan 26 11:43:39 2018
+% Fri Feb 16 16:06:06 2018
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of leafout day. See also Figure S3.} 
@@ -161,20 +161,24 @@ Forcing Temperature & -19.06 & 1.04 & -21.10 & -19.05 & -17.05 & 1.00 \\
 \newpage
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Fri Jan 26 11:43:39 2018
+% Fri Feb 16 16:06:06 2018
 \begin{table}[ht]
 \centering
-\caption{Chill units in field before harvest and in growth chamber conditions.} 
+\caption{Chill units in the field before harvest, until 1 April and 1 May at each site, and in growth chamber conditions (including field chilling experienced before cuttings entered the chambers).} 
 \begin{tabular}{llrrr}
   \hline
 Site & Treatment & Chilling Hours & Utah Model & Chill portions \\ 
   \hline
-Harvard Forest & Field chilling & 892 & 814.50 & 56.62 \\ 
-   & 4.0 \degree C x 30 d & 2140 & 2062.50 & 94.06 \\ 
-   & 1.5 \degree C x 30 d & 2140 & 1702.50 & 91.17 \\ 
-  St. Hippolyte & Field chilling & 682 & 599.50 & 44.63 \\ 
-   & 4.0 \degree C x 30 d & 1930 & 1847.50 & 82.06 \\ 
-   & 1.5 \degree C x 30 d & 1930 & 1487.50 & 79.18 \\ 
+Harvard Forest & Field chilling until collection & 892 & 814.50 & 56.62 \\ 
+   & Field chilling to 1 Apr & 1153 & 980.00 & 79.37 \\ 
+   & Field chilling to 1 May & 1449 & 1360.50 & 99.94 \\ 
+   & Field chilling + 4.0 \degree C x 30 d & 2140 & 2062.50 & 94.06 \\ 
+   & Field chilling + 1.5 \degree C x 30 d & 2140 & 1702.50 & 91.17 \\ 
+  St. Hippolyte & Field chilling until collection & 682 & 599.50 & 44.63 \\ 
+   & Field chilling to 1 Apr & 796 & 653.50 & 63.55 \\ 
+   & Field chilling to 1 May & 1166 & 937.00 & 83.83 \\ 
+   & Field chilling + 4.0 \degree C x 30 d & 1930 & 1847.50 & 82.06 \\ 
+   & Field chilling + 1.5 \degree C x 30 d & 1930 & 1487.50 & 79.18 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -195,9 +199,21 @@ Harvard Forest & Field chilling & 892 & 814.50 & 56.62 \\
 \end{figure}
 
 \begin{figure}
+\label{figS8}
+\includegraphics[width=1\textwidth, page=1]{NonBBLO_sp}
+\caption{Model estimates of budburst success, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\end{figure}
+
+\begin{figure}
+\label{figS8}
+\includegraphics[width=1\textwidth, page=2]{NonBBLO_sp}
+\caption{Model estimates of leafout success, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\end{figure}
+
+\begin{figure}
 \label{figS2}
 \includegraphics[width=1\textwidth, page=1]{Fig1_bb_lo+sp} % built in Additional Plots and Processing.R
-\caption{Model estimates of effects of each predictor on budburst, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\caption{Model estimates of effects of each predictor on days to budburst, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \clearpage
@@ -205,7 +221,7 @@ Harvard Forest & Field chilling & 892 & 814.50 & 56.62 \\
 \begin{figure}
 \label{figS3}
 \includegraphics[width=1\textwidth, page=2]{Fig1_bb_lo+sp}
-\caption{Model estimates of leafout, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\caption{Model estimates of days to leafout leafout, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \begin{figure}

@@ -160,11 +160,11 @@ print(xtable(meanzl.table, caption = "Summary of mixed-effects model of leafout 
 
 <<label=supptable4chillcalc, echo=FALSE, results = tex>>=
 library(xtable)
-allcalc$Treatment <- rep(c("Field chilling", "4.0 \\degree C x 30 d", "1.5 \\degree C x 30 d"),2)
+allcalc$Treatment <- rep(c("Field chilling until collection","Field chilling to 1 Apr", "Field chilling to 1 May", "Field chilling + 4.0 \\degree C x 30 d", "Field chilling + 1.5 \\degree C x 30 d"), 2)
 colnames(allcalc) <- sub("_", " ", colnames(allcalc))
 chilltable <- xtable(allcalc, 
                      digits = c(0, 0, 0, 0, 2, 2),
-                     caption = "Chill units in field before harvest and in growth chamber conditions.")
+                     caption = "Chill units in the field before harvest, until 1 April and 1 May at each site, and in growth chamber conditions (including field chilling experienced before cuttings entered the chambers).")
 
 print(chilltable,
       include.rownames = FALSE,
@@ -207,9 +207,21 @@ print(chilltable,
 \end{figure}
 
 \begin{figure}
+\label{figS8}
+\includegraphics[width=1\textwidth, page=1]{NonBBLO_sp} % built in Analyzing non-leafouts.R 
+\caption{Model estimates of budburst success, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\end{figure}
+
+\begin{figure}
+\label{figS8}
+\includegraphics[width=1\textwidth, page=2]{NonBBLO_sp}
+\caption{Model estimates of leafout success, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\end{figure}
+
+\begin{figure}
 \label{figS2}
 \includegraphics[width=1\textwidth, page=1]{Fig1_bb_lo+sp} % built in Additional Plots and Processing.R
-\caption{Model estimates of effects of each predictor on budburst, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\caption{Model estimates of effects of each predictor on days to budburst, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \clearpage
@@ -217,7 +229,7 @@ print(chilltable,
 \begin{figure}
 \label{figS3}
 \includegraphics[width=1\textwidth, page=2]{Fig1_bb_lo+sp}
-\caption{Model estimates of leafout, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\caption{Model estimates of days to leafout leafout, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \begin{figure}
