@@ -54,15 +54,32 @@ dx$chill2 = ifelse(dx$chill == 3, 1, 0)
 
 with(dx, table(chill1, chill2)) # all three levels in here
 
+# add in budburst success
+dx$no <- dx$bday
+dx$no[dx$no>0] <- 1
+dx$no[is.na(dx$no)==TRUE] <- 0
+
 dxb <- dx[!is.na(dx$bday),]
 dxl <- dx[!is.na(dx$lday),]
 
 bdaymean <- t(with(dxb, tapply(bday, list(site, sp), mean, na.rm=T)))
 ldaymean <- t(with(dxl, tapply(lday, list(site, sp), mean, na.rm=T)))
 
-leafoutdays <- data.frame(bdaymean, ldaymean)
+leafoutdays <- data.frame(bdaymean,  ldaymean)
 colnames(leafoutdays) <- c("BB.HF", "BB.SH", "LO.HF", "LO.SH")
 # write.csv(leafoutdays, "output/leafoutdays.csv", row.names=TRUE)
+
+# Add non-budburst and non-leafout as a table...
+dx.no <- dx[is.na(dx$bday),] # no bb
+dx.nl <- dx[is.na(dx$lday),] # no lo
+
+dx.bysp.fullcount <- aggregate(dx[c("nl")], dx["sp"], FUN=length)
+dx.bysp.nos <- aggregate(dx[c("no", "nl")], dx["sp"], FUN=sum, na.rm=TRUE)
+dx.bysp.nos$no.per <- dx.bysp.nos$no/dx.bysp.fullcount$nl
+dx.bysp.nos$nl.per <- dx.bysp.nos$nl/dx.bysp.fullcount$nl
+
+bblo.success <- data.frame(dx.bysp.nos$no.per,dx.bysp.nos$nl.per)
+colnames(bblo.success) <- c("BB success", "LO success")
 
 # Groups
 colz = c("brown", "blue3")

@@ -42,12 +42,24 @@ Flynn \& Wolkovich
 
 \noindent\emph{Chilling calculations}
 
-\noindent The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions \citep{utahmodel}, and Dynamic Model \citep{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \citep{Luedeling:2009}.
-With both the Utah and Dynamic model, the more severe chilling treatment resulted in fewer calculated chilling portions. 
+\noindent The cuttings were harvested in late January 2015, and thus experienced substantial natural chilling by the time they were harvested. Using weather station data from the Harvard Forest and St. Hippolyte site, chilling hours (below 7.2\degree C), Utah Model chill portions \citep{utahmodel}, and Dynamic Model \citep{Erez:1988} chill portions were calculated both for the natural chilling experienced by harvest and the chilling experienced in the 4\degree C and 1.5\degree C treatments. 
 
-\noindent\emph{Non-leafouts}
+\noindent The Utah Model and Dynamic Model of chill portions account for variation in the amount of chilling accumulated at different temperatures, with the greatest chilling occurring approximately between 5-10\degree C, and fewer chill portions accumulating at low temperatures and that higher temperatures can reduce accumulated chilling effects. The two differ in the parameters used to determine the shape of the chilling accumulation curve, with the Dynamic Model being shown to be the most successful in predicting phenology for some woody species \citep{Luedeling:2009}. With both the Utah and Dynamic model, the more severe chilling treatment resulted in fewer calculated chilling portions (Table S7). 
 
-\noindent Across all treatments, 20.2\% of the cuttings did not break bud or leaf out. Across species, there was no overall predictive effect of temperature, photoperiod, chilling, or site on the propensity to fail to leaf out. Species ranged from complete leafout (\emph{Hamamaelis}) to only 50\% leafout (\emph{Fagus grandifolia}, \emph{Acer saccharum}) across all treatments. The percent of non-leafouts by site was similar, with 20.6\% of Harvard Forest and 19.7\% of St. Hippolyte samples failing to leafout. Examining individual species,  there was an interaction of temperature by day length for selected species, with greater failure to leafout in cool, short-day conditions for \emph{Acer pensylvanicum}  and \emph{Acer saccharum}. Site effects were inconsistent, with greater failure to leafout for cuttings from St. Hippolyte in \emph{Acer rubrum} and \emph{Fagus grandifolia}, and from Harvard Forest in \emph{Acer saccharum}. 
+\noindent To provide a comparison with estimated chilling under natural conditions we also show chilling for the study winter (2014-2015) until 1 April and 1 May (Table S7). Under the chilling hours and Utah model the greatest chilling occurred in our 4\degree C treatment, and both the 4\degree C and 1.5\degree C treatments provided more chilling than under natural conditions (until either 1 April or 1 May). In the Dynamic Model (chill portions) chilling was slightly higher by 1 May compared to our experimental chilling, but not when compared to 1 April. Taken together, our calculated chilling effects (Table S7) suggest that our experimental chilling effects would most likely have resulted in more chilling than experienced at either field site under natural conditions. 
+
+\noindent\emph{Budburst and leafout success}
+
+\noindent We assessed how species and treatments affected budburst and leafout success (Table S2) using a similar Bayesian hierarchical model as presented for days to budburst or leafout in the main text, but modeling species as a group only on the intercept (Fig. S2-S3) due to a limited amount of data (i.e., of all cuttings only 9.8-20.2\% did not burst bud or leaf out, yielding limited data when compared to days to budburst or leafout where we---conversely---had data for 79.8-90.2\% of all cuttings). Models were fit in \verb|rstan| implemented via  \verb|rstanarm| version 2.17.2 using a binomial family and logit-link function. Full results are presented in Tables S3-S4 and Figures S2-S3.
+
+\noindent\emph{Effects of chilling at 16 and 32 day lengths}
+
+\noindent In the winter of 2015-2016 we conducted a follow-up studied to test whether our findings regarding chilling in the winter of 2014-2015 we consistent across time and, specifically, to test effects of chilling under a shorter duration of experimental chilling.  For this experiment tested the effects of field chilling plus chilling at two different temperatures, 1\degree C and 4 \degree C, and three different period of chilling: no additional, 16 days or 32 days. Treatments were fully crossed resulting in six different combinations of treatment conditions. We collected cuttings as previously described from Harvard Forest on 18 December 2015 for seven species (\emph{Acer saccharum, Betula alleghaniensis, Fagus grandifolia, Hamamelis virginiana, Ilex mucronatus, Quercus rubra, Viburnum cassinoides}). All cuttings were kept at 4\degree C until 1 January when they were put into treatment conditions. We assessed how species and treatments affected days to budburst using a similar Bayesian hierarchical model as presented for days to budburst or leafout in the main text but for this set of treatments (models were fit in \verb|rstan| implemented via  \verb|rstanarm| version 2.17.2). 
+
+\noindent Our findings were generally consistent with those from our previous year's experiment: effects of chilling were similar across the two temperatures (1\degree C and 4\degree C)) but additional chilling time advanced budburst by 7.8 to 10.4 days, for 16 or 32 additional days of chilling, respectively (Fig. S9). The additional advance of only 2.6 days between the treatments of 16 and 32 days experimental chilling suggests that effects of chilling over time are non-linear and that additional chilling time may have had only small effects. 
+
+% see budchill/analyses/budchill_analysis.R 
+
 
 % http://andrewgelman.com/2016/11/05/why-i-prefer-50-to-95-intervals/
 
@@ -63,11 +75,12 @@ With both the Utah and Dynamic model, the more severe chilling treatment resulte
 \section*{Supplemental Figures and Tables}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Fri Feb 16 16:56:31 2018
+% Mon Feb 19 15:54:25 2018
 \begin{table}[ht]
 \centering
-\caption{Mean leafout and budburst days after exposure to controlled environment forcing conditions (across all treatments, based on raw data) for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada} 
+\caption{Mean leafout and budburst days after exposure to controlled environment forcing conditions (across all treatments, based on raw data) for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada.} 
 \begin{tabular}{lrrrr}
   \hline
 Species & Budburst.HF & Budburst.SH & Leafout.HF & Leafout.SH \\ 
@@ -103,12 +116,105 @@ Species & Budburst.HF & Budburst.SH & Leafout.HF & Leafout.SH \\
    \hline
 \end{tabular}
 \end{table}
+% latex table generated in R 3.3.3 by xtable 1.8-2 package
+% Mon Feb 19 15:54:25 2018
+\begin{table}[ht]
+\centering
+\caption{Mean leafout and budburst success after exposure to controlled environment forcing conditions (across all treatments, based on raw data) for the 28 species.} 
+\begin{tabular}{lrr}
+  \hline
+Species & Budburst.success & Leafout.success \\ 
+  \hline
+\textit{Acer pensylvanicum} & 0.99 & 0.78 \\ 
+  \textit{Acer rubrum} & 0.92 & 0.79 \\ 
+  \textit{Acer saccharum} & 0.78 & 0.47 \\ 
+  \textit{Alnus incana subsp. rugosa} & 0.94 & 0.88 \\ 
+  \textit{Aronia melanocarpa} & 0.81 & 0.75 \\ 
+  \textit{Betula alleghaniensis} & 0.97 & 0.95 \\ 
+  \textit{Betula lenta} & 1.00 & 0.96 \\ 
+  \textit{Betula papyrifera} & 0.93 & 0.92 \\ 
+  \textit{Corylus cornuta} & 0.94 & 0.92 \\ 
+  \textit{Fagus grandifolia} & 0.80 & 0.49 \\ 
+  \textit{Fraxinus nigra} & 0.88 & 0.85 \\ 
+  \textit{Hamamelis virginiana} & 1.00 & 1.00 \\ 
+  \textit{Ilex mucronatus} & 0.97 & 0.97 \\ 
+  \textit{Kalmia angustifolia} & 0.98 & 0.21 \\ 
+  \textit{Lonicera canadensis} & 0.97 & 0.97 \\ 
+  \textit{Lyonia ligustrina} & 0.96 & 0.92 \\ 
+  \textit{Nyssa sylvatica} & 0.96 & 0.96 \\ 
+  \textit{Populus grandidentata} & 0.83 & 0.77 \\ 
+  \textit{Prunus pensylvanica} & 0.89 & 0.84 \\ 
+  \textit{Quercus alba} & 0.65 & 0.55 \\ 
+  \textit{Quercus rubra} & 0.95 & 0.91 \\ 
+  \textit{Quercus velutina} & 0.92 & 0.79 \\ 
+  \textit{Rhamnus frangula} & 1.00 & 0.88 \\ 
+  \textit{Rhododendron prinophyllum} & 1.00 & 0.92 \\ 
+  \textit{Spiraea alba} & 0.80 & 0.78 \\ 
+  \textit{Vaccinium myrtilloides} & 0.96 & 0.94 \\ 
+  \textit{Viburnum cassinoides} & 0.89 & 0.89 \\ 
+  \textit{Viburnum lantanoides} & 0.79 & 0.75 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 \clearpage
 \newpage
 
+% latex table generated in R 3.3.3 by xtable 1.8-2 package
+% Mon Feb 19 15:54:25 2018
+\begin{table}[ht]
+\centering
+\caption{Summary of mixed-effects model of budburst success (estimates presented on logit scale). See also Figure S2.} 
+\begin{tabular}{rrrrrrr}
+  \hline
+ & mean & sd & 2.5\% & 50\% & 97.5\% & Rhat \\ 
+  \hline
+Forcing Temperature & -0.09 & 0.31 & -0.71 & -0.09 & 0.51 & 1.00 \\ 
+  Photoperiod & -0.01 & 0.31 & -0.61 & -0.01 & 0.62 & 1.00 \\ 
+  Chilling 4 \degree C & -0.70 & 0.40 & -1.47 & -0.71 & 0.10 & 1.00 \\ 
+  Chilling 1.5 \degree C & -1.48 & 0.35 & -2.17 & -1.48 & -0.80 & 1.00 \\ 
+  Site & 0.42 & 0.35 & -0.24 & 0.41 & 1.12 & 1.00 \\ 
+  Forcing Temperature $\times$ Photoperiod & -0.31 & 0.31 & -0.94 & -0.31 & 0.30 & 1.00 \\ 
+  Forcing Temperature $\times$ Chilling 4 \degree C & 0.59 & 0.41 & -0.21 & 0.59 & 1.38 & 1.00 \\ 
+  Forcing Temperature $\times$ Chilling 1.5 \degree C & 0.02 & 0.35 & -0.65 & 0.03 & 0.70 & 1.00 \\ 
+  Photoperiod $\times$ Chilling 4 \degree C & 0.58 & 0.42 & -0.24 & 0.58 & 1.37 & 1.00 \\ 
+  Photoperiod $\times$ Chilling 1.5 \degree C & 0.48 & 0.34 & -0.19 & 0.48 & 1.15 & 1.00 \\ 
+  Forcing Temperature $\times$ Site & -0.22 & 0.31 & -0.82 & -0.22 & 0.39 & 1.00 \\ 
+  Photoperiod $\times$ Site & -0.07 & 0.31 & -0.68 & -0.07 & 0.52 & 1.00 \\ 
+  Site $\times$ Chilling 4 \degree C & 0.15 & 0.42 & -0.66 & 0.14 & 0.97 & 1.00 \\ 
+  Site $\times$ Chilling 1.5 \degree C & 0.50 & 0.36 & -0.21 & 0.50 & 1.18 & 1.00 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.3 by xtable 1.8-2 package
+% Mon Feb 19 15:54:25 2018
+\begin{table}[ht]
+\centering
+\caption{Summary of mixed-effects model of leafout success (estimates presented on logit scale). See also Figure S3.} 
+\begin{tabular}{rrrrrrr}
+  \hline
+ & mean & sd & 2.5\% & 50\% & 97.5\% & Rhat \\ 
+  \hline
+Forcing Temperature & 0.52 & 0.25 & 0.05 & 0.52 & 1.00 & 1.00 \\ 
+  Photoperiod & 0.67 & 0.24 & 0.19 & 0.67 & 1.14 & 1.00 \\ 
+  Chilling 4 \degree C & -0.77 & 0.31 & -1.37 & -0.77 & -0.18 & 1.00 \\ 
+  Chilling 1.5 \degree C & -1.75 & 0.29 & -2.33 & -1.75 & -1.18 & 1.00 \\ 
+  Site & 0.02 & 0.26 & -0.49 & 0.02 & 0.52 & 1.00 \\ 
+  Forcing Temperature $\times$ Photoperiod & -1.05 & 0.25 & -1.53 & -1.05 & -0.54 & 1.00 \\ 
+  Forcing Temperature $\times$ Chilling 4 \degree C & 0.63 & 0.32 & -0.01 & 0.64 & 1.28 & 1.00 \\ 
+  Forcing Temperature $\times$ Chilling 1.5 \degree C & 0.16 & 0.28 & -0.40 & 0.16 & 0.73 & 1.00 \\ 
+  Photoperiod $\times$ Chilling 4 \degree C & 0.35 & 0.32 & -0.28 & 0.35 & 0.96 & 1.00 \\ 
+  Photoperiod $\times$ Chilling 1.5 \degree C & 0.46 & 0.29 & -0.09 & 0.46 & 1.03 & 1.00 \\ 
+  Forcing Temperature $\times$ Site & 0.12 & 0.25 & -0.36 & 0.12 & 0.61 & 1.00 \\ 
+  Photoperiod $\times$ Site & -0.20 & 0.25 & -0.70 & -0.20 & 0.28 & 1.00 \\ 
+  Site $\times$ Chilling 4 \degree C & 0.10 & 0.32 & -0.55 & 0.10 & 0.74 & 1.00 \\ 
+  Site $\times$ Chilling 1.5 \degree C & 0.62 & 0.29 & 0.07 & 0.62 & 1.21 & 1.00 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Fri Feb 16 16:56:31 2018
+% Mon Feb 19 15:54:25 2018
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of budburst day. See also Figure S4} 
@@ -134,7 +240,7 @@ Forcing Temperature & -8.82 & 1.05 & -10.87 & -8.82 & -6.73 & 1.00 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Fri Feb 16 16:56:31 2018
+% Mon Feb 19 15:54:25 2018
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of leafout day. See also Figure S5.} 
@@ -159,10 +265,11 @@ Forcing Temperature & -19.06 & 1.04 & -21.10 & -19.05 & -17.05 & 1.00 \\
    \hline
 \end{tabular}
 \end{table}
+\clearpage
 \newpage
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Fri Feb 16 16:56:31 2018
+% Mon Feb 19 15:54:25 2018
 \begin{table}[ht]
 \centering
 \caption{Chill units in the field before harvest, until 1 April and 1 May at each site, and in growth chamber conditions (including field chilling experienced before cuttings entered the chambers).} 
@@ -201,14 +308,14 @@ Harvard Forest & Field chilling until collection & 892 & 814.50 & 56.62 \\
 
 \begin{figure}
 \label{fig:figS8}
-\includegraphics[width=1\textwidth, page=1]{NonBBLO_sp} % built in Analyzing non-leafouts.R 
-\caption{Model estimates of budburst success, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\includegraphics[width=1\textwidth, page=1]{NonBBLO_sp_m2} % built in Analyzing non-leafouts.R 
+\caption{Model estimates of budburst success, including species-level effects, presented on logit scale. Dots and bars show mean and 50\% credible intervals. See also Table S2.}
 \end{figure}
 
 \begin{figure}
 \label{fig:figS9}
-\includegraphics[width=1\textwidth, page=2]{NonBBLO_sp}
-\caption{Model estimates of leafout success, including species-level effects. Dots and bars show mean and 50\% credible intervals.}
+\includegraphics[width=1\textwidth, page=2]{NonBBLO_sp_m2}
+\caption{Model estimates of leafout success, including species-level effects, presented on logit scale. Dots and bars show mean and 50\% credible intervals. See also Table S3.}
 \end{figure}
 
 \begin{figure}
@@ -243,6 +350,12 @@ Harvard Forest & Field chilling until collection & 892 & 814.50 & 56.62 \\
 \label{fig:figS7}
 \includegraphics[width=1\textwidth]{FigChillPhoto_4panel.png}
 \caption{Effects of photoperiod and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to photoperiod responses (for forcing temperature see S6). Crosses and bars show mean and 50\% credible intervals.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{/Users/Lizzie/Documents/git/projects/treegarden/budchill/analyses/figures/m1and14.png} % see budchill/analyses/budchill_analysis.R 
+\caption{Model estimates of effects chilling temperature (1\degree c or 4\degree C) and time (no additional chilling, 16 days additional or 32 days additional chilling) on budburst day (including species-level effects), as assessed via a follow-up experiment. Dots and bars show mean and 50\% credible intervals.}
+\label{fig:figbudchill}
 \end{figure}
 
 \end{document}
