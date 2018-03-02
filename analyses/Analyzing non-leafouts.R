@@ -38,6 +38,8 @@ dx$no[is.na(dx$no)==TRUE] <- 0
 sum(dx$no)
 sum(dx$nl)
 dim(dx)
+# Subset to data that did burst bud
+dx.bb <- subset(dx, no==1)
 
 # What percent did not break bud?
 (1-sum(dx$no)/nrow(dx))*100
@@ -71,8 +73,12 @@ m2.no <- stan_glmer(no ~ (warm + photo + chill + site +
 
 m2.nl <- stan_glmer(nl ~ (warm + photo + chill + site + 
     warm*photo + warm*chill + photo*chill + warm*site + photo*site + chill*site) +
-    (1|sp), family = binomial(link = "logit"), data = dx)
+    (1|sp), family = binomial(link = "logit"), data = dx) # considers all data so includes non-leafouts that did not burst bud and non-leafouts that did, but then did not burst bud
 
+m2.nl.bb <- stan_glmer(nl ~ (warm + photo + chill + site + 
+    warm*photo + warm*chill + photo*chill + warm*site + photo*site + chill*site) +
+    (1|sp), family = binomial(link = "logit"), data = dx.bb) # considers only those that did burst bud, but then did not leafout
+    
 # Understanding models: notes for main text (m2 models)
 summary(m2.no, digits=3)
 # warm is -0.094; photo is -0.008; chill1 is -0.703, chill2 is -1.477, site is +0.420; QUEALB on intercept: -1.649 (highest)
@@ -80,7 +86,7 @@ summary(m2.no, digits=3)
 # xhere <- -1.477
 # xhere <- 0.42
 # 100*(invlogit(2.899 +  xhere*1)-invlogit(2.899 +  xhere*0))
-# chill1 increases BB by 4.8%; chill2 by 14.2%; SH decreases BB success by 1.72%
+# chill1 decreases BB by 4.8%; chill2 by 14.2%; SH increases BB success by 1.72%
 
 summary(m2.nl, digits=3)
 # warm is 0.525; photo is 0.671; chill1 is -0.768, chill2 is -1.752, site is 0.016
@@ -89,7 +95,20 @@ summary(m2.nl, digits=3)
 # xhere <- -0.768
 # xhere <- -1.752
 # 100*(invlogit(1.770 +  xhere*1)-invlogit(1.770 +  xhere*0))
-# warm decreases leafout by 5.4%; photo decreases leafout by 6.5%;  chill1 increases leafout by 12.3%; chill2 by 35%
+# warm increases leafout by 5.4%; photo increases leafout by 6.5%;  chill1 decreases leafout by 12.3%; chill2 by 35%
+
+summary(m2.nl.bb, digits=3)
+# warm is 1.086; photo is 1.269; chill1 is -0.843, chill2 is -1.875, site is -0.293, warm x photo is -1.693
+# xhere <- 1.086
+# xhere <- 1.269
+# xhere <- -0.843
+# xhere <- -1.875
+# xhere <- -0.293
+# xhere <- -1.639
+# 100*(invlogit(2.75 +  xhere*1)-invlogit(2.75 +  xhere*0))
+# photo x temp
+# 100*(invlogit(2.75 +  1.086+1.269-1.639)-invlogit(2.75))
+# warm increases leafout by 3.9%; photo increases leafout by 4.2%;  chill1 decreases leafout by 6.9%; chill2 by 23.4%, site decreases leafout by 1.9, overall photo x temp increases leafout by only 3.0%
  
 #m3.no <- stan_glmer(no ~ (warm + photo + chill + site + 
 #    warm*photo + warm*chill + photo*chill + warm*site + photo*site + chill*site) +
@@ -103,6 +122,8 @@ save(m1.no, file="stan/models_nonleafout/m1.no.Rdata")
 save(m1.nl, file="stan/models_nonleafout/m1.nl.Rdata")
 save(m2.no, file="stan/models_nonleafout/m2.no.Rdata")
 save(m2.nl, file="stan/models_nonleafout/m2.nl.Rdata")
+save(m2.nl.bb, file="stan/models_nonleafout/m2.nl.Rdata")
+
 
 }
 
@@ -124,7 +145,10 @@ launch_shinystan(m1.nl)
 ### Plotting for m2 models ###
 ##############################
 
-## Plotting the models (m2.nl, m2.no) with species pooling on chilling and site effects (and their interactions)
+## Plotting the models (m2.nl or m2.nl.bb, AND m2.no) with species pooling on chilling and site effects (and their interactions)
+
+## Select an m2 model (see notes above on differences where models are fit)
+m2nl.model <- m2.nl.bb
 
 ## Below gives the main text figure on LOGIT SCALE
 
@@ -161,7 +185,7 @@ rownames(meanzb) = c("Forcing Temperature",
                     "Site x Chilling 1.5°C"
                     )
 
-sumer.m2nl <- summary(m2.nl)
+sumer.m2nl <- summary(m2nl.model)
 meanzl <- sumer.m2nl[mu_params,col4fig]
 rownames(meanzl) <- rownames(meanzb)
 
@@ -240,7 +264,7 @@ dev.off()
 ### Supplemental figure -- with species-level estimates shown!
 
 iter.m2no <- as.data.frame(m2.no)
-iter.m2nl <- as.data.frame(m2.nl)
+iter.m2nl <- as.data.frame(m2nl.model)
 
 # manually to get right order, with intercept
 mu_params.wi <- c("(Intercept)", "warm20","photo12","chillchill1","chillchill2",
@@ -290,7 +314,7 @@ pdf(file.path(figpath, "NonBBLO_sp_m2.pdf"), width = 7, height = 8)
 par(mfrow=c(1,1), mar = c(2, 10, 2, 1))
 # Upper panel: budburst
 plot(seq(-4, #min(meanz[,'mean']*1.1),
-         5, #max(meanz[,'mean']*1.1),
+         6, #max(meanz[,'mean']*1.1),
          length.out = nrow(meanzb.wi)), 
      seq(1, 5*nrow(meanzb.wi), length.out = nrow(meanzb.wi)),
      type="n",
@@ -349,7 +373,7 @@ abline(v = 0, lty = 2)
 par(mfrow=c(1,1), mar = c(2, 10, 2, 1))
 
 plot(seq(-4, #min(meanz[,'mean']*1.1),
-         5, #max(meanz[,'mean']*1.1),
+         6, #max(meanz[,'mean']*1.1),
          length.out = nrow(meanzl.wi)), 
      seq(1, 5*nrow(meanzl.wi), length.out = nrow(meanzl.wi)),
      type="n",

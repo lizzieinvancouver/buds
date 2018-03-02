@@ -1,13 +1,18 @@
+## Started back when by Dan Flynn ##
+## Updates by Lizzie starting in Feb 2018 ##
+
 
 library(ggplot2)
-# Additional trait stuff -- run analysis script first.
+# Additional trait stuff -- run analysis (Pheno Budburst analysis.R) script first.
 
 # Plot traits by sp x site
+aggcol <- c("lday", "bday","wd","sla","X.N","Pore.anatomy")
 
 dxt <- merge(dx, tr, by.x = "sp", by.y = "code")
 #ggpairs(dxt[c("wd","sla","X.N","Pore.anatomy","lday","bday")])
 
 dxt$fg = "shrub"
+
 dxt$fg[!is.na(match(dxt$sp, trees))] = "tree"
 
 dxt$site <- factor(dxt$site, labels = c("HF","SH"))
@@ -17,9 +22,6 @@ dxt.agg <- aggregate(dxt[aggcol], by = list(dxt$sp,dxt$site,dxt$fg), FUN = mean,
 dxt.agg2 <- aggregate(dxt[aggcol], by = list(dxt$site,dxt$fg), FUN = mean, na.rm=T)
 
 names(dxt.agg)[1:3] = c("sp","site","fg")
-
-
-aggcol <- c("lday", "bday","wd","sla","X.N","Pore.anatomy")
 
 dxt$site <- factor(dxt$site, labels = c("HF","SH"))
 
@@ -68,6 +70,47 @@ dxt2 <- dxt2[!is.na(match(dxt2$sp, unique(dx$sp))),]
 
 identical(as.character(dxt2$sp), as.character(unique(dx$sp)))
 identical(as.numeric(as.factor(dxt2$sp)), unique(dx$spn))
+
+
+####################
+## by Lizzie START #
+####################
+
+# note dxt2bb is bb and dxt is lo data....
+dxtbb3 <- subset(dxt2bb, is.nan(Pore.anatomy)==FALSE)
+dxtbb3$chill1eff[dxtbb3$chill1eff==99] <- "NA"
+dxtbb3$chill2eff[dxtbb3$chill2eff==99] <- "NA"
+dxtbb3$Pore.anatomy[dxtbb3$Pore.anatomy==3] <- 1
+dxtbb3$Pore.anatomy[dxtbb3$Pore.anatomy==4] <- 2
+dxtbb3$Pore.anatomy[dxtbb3$Pore.anatomy==5] <- 3
+
+dxtlo3 <- subset(dxt2, is.nan(Pore.anatomy)==FALSE)
+dxtlo3$chill1eff[dxtlo3$chill1eff==99] <- "NA"
+dxtlo3$chill2eff[dxtlo3$chill2eff==99] <- "NA"
+dxtlo3$Pore.anatomy[dxtlo3$Pore.anatomy==3] <- 1
+dxtlo3$Pore.anatomy[dxtlo3$Pore.anatomy==4] <- 2
+dxtlo3$Pore.anatomy[dxtlo3$Pore.anatomy==5] <- 3
+
+plot(warmeff~as.factor(Pore.anatomy), data=dxtlo3) 
+plot(photoeff~as.factor(Pore.anatomy), data=dxtlo3)
+
+library(rstanarm)
+wmlo.cont <- stan_glm(warmeff ~ Pore.anatomy, data = dxtlo3) 
+wmlo.fact <- stan_glm(warmeff ~ as.factor(Pore.anatomy), data = dxtlo3)
+
+summary(lm(warmeff~as.factor(Pore.anatomy), data=dxtlo3))
+summary(wmlo.cont)
+summary(wmlo.fact)
+summary(lm(photoeff~as.factor(Pore.anatomy), data=dxtlo3))
+
+wmbb.cont <- stan_glm(warmeff ~ Pore.anatomy, data = dxtbb3) 
+wmbb.fact <- stan_glm(warmeff ~ as.factor(Pore.anatomy), data = dxtbb3)
+summary(wmbb.cont)
+summary(wmbb.fact)
+
+####################
+## end by Lizzie ###
+####################
 
 ######## Manually for control
 colz = c("brown",#"brown3", 
