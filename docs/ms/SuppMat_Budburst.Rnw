@@ -358,21 +358,21 @@ print(chilltable,
 \begin{figure}
 \label{fig:figS5}
 \includegraphics[width=1\textwidth]{Fig2_4panel_ZoomSupp.png}
-\caption{Effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }
+\caption{Effects of photoperiod, temperature and chilling across species (shrub species shown in red, tree species in blue): Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }
 \end{figure}
 
 
 \begin{figure}
 \label{fig:figS6}
 \includegraphics[width=1\textwidth]{FigChill2_4panel.png}
-\caption{Effects of temperature and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to forcing temperature responses (for photoperiod see S7). Crosses and bars show mean and 50\% credible intervals.}
+\caption{Effects of temperature and chilling across species (shrub species shown in red, tree species in blue): Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to forcing temperature responses (for photoperiod see S7). Crosses and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 
 \begin{figure}
 \label{fig:figS7}
 \includegraphics[width=1\textwidth]{FigChillPhoto_4panel.png}
-\caption{Effects of photoperiod and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to photoperiod responses (for forcing temperature see S6). Crosses and bars show mean and 50\% credible intervals.}
+\caption{Effects of photoperiod and chilling across species (shrub species shown in red, tree species in blue): Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to photoperiod responses (for forcing temperature see S6). Crosses and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \begin{figure}
