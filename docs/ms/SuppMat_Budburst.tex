@@ -52,6 +52,10 @@ Flynn \& Wolkovich
 
 \noindent We assessed how species and treatments affected budburst and leafout success (Table S2) using a similar Bayesian hierarchical model as presented for days to budburst or leafout in the main text, but modeling species as a group only on the intercept (Fig. S2-S3) due to a limited amount of data (i.e., of all cuttings only 9.8-20.2\% did not burst bud or leaf out, yielding limited data when compared to days to budburst or leafout where we---conversely---had data for 79.8-90.2\% of all cuttings). Analysis of non-leafouts considered only the cuttings that burst bud (\emph{n}=1 926, rather than the total cutting number of \emph{n}=2 136). Models were fit in \verb|rstan| implemented via  \verb|rstanarm| version 2.17.2 using a binomial family and logit-link function. Full results are presented in Tables S3-S4 and Figures S2-S3.
 
+Variation in budburst and leafout success was highest due to species identity and ranged from complete budburst and leafout (e.g., \emph{Hamamaelis}) to only 65\% budburst (\emph{Quercus alba}), 50\% or lower leafout (\emph{Fagus grandifolia}, \emph{Acer saccharum}, \emph{Kalmia angustifolia}) across all treatments (Table S2). The percent of non-leafouts by site was similar, with 20.6\% of Harvard Forest and 19.7\% of St. Hippolyte samples failing to leafout. Additional chilling decreased budburst and leafout success (Tables S3-S4; Fig. S2-S3), with 30 d at 1.5\degree C having the largest effects (cuttings with 1.5\degree C were 14.2\% less likely to reach budburst). Other effects were weaker and varied by budburst versus leafout (Tables S3-S4; Fig. S2-S3): for example, forcing temperatures and photoperiod affected leafout only (increased forcing increased leafout by 3.9\% while longer days increased leafout by 4.2\% though the combined effect of increased forcing and longer days together was only 3.0\% due to a negative interaction of the two effects, see Figure S3).
+
+Days to budburst and days to leafout models performed on a subset of the data with higher rates of budburst (93\% overall) and leafout (88\%) produced qualitatively similar estimates, with most parameter estimates differing by less than 10\% compared to the full model. These models excluded the five species ( \emph{Acer saccharum}, \emph{Fagus grandifolia}, \emph{Kalmia angustifolia}, \emph{Quercus alba} and \emph{Viburnum lantanoides}) that had budburst success below 80\% and/or leafout success below 75\%.
+
 \noindent\emph{Effects of chilling at 16 and 32 day lengths}
 
 \noindent In the winter of 2015-2016 we conducted a follow-up study to test (1) whether our findings regarding different chilling temperatures in the winter of 2014-2015 were consistent across years and, (2) to test effects of chilling under a shorter duration of experimental chilling. For this experiment we tested the effects of field chilling plus chilling at two different temperatures, 1\degree C and 4 \degree C, and three different period of chilling: no additional, 16 days or 32 days. Treatments were fully crossed resulting in six different combinations of treatment conditions. We collected cuttings as previously described from Harvard Forest on 18 December 2015 for seven species (\emph{Acer saccharum, Betula alleghaniensis, Fagus grandifolia, Hamamelis virginiana, Ilex mucronatus, Quercus rubra, Viburnum cassinoides}). All cuttings were kept at 4\degree C until 1 January when they were put into treatment conditions. Forcing conditions were set as 20\degree C days with 10\degree C nights and 12 hour photoperiods. We assessed how species and treatments affected days to budburst using a similar Bayesian hierarchical model as presented for days to budburst or leafout in the main text but for this set of treatments (models were fit in \verb|rstan| implemented via  \verb|rstanarm| version 2.17.2). 
@@ -76,7 +80,7 @@ Flynn \& Wolkovich
 
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Thu Mar  1 18:03:58 2018
+% Sun Mar 11 19:02:32 2018
 \begin{table}[ht]
 \centering
 \caption{Mean leafout and budburst days after exposure to controlled environment forcing conditions (across all treatments, based on raw data) for the 28 species at both Harvard Forest (HF), USA and St. Hippoltye (SH), Canada.} 
@@ -116,7 +120,7 @@ Species & Budburst.HF & Budburst.SH & Leafout.HF & Leafout.SH \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Thu Mar  1 18:03:58 2018
+% Sun Mar 11 19:02:32 2018
 \begin{table}[ht]
 \centering
 \caption{Mean leafout and budburst success after exposure to controlled environment forcing conditions (across all treatments, based on raw data) for the 28 species.} 
@@ -160,7 +164,7 @@ Species & Budburst.success & Leafout.success \\
 \newpage
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Thu Mar  1 18:03:58 2018
+% Sun Mar 11 19:02:32 2018
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of budburst success (estimates presented on logit scale). See also Figure S2.} 
@@ -186,7 +190,7 @@ Forcing Temperature & -0.09 & 0.31 & -0.71 & -0.09 & 0.51 & 1.00 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Thu Mar  1 18:03:58 2018
+% Sun Mar 11 19:02:32 2018
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of leafout success (estimates presented on logit scale). See also Figure S3.} 
@@ -213,7 +217,7 @@ Forcing Temperature & 1.09 & 0.35 & 0.39 & 1.08 & 1.80 & 1.00 \\
 \end{table}
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Thu Mar  1 18:03:58 2018
+% Sun Mar 11 19:02:32 2018
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of budburst day. See also Figure S4} 
@@ -239,7 +243,7 @@ Forcing Temperature & -8.82 & 1.05 & -10.87 & -8.82 & -6.73 & 1.00 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Thu Mar  1 18:03:58 2018
+% Sun Mar 11 19:02:32 2018
 \begin{table}[ht]
 \centering
 \caption{Summary of mixed-effects model of leafout day. See also Figure S5.} 
@@ -268,7 +272,7 @@ Forcing Temperature & -19.06 & 1.04 & -21.10 & -19.05 & -17.05 & 1.00 \\
 \newpage
 
 % latex table generated in R 3.3.3 by xtable 1.8-2 package
-% Thu Mar  1 18:03:58 2018
+% Sun Mar 11 19:02:32 2018
 \begin{table}[ht]
 \centering
 \caption{Chill units in the field before harvest (January 2015), until 1 April and 1 May 2015 at each site, and in growth chamber conditions (including field chilling experienced before cuttings entered the chambers).} 
@@ -334,21 +338,21 @@ Harvard Forest & Field chilling until collection & 892 & 814.50 & 56.62 \\
 \begin{figure}
 \label{fig:figS5}
 \includegraphics[width=1\textwidth]{Fig2_4panel_ZoomSupp.png}
-\caption{Effects of photoperiod, temperature and chilling across species: Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }
+\caption{Effects of photoperiod, temperature and chilling across species (shrub species shown in red, tree species in blue): Similar to Fig. 2 from main text, but designed to make species names easier to read by adjusting axes (note that axes vary across rows and columns) and removing bars showing credible intervals. }
 \end{figure}
 
 
 \begin{figure}
 \label{fig:figS6}
 \includegraphics[width=1\textwidth]{FigChill2_4panel.png}
-\caption{Effects of temperature and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to forcing temperature responses (for photoperiod see S7). Crosses and bars show mean and 50\% credible intervals.}
+\caption{Effects of temperature and chilling across species (shrub species shown in red, tree species in blue): Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to forcing temperature responses (for photoperiod see S7). Crosses and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 
 \begin{figure}
 \label{fig:figS7}
 \includegraphics[width=1\textwidth]{FigChillPhoto_4panel.png}
-\caption{Effects of photoperiod and chilling across species: Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to photoperiod responses (for forcing temperature see S6). Crosses and bars show mean and 50\% credible intervals.}
+\caption{Effects of photoperiod and chilling across species (shrub species shown in red, tree species in blue): Similar to Fig. 2 from main text, but showing results side-by-side for the two chilling treatments: 4.0\degree C (left) versus 1.5\degree C (right) as compared to photoperiod responses (for forcing temperature see S6). Crosses and bars show mean and 50\% credible intervals.}
 \end{figure}
 
 \begin{figure}

@@ -47,7 +47,7 @@ $^\dagger$Authors contributed equally\\
 
 \noindent \emph{Keywords:} climate change, forcing temperatures, chilling, temporal niche, daylength, winter temperatures, forest communities\\ % 5-8 New Phyto says we should include title words
 \emph{Paper type:} Full paper\\
- \emph{Counts}: Total word count for the main body of the text:  4502; Introduction: 1064; M \& M: 914; Results: 715; Discussion: 1809; 3 figures (all in color). Supporting Information of notes, 4 supplemental tables and 5 supplemental figures.\\
+ \emph{Counts}: Total word count for the main body of the text:  5022; Introduction: 1065; M \& M: 966; Results: 715; Discussion: 2276; 3 figures (all in color). Supporting Information of notes, 7 supplemental tables and 9 supplemental figures.\\
 
 % Guidelines for a Primary Research Articles: 8K word length, http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1365-2486/homepage/ForAuthors.html
 
@@ -221,7 +221,7 @@ Across the two communities we studied, our results suggest species within a comm
 \vspace{2ex}\\
 \noindent {\bf {\large Acknowledgements}}
 \vspace{1ex}\\
-We thank T. Savas for technical and field assistance as well as countless observing hours, J. Samaha, H. Eyster for help with field collections, E. Borjigin-Wang, J. Samaha, N. Farrant, and T. Chen for recording chamber observations, the \emph{Stanleyi} group for model help, and B. Cook, A. Ettinger, S. Joly, and Y. Vitasse for comments that improved the manuscript. 
+We thank T. Savas for technical and field assistance as well as countless observing hours, J. Samaha, H. Eyster for help with field collections, E. Borjigin-Wang, J. Samaha, N. Farrant, and T. Chen for recording chamber observations, the \emph{Stanleyi} group for model help, and O. Atkin, B. Cook, A. Ettinger, D. Inouye, S. Joly, Y. Vitasse and three anonymous reviewers for comments that improved the manuscript. 
 % Who observed? Go here: Pheno Budburst prep.R 
 % unique(d1$Observer)
 % unique(d2$Observer)
