@@ -81,6 +81,40 @@ dx.bysp.nos$nl.per <- dx.bysp.nos$nl/dx.bysp.fullcount$nl
 bblo.success <- data.frame(dx.bysp.nos$no.per,dx.bysp.nos$nl.per)
 colnames(bblo.success) <- c("BB success", "LO success")
 
+rownames(bblo.success) = c(
+      "Acer pensylvanicum",
+      "Acer rubrum",
+      "Acer saccharum",
+      "Alnus incana subsp. rugosa",
+      "Aronia melanocarpa",
+      "Betula alleghaniensis",
+      "Betula lenta",
+      "Betula papyrifera",
+      "Corylus cornuta",
+      "Fagus grandifolia",
+      "Fraxinus nigra",
+      "Hamamelis virginiana",
+      "Ilex mucronatus",
+      "Kalmia angustifolia",
+      "Lonicera canadensis",
+      "Lyonia ligustrina",
+      "Nyssa sylvatica",
+      "Populus grandidentata",
+      "Prunus pensylvanica",
+      "Quercus alba",
+      "Quercus rubra",
+      "Quercus velutina",
+      "Rhamnus frangula",
+      "Rhododendron prinophyllum",
+      "Spiraea alba",
+      "Vaccinium myrtilloides",
+      "Viburnum cassinoides",
+      "Viburnum lantanoides"
+  )
+
+bblo.success.bbordered <- bblo.success[order(bblo.success["BB success"]),]
+bblo.success.loordered <- bblo.success[order(bblo.success["LO success"]),]
+
 # Groups
 colz = c("brown", "blue3")
 
