@@ -588,6 +588,19 @@ dev.off();
 # some overlap with main text but allows direct comparison of chilling effects
 ###############
 
+## Tidbit here does this figure for Isabelle ....
+## If you want to use this run what's inside the commenting out, then ...
+# run Pheno Budburst analysis snippet.R #
+if(FALSE){
+    isaspp <- c("POPGRA", "ACESAC", "TILAME", "FAGGRA", "BETALL", "QUERUB")
+    isasppexp <- isaspp[which(isaspp %in%  unique(dx$sp))] # no TILAME
+    spphere <- sort(unique(dx$sp))[which(sort(unique(dx$sp)) %in% isaspp)]
+    spprow <- c(3, 6, 10, 18, 21)
+    sort(unique(dx$sp))[spprow]
+    
+}
+## End of tidbit
+
 pdf(file.path(figpath, "FigChill2_4panel.pdf"), width = 7, height = 7)
 
 par(mar=rep(1,4))
