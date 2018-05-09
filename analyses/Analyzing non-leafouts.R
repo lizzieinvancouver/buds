@@ -8,6 +8,7 @@
 
 useshinystan <- FALSE
 runstan <- FALSE
+forIsabelle <- TRUE
 
 library(scales)
 library(gplots) # for textplot()
@@ -126,6 +127,7 @@ save(m2.nl.bb, file="stan/models_nonleafout/m2.nl.Rdata")
 
 
 }
+
 
 if(!runstan){
 load("stan/models_nonleafout/m1.no.Rdata")
@@ -702,6 +704,146 @@ abline(v = 0, lty = 2)
 
 dev.off();#system(paste("open", file.path(figpath, "Fig1_bb_lo+sp.pdf"), "-a /Applications/Preview.app"))
 
+
+#############################################################################
+# This does some simple models species by species for Isabelle's 5 species ##
+#############################################################################
+
+if(forIsabelle){
+    isaspp <- c("POPGRA", "ACESAC", "TILAME", "FAGGRA", "BETALL", "QUERUB")
+    isaspp <- sort(isaspp)
+    dxisa <- dx[which(dx$sp %in% isaspp),]
+    m2.noisa <- stan_glmer(no ~ (warm + photo + chill + site + 
+        warm*photo + warm*chill + photo*chill + warm*site + photo*site + chill*site) +
+        (1|sp), family = binomial(link = "logit"), data = dxisa)
+    m1.noisa <- stan_glmer(no ~ (warm + photo + chill + site + 
+        warm*photo + warm*chill + photo*chill + warm*site + photo*site + chill*site) +
+        (chill + chill*site|sp), family = binomial(link = "logit"), data = dxisa) # 3 divergent transitions
+
+    ## summarizing data
+    library(plyr)
+    library(dplyr)
+    nonsummarywtrt <-
+      ddply(dxisa, c("warm", "photo", "chill", "sp"), summarise,
+      sum.no = sum(no),
+      sum.nl = sum(nl),
+      total.n = length(no))
+    nonsummary <-
+      ddply(dxisa, c("sp"), summarise,
+      sum.no = sum(no),
+      sum.nl = sum(nl),
+      total.n = length(no))  
+
+## Plotting the models (m2.nl or m2.nl.bb, AND m2.no) with species pooling on chilling and site effects (and their interactions)
+
+## Below gives the main text figure on LOGIT SCALE
+col4fig <- c("mean","sd","25%","50%","75%","Rhat")
+
+sumer.m1.noisa <- summary(m1.noisa)
+iter.m1noisa <- as.data.frame(m1.noisa)
+
+# manually to get right order, with intercept
+mu_params.wi <- c("(Intercept)", "warm20","photo12","chillchill1","chillchill2",
+               "siteSH","warm20:photo12",
+               "warm20:chillchill1","warm20:chillchill2",
+               "photo12:chillchill1","photo12:chillchill2",
+               "warm20:siteSH", "photo12:siteSH",
+               "chillchill1:siteSH","chillchill2:siteSH")
+
+meanzb.wi <- sumer.m1.noisa[mu_params.wi,col4fig]
+
+rownames(meanzb.wi) = c("Intercept",
+                    "Forcing Temperature",
+                    "Photoperiod",
+                    "Chilling 4°",
+                    "Chilling 1.5°C",
+                    "Site",
+                    "Forcing x Photoperiod",
+                    "Forcing x Chilling 4°C",
+                    "Forcing x Chilling 1.5°C",
+                    "Photoperiod x Chilling 4°C",
+                    "Photoperiod x Chilling 1.5°C",
+                    "Forcing x Site",
+                    "Photoperiod x Site",
+                    "Site x Chilling 4°C",
+                    "Site x Chilling 1.5°C"
+                    )
+
+
+speff.bb <- speff.lo <- vector()
+params <- c("(Intercept)", "warm20","photo12","chillchill1",
+               "chillchill2","siteSH", "warm20:photo12",
+               "warm20:chillchill1","warm20:chillchill2",
+               "photo12:chillchill1","photo12:chillchill2",
+               "warm20:siteSH", "photo12:siteSH",
+               "chillchill1:siteSH","chillchill2:siteSH")
+
+sp.params <- c("(Intercept)", "chillchill1","chillchill2","siteSH",
+               "chillchill1:siteSH","chillchill2:siteSH")
+
+params.wsp <- c(1, 4:6, 14:15)
+params.nosp <- c(1:15)[-params.wsp]
+
+pdf(file.path(figpath, "NonBB_sp_forIsabelle.pdf"), width = 7, height = 8)
+
+par(mfrow=c(1,1), mar = c(2, 10, 2, 1))
+# Upper panel: budburst
+plot(seq(-4, #min(meanz[,'mean']*1.1),
+         5, #max(meanz[,'mean']*1.1),
+         length.out = nrow(meanzb.wi)), 
+     seq(1, 5*nrow(meanzb.wi), length.out = nrow(meanzb.wi)),
+     type="n",
+     xlab = "",
+     ylab = "",
+     yaxt = "n")
+
+legend(x =-4.75, y = 11, bty="n", legend = "a. Budburst", text.font = 2)
+rasterImage(bbpng, -4, 0, -2, 7)
+
+axis(2, at = 5*(nrow(meanzb.wi):1), labels = rownames(meanzb.wi), las = 1, cex.axis = 0.8)
+
+
+# Plot species levels for each predictor
+for(i in 1:length(unique(dxisa$sp))){
+  b.params <- iter.m1noisa[!is.na(match(colnames(iter.m1noisa), c(paste("b", "[", sp.params, " sp:",
+      unique(dxisa$sp)[i], "]", sep=""))))]
+
+  main.params <- iter.m1noisa[!is.na(match(colnames(iter.m1noisa), sp.params))]
+
+  bplusmain <- b.params
+  for(c in 1:ncol(main.params)){
+      bplusmain[c] <- b.params[c]+main.params[c]
+      }
+
+  bplusmain.quant <- sapply(bplusmain, FUN = quantile, probs = c(0.25, 0.50, 0.75))
+  
+  sp.est <- t(bplusmain.quant)
+  
+  jt <- jitter(0, factor = 40)
+
+  arrows(sp.est[,"75%"],  jt+(5*(nrow(meanzb.wi):1)-1)[params.wsp], sp.est[,"25%"],  jt+(5*(nrow(meanzb.wi):1)-1)[params.wsp],
+         len = 0, col = alpha("firebrick", 0.2)) 
+  
+  points(sp.est[,'50%'],
+         jt+(5*(nrow(meanzb.wi):1)-1)[params.wsp], #[c(3:5,11:12)], # ADJUSTED for just the ranef here
+         pch = 16,
+         col = alpha("firebrick", 0.5))
+
+  speff.bb = rbind(speff.bb, t(sp.est[,1]))
+    }
+
+arrows(meanzb.wi[,"75%"], (5*(nrow(meanzb.wi):1))+1, meanzb.wi[,"25%"], (5*(nrow(meanzb.wi):1))+1,
+       len = 0, col = "black", lwd = 3)
+
+points(meanzb.wi[,'mean'],
+       (5*(nrow(meanzb.wi):1))+1,
+       pch = 16,
+       cex = 1,
+       col = "midnightblue")
+abline(v = 0, lty = 2)
+
+    dev.off()
+}
 
 
 stop(print("stopping here, below code is original code by Dan Flynn ..."))
