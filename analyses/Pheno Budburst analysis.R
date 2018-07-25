@@ -178,6 +178,14 @@ if(runstan){
   
 }
 
+if(FALSE){
+# quick R2 for Simon Joly
+library(rstanarm)
+fit <- stan_lmer(lday~warm+photo+as.factor(chill)+warm*photo+warm*as.factor(chill)+photo*as.factor(chill)+site*warm+
+    site*photo+site*as.factor(chill)+((warm+photo+as.factor(chill)+warm*photo+warm*as.factor(chill)+
+    photo*as.factor(chill)+site*warm+site*photo+site*as.factor(chill))|sp), data=dxb, cores=2)
+r2here <- bayes_R2(fit) # mean and median give 0.77
+}
 
 # yb = dxb$bday # for shinystan posterior checks
 # launch_shinystan(doym.b) 
