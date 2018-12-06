@@ -55,6 +55,12 @@ dxl <- dx[!is.na(dx$lday),]
 bdaymean <- t(with(dxb, tapply(bday, list(site, sp), mean, na.rm=T)))
 ldaymean <- t(with(dxl, tapply(lday, list(site, sp), mean, na.rm=T)))
 
+# Get means by treatment/site/species for OSPREE
+hfdat.bdaymean <- subset(dxb, site=="1")
+shdat.bdaymean <- subset(dxb, site=="2")
+bdaymean.hf <- t(with(hfdat.bdaymean, tapply(bday, list(treatcode, sp), mean, na.rm=T)))
+bdaymean.sh <- t(with(shdat.bdaymean, tapply(bday, list(treatcode, sp), mean, na.rm=T)))
+
 leafoutdays <- data.frame(bdaymean, ldaymean)
 colnames(leafoutdays) <- c("BB.HF", "BB.SH", "LO.HF", "LO.SH")
 # write.csv(leafoutdays, "output/leafoutdays.csv", row.names=TRUE)

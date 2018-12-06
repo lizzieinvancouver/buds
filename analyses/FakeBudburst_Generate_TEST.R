@@ -163,6 +163,3 @@ summary(lm(bb ~ (site+warm+photo.alt+chill1+chill2), data = fake))
 #summary(lmer(bb ~ (site|sp) + (warm|sp) + (photo|sp) + (chill1|sp) + (chill2|sp), data = fake)) # too hard for lmer.
 
 save(list=c("fake"), file = "Fake Budburst TEST.RData")
-
-
-
