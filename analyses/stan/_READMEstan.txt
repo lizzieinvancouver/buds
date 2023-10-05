@@ -69,6 +69,7 @@ doy_model2.stan	- linear model with one hierarchical effect — site on the inte
 
 doy_model3.stan	- linear model with two hierarchical effects — site on the intercept and species on each slope: y ~ warm * photo
 
+simple.stan - linear model for experiment with 4 treatments; made for Frederik Baumgarten in Oct 2023
 
 <><><><><><><><><><><><><>
 In models_archive_lesssimple:

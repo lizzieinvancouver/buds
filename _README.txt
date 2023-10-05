@@ -2,6 +2,8 @@ README on buds repo
 Started on 28 Nov 2016
 By Lizzie
 
+REPO on GitHub is: https://github.com/lizzieinvancouver/buds
+
 
 <><><><><><><><><><><>
 Notes from 28 Nov 2016

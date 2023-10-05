@@ -98,6 +98,12 @@ summary(lm(bb ~ (site+warm+photo+chill1+chill2)^2, data = fake)) # sanity check
 
 baseinter = 35 # baseline intercept across all species 
 spint <- baseinter + c(1:nsp)-mean(1:nsp) # different intercepts by species
+# ALERT: We don't do the above anymore, as the model is actually a normal(mu, sigma)
+if(FALSE){ # would be better to do ...
+  mua <- 35
+  sigmaa <- 7
+  spint <- rnorm(nsp, mua, sigmaa)
+}
 
 fake <- vector()
 
