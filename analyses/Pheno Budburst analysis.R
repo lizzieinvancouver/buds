@@ -39,6 +39,9 @@ load(file.path("input", toload))
 
 if(forlatex) figpath = "../docs/ms/images" else figpath = "graphs"
 
+# write out these data for J Auerbach on 4 December 2023
+write.csv(dx, "output/dxforJAuerbach.csv", row.names=FALSE)
+
 # Prep 
 
 dx$spn <- as.numeric(dx$sp)
