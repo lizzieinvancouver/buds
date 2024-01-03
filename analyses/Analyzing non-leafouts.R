@@ -42,6 +42,13 @@ dim(dx)
 # Subset to data that did burst bud
 dx.bb <- subset(dx, no==1)
 
+if(FALSE){ # Added 3 Jan 2024, for potential figure in annual review
+somespp <- subset(dx, sp=="BETALL"|sp=="FAGGRA")
+library(ggplot2)
+ggplot(somespp, aes(x=bday, fill=sp)) + 
+    geom_histogram(position="identity",alpha=0.4)
+}
+
 # What percent did not break bud?
 (1-sum(dx$no)/nrow(dx))*100
 
